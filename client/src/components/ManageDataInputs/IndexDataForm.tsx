@@ -1,7 +1,7 @@
 import ControlGroup from '@splunk/react-ui/ControlGroup';
 import React, { useState } from 'react';
 import Text from '@splunk/react-ui/Text';
-import type { DataInputAppConfig, DataInputMode } from './DataInputs.types';
+import type { DataInputAppConfig, DataInputMode, FieldMapping } from './DataInputs.types';
 import Select from '@splunk/react-ui/Select';
 import Button from '@splunk/react-ui/Button';
 import WaitSpinner from '@splunk/react-ui/WaitSpinner';
@@ -12,6 +12,7 @@ import TrashCanCross from '@splunk/react-icons/TrashCanCross';
 import ArrayFieldSelector from '../Json/ArrayFieldSelector';
 import EventPreviewModal from '../Json/EventPreviewModal';
 import RequestPreview from '../RequestPreview/RequestPreview';
+import FieldMappingEditor from '../Json/FieldMappingEditor';
 
 
 interface IndexDataFormProps {
@@ -43,6 +44,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
     const [selected_output_location, setSelectedIndex] = useState<string>(config.selected_output_location ?? '');
     const [mode, setMode] = useState<DataInputMode>(config.mode ?? 'overwrite');
     const [separateArrayPaths, setSeparateArrayPaths] = useState<string[]>(config.separate_array_paths ?? []);
+    const [fieldMappings, setFieldMappings] = useState<FieldMapping[]>(config.field_mappings ?? []);
 
 
     const updateConfigField = <K extends keyof DataInputAppConfig>(
@@ -81,6 +83,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
             setSelectedIndex(config.selected_output_location ?? '');
             setMode(config.mode ?? 'overwrite');
             setSeparateArrayPaths(config.separate_array_paths ?? []);
+            setFieldMappings(config.field_mappings ?? []);
             setJsonPathValues(
                 config.excluded_json_paths && config.excluded_json_paths.length > 0
                     ? config.excluded_json_paths
@@ -223,6 +226,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
         setJsonPathValues([""]);
         setHttpHeaders([""]);
         setSeparateArrayPaths([]);
+        setFieldMappings([]);
         props.onJSONPathsChange([]);
         props.setJsonPreview && props.setJsonPreview('')
     };
@@ -328,8 +332,22 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                 onClose={() => setShowPreviewModal(false)}
                 data={props.rawData}
                 separateArrayPaths={separateArrayPaths}
+                fieldMappings={fieldMappings}
                 modalToggle={previewModalToggle}
             />
+
+            <ControlGroup label="Rename Fields" tooltip="Rename field keys before they are ingested into Splunk. Select the original field name and specify a new name.">
+                <div style={{ width: '100%' }}>
+                    <FieldMappingEditor
+                        data={props.rawData}
+                        mappings={fieldMappings}
+                        onMappingsChange={(mappings) => {
+                            setFieldMappings(mappings);
+                            updateConfigField('field_mappings', mappings);
+                        }}
+                    />
+                </div>
+            </ControlGroup>
 
             <ControlGroup label="Select Index:" required>
                 <Select
@@ -370,7 +388,8 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                                 cron_expression: cronExpression,
                                 selected_output_location: selected_output_location,
                                 mode,
-                                separate_array_paths: separateArrayPaths
+                                separate_array_paths: separateArrayPaths,
+                                field_mappings: fieldMappings.filter(m => m.originalKey && m.newKey)
                             } as DataInputAppConfig, clearInputs
                         );
                     }}

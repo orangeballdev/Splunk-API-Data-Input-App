@@ -50276,7 +50276,7 @@ function generateSeparateEvents(data, separateArrayPaths) {
   }
   return events2;
 }
-const Container = qe.div`
+const Container$1 = qe.div`
     margin-top: 8px;
 `;
 const ArrayItem = qe.div`
@@ -50333,9 +50333,9 @@ const ArrayFieldSelector = ({
     return null;
   }
   if (detectedArrays.length === 0) {
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(Container, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NoArraysMessage, { children: "No arrays detected in the response" }) });
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NoArraysMessage, { children: "No arrays detected in the response" }) });
   }
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container, { children: detectedArrays.map((arr) => /* @__PURE__ */ jsxRuntimeExports.jsxs(ArrayItem, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$1, { children: detectedArrays.map((arr) => /* @__PURE__ */ jsxRuntimeExports.jsxs(ArrayItem, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Switch,
       {
@@ -51305,6 +51305,57 @@ function requireTabBar() {
 }
 var TabBarExports = requireTabBar();
 const TabBar = /* @__PURE__ */ getDefaultExportFromCjs(TabBarExports);
+function applyFieldMappings(data, mappings) {
+  if (!mappings || mappings.length === 0) {
+    return data;
+  }
+  const mappingMap = /* @__PURE__ */ new Map();
+  for (const mapping of mappings) {
+    if (mapping.originalKey && mapping.newKey) {
+      mappingMap.set(mapping.originalKey, mapping.newKey);
+    }
+  }
+  return applyMappingsRecursive(data, mappingMap);
+}
+function applyMappingsRecursive(data, mappingMap) {
+  if (data === null || data === void 0) {
+    return data;
+  }
+  if (Array.isArray(data)) {
+    return data.map((item) => applyMappingsRecursive(item, mappingMap));
+  }
+  if (typeof data === "object") {
+    const result = {};
+    for (const [key2, value] of Object.entries(data)) {
+      const newKey = mappingMap.get(key2) ?? key2;
+      result[newKey] = applyMappingsRecursive(value, mappingMap);
+    }
+    return result;
+  }
+  return data;
+}
+function detectFieldKeys(data) {
+  const keys = /* @__PURE__ */ new Set();
+  collectKeys(data, keys);
+  return Array.from(keys).sort();
+}
+function collectKeys(data, keys) {
+  if (data === null || data === void 0) {
+    return;
+  }
+  if (Array.isArray(data)) {
+    for (const item of data) {
+      collectKeys(item, keys);
+    }
+    return;
+  }
+  if (typeof data === "object") {
+    for (const key2 of Object.keys(data)) {
+      keys.add(key2);
+      collectKeys(data[key2], keys);
+    }
+  }
+}
 const PreviewContainer = qe.div`
     max-height: 500px;
     overflow-y: auto;
@@ -51385,15 +51436,22 @@ const EventPreviewModal = ({
   onClose,
   data,
   separateArrayPaths,
+  fieldMappings = [],
   modalToggle
 }) => {
   const [activeTab, setActiveTab] = reactExports.useState("separated");
   const [currentPage, setCurrentPage] = reactExports.useState(0);
   const eventsPerPage = 10;
+  const transformedData = reactExports.useMemo(() => {
+    if (!data) return data;
+    const validMappings = fieldMappings.filter((m2) => m2.originalKey && m2.newKey);
+    if (validMappings.length === 0) return data;
+    return applyFieldMappings(data, validMappings);
+  }, [data, fieldMappings]);
   const separatedEvents = reactExports.useMemo(() => {
-    if (!data) return [];
-    return generateSeparateEvents(data, separateArrayPaths);
-  }, [data, separateArrayPaths]);
+    if (!transformedData) return [];
+    return generateSeparateEvents(transformedData, separateArrayPaths);
+  }, [transformedData, separateArrayPaths]);
   const totalPages = Math.ceil(separatedEvents.length / eventsPerPage);
   const paginatedEvents = separatedEvents.slice(
     currentPage * eventsPerPage,
@@ -51450,7 +51508,13 @@ const EventPreviewModal = ({
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(PreviewContainer, { children: activeTab === "separated" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs(SummaryBar, { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(SummaryText, { children: separateArrayPaths.length > 0 ? `Arrays being separated: ${separateArrayPaths.join(", ")}` : "No arrays selected for separation" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(SummaryText, { children: [
+                separateArrayPaths.length > 0 ? `Arrays being separated: ${separateArrayPaths.join(", ")}` : "No arrays selected for separation",
+                fieldMappings.filter((m2) => m2.originalKey && m2.newKey).length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { style: { display: "block", marginTop: "4px", fontSize: "12px" }, children: [
+                  "Fields renamed: ",
+                  fieldMappings.filter((m2) => m2.originalKey && m2.newKey).map((m2) => `${m2.originalKey} → ${m2.newKey}`).join(", ")
+                ] })
+              ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx(SummaryCount, { children: separatedEvents.length }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(SummaryText, { children: " events" })
@@ -51492,7 +51556,7 @@ const EventPreviewModal = ({
             ] })
           ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs(SummaryBar, { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(SummaryText, { children: "Original response as single event" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(SummaryText, { children: fieldMappings.filter((m2) => m2.originalKey && m2.newKey).length > 0 ? "Transformed response as single event (with field renames applied)" : "Original response as single event" }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx(SummaryCount, { children: "1" }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(SummaryText, { children: " event" })
@@ -51500,7 +51564,7 @@ const EventPreviewModal = ({
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs(EventCard, { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(EventHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(EventNumber, { children: "Event #1" }) }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(EventBody, { children: JSON.stringify(data, null, 2) })
+              /* @__PURE__ */ jsxRuntimeExports.jsx(EventBody, { children: JSON.stringify(transformedData, null, 2) })
             ] })
           ] }) })
         ] }),
@@ -51561,6 +51625,152 @@ const RequestPreview = ({ url: url2, headers, method = "GET" }) => {
     ] })
   ] });
 };
+const Container = qe.div`
+    margin-top: 8px;
+`;
+const MappingRow = qe.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    padding: 8px 12px;
+    background: #f5f5f5;
+    border-radius: 4px;
+
+    &:hover {
+        background: #eee;
+    }
+`;
+const Arrow = qe.span`
+    color: #666;
+    font-size: 18px;
+    padding: 0 4px;
+`;
+const FieldSelect = qe.div`
+    flex: 1;
+    min-width: 180px;
+`;
+const NewKeyInput = qe.div`
+    flex: 1;
+    min-width: 180px;
+`;
+const NoDataMessage = qe.p`
+    color: #666;
+    font-style: italic;
+    font-size: 13px;
+    margin: 8px 0;
+`;
+const AddButtonContainer = qe.div`
+    margin-top: 12px;
+`;
+const MappingCount = qe.span`
+    color: #666;
+    font-size: 12px;
+    margin-left: 8px;
+`;
+const FieldMappingEditor = ({
+  data,
+  mappings,
+  onMappingsChange
+}) => {
+  const availableKeys = reactExports.useMemo(() => {
+    if (!data) return [];
+    return detectFieldKeys(data);
+  }, [data]);
+  const getUnmappedKeys = (currentMapping) => {
+    const mappedKeys = new Set(
+      mappings.filter((m2) => m2 !== currentMapping).map((m2) => m2.originalKey)
+    );
+    return availableKeys.filter((key2) => !mappedKeys.has(key2));
+  };
+  const handleAddMapping = () => {
+    const unmappedKeys = getUnmappedKeys();
+    const newMapping = {
+      originalKey: unmappedKeys[0] || "",
+      newKey: ""
+    };
+    onMappingsChange([...mappings, newMapping]);
+  };
+  const handleRemoveMapping = (index) => {
+    const newMappings = mappings.filter((_2, i2) => i2 !== index);
+    onMappingsChange(newMappings);
+  };
+  const handleOriginalKeyChange = (index, value) => {
+    const newMappings = mappings.map(
+      (m2, i2) => i2 === index ? { ...m2, originalKey: value } : m2
+    );
+    onMappingsChange(newMappings);
+  };
+  const handleNewKeyChange = (index, value) => {
+    const newMappings = mappings.map(
+      (m2, i2) => i2 === index ? { ...m2, newKey: value } : m2
+    );
+    onMappingsChange(newMappings);
+  };
+  if (!data) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(Container, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NoDataMessage, { children: "Fetch data first to see available fields for renaming" }) });
+  }
+  if (availableKeys.length === 0) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(Container, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NoDataMessage, { children: "No fields detected in the response" }) });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container, { children: [
+    mappings.map((mapping, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(MappingRow, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(FieldSelect, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Select,
+        {
+          value: mapping.originalKey,
+          onChange: (_2, { value }) => handleOriginalKeyChange(index, String(value)),
+          filter: true,
+          placeholder: "Select original field...",
+          children: [.../* @__PURE__ */ new Set([mapping.originalKey, ...getUnmappedKeys(mapping)])].filter(Boolean).map((key2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Select.Option,
+            {
+              value: key2,
+              label: key2
+            },
+            key2
+          ))
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Arrow, { children: "→" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(NewKeyInput, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Text,
+        {
+          value: mapping.newKey,
+          onChange: (_2, { value }) => handleNewKeyChange(index, value),
+          placeholder: "Enter new field name..."
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Button,
+        {
+          inline: true,
+          appearance: "secondary",
+          onClick: () => handleRemoveMapping(index),
+          icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrashCanCross, {}),
+          label: ""
+        }
+      )
+    ] }, index)),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(AddButtonContainer, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Button,
+        {
+          appearance: "secondary",
+          onClick: handleAddMapping,
+          disabled: getUnmappedKeys().length === 0 && mappings.length > 0,
+          children: "Add Field Mapping"
+        }
+      ),
+      mappings.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(MappingCount, { children: [
+        mappings.length,
+        " field",
+        mappings.length !== 1 ? "s" : "",
+        " will be renamed"
+      ] })
+    ] })
+  ] });
+};
 const KVStoreDataForm = (props) => {
   const config2 = props.dataInputAppConfig || {};
   const modalToggle = React.useRef(null);
@@ -51576,6 +51786,7 @@ const KVStoreDataForm = (props) => {
   const [selected_output_location, setSelectedCollection] = reactExports.useState(config2.selected_output_location ?? "");
   const [mode, setMode] = reactExports.useState(config2.mode ?? "overwrite");
   const [separateArrayPaths, setSeparateArrayPaths] = reactExports.useState(config2.separate_array_paths ?? []);
+  const [fieldMappings, setFieldMappings] = reactExports.useState(config2.field_mappings ?? []);
   const updateConfigField = (key2, value) => {
     if (props.setDataInputAppConfig) {
       props.setDataInputAppConfig((prev) => ({
@@ -51603,6 +51814,7 @@ const KVStoreDataForm = (props) => {
       setSelectedCollection(config22.selected_output_location ?? "");
       setMode(config22.mode ?? "overwrite");
       setSeparateArrayPaths(config22.separate_array_paths ?? []);
+      setFieldMappings(config22.field_mappings ?? []);
       setJsonPathValues(
         config22.excluded_json_paths && config22.excluded_json_paths.length > 0 ? config22.excluded_json_paths : [""]
       );
@@ -51717,6 +51929,7 @@ const KVStoreDataForm = (props) => {
     setJsonPathValues([""]);
     setHttpHeaders([""]);
     setSeparateArrayPaths([]);
+    setFieldMappings([]);
     props.onJSONPathsChange([]);
     props.setJsonPreview && props.setJsonPreview("");
   };
@@ -51817,9 +52030,21 @@ const KVStoreDataForm = (props) => {
         onClose: () => setShowPreviewModal(false),
         data: props.rawData,
         separateArrayPaths,
+        fieldMappings,
         modalToggle: previewModalToggle
       }
     ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Rename Fields", tooltip: "Rename field keys before they are ingested into Splunk. Select the original field name and specify a new name.", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100%" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      FieldMappingEditor,
+      {
+        data: props.rawData,
+        mappings: fieldMappings,
+        onMappingsChange: (mappings) => {
+          setFieldMappings(mappings);
+          updateConfigField("field_mappings", mappings);
+        }
+      }
+    ) }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlGroup, { label: "Select KV Store Collection:", required: true, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Select,
@@ -51879,7 +52104,8 @@ const KVStoreDataForm = (props) => {
               cron_expression: cronExpression,
               selected_output_location,
               mode,
-              separate_array_paths: separateArrayPaths
+              separate_array_paths: separateArrayPaths,
+              field_mappings: fieldMappings.filter((m2) => m2.originalKey && m2.newKey)
             },
             clearInputs
           );
@@ -52535,6 +52761,7 @@ const IndexDataForm = (props) => {
   const [selected_output_location, setSelectedIndex] = reactExports.useState(config2.selected_output_location ?? "");
   const [mode, setMode] = reactExports.useState(config2.mode ?? "overwrite");
   const [separateArrayPaths, setSeparateArrayPaths] = reactExports.useState(config2.separate_array_paths ?? []);
+  const [fieldMappings, setFieldMappings] = reactExports.useState(config2.field_mappings ?? []);
   const updateConfigField = (key2, value) => {
     if (props.setDataInputAppConfig) {
       props.setDataInputAppConfig((prev) => ({
@@ -52561,6 +52788,7 @@ const IndexDataForm = (props) => {
       setSelectedIndex(config22.selected_output_location ?? "");
       setMode(config22.mode ?? "overwrite");
       setSeparateArrayPaths(config22.separate_array_paths ?? []);
+      setFieldMappings(config22.field_mappings ?? []);
       setJsonPathValues(
         config22.excluded_json_paths && config22.excluded_json_paths.length > 0 ? config22.excluded_json_paths : [""]
       );
@@ -52674,6 +52902,7 @@ const IndexDataForm = (props) => {
     setJsonPathValues([""]);
     setHttpHeaders([""]);
     setSeparateArrayPaths([]);
+    setFieldMappings([]);
     props.onJSONPathsChange([]);
     props.setJsonPreview && props.setJsonPreview("");
   };
@@ -52785,9 +53014,21 @@ const IndexDataForm = (props) => {
         onClose: () => setShowPreviewModal(false),
         data: props.rawData,
         separateArrayPaths,
+        fieldMappings,
         modalToggle: previewModalToggle
       }
     ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Rename Fields", tooltip: "Rename field keys before they are ingested into Splunk. Select the original field name and specify a new name.", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100%" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      FieldMappingEditor,
+      {
+        data: props.rawData,
+        mappings: fieldMappings,
+        onMappingsChange: (mappings) => {
+          setFieldMappings(mappings);
+          updateConfigField("field_mappings", mappings);
+        }
+      }
+    ) }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlGroup, { label: "Select Index:", required: true, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Select,
@@ -52831,7 +53072,8 @@ const IndexDataForm = (props) => {
               cron_expression: cronExpression,
               selected_output_location,
               mode,
-              separate_array_paths: separateArrayPaths
+              separate_array_paths: separateArrayPaths,
+              field_mappings: fieldMappings.filter((m2) => m2.originalKey && m2.newKey)
             },
             clearInputs
           );
