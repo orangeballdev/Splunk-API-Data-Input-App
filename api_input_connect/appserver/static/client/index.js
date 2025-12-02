@@ -51701,6 +51701,7 @@ const KVStoreDataForm = (props) => {
     });
   };
   const clearInputs = () => {
+    var _a;
     setInputName("");
     setDataInputType("kvstore");
     setUrl("https://dummyjson.com/products");
@@ -51711,9 +51712,7 @@ const KVStoreDataForm = (props) => {
     setHttpHeaders([""]);
     setSeparateArrayPaths([]);
     props.onJSONPathsChange([]);
-    if (props.setJsonPreview) {
-      props.setJsonPreview("");
-    }
+    (_a = props.setJsonPreview) == null ? void 0 : _a.call(props, "");
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(FormSection, { title: "Basic Configuration", marginTop: "0", children: [
@@ -52505,6 +52504,7 @@ const IndexDataForm = (props) => {
   };
   const getPaths = () => jsonPathValues.filter(Boolean);
   const clearInputs = () => {
+    var _a;
     setInputName("");
     setUrl("https://dummyjson.com/products");
     setCronExpression("0 * * * *");
@@ -52514,9 +52514,7 @@ const IndexDataForm = (props) => {
     setHttpHeaders([""]);
     setSeparateArrayPaths([]);
     props.onJSONPathsChange([]);
-    if (props.setJsonPreview) {
-      props.setJsonPreview("");
-    }
+    (_a = props.setJsonPreview) == null ? void 0 : _a.call(props, "");
   };
   const handleOnCreateIndex = async (createdIndexName) => {
     setIndexNames((prev) => {

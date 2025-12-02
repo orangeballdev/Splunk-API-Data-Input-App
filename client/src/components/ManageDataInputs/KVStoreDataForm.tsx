@@ -155,9 +155,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
         setHttpHeaders([""]);
         setSeparateArrayPaths([]);
         props.onJSONPathsChange([]);
-        if (props.setJsonPreview) {
-            props.setJsonPreview('');
-        }
+        props.setJsonPreview?.('');
     };
 
     return (

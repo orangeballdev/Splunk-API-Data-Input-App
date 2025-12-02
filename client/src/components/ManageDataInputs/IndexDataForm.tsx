@@ -132,9 +132,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
         setHttpHeaders([""]);
         setSeparateArrayPaths([]);
         props.onJSONPathsChange([]);
-        if (props.setJsonPreview) {
-            props.setJsonPreview('');
-        }
+        props.setJsonPreview?.('');
     };
 
     const handleOnCreateIndex = async (createdIndexName: string) => {
