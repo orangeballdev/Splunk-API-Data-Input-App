@@ -4,12 +4,15 @@ import Button from '@splunk/react-ui/Button';
 import TabBar from '@splunk/react-ui/TabBar';
 import styled from 'styled-components';
 import { generateSeparateEvents } from './arrayUtils';
+import { applyFieldMappings } from './fieldMappingUtils';
+import type { FieldMapping } from '../ManageDataInputs/DataInputs.types';
 
 interface EventPreviewModalProps {
     open: boolean;
     onClose: () => void;
     data: unknown;
     separateArrayPaths: string[];
+    fieldMappings?: FieldMapping[];
     modalToggle: React.RefObject<HTMLButtonElement | null>;
 }
 
@@ -105,16 +108,25 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
     onClose,
     data,
     separateArrayPaths,
+    fieldMappings = [],
     modalToggle
 }) => {
     const [activeTab, setActiveTab] = useState<'separated' | 'original'>('separated');
     const [currentPage, setCurrentPage] = useState(0);
     const eventsPerPage = 10;
 
+    // Apply field mappings first, then separate arrays
+    const transformedData = useMemo(() => {
+        if (!data) return data;
+        const validMappings = fieldMappings.filter(m => m.originalKey && m.newKey);
+        if (validMappings.length === 0) return data;
+        return applyFieldMappings(data, validMappings);
+    }, [data, fieldMappings]);
+
     const separatedEvents = useMemo(() => {
-        if (!data) return [];
-        return generateSeparateEvents(data, separateArrayPaths);
-    }, [data, separateArrayPaths]);
+        if (!transformedData) return [];
+        return generateSeparateEvents(transformedData, separateArrayPaths);
+    }, [transformedData, separateArrayPaths]);
 
     const totalPages = Math.ceil(separatedEvents.length / eventsPerPage);
     const paginatedEvents = separatedEvents.slice(
@@ -173,6 +185,11 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
                                         ? `Arrays being separated: ${separateArrayPaths.join(', ')}`
                                         : 'No arrays selected for separation'
                                     }
+                                    {fieldMappings.filter(m => m.originalKey && m.newKey).length > 0 && (
+                                        <span style={{ display: 'block', marginTop: '4px', fontSize: '12px' }}>
+                                            Fields renamed: {fieldMappings.filter(m => m.originalKey && m.newKey).map(m => `${m.originalKey} → ${m.newKey}`).join(', ')}
+                                        </span>
+                                    )}
                                 </SummaryText>
                                 <div>
                                     <SummaryCount>{separatedEvents.length}</SummaryCount>
@@ -218,7 +235,12 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
                     ) : (
                         <>
                             <SummaryBar>
-                                <SummaryText>Original response as single event</SummaryText>
+                                <SummaryText>
+                                    {fieldMappings.filter(m => m.originalKey && m.newKey).length > 0
+                                        ? 'Transformed response as single event (with field renames applied)'
+                                        : 'Original response as single event'
+                                    }
+                                </SummaryText>
                                 <div>
                                     <SummaryCount>1</SummaryCount>
                                     <SummaryText> event</SummaryText>
@@ -228,7 +250,7 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
                                 <EventHeader>
                                     <EventNumber>Event #1</EventNumber>
                                 </EventHeader>
-                                <EventBody>{JSON.stringify(data, null, 2)}</EventBody>
+                                <EventBody>{JSON.stringify(transformedData, null, 2)}</EventBody>
                             </EventCard>
                         </>
                     )}

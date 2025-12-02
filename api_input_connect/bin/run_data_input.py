@@ -200,6 +200,49 @@ def get_value_at_path(data, path):
     return current
 
 
+def apply_field_mappings(data, field_mappings):
+    """
+    Apply field key renames to data recursively.
+    field_mappings is a list of dicts with 'originalKey' and 'newKey' properties.
+    """
+    if not field_mappings:
+        return data
+
+    # Build a mapping dict for quick lookup
+    mapping_dict = {}
+    for mapping in field_mappings:
+        original = mapping.get('originalKey')
+        new = mapping.get('newKey')
+        if original and new:
+            mapping_dict[original] = new
+
+    if not mapping_dict:
+        return data
+
+    return _apply_mappings_recursive(data, mapping_dict)
+
+
+def _apply_mappings_recursive(data, mapping_dict):
+    """Recursively apply field mappings to data."""
+    if data is None:
+        return data
+
+    if isinstance(data, list):
+        return [_apply_mappings_recursive(item, mapping_dict) for item in data]
+
+    if isinstance(data, dict):
+        result = {}
+        for key, value in data.items():
+            # Rename key if mapping exists
+            new_key = mapping_dict.get(key, key)
+            # Recursively process value
+            result[new_key] = _apply_mappings_recursive(value, mapping_dict)
+        return result
+
+    # Primitive values pass through unchanged
+    return data
+
+
 def separate_arrays_into_events(data, separate_array_paths):
     """
     Generate separate events from data based on selected array paths.
@@ -261,6 +304,11 @@ def main():
                 if api_data is None:
                     logger.error(f"Failed to fetch API data for kvstore input: {item.get('name')}")
                     continue
+                # Apply field mappings if configured
+                field_mappings = item.get('field_mappings', [])
+                if field_mappings:
+                    api_data = apply_field_mappings(api_data, field_mappings)
+                    logger.info(f"Applied {len(field_mappings)} field mapping(s)")
                 # Apply array separation if configured
                 separate_paths = item.get('separate_array_paths', [])
                 if separate_paths:
@@ -274,6 +322,11 @@ def main():
                 if api_data is None:
                     logger.error(f"Failed to fetch API data for index input: {item.get('name')}")
                     continue
+                # Apply field mappings if configured
+                field_mappings = item.get('field_mappings', [])
+                if field_mappings:
+                    api_data = apply_field_mappings(api_data, field_mappings)
+                    logger.info(f"Applied {len(field_mappings)} field mapping(s)")
                 # Apply array separation if configured
                 separate_paths = item.get('separate_array_paths', [])
                 if separate_paths:
