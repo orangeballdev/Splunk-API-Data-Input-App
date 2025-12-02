@@ -228,7 +228,9 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
         setSeparateArrayPaths([]);
         setFieldMappings([]);
         props.onJSONPathsChange([]);
-        props.setJsonPreview && props.setJsonPreview('')
+        if (props.setJsonPreview) {
+            props.setJsonPreview('');
+        }
     };
 
     const handleOnCreateIndex = async (createdIndexName: string) => {

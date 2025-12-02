@@ -34917,64 +34917,6 @@ async function getAllAppNames() {
   const appNames = ((_a = result == null ? void 0 : result.entry) == null ? void 0 : _a.map((entry) => entry.name)) || [];
   return appNames;
 }
-async function createNewKVStoreCollection(collectionName, appName, fields) {
-  console.log("1s");
-  const kvUrl = urlExports.createRESTURL(`storage/collections/config`, {
-    app: appName,
-    sharing: "app"
-  });
-  const fetchInit = fetchExports.defaultFetchInit;
-  fetchInit.method = "POST";
-  const formData = new URLSearchParams();
-  formData.append("name", collectionName);
-  const response = await fetch(kvUrl, {
-    ...fetchInit,
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: formData.toString()
-  });
-  if (response.status !== 201) {
-    const errorText = await response.text();
-    throw new Error(
-      `Failed to create collection: ${response.status} - ${errorText}`
-    );
-  }
-  await createLookupDefinition(collectionName, appName, fields);
-}
-async function createLookupDefinition(collectionName, appName, fields) {
-  const kvUrl = urlExports.createRESTURL(`data/transforms/lookups`, {
-    app: appName,
-    sharing: "app"
-  });
-  const body = new URLSearchParams({
-    name: collectionName,
-    external_type: "kvstore",
-    collection: collectionName,
-    fields_list: fields.join(",")
-  });
-  const fetchInit = {
-    ...fetchExports.defaultFetchInit,
-    method: "POST",
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body
-  };
-  const response = await fetch(kvUrl, fetchInit);
-  if (response.status !== 201) {
-    const errorText = await response.text();
-    throw new Error(
-      `Failed to create collection: ${response.status} - ${errorText}`
-    );
-  }
-  console.log("1b");
-  return response;
-}
 async function deleteItemFromKVStore(collectionName, itemId) {
   const kvUrl = urlExports.createRESTURL(
     `storage/collections/data/${collectionName}/${itemId}`,
@@ -50330,7 +50272,7 @@ const ArrayFieldSelector = ({
     }
   };
   if (!data) {
-    return null;
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NoArraysMessage, { children: "Generate a preview to populate array options" }) });
   }
   if (detectedArrays.length === 0) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx(Container$1, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NoArraysMessage, { children: "No arrays detected in the response" }) });
@@ -51573,58 +51515,8 @@ const EventPreviewModal = ({
     }
   );
 };
-function parseHeader(headerString) {
-  const colonIndex = headerString.indexOf(":");
-  if (colonIndex === -1) return null;
-  const name = headerString.slice(0, colonIndex).trim();
-  const value = headerString.slice(colonIndex + 1).trim();
-  if (!name) return null;
-  return { name, value };
-}
-const RequestPreview = ({ url: url2, headers, method = "GET" }) => {
-  const validHeaders = headers.filter((h2) => h2.trim()).map(parseHeader).filter((h2) => h2 !== null);
-  const hasContent = url2.trim() || validHeaders.length > 0;
-  if (!hasContent) {
-    return null;
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: {
-    backgroundColor: "#1a1a2e",
-    borderRadius: "6px",
-    padding: "16px",
-    fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
-    fontSize: "13px",
-    marginTop: "12px",
-    marginBottom: "12px",
-    border: "1px solid #333"
-  }, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: {
-      color: "#888",
-      fontSize: "11px",
-      textTransform: "uppercase",
-      letterSpacing: "0.5px",
-      marginBottom: "10px"
-    }, children: "Request Preview" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: validHeaders.length > 0 ? "12px" : 0 }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#4ade80", fontWeight: 600 }, children: method }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#e2e8f0", marginLeft: "8px", wordBreak: "break-all" }, children: url2 || /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#666", fontStyle: "italic" }, children: "No URL specified" }) })
-    ] }),
-    validHeaders.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: {
-      borderTop: "1px solid #333",
-      paddingTop: "10px"
-    }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: {
-        color: "#888",
-        fontSize: "11px",
-        marginBottom: "6px"
-      }, children: "Headers:" }),
-      validHeaders.map((header, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "4px" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#60a5fa" }, children: header.name }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#888" }, children: ": " }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#fbbf24" }, children: header.value })
-      ] }, index))
-    ] })
-  ] });
-};
+var HeadingExports = requireHeading();
+const Heading = /* @__PURE__ */ getDefaultExportFromCjs(HeadingExports);
 const Container = qe.div`
     margin-top: 8px;
 `;
@@ -51776,7 +51668,7 @@ const KVStoreDataForm = (props) => {
   const modalToggle = React.useRef(null);
   const previewModalToggle = React.useRef(null);
   const [collectionNames, setCollectionNames] = reactExports.useState([]);
-  const [showCreateKVModal, setShowCreateKVModal] = reactExports.useState(false);
+  const [showCreateCollectionModal, setShowCreateCollectionModal] = reactExports.useState(false);
   const [showPreviewModal, setShowPreviewModal] = reactExports.useState(false);
   const [name, setInputName] = reactExports.useState(config2.name ?? "");
   const [dataInputType, setDataInputType] = reactExports.useState(config2.input_type ?? "kvstore");
@@ -51919,6 +51811,20 @@ const KVStoreDataForm = (props) => {
     )
   ] }) }, i2));
   const getPaths = () => jsonPathValues.filter(Boolean);
+  const handleOnCreateCollection = async (createdCollectionName, appName) => {
+    setCollectionNames((prev) => {
+      const newCollection = { name: createdCollectionName, app: appName };
+      const exists = prev.some((c2) => c2.name === createdCollectionName && c2.app === appName);
+      if (exists) return prev;
+      return [...prev, newCollection].sort((a2, b2) => a2.name.localeCompare(b2.name));
+    });
+    const selectedOutput = generateSelectedOutputString(appName, createdCollectionName);
+    setSelectedCollection(selectedOutput);
+    updateConfigField("selected_output_location", selectedOutput);
+    getAllCollectionNames().then((names) => {
+      setCollectionNames(names);
+    });
+  };
   const clearInputs = () => {
     setInputName("");
     setDataInputType("kvstore");
@@ -51931,9 +51837,12 @@ const KVStoreDataForm = (props) => {
     setSeparateArrayPaths([]);
     setFieldMappings([]);
     props.onJSONPathsChange([]);
-    props.setJsonPreview && props.setJsonPreview("");
+    if (props.setJsonPreview) {
+      props.setJsonPreview("");
+    }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "0", marginBottom: "20px", paddingBottom: "10px", borderBottom: "2px solid #e0e0e0" }, children: "Basic Configuration" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Input Name:", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Text,
       {
@@ -51979,7 +51888,7 @@ const KVStoreDataForm = (props) => {
         children: controlledHttpHeaderRows
       }
     ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(RequestPreview, { url: url2, headers: http_headers }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "32px", marginBottom: "20px", paddingBottom: "10px", borderBottom: "2px solid #e0e0e0" }, children: "Splunk Configuration" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Cron Expression:", required: true, tooltip: "Cron expression for scheduling data input", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Text,
       {
@@ -51992,6 +51901,45 @@ const KVStoreDataForm = (props) => {
         required: true
       }
     ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlGroup, { label: "Select KVStore Collection:", required: true, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Select,
+        {
+          value: selected_output_location,
+          onChange: (_2, { value }) => {
+            updateConfigField("selected_output_location", String(value));
+            setSelectedCollection(String(value));
+          },
+          filter: true,
+          placeholder: "Select a collection...",
+          style: { flex: 1, minWidth: "400px" },
+          children: collectionNames.map((collection) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Select.Option,
+            {
+              value: generateSelectedOutputString(collection.app, collection.name),
+              label: `${collection.name} (${collection.app})`
+            },
+            collection.name
+          ))
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateCollectionModal(true), elementRef: modalToggle, children: "Create New Collection" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      NewKVStoreForm,
+      {
+        open: showCreateCollectionModal,
+        onClose: () => setShowCreateCollectionModal(false),
+        onCreate: handleOnCreateCollection,
+        modalToggle,
+        initialFields: props.fieldsForKvStoreCreation
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Mode:", required: true, tooltip: "Overwrite will replace all existing data in the collection", children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList, { value: mode, onChange: (_2, { value }) => {
+      updateConfigField("mode", value);
+      setMode(value);
+    }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "overwrite", children: "Overwrite" }) }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "32px", marginBottom: "20px", paddingBottom: "10px", borderBottom: "2px solid #e0e0e0" }, children: "Data Processing" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Exclude JSONPaths", tooltip: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       FormRows,
       {
@@ -52045,48 +51993,6 @@ const KVStoreDataForm = (props) => {
         }
       }
     ) }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlGroup, { label: "Select KV Store Collection:", required: true, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Select,
-        {
-          value: selected_output_location,
-          onChange: (_2, { value }) => {
-            updateConfigField("selected_output_location", String(value));
-            setSelectedCollection(String(value));
-          },
-          filter: true,
-          placeholder: "Filter collections...",
-          style: { flex: 1, minWidth: "400px" },
-          children: collectionNames.map((collection) => /* @__PURE__ */ jsxRuntimeExports.jsx(Select.Option, { value: `${collection.app}/${collection.name}`, label: `${collection.name} (${collection.app})` }, `${collection.name} (${collection.app})`))
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateKVModal(true), elementRef: modalToggle, children: "Create New KV Store" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      NewKVStoreForm,
-      {
-        open: showCreateKVModal,
-        onClose: () => setShowCreateKVModal(false),
-        initialFields: props.fieldsForKvStoreCreation,
-        onCreate: async (name2, app, fields) => {
-          try {
-            await createNewKVStoreCollection(name2, app, fields);
-            const result = await getAllCollectionNames();
-            setCollectionNames(result);
-            setSelectedCollection(generateSelectedOutputString(app, name2));
-            setShowCreateKVModal(false);
-          } catch (err) {
-            props.setError(`Failed to create KV Store collection: ${err instanceof Error ? err.message : "Unknown error"}`);
-            return;
-          }
-        },
-        modalToggle
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Mode:", tooltip: "How would you like to manage the existing data in the collection?", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList, { value: mode, onChange: (_2, { value }) => {
-      setMode(value);
-      updateConfigField("mode", value);
-    }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "overwrite", children: "overwrite" }) }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
     !props.dataInputAppConfig && /* @__PURE__ */ jsxRuntimeExports.jsx(
       Button,
@@ -52229,8 +52135,6 @@ Server response: ${proxyResponse.data}`;
     /* @__PURE__ */ jsxRuntimeExports.jsx(KVStoreDataForm, { dataInputAppConfig, setDataInputAppConfig, fetchDataPreview, setJsonPreview: onDataFetched, fieldsForKvStoreCreation: initialFields, loading, handleSave: handleSaveDataInput, setError, onJSONPathsChange, onAddExcludePathRef, rawData })
   ] });
 };
-var HeadingExports = requireHeading();
-const Heading = /* @__PURE__ */ getDefaultExportFromCjs(HeadingExports);
 const TreeContainer = qe.div`
     font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', 'Droid Sans Mono', monospace;
     font-size: 13px;
@@ -52904,7 +52808,9 @@ const IndexDataForm = (props) => {
     setSeparateArrayPaths([]);
     setFieldMappings([]);
     props.onJSONPathsChange([]);
-    props.setJsonPreview && props.setJsonPreview("");
+    if (props.setJsonPreview) {
+      props.setJsonPreview("");
+    }
   };
   const handleOnCreateIndex = async (createdIndexName) => {
     setIndexNames((prev) => {
@@ -52918,6 +52824,7 @@ const IndexDataForm = (props) => {
     });
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "0", marginBottom: "20px", paddingBottom: "10px", borderBottom: "2px solid #e0e0e0" }, children: "Basic Configuration" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Input Name:", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Text,
       {
@@ -52963,7 +52870,7 @@ const IndexDataForm = (props) => {
         children: controlledHttpHeaderRows
       }
     ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(RequestPreview, { url: url2, headers: http_headers }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "32px", marginBottom: "20px", paddingBottom: "10px", borderBottom: "2px solid #e0e0e0" }, children: "Splunk Configuration" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Cron Expression:", required: true, tooltip: "Cron expression for scheduling data input", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Text,
       {
@@ -52976,6 +52883,33 @@ const IndexDataForm = (props) => {
         required: true
       }
     ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlGroup, { label: "Select Index:", required: true, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Select,
+        {
+          value: selected_output_location,
+          onChange: (_2, { value }) => {
+            updateConfigField("selected_output_location", String(value));
+            setSelectedIndex(String(value));
+          },
+          filter: true,
+          placeholder: "Select an index...",
+          style: { flex: 1, minWidth: "400px" },
+          children: indexNames.map((indexName) => /* @__PURE__ */ jsxRuntimeExports.jsx(Select.Option, { value: indexName, label: indexName }, indexName))
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateIndexModal(true), elementRef: modalToggle, children: "Create New Index" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      NewIndexForm,
+      {
+        open: showCreateIndexModal,
+        onClose: () => setShowCreateIndexModal(false),
+        onCreate: handleOnCreateIndex,
+        modalToggle
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "32px", marginBottom: "20px", paddingBottom: "10px", borderBottom: "2px solid #e0e0e0" }, children: "Data Processing" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Exclude JSONPaths", tooltip: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       FormRows,
       {
@@ -53029,32 +52963,6 @@ const IndexDataForm = (props) => {
         }
       }
     ) }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(ControlGroup, { label: "Select Index:", required: true, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Select,
-        {
-          value: selected_output_location,
-          onChange: (_2, { value }) => {
-            updateConfigField("selected_output_location", String(value));
-            setSelectedIndex(String(value));
-          },
-          filter: true,
-          placeholder: "Select an index...",
-          style: { flex: 1, minWidth: "400px" },
-          children: indexNames.map((indexName) => /* @__PURE__ */ jsxRuntimeExports.jsx(Select.Option, { value: indexName, label: indexName }, indexName))
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateIndexModal(true), elementRef: modalToggle, children: "Create New Index" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      NewIndexForm,
-      {
-        open: showCreateIndexModal,
-        onClose: () => setShowCreateIndexModal(false),
-        onCreate: handleOnCreateIndex,
-        modalToggle
-      }
-    ),
     /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
     !props.dataInputAppConfig && /* @__PURE__ */ jsxRuntimeExports.jsx(
       Button,
@@ -58170,6 +58078,24 @@ function ManageDataInputsTable() {
     await deleteConfigItemFromKVStore((rowData == null ? void 0 : rowData._key) || "");
     fetchDataInputsData(setData);
   };
+  const handleEnabledToggle = (rowData) => async () => {
+    const newEnabledValue = !rowData.enabled;
+    setData(
+      (prevData) => prevData.map(
+        (item) => item._key === rowData._key ? { ...item, enabled: newEnabledValue } : item
+      )
+    );
+    try {
+      await updateDataInputConfigById({ ...rowData, enabled: newEnabledValue });
+    } catch (error) {
+      console.error("Failed to update enabled status:", error);
+      setData(
+        (prevData) => prevData.map(
+          (item) => item._key === rowData._key ? { ...item, enabled: rowData.enabled } : item
+        )
+      );
+    }
+  };
   const handleViewDataActionClick = (rowData) => () => {
     if (rowData.input_type === "kvstore") {
       const { collection } = parseSelectedOutput(rowData.selected_output_location);
@@ -58254,7 +58180,14 @@ function ManageDataInputsTable() {
             /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Cell, { children: row.selected_output_location }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Cell, { children: row.url }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Cell, { children: row.excluded_json_paths.join(", ") }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Cell, { children: row.enabled ? "Yes" : "No" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Cell, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Switch,
+              {
+                selected: row.enabled,
+                onClick: handleEnabledToggle(row),
+                appearance: "toggle"
+              }
+            ) })
           ]
         },
         row.name + idx

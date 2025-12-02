@@ -95,7 +95,7 @@ export function generateSeparateEvents(
 /**
  * Format data as it would appear in Splunk (JSON event format)
  */
-export function formatAsSplunkEvent(data: unknown, _index?: number): string {
+export function formatAsSplunkEvent(data: unknown): string {
     const event = {
         time: Math.floor(Date.now() / 1000),
         event: data

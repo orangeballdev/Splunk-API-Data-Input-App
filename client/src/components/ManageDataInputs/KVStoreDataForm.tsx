@@ -251,7 +251,9 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
         setSeparateArrayPaths([]);
         setFieldMappings([]);
         props.onJSONPathsChange([]);
-        props.setJsonPreview && props.setJsonPreview('')
+        if (props.setJsonPreview) {
+            props.setJsonPreview('');
+        }
     };
 
     return (
