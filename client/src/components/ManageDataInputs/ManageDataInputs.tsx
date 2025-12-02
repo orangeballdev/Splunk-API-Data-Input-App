@@ -4,10 +4,11 @@ import Plus from '@splunk/react-icons/Plus';
 import Button from '@splunk/react-ui/Button';
 import Table from '@splunk/react-ui/Table';
 import Tooltip from '@splunk/react-ui/Tooltip';
+import Switch from '@splunk/react-ui/Switch';
 /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import { _ } from '@splunk/ui-utils/i18n';
-import { deleteConfigItemFromKVStore, fetchDataInputsData, parseSelectedOutput } from '../../utils/dataInputUtils';
+import { deleteConfigItemFromKVStore, fetchDataInputsData, parseSelectedOutput, updateDataInputConfigById } from '../../utils/dataInputUtils';
 import Heading from '@splunk/react-ui/Heading';
 import ColumnLayout from '@splunk/react-ui/ColumnLayout';
 import Menu from '@splunk/react-ui/Menu';
@@ -41,6 +42,35 @@ function ManageDataInputsTable() {
         await deleteConfigItemFromKVStore(rowData?._key || '');
         fetchDataInputsData(setData);
     };
+
+    const handleEnabledToggle = (rowData: DataInputAppConfig) => async () => {
+        const newEnabledValue = !rowData.enabled;
+        
+        // Update the local state immediately for better UX
+        setData(prevData => 
+            prevData.map(item => 
+                item._key === rowData._key 
+                    ? { ...item, enabled: newEnabledValue }
+                    : item
+            )
+        );
+
+        // Update the KVStore
+        try {
+            await updateDataInputConfigById({ ...rowData, enabled: newEnabledValue });
+        } catch (error) {
+            console.error('Failed to update enabled status:', error);
+            // Revert on error
+            setData(prevData => 
+                prevData.map(item => 
+                    item._key === rowData._key 
+                        ? { ...item, enabled: rowData.enabled }
+                        : item
+                )
+            );
+        }
+    };
+
     const handleViewDataActionClick = (rowData: DataInputAppConfig) => () => {
         if (rowData.input_type === 'kvstore') {
             const { collection } = parseSelectedOutput(rowData.selected_output_location);
@@ -135,7 +165,13 @@ function ManageDataInputsTable() {
                                 <Table.Cell>{row.selected_output_location}</Table.Cell>
                                 <Table.Cell>{row.url}</Table.Cell>
                                 <Table.Cell>{row.excluded_json_paths.join(', ')}</Table.Cell>
-                                <Table.Cell>{row.enabled ? 'Yes' : 'No'}</Table.Cell>
+                                <Table.Cell>
+                                    <Switch
+                                        selected={row.enabled}
+                                        onClick={handleEnabledToggle(row)}
+                                        appearance="toggle"
+                                    />
+                                </Table.Cell>
                             </Table.Row>
                         ))
                     ) : (
