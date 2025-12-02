@@ -1,45 +1,33 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import Message from '@splunk/react-ui/Message';
 
 import { removeByJsonPaths } from '../../Json/utils';
-import { addNewDataInputToKVStore } from "../../../utils/dataInputUtils";
+import { addNewDataInputToIndex } from "../../../utils/dataInputUtils";
 import { proxyApiRequest } from "../../../utils/splunk";
 
 import type { JSONElement } from "@splunk/react-ui/JSONTree";
 import type { DataInputAppConfig } from "../../ManageDataInputs/DataInputs.types";
-import KVStoreDataForm from "../../ManageDataInputs/KVStoreDataForm";
+import IndexDataForm from "../../ManageDataInputs/IndexDataForm";
 
 
-interface NewKVStoreDataInputFormProps {
+interface NewIndexDataInputFormProps {
   dataInputAppConfig?: DataInputAppConfig;
-    setDataInputAppConfig?: React.Dispatch<React.SetStateAction<DataInputAppConfig>>;
+  setDataInputAppConfig?: React.Dispatch<React.SetStateAction<DataInputAppConfig>>;
   onDataFetched?: (data: string) => void;
   onSuccess?: () => void;
   onAddExcludePathRef?: (fn: (path: string) => void) => void;
 }
 
-const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef }) => {
+const NewIndexDataInputForm: React.FC<NewIndexDataInputFormProps> = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef }) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   // Store the last fetched data so we can re-filter it when JSONPaths change
   const [rawData, setRawData] = useState<JSONElement | null>(null);
-  const [filteredData, setFilteredData] = useState<JSONElement | null>({});
 
-  const initialFields = useMemo(() => {
-    if (filteredData && Object.keys(filteredData).length > 0) {
-      return Object.keys(filteredData);
-    } else if (rawData && Object.keys(rawData).length > 0) {
-      return Object.keys(rawData);
-    } else {
-      return [];
-    }
-  }, [filteredData, rawData]);
-  
   const onJSONPathsChange = (jsonPaths: string[]) => {
     if (!rawData) return;
     const filtered = jsonPaths.length ? removeByJsonPaths(rawData, jsonPaths) : rawData;
-    setFilteredData(filtered);
     if (onDataFetched) onDataFetched(JSON.stringify(filtered));
   }
 
@@ -120,8 +108,8 @@ const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataI
 
       // Parse the JSON data from the proxy response
       const data = JSON.parse(proxyResponse.data);
-      setRawData(data as import('@splunk/react-ui/JSONTree').JSONElement);
-      const filtered = jsonPaths.length ? removeByJsonPaths(data as import('@splunk/react-ui/JSONTree').JSONElement, jsonPaths) : data;
+      setRawData(data as JSONElement);
+      const filtered = jsonPaths.length ? removeByJsonPaths(data as JSONElement, jsonPaths) : data;
       if (onDataFetched) onDataFetched(JSON.stringify(filtered));
     } catch (err) {
       if (err instanceof SyntaxError) {
@@ -138,20 +126,18 @@ const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataI
 
   // Save Data Input handler
   const handleSaveDataInput = async (formData: DataInputAppConfig, clearInputs?: () => void) => {
-    if (!formData.name || !formData.url || !formData.input_type || !formData.cron_expression || (formData.input_type === 'kvstore' && !formData.selected_output_location)) {
+    if (!formData.name || !formData.url || !formData.input_type || !formData.cron_expression || !formData.selected_output_location) {
       setError("Not all required fields are filled out");
       return;
     }
 
-    if (formData.input_type === 'kvstore') {
-      try {
-        await addNewDataInputToKVStore(formData);
-        setError(null);
-        if (onSuccess) onSuccess();
-        if (clearInputs) clearInputs();
-      } catch {
-        setError('Failed to save data input to KV Store');
-      }
+    try {
+      await addNewDataInputToIndex(formData);
+      setError(null);
+      if (onSuccess) onSuccess();
+      if (clearInputs) clearInputs();
+    } catch {
+      setError('Failed to save data input configuration');
     }
   };
 
@@ -162,9 +148,20 @@ const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataI
           {error}
         </Message>
       )}
-      <KVStoreDataForm dataInputAppConfig={dataInputAppConfig} setDataInputAppConfig={setDataInputAppConfig} fetchDataPreview={fetchDataPreview} setJsonPreview={onDataFetched} fieldsForKvStoreCreation={initialFields} loading={loading} handleSave={handleSaveDataInput} setError={setError} onJSONPathsChange={onJSONPathsChange} onAddExcludePathRef={onAddExcludePathRef} rawData={rawData} />
+      <IndexDataForm
+        dataInputAppConfig={dataInputAppConfig}
+        setDataInputAppConfig={setDataInputAppConfig}
+        fetchDataPreview={fetchDataPreview}
+        setJsonPreview={onDataFetched}
+        loading={loading}
+        handleSave={handleSaveDataInput}
+        setError={setError}
+        onJSONPathsChange={onJSONPathsChange}
+        onAddExcludePathRef={onAddExcludePathRef}
+        rawData={rawData}
+      />
     </>
   );
 };
 
-export default NewKVStoreDataInputForm;
+export default NewIndexDataInputForm;
