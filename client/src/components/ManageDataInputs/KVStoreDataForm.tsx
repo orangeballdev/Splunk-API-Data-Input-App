@@ -15,6 +15,7 @@ import ArrayFieldSelector from '../Json/ArrayFieldSelector';
 import EventPreviewModal from '../Json/EventPreviewModal';
 import Heading from '@splunk/react-ui/Heading';
 import FieldMappingEditor from '../Json/FieldMappingEditor';
+import { getValidFieldMappings } from '../Json/fieldMappingUtils';
 
 
 interface KVStoreDataFormProps {
@@ -433,7 +434,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                                 selected_output_location: selected_output_location,
                                 mode,
                                 separate_array_paths: separateArrayPaths,
-                                field_mappings: fieldMappings.filter(m => m.originalKey && m.newKey)
+                                field_mappings: getValidFieldMappings(fieldMappings)
                             } as DataInputAppConfig, clearInputs
                         );
                     }}

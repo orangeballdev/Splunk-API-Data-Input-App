@@ -5,6 +5,24 @@
 import type { FieldMapping } from '../ManageDataInputs/DataInputs.types';
 
 /**
+ * Type guard to check if a field mapping is valid
+ * @param mapping - The mapping to check
+ * @returns True if the mapping has both originalKey and newKey
+ */
+export function isValidMapping(mapping: FieldMapping): boolean {
+    return !!(mapping.originalKey && mapping.newKey);
+}
+
+/**
+ * Filter field mappings to only include valid ones
+ * @param mappings - Array of field mappings
+ * @returns Array of valid field mappings
+ */
+export function getValidFieldMappings(mappings: FieldMapping[]): FieldMapping[] {
+    return mappings.filter(isValidMapping);
+}
+
+/**
  * Recursively apply field mappings to rename keys in data
  * @param data - The data object to transform
  * @param mappings - Array of field mappings to apply
@@ -57,7 +75,7 @@ function applyMappingsRecursive(
 }
 
 /**
- * Detect all unique field keys in a JSON object (non-recursive, top-level only)
+ * Detect all unique field keys in a JSON object (recursive, includes nested keys)
  * @param data - The data to scan for keys
  * @returns Array of unique field key names
  */

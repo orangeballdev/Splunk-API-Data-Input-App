@@ -51247,6 +51247,12 @@ function requireTabBar() {
 }
 var TabBarExports = requireTabBar();
 const TabBar = /* @__PURE__ */ getDefaultExportFromCjs(TabBarExports);
+function isValidMapping(mapping) {
+  return !!(mapping.originalKey && mapping.newKey);
+}
+function getValidFieldMappings(mappings) {
+  return mappings.filter(isValidMapping);
+}
 function applyFieldMappings(data, mappings) {
   if (!mappings || mappings.length === 0) {
     return data;
@@ -51386,7 +51392,7 @@ const EventPreviewModal = ({
   const eventsPerPage = 10;
   const transformedData = reactExports.useMemo(() => {
     if (!data) return data;
-    const validMappings = fieldMappings.filter((m2) => m2.originalKey && m2.newKey);
+    const validMappings = getValidFieldMappings(fieldMappings);
     if (validMappings.length === 0) return data;
     return applyFieldMappings(data, validMappings);
   }, [data, fieldMappings]);
@@ -51452,10 +51458,13 @@ const EventPreviewModal = ({
             /* @__PURE__ */ jsxRuntimeExports.jsxs(SummaryBar, { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs(SummaryText, { children: [
                 separateArrayPaths.length > 0 ? `Arrays being separated: ${separateArrayPaths.join(", ")}` : "No arrays selected for separation",
-                fieldMappings.filter((m2) => m2.originalKey && m2.newKey).length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { style: { display: "block", marginTop: "4px", fontSize: "12px" }, children: [
-                  "Fields renamed: ",
-                  fieldMappings.filter((m2) => m2.originalKey && m2.newKey).map((m2) => `${m2.originalKey} → ${m2.newKey}`).join(", ")
-                ] })
+                (() => {
+                  const validMappings = getValidFieldMappings(fieldMappings);
+                  return validMappings.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { style: { display: "block", marginTop: "4px", fontSize: "12px" }, children: [
+                    "Fields renamed: ",
+                    validMappings.map((m2) => `${m2.originalKey} → ${m2.newKey}`).join(", ")
+                  ] });
+                })()
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx(SummaryCount, { children: separatedEvents.length }),
@@ -52011,7 +52020,7 @@ const KVStoreDataForm = (props) => {
               selected_output_location,
               mode,
               separate_array_paths: separateArrayPaths,
-              field_mappings: fieldMappings.filter((m2) => m2.originalKey && m2.newKey)
+              field_mappings: getValidFieldMappings(fieldMappings)
             },
             clearInputs
           );
@@ -52981,7 +52990,7 @@ const IndexDataForm = (props) => {
               selected_output_location,
               mode,
               separate_array_paths: separateArrayPaths,
-              field_mappings: fieldMappings.filter((m2) => m2.originalKey && m2.newKey)
+              field_mappings: getValidFieldMappings(fieldMappings)
             },
             clearInputs
           );

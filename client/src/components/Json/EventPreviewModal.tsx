@@ -4,7 +4,7 @@ import Button from '@splunk/react-ui/Button';
 import TabBar from '@splunk/react-ui/TabBar';
 import styled from 'styled-components';
 import { generateSeparateEvents } from './arrayUtils';
-import { applyFieldMappings } from './fieldMappingUtils';
+import { applyFieldMappings, getValidFieldMappings } from './fieldMappingUtils';
 import type { FieldMapping } from '../ManageDataInputs/DataInputs.types';
 
 interface EventPreviewModalProps {
@@ -118,7 +118,7 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
     // Apply field mappings first, then separate arrays
     const transformedData = useMemo(() => {
         if (!data) return data;
-        const validMappings = fieldMappings.filter(m => m.originalKey && m.newKey);
+        const validMappings = getValidFieldMappings(fieldMappings);
         if (validMappings.length === 0) return data;
         return applyFieldMappings(data, validMappings);
     }, [data, fieldMappings]);
@@ -185,11 +185,14 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
                                         ? `Arrays being separated: ${separateArrayPaths.join(', ')}`
                                         : 'No arrays selected for separation'
                                     }
-                                    {fieldMappings.filter(m => m.originalKey && m.newKey).length > 0 && (
-                                        <span style={{ display: 'block', marginTop: '4px', fontSize: '12px' }}>
-                                            Fields renamed: {fieldMappings.filter(m => m.originalKey && m.newKey).map(m => `${m.originalKey} → ${m.newKey}`).join(', ')}
-                                        </span>
-                                    )}
+                                    {(() => {
+                                        const validMappings = getValidFieldMappings(fieldMappings);
+                                        return validMappings.length > 0 && (
+                                            <span style={{ display: 'block', marginTop: '4px', fontSize: '12px' }}>
+                                                Fields renamed: {validMappings.map(m => `${m.originalKey} → ${m.newKey}`).join(', ')}
+                                            </span>
+                                        );
+                                    })()}
                                 </SummaryText>
                                 <div>
                                     <SummaryCount>{separatedEvents.length}</SummaryCount>
