@@ -13,7 +13,6 @@ import RadioList from '@splunk/react-ui/RadioList';
 import TrashCanCross from '@splunk/react-icons/TrashCanCross';
 import ArrayFieldSelector from '../Json/ArrayFieldSelector';
 import EventPreviewModal from '../Json/EventPreviewModal';
-import RequestPreview from '../RequestPreview/RequestPreview';
 
 
 interface KVStoreDataFormProps {
@@ -271,7 +270,6 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                 </FormRows>
             </ControlGroup>
 
-            <RequestPreview url={url} headers={http_headers} />
             <ControlGroup label="Cron Expression:" required tooltip="Cron expression for scheduling data input">
                 <Text
                     value={cronExpression}

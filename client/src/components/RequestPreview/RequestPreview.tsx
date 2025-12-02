@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Heading from '@splunk/react-ui/Heading';
+import ChevronDown from '@splunk/react-icons/ChevronDown';
+import ChevronUp from '@splunk/react-icons/ChevronUp';
 
 interface RequestPreviewProps {
     url: string;
@@ -21,6 +24,8 @@ function parseHeader(headerString: string): { name: string; value: string } | nu
 }
 
 const RequestPreview: React.FC<RequestPreviewProps> = ({ url, headers, method = 'GET' }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    
     const validHeaders = headers
         .filter(h => h.trim())
         .map(parseHeader)
@@ -34,53 +39,87 @@ const RequestPreview: React.FC<RequestPreviewProps> = ({ url, headers, method = 
 
     return (
         <div style={{
-            backgroundColor: '#1a1a2e',
-            borderRadius: '6px',
-            padding: '16px',
-            fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
-            fontSize: '13px',
-            marginTop: '12px',
-            marginBottom: '12px',
-            border: '1px solid #333'
+            backgroundColor: '#f5f5f5',
+            borderRadius: '4px',
+            border: '1px solid #d6d6d6',
+            marginTop: '16px',
+            marginBottom: '16px',
+            overflow: 'hidden'
         }}>
-            <div style={{
-                color: '#888',
-                fontSize: '11px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-                marginBottom: '10px'
-            }}>
-                Request Preview
+            <div 
+                onClick={() => setIsExpanded(!isExpanded)}
+                style={{
+                    padding: '12px 16px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    backgroundColor: isExpanded ? '#e8e8e8' : 'transparent',
+                    transition: 'background-color 0.2s'
+                }}
+            >
+                <Heading level={3} style={{ margin: 0, fontSize: '14px', fontWeight: 600 }}>
+                    Request Preview
+                </Heading>
+                {isExpanded ? <ChevronUp /> : <ChevronDown />}
             </div>
 
-            {/* Method and URL */}
-            <div style={{ marginBottom: validHeaders.length > 0 ? '12px' : 0 }}>
-                <span style={{ color: '#4ade80', fontWeight: 600 }}>{method}</span>
-                <span style={{ color: '#e2e8f0', marginLeft: '8px', wordBreak: 'break-all' }}>
-                    {url || <span style={{ color: '#666', fontStyle: 'italic' }}>No URL specified</span>}
-                </span>
-            </div>
-
-            {/* Headers */}
-            {validHeaders.length > 0 && (
+            {isExpanded && (
                 <div style={{
-                    borderTop: '1px solid #333',
-                    paddingTop: '10px'
+                    padding: '16px',
+                    backgroundColor: '#fff',
+                    borderTop: '1px solid #d6d6d6',
+                    fontFamily: 'Monaco, Menlo, "SF Mono", monospace',
+                    fontSize: '13px'
                 }}>
-                    <div style={{
-                        color: '#888',
-                        fontSize: '11px',
-                        marginBottom: '6px'
-                    }}>
-                        Headers:
-                    </div>
-                    {validHeaders.map((header, index) => (
-                        <div key={index} style={{ marginBottom: '4px' }}>
-                            <span style={{ color: '#60a5fa' }}>{header.name}</span>
-                            <span style={{ color: '#888' }}>: </span>
-                            <span style={{ color: '#fbbf24' }}>{header.value}</span>
+                    {/* Method and URL */}
+                    <div style={{ marginBottom: validHeaders.length > 0 ? '16px' : 0 }}>
+                        <div style={{ 
+                            display: 'inline-block',
+                            backgroundColor: '#00a65a',
+                            color: '#fff',
+                            padding: '2px 8px',
+                            borderRadius: '3px',
+                            fontSize: '11px',
+                            fontWeight: 600,
+                            marginRight: '8px'
+                        }}>
+                            {method}
                         </div>
-                    ))}
+                        <span style={{ color: '#333', wordBreak: 'break-all' }}>
+                            {url || <span style={{ color: '#999', fontStyle: 'italic' }}>No URL specified</span>}
+                        </span>
+                    </div>
+
+                    {/* Headers */}
+                    {validHeaders.length > 0 && (
+                        <div style={{
+                            borderTop: '1px solid #e8e8e8',
+                            paddingTop: '12px'
+                        }}>
+                            <div style={{
+                                color: '#666',
+                                fontSize: '12px',
+                                fontWeight: 600,
+                                marginBottom: '8px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.5px'
+                            }}>
+                                Headers
+                            </div>
+                            {validHeaders.map((header, index) => (
+                                <div key={index} style={{ 
+                                    marginBottom: '6px',
+                                    paddingLeft: '12px',
+                                    display: 'flex',
+                                    gap: '8px'
+                                }}>
+                                    <span style={{ color: '#0066cc', fontWeight: 500 }}>{header.name}:</span>
+                                    <span style={{ color: '#333' }}>{header.value}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             )}
         </div>

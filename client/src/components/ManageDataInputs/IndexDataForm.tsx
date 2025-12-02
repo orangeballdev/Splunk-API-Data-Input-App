@@ -11,7 +11,6 @@ import CreateNewIndex from '../DataInputs/Index/CreateNewIndex';
 import TrashCanCross from '@splunk/react-icons/TrashCanCross';
 import ArrayFieldSelector from '../Json/ArrayFieldSelector';
 import EventPreviewModal from '../Json/EventPreviewModal';
-import RequestPreview from '../RequestPreview/RequestPreview';
 
 
 interface IndexDataFormProps {
@@ -280,8 +279,6 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                     {controlledHttpHeaderRows}
                 </FormRows>
             </ControlGroup>
-
-            <RequestPreview url={url} headers={http_headers} />
 
             <ControlGroup label="Cron Expression:" required tooltip="Cron expression for scheduling data input">
                 <Text
