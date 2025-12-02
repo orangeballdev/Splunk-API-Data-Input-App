@@ -5,13 +5,12 @@ import type { DataInputAppConfig, DataInputMode } from './DataInputs.types';
 import Select from '@splunk/react-ui/Select';
 import Button from '@splunk/react-ui/Button';
 import WaitSpinner from '@splunk/react-ui/WaitSpinner';
-import FormRows from '@splunk/react-ui/FormRows';
 import { getAllIndexNames } from '../../utils/splunk';
 import CreateNewIndex from '../DataInputs/Index/CreateNewIndex';
-import TrashCanCross from '@splunk/react-icons/TrashCanCross';
 import ArrayFieldSelector from '../Json/ArrayFieldSelector';
 import EventPreviewModal from '../Json/EventPreviewModal';
-import Heading from '@splunk/react-ui/Heading';
+import FormRowsManager from '../Common/FormRowsManager';
+import FormSection from '../Common/FormSection';
 
 
 interface IndexDataFormProps {
@@ -106,113 +105,22 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
         }
     }, [props.onAddExcludePathRef]);
 
-    // Add new JSONPath row
-    const handleNewJsonPathExclusion = () => {
-        setJsonPathValues((prev) => {
-            const updated = [...prev, ""];
-            props.onJSONPathsChange(updated.filter(Boolean));
-            updateConfigField('excluded_json_paths', updated.filter(Boolean));
-            return updated;
-        });
+    // Handle changes to JSONPath values
+    const handleJsonPathValuesChange = (values: string[]) => {
+        setJsonPathValues(values);
+        props.onJSONPathsChange(values.filter(Boolean));
+        updateConfigField('excluded_json_paths', values.filter(Boolean));
     };
 
-    // Remove a JSONPath row by index
-    const handleRemoveJsonPathRow = (index: number) => {
-        if (index === 0) return; // Prevent removing the first row
-        setJsonPathValues((prev) => {
-            if (prev.length === 1) return prev; // Prevent removing the last row
-            const updated = prev.filter((_, i) => i !== index);
-            props.onJSONPathsChange(updated.filter(Boolean));
-            updateConfigField('excluded_json_paths', updated.filter(Boolean));
-            return updated;
-        });
+    // Handle changes to HTTP headers
+    const handleHttpHeadersChange = (values: string[]) => {
+        setHttpHeaders(values);
+        updateConfigField('http_headers', values.filter(Boolean));
     };
-
-    // Handle Text value change in a row (accept value: string)
-    const handleJsonPathTextChange = (value: string, { index }: { index: number }) => {
-        setJsonPathValues((prev) => {
-            const updated = prev.map((v, i) => (i === index ? value : v));
-            props.onJSONPathsChange(updated.filter(Boolean));
-            updateConfigField('excluded_json_paths', updated.filter(Boolean));
-            return updated;
-        });
-    };
-
-    // Render controlled rows with ColumnLayout.Row
-    const controlledJsonPathRows = jsonPathValues.map((value, i) => (
-        <FormRows.Row index={i} key={i}>
-            <div style={{ display: 'flex'}}>
-                <div style={{ flexGrow: 1, marginRight: '8px', minWidth: 0 }}>
-                    <Text
-                        style={{ width: '100%', minWidth: i === 0 ? '577px' : '542px', fontSize: '1.1em' }}
-                        placeholder="e.g. $.bar[*].baz"
-                        value={value}
-                        onChange={(_, { value }) => handleJsonPathTextChange(value, { index: i })}
-                    />
-                </div>
-                {i !== 0 && (
-                    <Button
-                        inline
-                        appearance="secondary"
-                        onClick={() => handleRemoveJsonPathRow(i)}
-                        label=""
-                        icon={<TrashCanCross />}
-                    />
-                )}
-            </div>
-        </FormRows.Row>
-    ));
-
-    // Add new HTTP header row
-    const handleNewHttpHeader = () => {
-        setHttpHeaders((prev) => [...prev, ""]);
-    };
-
-    // Remove an HTTP header row by index
-    const handleRemoveHttpHeader = (index: number) => {
-        if (index === 0) return; // Prevent removing the first row
-        setHttpHeaders((prev) => {
-            if (prev.length === 1) return prev;
-            return prev.filter((_, i) => i !== index);
-        });
-    };
-
-    // Handle Text value change in a header row
-    const handleHttpHeaderTextChange = (value: string, { index }: { index: number }) => {
-        setHttpHeaders((prev) => {
-            const updated = prev.map((v, i) => (i === index ? value : v));
-            updateConfigField('http_headers', updated.filter(Boolean));
-            return updated;
-        });
-    };
-
-    // Render controlled rows for HTTP headers
-    const controlledHttpHeaderRows = http_headers.map((value, i) => (
-        <FormRows.Row index={i} key={i}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div style={{ flexGrow: 1, marginRight: '8px', minWidth: 0 }}>
-                    <Text
-                        style={{ width: '100%', minWidth: i === 0 ? '577px' : '542px', fontSize: '1.1em' }}
-                        placeholder="Header: Value"
-                        value={value}
-                        onChange={(_, { value }) => handleHttpHeaderTextChange(value, { index: i })}
-                    />
-                </div>
-                {i !== 0 && (
-                    <Button
-                        inline
-                        appearance="secondary"
-                        onClick={() => handleRemoveHttpHeader(i)}
-                        label=""
-                        icon={<TrashCanCross />}
-                    />
-                )}
-            </div>
-        </FormRows.Row>
-    ));
 
     // Collect JSONPath values from all Text fields in rows
     const getPaths = () => jsonPathValues.filter(Boolean);
+    
     // Function to clear all input fields
     const clearInputs = () => {
         setInputName('');
@@ -224,7 +132,9 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
         setHttpHeaders([""]);
         setSeparateArrayPaths([]);
         props.onJSONPathsChange([]);
-        props.setJsonPreview && props.setJsonPreview('')
+        if (props.setJsonPreview) {
+            props.setJsonPreview('');
+        }
     };
 
     const handleOnCreateIndex = async (createdIndexName: string) => {
@@ -245,130 +155,124 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
     return (
         <div>
             {/* Basic Configuration Section */}
-            <Heading level={2} style={{ marginTop: '0', marginBottom: '20px', paddingBottom: '10px', borderBottom: '2px solid #e0e0e0' }}>
-                Basic Configuration
-            </Heading>
-            
-            <ControlGroup label="Input Name:" required>
-                <Text
-                    value={name}
-                    onChange={(_, { value }) => {
-                        updateConfigField('name', value);
-                        setInputName(value)
-                    }}
-                    placeholder="Enter input name"
-                    required
-                    canClear
-                />
-            </ControlGroup>
+            <FormSection title="Basic Configuration" marginTop="0">
+                <ControlGroup label="Input Name:" required>
+                    <Text
+                        value={name}
+                        onChange={(_, { value }) => {
+                            updateConfigField('name', value);
+                            setInputName(value)
+                        }}
+                        placeholder="Enter input name"
+                        required
+                        canClear
+                    />
+                </ControlGroup>
 
-            <ControlGroup label="API URL:" required>
-                <Text
-                    value={url}
-                    onChange={(_, { value }) => {updateConfigField('url', value); setUrl(value)}}
-                    disabled={props.loading}
-                    canClear
-                    required
-                />
-                <Button
-                    type="submit"
-                    disabled={props.loading}
-                    onClick={() => props.fetchDataPreview(url, getPaths(), http_headers)}
-                >
-                    {props.loading ? <WaitSpinner size="medium" /> : "Fetch"}
-                </Button>
-            </ControlGroup>
+                <ControlGroup label="API URL:" required>
+                    <Text
+                        value={url}
+                        onChange={(_, { value }) => {updateConfigField('url', value); setUrl(value)}}
+                        disabled={props.loading}
+                        canClear
+                        required
+                    />
+                    <Button
+                        type="submit"
+                        disabled={props.loading}
+                        onClick={() => props.fetchDataPreview(url, getPaths(), http_headers)}
+                    >
+                        {props.loading ? <WaitSpinner size="medium" /> : "Fetch"}
+                    </Button>
+                </ControlGroup>
 
-            <ControlGroup label="HTTP Headers" tooltip="Add one or more HTTP headers in the format 'Header: Value'">
-                <FormRows
-                    onRequestAdd={handleNewHttpHeader}
-                    addLabel="Add HTTP Header"
-                >
-                    {controlledHttpHeaderRows}
-                </FormRows>
-            </ControlGroup>
+                <ControlGroup label="HTTP Headers" tooltip="Add one or more HTTP headers in the format 'Header: Value'">
+                    <FormRowsManager
+                        values={http_headers}
+                        onChange={handleHttpHeadersChange}
+                        placeholder="Header: Value"
+                        addLabel="Add HTTP Header"
+                    />
+                </ControlGroup>
+            </FormSection>
 
             {/* Splunk Configuration Section */}
-            <Heading level={2} style={{ marginTop: '32px', marginBottom: '20px', paddingBottom: '10px', borderBottom: '2px solid #e0e0e0' }}>
-                Splunk Configuration
-            </Heading>
+            <FormSection title="Splunk Configuration">
+                <ControlGroup label="Cron Expression:" required tooltip="Cron expression for scheduling data input">
+                    <Text
+                        value={cronExpression}
+                        onChange={(_, { value }) => {updateConfigField('cron_expression', value); setCronExpression(value)}}
+                        placeholder="0 * * * *"
+                        required
+                    />
+                </ControlGroup>
 
-            <ControlGroup label="Cron Expression:" required tooltip="Cron expression for scheduling data input">
-                <Text
-                    value={cronExpression}
-                    onChange={(_, { value }) => {updateConfigField('cron_expression', value); setCronExpression(value)}}
-                    placeholder="0 * * * *"
-                    required
+                <ControlGroup label="Select Index:" required>
+                    <Select
+                        value={selected_output_location}
+                        onChange={(_, { value }) => {updateConfigField('selected_output_location', String(value)); setSelectedIndex(String(value))}}
+                        filter
+                        placeholder="Select an index..."
+                        style={{ flex: 1, minWidth: '400px' }}
+                    >
+                        {indexNames.map((indexName) => (
+                            <Select.Option value={indexName} key={indexName} label={indexName} />
+                        ))}
+                    </Select>
+                    <Button appearance="secondary" onClick={() => setShowCreateIndexModal(true)} elementRef={modalToggle}>
+                        Create New Index
+                    </Button>
+                </ControlGroup>
+                <CreateNewIndex
+                    open={showCreateIndexModal}
+                    onClose={() => setShowCreateIndexModal(false)}
+                    onCreate={handleOnCreateIndex}
+                    modalToggle={modalToggle}
                 />
-            </ControlGroup>
-
-            <ControlGroup label="Select Index:" required>
-                <Select
-                    value={selected_output_location}
-                    onChange={(_, { value }) => {updateConfigField('selected_output_location', String(value)); setSelectedIndex(String(value))}}
-                    filter
-                    placeholder="Select an index..."
-                    style={{ flex: 1, minWidth: '400px' }}
-                >
-                    {indexNames.map((indexName) => (
-                        <Select.Option value={indexName} key={indexName} label={indexName} />
-                    ))}
-                </Select>
-                <Button appearance="secondary" onClick={() => setShowCreateIndexModal(true)} elementRef={modalToggle}>
-                    Create New Index
-                </Button>
-            </ControlGroup>
-            <CreateNewIndex
-                open={showCreateIndexModal}
-                onClose={() => setShowCreateIndexModal(false)}
-                onCreate={handleOnCreateIndex}
-                modalToggle={modalToggle}
-            />
+            </FormSection>
 
             {/* Data Processing Section */}
-            <Heading level={2} style={{ marginTop: '32px', marginBottom: '20px', paddingBottom: '10px', borderBottom: '2px solid #e0e0e0' }}>
-                Data Processing
-            </Heading>
-
-            <ControlGroup label="Exclude JSONPaths" tooltip="Provide one or more JSONPath expressions to exclude fields from the JSON.">
-                <FormRows
-                    onRequestAdd={handleNewJsonPathExclusion}
-                    addLabel="Add Exclude JSONPath"
-                >
-                    {controlledJsonPathRows}
-                </FormRows>
-            </ControlGroup>
-
-            <ControlGroup label="Separate Arrays as Events" tooltip="Select which arrays should be split into separate events. Each array item will become its own event in Splunk.">
-                <div style={{ width: '100%' }}>
-                    <ArrayFieldSelector
-                        data={props.rawData}
-                        selectedPaths={separateArrayPaths}
-                        onSelectionChange={(paths) => {
-                            setSeparateArrayPaths(paths);
-                            updateConfigField('separate_array_paths', paths);
-                        }}
+            <FormSection title="Data Processing">
+                <ControlGroup label="Exclude JSONPaths" tooltip="Provide one or more JSONPath expressions to exclude fields from the JSON.">
+                    <FormRowsManager
+                        values={jsonPathValues}
+                        onChange={handleJsonPathValuesChange}
+                        placeholder="e.g. $.bar[*].baz"
+                        addLabel="Add Exclude JSONPath"
                     />
-                    {!!props.rawData && (
-                        <Button
-                            appearance="secondary"
-                            onClick={() => setShowPreviewModal(true)}
-                            elementRef={previewModalToggle}
-                            style={{ marginTop: '12px' }}
-                        >
-                            Preview Events
-                        </Button>
-                    )}
-                </div>
-            </ControlGroup>
+                </ControlGroup>
 
-            <EventPreviewModal
-                open={showPreviewModal}
-                onClose={() => setShowPreviewModal(false)}
-                data={props.rawData}
-                separateArrayPaths={separateArrayPaths}
-                modalToggle={previewModalToggle}
-            />
+                <ControlGroup label="Separate Arrays as Events" tooltip="Select which arrays should be split into separate events. Each array item will become its own event in Splunk.">
+                    <div style={{ width: '100%' }}>
+                        <ArrayFieldSelector
+                            data={props.rawData}
+                            selectedPaths={separateArrayPaths}
+                            onSelectionChange={(paths) => {
+                                setSeparateArrayPaths(paths);
+                                updateConfigField('separate_array_paths', paths);
+                            }}
+                        />
+                        {!!props.rawData && (
+                            <Button
+                                appearance="secondary"
+                                onClick={() => setShowPreviewModal(true)}
+                                elementRef={previewModalToggle}
+                                style={{ marginTop: '12px' }}
+                            >
+                                Preview Events
+                            </Button>
+                        )}
+                    </div>
+                </ControlGroup>
+
+                <EventPreviewModal
+                    open={showPreviewModal}
+                    onClose={() => setShowPreviewModal(false)}
+                    data={props.rawData}
+                    separateArrayPaths={separateArrayPaths}
+                    modalToggle={previewModalToggle}
+                />
+            </FormSection>
 
             <br />
             {/* assume if dataInputAppConfig is passed in save logic is being handled elsewhere (edit mode) */}
