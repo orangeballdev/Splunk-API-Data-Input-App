@@ -35092,6 +35092,48 @@ async function createNewIndex(indexName) {
   const requestBody = new URLSearchParams({ name: indexName }).toString();
   return await runSplunkApiCall("/services/data/indexes", "POST", requestBody);
 }
+async function proxyApiRequest(url2, headers = {}, method = "GET") {
+  const proxyUrl = `/en-US/splunkd/__raw/servicesNS/nobody/${configExports.app}/api_proxy`;
+  const params = new URLSearchParams({
+    url: url2,
+    headers: JSON.stringify(headers),
+    method,
+    output_mode: "json"
+  });
+  const fullUrl = `${proxyUrl}?${params.toString()}`;
+  const response = await fetch(fullUrl, {
+    ...fetchExports.defaultFetchInit,
+    method: "GET",
+    headers: {
+      "X-Splunk-Form-Key": configExports.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json"
+    }
+  });
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Proxy request failed: ${response.status} - ${errorText}`);
+  }
+  const json = await response.json();
+  if (json.status === "error") {
+    throw new Error(json.message || "Proxy request failed");
+  }
+  if (json.status === "success") {
+    return {
+      status_code: json.status_code,
+      content_type: json.content_type || "",
+      data: json.data || ""
+    };
+  }
+  if (json.data !== void 0 && json.status_code !== void 0) {
+    return {
+      status_code: json.status_code,
+      content_type: json.content_type || "",
+      data: json.data || ""
+    };
+  }
+  throw new Error("Unexpected proxy response format");
+}
 async function addNewDataInputToKVStore(data) {
   return addNewRecordToKVStore(data, "api_input_connect_config");
 }
@@ -51466,6 +51508,58 @@ const EventPreviewModal = ({
     }
   );
 };
+function parseHeader(headerString) {
+  const colonIndex = headerString.indexOf(":");
+  if (colonIndex === -1) return null;
+  const name = headerString.slice(0, colonIndex).trim();
+  const value = headerString.slice(colonIndex + 1).trim();
+  if (!name) return null;
+  return { name, value };
+}
+const RequestPreview = ({ url: url2, headers, method = "GET" }) => {
+  const validHeaders = headers.filter((h2) => h2.trim()).map(parseHeader).filter((h2) => h2 !== null);
+  const hasContent = url2.trim() || validHeaders.length > 0;
+  if (!hasContent) {
+    return null;
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: {
+    backgroundColor: "#1a1a2e",
+    borderRadius: "6px",
+    padding: "16px",
+    fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+    fontSize: "13px",
+    marginTop: "12px",
+    marginBottom: "12px",
+    border: "1px solid #333"
+  }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: {
+      color: "#888",
+      fontSize: "11px",
+      textTransform: "uppercase",
+      letterSpacing: "0.5px",
+      marginBottom: "10px"
+    }, children: "Request Preview" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: validHeaders.length > 0 ? "12px" : 0 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#4ade80", fontWeight: 600 }, children: method }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#e2e8f0", marginLeft: "8px", wordBreak: "break-all" }, children: url2 || /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#666", fontStyle: "italic" }, children: "No URL specified" }) })
+    ] }),
+    validHeaders.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: {
+      borderTop: "1px solid #333",
+      paddingTop: "10px"
+    }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: {
+        color: "#888",
+        fontSize: "11px",
+        marginBottom: "6px"
+      }, children: "Headers:" }),
+      validHeaders.map((header, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "4px" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#60a5fa" }, children: header.name }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#888" }, children: ": " }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#fbbf24" }, children: header.value })
+      ] }, index))
+    ] })
+  ] });
+};
 const KVStoreDataForm = (props) => {
   const config2 = props.dataInputAppConfig || {};
   const modalToggle = React.useRef(null);
@@ -51642,7 +51736,7 @@ const KVStoreDataForm = (props) => {
         {
           type: "submit",
           disabled: props.loading,
-          onClick: () => props.fetchDataPreview(url2, getPaths()),
+          onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
           children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
         }
       )
@@ -51655,6 +51749,7 @@ const KVStoreDataForm = (props) => {
         children: controlledHttpHeaderRows
       }
     ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(RequestPreview, { url: url2, headers: http_headers }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Cron Expression:", required: true, tooltip: "Cron expression for scheduling data input", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Text,
       {
@@ -51797,23 +51892,75 @@ const NewKVStoreDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, on
     setFilteredData(filtered);
     if (onDataFetched) onDataFetched(JSON.stringify(filtered));
   };
-  async function fetchDataPreview(url2, jsonPaths) {
+  function parseHeaders(headerStrings) {
+    const headers = {};
+    for (const headerStr of headerStrings) {
+      const colonIndex = headerStr.indexOf(":");
+      if (colonIndex > 0) {
+        const name = headerStr.slice(0, colonIndex).trim();
+        const value = headerStr.slice(colonIndex + 1).trim();
+        if (name) {
+          headers[name] = value;
+        }
+      }
+    }
+    return headers;
+  }
+  function getHttpErrorMessage(status, statusText) {
+    const messages = {
+      400: "Bad Request - The server could not understand the request",
+      401: "Unauthorized - Authentication is required",
+      403: "Forbidden - You do not have permission to access this resource",
+      404: "Not Found - The requested resource does not exist",
+      405: "Method Not Allowed - This HTTP method is not supported",
+      408: "Request Timeout - The server timed out waiting for the request",
+      429: "Too Many Requests - Rate limit exceeded",
+      500: "Internal Server Error - The server encountered an error",
+      502: "Bad Gateway - Invalid response from upstream server",
+      503: "Service Unavailable - The server is temporarily unavailable",
+      504: "Gateway Timeout - Upstream server did not respond in time"
+    };
+    return messages[status] || statusText || "Unknown error";
+  }
+  async function fetchDataPreview(url2, jsonPaths, httpHeaders = []) {
     setError(null);
     setLoading(true);
     if (onDataFetched) onDataFetched("");
     try {
       if (!url2) throw new Error("Please enter a URL");
-      const response = await fetch(url2);
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
+      try {
+        new URL(url2);
+      } catch {
+        throw new Error(`Invalid URL format: "${url2}"`);
       }
-      const data = await response.json();
+      const headers = parseHeaders(httpHeaders);
+      const proxyResponse = await proxyApiRequest(url2, headers, "GET");
+      if (proxyResponse.status_code >= 400) {
+        const errorMessage = getHttpErrorMessage(proxyResponse.status_code, "");
+        let errorDetails = `HTTP ${proxyResponse.status_code}: ${errorMessage}`;
+        if (proxyResponse.data && proxyResponse.data.length < 500) {
+          errorDetails += `
+
+Server response: ${proxyResponse.data}`;
+        }
+        throw new Error(errorDetails);
+      }
+      const contentType = proxyResponse.content_type;
+      if (contentType && !contentType.includes("application/json")) {
+        throw new Error(`Expected JSON response but received: ${contentType}`);
+      }
+      const data = JSON.parse(proxyResponse.data);
       setRawData(data);
       const filtered = jsonPaths.length ? removeByJsonPaths(data, jsonPaths) : data;
       if (onDataFetched) onDataFetched(JSON.stringify(filtered));
     } catch (err) {
-      if (err instanceof Error) setError(err.message);
-      else setError("Unknown error");
+      if (err instanceof SyntaxError) {
+        setError("Invalid JSON response from server");
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred");
+      }
     } finally {
       setLoading(false);
     }
@@ -52536,7 +52683,7 @@ const IndexDataForm = (props) => {
         {
           type: "submit",
           disabled: props.loading,
-          onClick: () => props.fetchDataPreview(url2, getPaths()),
+          onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
           children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
         }
       )
@@ -52549,6 +52696,7 @@ const IndexDataForm = (props) => {
         children: controlledHttpHeaderRows
       }
     ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(RequestPreview, { url: url2, headers: http_headers }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Cron Expression:", required: true, tooltip: "Cron expression for scheduling data input", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Text,
       {
@@ -52664,23 +52812,75 @@ const NewIndexDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, onDa
     const filtered = jsonPaths.length ? removeByJsonPaths(rawData, jsonPaths) : rawData;
     if (onDataFetched) onDataFetched(JSON.stringify(filtered));
   };
-  async function fetchDataPreview(url2, jsonPaths) {
+  function parseHeaders(headerStrings) {
+    const headers = {};
+    for (const headerStr of headerStrings) {
+      const colonIndex = headerStr.indexOf(":");
+      if (colonIndex > 0) {
+        const name = headerStr.slice(0, colonIndex).trim();
+        const value = headerStr.slice(colonIndex + 1).trim();
+        if (name) {
+          headers[name] = value;
+        }
+      }
+    }
+    return headers;
+  }
+  function getHttpErrorMessage(status, statusText) {
+    const messages = {
+      400: "Bad Request - The server could not understand the request",
+      401: "Unauthorized - Authentication is required",
+      403: "Forbidden - You do not have permission to access this resource",
+      404: "Not Found - The requested resource does not exist",
+      405: "Method Not Allowed - This HTTP method is not supported",
+      408: "Request Timeout - The server timed out waiting for the request",
+      429: "Too Many Requests - Rate limit exceeded",
+      500: "Internal Server Error - The server encountered an error",
+      502: "Bad Gateway - Invalid response from upstream server",
+      503: "Service Unavailable - The server is temporarily unavailable",
+      504: "Gateway Timeout - Upstream server did not respond in time"
+    };
+    return messages[status] || statusText || "Unknown error";
+  }
+  async function fetchDataPreview(url2, jsonPaths, httpHeaders = []) {
     setError(null);
     setLoading(true);
     if (onDataFetched) onDataFetched("");
     try {
       if (!url2) throw new Error("Please enter a URL");
-      const response = await fetch(url2);
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
+      try {
+        new URL(url2);
+      } catch {
+        throw new Error(`Invalid URL format: "${url2}"`);
       }
-      const data = await response.json();
+      const headers = parseHeaders(httpHeaders);
+      const proxyResponse = await proxyApiRequest(url2, headers, "GET");
+      if (proxyResponse.status_code >= 400) {
+        const errorMessage = getHttpErrorMessage(proxyResponse.status_code, "");
+        let errorDetails = `HTTP ${proxyResponse.status_code}: ${errorMessage}`;
+        if (proxyResponse.data && proxyResponse.data.length < 500) {
+          errorDetails += `
+
+Server response: ${proxyResponse.data}`;
+        }
+        throw new Error(errorDetails);
+      }
+      const contentType = proxyResponse.content_type;
+      if (contentType && !contentType.includes("application/json")) {
+        throw new Error(`Expected JSON response but received: ${contentType}`);
+      }
+      const data = JSON.parse(proxyResponse.data);
       setRawData(data);
       const filtered = jsonPaths.length ? removeByJsonPaths(data, jsonPaths) : data;
       if (onDataFetched) onDataFetched(JSON.stringify(filtered));
     } catch (err) {
-      if (err instanceof Error) setError(err.message);
-      else setError("Unknown error");
+      if (err instanceof SyntaxError) {
+        setError("Invalid JSON response from server");
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred");
+      }
     } finally {
       setLoading(false);
     }

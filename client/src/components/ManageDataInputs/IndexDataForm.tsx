@@ -11,12 +11,13 @@ import CreateNewIndex from '../DataInputs/Index/CreateNewIndex';
 import TrashCanCross from '@splunk/react-icons/TrashCanCross';
 import ArrayFieldSelector from '../Json/ArrayFieldSelector';
 import EventPreviewModal from '../Json/EventPreviewModal';
+import RequestPreview from '../RequestPreview/RequestPreview';
 
 
 interface IndexDataFormProps {
     dataInputAppConfig?: DataInputAppConfig;
     setDataInputAppConfig?: React.Dispatch<React.SetStateAction<DataInputAppConfig>>;
-    fetchDataPreview: (url: string, jsonPaths: string[]) => Promise<void>;
+    fetchDataPreview: (url: string, jsonPaths: string[], httpHeaders?: string[]) => Promise<void>;
     loading: boolean;
     handleSave: (formData: DataInputAppConfig, clearInputs?: () => void) => void;
     setError: (message: string) => void;
@@ -239,12 +240,12 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                 <Button
                     type="submit"
                     disabled={props.loading}
-                    onClick={() => props.fetchDataPreview(url, getPaths())}
+                    onClick={() => props.fetchDataPreview(url, getPaths(), http_headers)}
                 >
                     {props.loading ? <WaitSpinner size="medium" /> : "Fetch"}
                 </Button>
             </ControlGroup>
-                <ControlGroup label="HTTP Headers" tooltip="Add one or more HTTP headers in the format 'Header: Value'">
+            <ControlGroup label="HTTP Headers" tooltip="Add one or more HTTP headers in the format 'Header: Value'">
                 <FormRows
                     onRequestAdd={handleNewHttpHeader}
                     addLabel="Add HTTP Header"
@@ -252,6 +253,9 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                     {controlledHttpHeaderRows}
                 </FormRows>
             </ControlGroup>
+
+            <RequestPreview url={url} headers={http_headers} />
+
             <ControlGroup label="Cron Expression:" required tooltip="Cron expression for scheduling data input">
                 <Text
                     value={cronExpression}

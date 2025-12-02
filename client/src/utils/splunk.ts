@@ -338,3 +338,73 @@ export async function createNewIndex(indexName: string) {
   const requestBody = new URLSearchParams({ name: indexName }).toString();
   return await runSplunkApiCall('/services/data/indexes', "POST", requestBody)
 }
+
+/**
+ * Proxy an external API request through the Splunk backend to bypass CORS restrictions.
+ */
+export interface ProxyResponse {
+  status_code: number;
+  content_type: string;
+  data: string;
+}
+
+export async function proxyApiRequest(
+  url: string,
+  headers: Record<string, string> = {},
+  method: string = 'GET'
+): Promise<ProxyResponse> {
+  // Build the script endpoint URL
+  // Format: /splunkd/__raw/servicesNS/nobody/{app}/api_proxy
+  const proxyUrl = `/en-US/splunkd/__raw/servicesNS/nobody/${config.app}/api_proxy`;
+
+  // Build query parameters
+  const params = new URLSearchParams({
+    url: url,
+    headers: JSON.stringify(headers),
+    method: method,
+    output_mode: 'json',
+  });
+
+  const fullUrl = `${proxyUrl}?${params.toString()}`;
+
+  const response = await fetch(fullUrl, {
+    ...defaultFetchInit,
+    method: 'GET',
+    headers: {
+      'X-Splunk-Form-Key': config.CSRFToken,
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Proxy request failed: ${response.status} - ${errorText}`);
+  }
+
+  const json = await response.json();
+
+  // Script endpoints return the payload directly
+  if (json.status === 'error') {
+    throw new Error(json.message || 'Proxy request failed');
+  }
+
+  if (json.status === 'success') {
+    return {
+      status_code: json.status_code,
+      content_type: json.content_type || '',
+      data: json.data || '',
+    };
+  }
+
+  // Fallback: try to use the response directly if it has the expected fields
+  if (json.data !== undefined && json.status_code !== undefined) {
+    return {
+      status_code: json.status_code,
+      content_type: json.content_type || '',
+      data: json.data || '',
+    };
+  }
+
+  throw new Error('Unexpected proxy response format');
+}
