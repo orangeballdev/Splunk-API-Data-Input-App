@@ -73,6 +73,26 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
         });
     }, []);
 
+    // Sync form state when dataInputAppConfig changes (for edit mode)
+    React.useEffect(() => {
+        if (props.dataInputAppConfig) {
+            const config = props.dataInputAppConfig;
+            setInputName(config.name ?? '');
+            setDataInputType(config.input_type ?? 'kvstore');
+            setUrl(config.url ?? 'https://dummyjson.com/products');
+            setHttpHeaders(config.http_headers ?? ['']);
+            setCronExpression(config.cron_expression ?? '0 * * * *');
+            setSelectedCollection(config.selected_output_location ?? '');
+            setMode(config.mode ?? 'overwrite');
+            setSeparateArrayPaths(config.separate_array_paths ?? []);
+            setJsonPathValues(
+                config.excluded_json_paths && config.excluded_json_paths.length > 0
+                    ? config.excluded_json_paths
+                    : ['']
+            );
+        }
+    }, [props.dataInputAppConfig]);
+
     // Register the addExcludePath function with the parent
     React.useEffect(() => {
         if (props.onAddExcludePathRef) {

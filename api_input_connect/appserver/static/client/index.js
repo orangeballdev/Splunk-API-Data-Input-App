@@ -35035,15 +35035,16 @@ async function addNewRecordToKVStore(value, collectionName) {
   }).then(fetchExports.handleResponse(201)).catch(fetchExports.handleError("error"));
   return n2;
 }
-const runSplunkApiCall = async (endpoint, method = "GET", body) => {
-  const url2 = urlExports.createRESTURL(endpoint + "?output_mode=json", { app: configExports.app, sharing: "app" });
+const runSplunkApiCall = async (endpoint, method = "GET", body, contentType = "application/json") => {
+  const separator = endpoint.includes("?") ? "&" : "?";
+  const url2 = urlExports.createRESTURL(endpoint + separator + "output_mode=json", { app: configExports.app, sharing: "app" });
   const fetchInit = {
     ...fetchExports.defaultFetchInit,
     method,
     headers: {
       "X-Splunk-Form-Key": configExports.CSRFToken,
       "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/json"
+      "Content-Type": contentType
     }
   };
   if (body) {
@@ -35085,12 +35086,12 @@ async function updateRecordInKVStore(collectionName, value, appName) {
   return response;
 }
 async function getAllIndexNames() {
-  const response = await runSplunkApiCall("/services/data/indexes");
+  const response = await runSplunkApiCall("/services/data/indexes?count=0");
   return response.entry.map((entry) => entry.name);
 }
 async function createNewIndex(indexName) {
   const requestBody = new URLSearchParams({ name: indexName }).toString();
-  return await runSplunkApiCall("/services/data/indexes", "POST", requestBody);
+  return await runSplunkApiCall("/services/data/indexes", "POST", requestBody, "application/x-www-form-urlencoded");
 }
 async function proxyApiRequest(url2, headers = {}, method = "GET") {
   const proxyUrl = `/en-US/splunkd/__raw/servicesNS/nobody/${configExports.app}/api_proxy`;
@@ -51592,6 +51593,22 @@ const KVStoreDataForm = (props) => {
     });
   }, []);
   React.useEffect(() => {
+    if (props.dataInputAppConfig) {
+      const config22 = props.dataInputAppConfig;
+      setInputName(config22.name ?? "");
+      setDataInputType(config22.input_type ?? "kvstore");
+      setUrl(config22.url ?? "https://dummyjson.com/products");
+      setHttpHeaders(config22.http_headers ?? [""]);
+      setCronExpression(config22.cron_expression ?? "0 * * * *");
+      setSelectedCollection(config22.selected_output_location ?? "");
+      setMode(config22.mode ?? "overwrite");
+      setSeparateArrayPaths(config22.separate_array_paths ?? []);
+      setJsonPathValues(
+        config22.excluded_json_paths && config22.excluded_json_paths.length > 0 ? config22.excluded_json_paths : [""]
+      );
+    }
+  }, [props.dataInputAppConfig]);
+  React.useEffect(() => {
     if (props.onAddExcludePathRef) {
       props.onAddExcludePathRef((path) => {
         setJsonPathValues((prev) => {
@@ -52535,6 +52552,21 @@ const IndexDataForm = (props) => {
     });
   }, []);
   React.useEffect(() => {
+    if (props.dataInputAppConfig) {
+      const config22 = props.dataInputAppConfig;
+      setInputName(config22.name ?? "");
+      setUrl(config22.url ?? "https://dummyjson.com/products");
+      setHttpHeaders(config22.http_headers ?? [""]);
+      setCronExpression(config22.cron_expression ?? "0 * * * *");
+      setSelectedIndex(config22.selected_output_location ?? "");
+      setMode(config22.mode ?? "overwrite");
+      setSeparateArrayPaths(config22.separate_array_paths ?? []);
+      setJsonPathValues(
+        config22.excluded_json_paths && config22.excluded_json_paths.length > 0 ? config22.excluded_json_paths : [""]
+      );
+    }
+  }, [props.dataInputAppConfig]);
+  React.useEffect(() => {
     if (props.onAddExcludePathRef) {
       props.onAddExcludePathRef((path) => {
         setJsonPathValues((prev) => {
@@ -52646,9 +52678,15 @@ const IndexDataForm = (props) => {
     props.setJsonPreview && props.setJsonPreview("");
   };
   const handleOnCreateIndex = async (createdIndexName) => {
-    const names = await getAllIndexNames();
-    setIndexNames(names);
+    setIndexNames((prev) => {
+      if (prev.includes(createdIndexName)) return prev;
+      return [...prev, createdIndexName].sort();
+    });
     setSelectedIndex(createdIndexName);
+    updateConfigField("selected_output_location", createdIndexName);
+    getAllIndexNames().then((names) => {
+      setIndexNames(names);
+    });
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Input Name:", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(

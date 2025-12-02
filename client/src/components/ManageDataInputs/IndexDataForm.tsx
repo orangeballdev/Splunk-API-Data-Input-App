@@ -70,6 +70,25 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
         });
     }, []);
 
+    // Sync form state when dataInputAppConfig changes (for edit mode)
+    React.useEffect(() => {
+        if (props.dataInputAppConfig) {
+            const config = props.dataInputAppConfig;
+            setInputName(config.name ?? '');
+            setUrl(config.url ?? 'https://dummyjson.com/products');
+            setHttpHeaders(config.http_headers ?? ['']);
+            setCronExpression(config.cron_expression ?? '0 * * * *');
+            setSelectedIndex(config.selected_output_location ?? '');
+            setMode(config.mode ?? 'overwrite');
+            setSeparateArrayPaths(config.separate_array_paths ?? []);
+            setJsonPathValues(
+                config.excluded_json_paths && config.excluded_json_paths.length > 0
+                    ? config.excluded_json_paths
+                    : ['']
+            );
+        }
+    }, [props.dataInputAppConfig]);
+
     // Register the addExcludePath function with the parent
     React.useEffect(() => {
         if (props.onAddExcludePathRef) {
@@ -209,10 +228,18 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
     };
 
     const handleOnCreateIndex = async (createdIndexName: string) => {
-        // update list of indexes
-        const names = await getAllIndexNames();
-        setIndexNames(names);
+        // Optimistically add the new index to the list immediately
+        setIndexNames(prev => {
+            if (prev.includes(createdIndexName)) return prev;
+            return [...prev, createdIndexName].sort();
+        });
         setSelectedIndex(createdIndexName);
+        updateConfigField('selected_output_location', createdIndexName);
+
+        // Refresh the list from the server in the background
+        getAllIndexNames().then(names => {
+            setIndexNames(names);
+        });
     };
 
     return (

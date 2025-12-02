@@ -264,16 +264,18 @@ export async function addNewRecordToKVStore(
 export const runSplunkApiCall = async (
   endpoint: string,
   method: string = "GET",
-  body?: string
+  body?: string,
+  contentType: string = "application/json"
 ) => {
-  const url = createRESTURL(endpoint + '?output_mode=json', { app: config.app, sharing: "app" });
+  const separator = endpoint.includes('?') ? '&' : '?';
+  const url = createRESTURL(endpoint + separator + 'output_mode=json', { app: config.app, sharing: "app" });
   const fetchInit = {
     ...defaultFetchInit,
     method,
     headers: {
       "X-Splunk-Form-Key": config.CSRFToken,
       "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/json",
+      "Content-Type": contentType,
     },
   };
   if (body) {
@@ -330,13 +332,13 @@ appName?: string,
 
 
 export async function getAllIndexNames(): Promise<string[]> {
-  const response = await runSplunkApiCall('/services/data/indexes');
+  const response = await runSplunkApiCall('/services/data/indexes?count=0');
   return response.entry.map((entry: { name: string }) => entry.name);
 }
 
 export async function createNewIndex(indexName: string) {
   const requestBody = new URLSearchParams({ name: indexName }).toString();
-  return await runSplunkApiCall('/services/data/indexes', "POST", requestBody)
+  return await runSplunkApiCall('/services/data/indexes', "POST", requestBody, "application/x-www-form-urlencoded")
 }
 
 /**
