@@ -41,7 +41,7 @@ export default function NewDataInput() {
   return (
     <ColumnLayout gutter={100}>
       <ColumnLayout.Row>
-        <ColumnLayout.Column span={6}>
+        <ColumnLayout.Column span={5}>
           {successMessage && (
             <MessageBar
             style={{marginBottom: "15px"}}
@@ -75,7 +75,7 @@ export default function NewDataInput() {
             />
           )}
         </ColumnLayout.Column>
-        <ColumnLayout.Column span={6}>
+        <ColumnLayout.Column span={7}>
           <JSONViewer initialData={jsonData} onPathClick={handlePathClick} />
         </ColumnLayout.Column>
       </ColumnLayout.Row>

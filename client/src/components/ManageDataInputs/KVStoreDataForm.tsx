@@ -1,15 +1,16 @@
-import TrashCanCross from '@splunk/react-icons/TrashCanCross';
 import Button from '@splunk/react-ui/Button';
 import Heading from '@splunk/react-ui/Heading';
 import Message from '@splunk/react-ui/Message';
 import RadioList from '@splunk/react-ui/RadioList';
 import Select from '@splunk/react-ui/Select';
 import Text from '@splunk/react-ui/Text';
-import Typography from '@splunk/react-ui/Typography';
 import WaitSpinner from '@splunk/react-ui/WaitSpinner';
 import React, { useState } from 'react';
 import { generateSelectedOutputString } from '../../utils/dataInputUtils';
 import { createNewKVStoreCollection, getAllCollectionNames, type KVStoreCollection } from '../../utils/splunk';
+import FormField from '../common/FormField';
+import FormSection from '../common/FormSection';
+import TextInputList from '../common/TextInputList';
 import NewKVStoreForm from '../DataInputs/KVStore/NewKVStoreForm';
 import ArrayFieldSelector from '../Json/ArrayFieldSelector';
 import EventPreviewModal from '../Json/EventPreviewModal';
@@ -68,12 +69,9 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
     );
 
     React.useEffect(() => {
-        getAllCollectionNames().then(result => {
-            setCollectionNames(result);
-        });
+        getAllCollectionNames().then(setCollectionNames);
     }, []);
 
-    // Sync form state when dataInputAppConfig changes (for edit mode)
     React.useEffect(() => {
         if (props.dataInputAppConfig) {
             const config = props.dataInputAppConfig;
@@ -93,14 +91,11 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
         }
     }, [props.dataInputAppConfig]);
 
-    // Register the addExcludePath function with the parent
     React.useEffect(() => {
         if (props.onAddExcludePathRef) {
             props.onAddExcludePathRef((path: string) => {
                 setJsonPathValues((prev) => {
-                    // Don't add duplicates
                     if (prev.includes(path)) return prev;
-                    // If first row is empty, replace it; otherwise add new row
                     const updated = prev[0] === '' ? [path] : [...prev, path];
                     props.onJSONPathsChange(updated.filter(Boolean));
                     updateConfigField('excluded_json_paths', updated.filter(Boolean));
@@ -110,135 +105,23 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
         }
     }, [props.onAddExcludePathRef]);
 
-    // Add new JSONPath row
-    const handleNewJsonPathExclusion = () => {
-        setJsonPathValues((prev) => {
-            const updated = [...prev, ""];
-            props.onJSONPathsChange(updated.filter(Boolean));
-            updateConfigField('excluded_json_paths', updated.filter(Boolean));
-            return updated;
-        });
+    const handleJsonPathsChange = (values: string[]) => {
+        setJsonPathValues(values);
+        const filtered = values.filter(Boolean);
+        props.onJSONPathsChange(filtered);
+        updateConfigField('excluded_json_paths', filtered);
     };
 
-    // Remove a JSONPath row by index
-    const handleRemoveJsonPathRow = (index: number) => {
-        if (index === 0) return; // Prevent removing the first row
-        setJsonPathValues((prev) => {
-            if (prev.length === 1) return prev; // Prevent removing the last row
-            const updated = prev.filter((_, i) => i !== index);
-            props.onJSONPathsChange(updated.filter(Boolean));
-            updateConfigField('excluded_json_paths', updated.filter(Boolean));
-            return updated;
-        });
+    const handleHttpHeadersChange = (values: string[]) => {
+        setHttpHeaders(values);
+        updateConfigField('http_headers', values.filter(Boolean));
     };
 
-    // Handle Text value change in a row (accept value: string)
-    const handleJsonPathTextChange = (value: string, { index }: { index: number }) => {
-        setJsonPathValues((prev) => {
-            const updated = prev.map((v, i) => (i === index ? value : v));
-            props.onJSONPathsChange(updated.filter(Boolean));
-            updateConfigField('excluded_json_paths', updated.filter(Boolean));
-            return updated;
-        });
-    };
-
-    // Render controlled rows with inline layout
-    const controlledJsonPathRows = (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {jsonPathValues.map((value, i) => (
-                <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                    <Text
-                        style={{ width: '80%', fontSize: '1.1em' }}
-                        placeholder="e.g. $.bar[*].baz"
-                        value={value}
-                        onChange={(_, { value }) => handleJsonPathTextChange(value, { index: i })}
-                    />
-                    {i !== 0 && (
-                        <Button
-                            inline
-                            appearance="secondary"
-                            onClick={() => handleRemoveJsonPathRow(i)}
-                            label=""
-                            icon={<TrashCanCross />}
-                            style={{ flexShrink: 0 }}
-                        />
-                    )}
-                </div>
-            ))}
-            <Button
-                appearance="secondary"
-                onClick={handleNewJsonPathExclusion}
-                style={{ width: '100%' }}
-            >
-                Add Exclude JSONPath
-            </Button>
-        </div>
-    );
-
-    // Add new HTTP header row
-    const handleNewHttpHeader = () => {
-        setHttpHeaders((prev) => [...prev, ""]);
-    };
-
-    // Remove an HTTP header row by index
-    const handleRemoveHttpHeader = (index: number) => {
-        if (index === 0) return; // Prevent removing the first row
-        setHttpHeaders((prev) => {
-            if (prev.length === 1) return prev;
-            return prev.filter((_, i) => i !== index);
-        });
-    };
-
-    // Handle Text value change in a header row
-    const handleHttpHeaderTextChange = (value: string, { index }: { index: number }) => {
-        setHttpHeaders((prev) => {
-            const updated = prev.map((v, i) => (i === index ? value : v));
-            updateConfigField('http_headers', updated.filter(Boolean));
-            return updated;
-        });
-    };
-
-    // Render controlled rows for HTTP headers with inline layout
-    const controlledHttpHeaderRows = (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {http_headers.map((value, i) => (
-                <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                    <Text
-                        style={{ fontSize: '1.1em', width: '80%' }}
-                        placeholder="Header: Value"
-                        value={value}
-                        onChange={(_, { value }) => handleHttpHeaderTextChange(value, { index: i })}
-                    />
-                    {i !== 0 && (
-                        <Button
-                            inline
-                            appearance="secondary"
-                            onClick={() => handleRemoveHttpHeader(i)}
-                            label=""
-                            icon={<TrashCanCross />}
-                            style={{ flexShrink: 0 }}
-                        />
-                    )}
-                </div>
-            ))}
-            <Button
-                appearance="secondary"
-                onClick={handleNewHttpHeader}
-                style={{ width: '100%' }}
-            >
-                Add HTTP Header
-            </Button>
-        </div>
-    );
-
-    // Collect JSONPath values from all Text fields in rows
     const getPaths = () => jsonPathValues.filter(Boolean);
     const handleOnCreateCollection = async (createdCollectionName: string, appName: string, fields: string[]) => {
         try {
-            // Create the KVStore collection on the backend
             await createNewKVStoreCollection(createdCollectionName, appName, fields);
             
-            // Optimistically add the new collection to the list immediately
             setCollectionNames(prev => {
                 const newCollection = { name: createdCollectionName, app: appName };
                 const exists = prev.some(c => c.name === createdCollectionName && c.app === appName);
@@ -249,16 +132,12 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
             setSelectedCollection(selectedOutput);
             updateConfigField('selected_output_location', selectedOutput);
 
-            // Refresh the list from the server in the background
-            getAllCollectionNames().then(names => {
-                setCollectionNames(names);
-            });
+            getAllCollectionNames().then(setCollectionNames);
         } catch (error) {
             props.setError(error instanceof Error ? error.message : 'Failed to create KV Store collection');
         }
     };
 
-    // Function to clear all input fields
     const clearInputs = () => {
         setInputName('');
         setDataInputType('kvstore');
@@ -270,20 +149,16 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
         setHttpHeaders([""]);
         setSeparateArrayPaths([]);
         props.onJSONPathsChange([]);
-        props.setJsonPreview && props.setJsonPreview('')
+        props.setJsonPreview?.('')
     };
 
     return (
         <div style={{ width: '100%', padding: '0' }}>
-            {/* Basic Configuration Section */}
             <Heading level={2} style={{ marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                 Basic Configuration
             </Heading>
 
-            <div style={{ marginBottom: '20px', width: '100%' }}>
-                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }}>
-                    Input Name <span style={{ color: 'red' }}>*</span>
-                </Typography>
+            <FormField label="Input Name" required>
                 <Text
                     value={name}
                     onChange={(_, { value }) => {
@@ -295,12 +170,9 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                     canClear
                     style={{ width: '100%' }}
                 />
-            </div>
+            </FormField>
 
-            <div style={{ marginBottom: '20px', width: '100%' }}>
-                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }}>
-                    API URL <span style={{ color: 'red' }}>*</span>
-                </Typography>
+            <FormField label="API URL" required>
                 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
                     <Text
                         value={url}
@@ -319,101 +191,87 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                         {props.loading ? <WaitSpinner size="medium" /> : "Fetch"}
                     </Button>
                 </div>
-            </div>
+            </FormField>
 
-            <div style={{ marginBottom: '20px', width: '100%' }}>
-                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Add one or more HTTP headers in the format 'Header: Value'">
-                    HTTP Headers
-                </Typography>
-                {controlledHttpHeaderRows}
-            </div>
-
-            {/* Splunk Configuration Section */}
-            <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
-                Splunk Configuration
-            </Heading>
-
-            <div style={{ marginBottom: '20px', width: '100%' }}>
-                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Cron expression for scheduling data input">
-                    Cron Expression <span style={{ color: 'red' }}>*</span>
-                </Typography>
-                <Text
-                    value={cronExpression}
-                    onChange={(_, { value }) => {updateConfigField('cron_expression', value); setCronExpression(value)}}
-                    placeholder="0 * * * *"
-                    required
-                    style={{ width: '100%' }}
+            <FormField label="HTTP Headers" tooltip="Add one or more HTTP headers in the format 'Header: Value'">
+                <TextInputList
+                    values={http_headers}
+                    placeholder="Header: Value"
+                    buttonLabel="Add HTTP Header"
+                    onChange={handleHttpHeadersChange}
                 />
-            </div>
+            </FormField>
 
-            <div style={{ marginBottom: '20px', width: '100%' }}>
-                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }}>
-                    Select KVStore Collection <span style={{ color: 'red' }}>*</span>
-                </Typography>
-                <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
-                    <Select
-                        value={selected_output_location}
-                        onChange={(_, { value }) => {
-                            updateConfigField('selected_output_location', String(value));
-                            setSelectedCollection(String(value));
-                        }}
-                        filter
-                        placeholder="Select a collection..."
-                        style={{ width: '60%' }}
-                    >
-                        {collectionNames.map((collection: KVStoreCollection) => (
-                            <Select.Option
-                                value={generateSelectedOutputString(collection.app, collection.name)}
-                                key={collection.name}
-                                label={`${collection.name} (${collection.app})`}
-                            />
-                        ))}
-                    </Select>
-                    <Button appearance="secondary" onClick={() => setShowCreateCollectionModal(true)} elementRef={modalToggle} style={{ minWidth: '180px' }}>
-                        Create New Collection
-                    </Button>   
-                </div>
-            </div>
-            <NewKVStoreForm
-                open={showCreateCollectionModal}
-                onClose={() => setShowCreateCollectionModal(false)}
-                onCreate={handleOnCreateCollection}
-                modalToggle={modalToggle}
-                initialFields={props.fieldsForKvStoreCreation}
-            />
+            <FormSection title="Splunk Configuration">
+                <FormField label="Cron Expression" required tooltip="Cron expression for scheduling data input">
+                    <Text
+                        value={cronExpression}
+                        onChange={(_, { value }) => {updateConfigField('cron_expression', value); setCronExpression(value)}}
+                        placeholder="0 * * * *"
+                        required
+                        style={{ width: '100%' }}
+                    />
+                </FormField>
 
-            <div style={{ marginBottom: '20px', width: '100%' }}>
-                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Overwrite will replace all existing data in the collection">
-                    Mode <span style={{ color: 'red' }}>*</span>
-                </Typography>
-                <RadioList value={mode} onChange={(_, { value }) => {
-                    updateConfigField('mode', value as DataInputMode);
-                    setMode(value as DataInputMode)
-                }}>
-                    <RadioList.Option value="overwrite">Overwrite</RadioList.Option>
-                </RadioList>
-            </div>
+                <FormField label="Select KVStore Collection" required>
+                    <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+                        <Select
+                            value={selected_output_location}
+                            onChange={(_, { value }) => {
+                                updateConfigField('selected_output_location', String(value));
+                                setSelectedCollection(String(value));
+                            }}
+                            filter
+                            placeholder="Select a collection..."
+                            style={{ width: '60%' }}
+                        >
+                            {collectionNames.map((collection: KVStoreCollection) => (
+                                <Select.Option
+                                    value={generateSelectedOutputString(collection.app, collection.name)}
+                                    key={collection.name}
+                                    label={`${collection.name} (${collection.app})`}
+                                />
+                            ))}
+                        </Select>
+                        <Button appearance="secondary" onClick={() => setShowCreateCollectionModal(true)} elementRef={modalToggle} style={{ minWidth: '180px' }}>
+                            Create New Collection
+                        </Button>   
+                    </div>
+                </FormField>
 
-            {/* Data Processing Section */}
-            <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
-                Data Processing
-            </Heading>
-            <Message type="warning" style={{ marginBottom: '20px' }}>
-                Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields.
-            </Message>
-            <div style={{ marginBottom: '20px', width: '100%' }}>
-                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Provide one or more JSONPath expressions to exclude fields from the JSON.">
-                    Exclude JSONPaths
-                </Typography>
-                {controlledJsonPathRows}
-            </div>
+                <NewKVStoreForm
+                    open={showCreateCollectionModal}
+                    onClose={() => setShowCreateCollectionModal(false)}
+                    onCreate={handleOnCreateCollection}
+                    modalToggle={modalToggle}
+                    initialFields={props.fieldsForKvStoreCreation}
+                />
 
-            <div style={{ marginBottom: '20px', width: '100%' }}>
-                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Select which arrays should be split into separate events. Each array item will become its own event in Splunk.">
-                    Separate Arrays as Events
-                </Typography>
-                <div style={{ width: '100%' }}>
-                   
+                <FormField label="Mode" required tooltip="Overwrite will replace all existing data in the collection">
+                    <RadioList value={mode} onChange={(_, { value }) => {
+                        updateConfigField('mode', value as DataInputMode);
+                        setMode(value as DataInputMode)
+                    }}>
+                        <RadioList.Option value="overwrite">Overwrite</RadioList.Option>
+                    </RadioList>
+                </FormField>
+            </FormSection>
+
+            <FormSection title="Data Processing">
+                <Message type="warning" style={{ marginBottom: '20px' }}>
+                    Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields.
+                </Message>
+
+                <FormField label="Exclude JSONPaths" tooltip="Provide one or more JSONPath expressions to exclude fields from the JSON.">
+                    <TextInputList
+                        values={jsonPathValues}
+                        placeholder="e.g. $.bar[*].baz"
+                        buttonLabel="Add Exclude JSONPath"
+                        onChange={handleJsonPathsChange}
+                    />
+                </FormField>
+
+                <FormField label="Separate Arrays as Events" tooltip="Select which arrays should be split into separate events. Each array item will become its own event in Splunk.">
                     <ArrayFieldSelector
                         data={props.rawData}
                         selectedPaths={separateArrayPaths}
@@ -431,8 +289,8 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                     >
                         Preview Events
                     </Button>
-                </div>
-            </div>
+                </FormField>
+            </FormSection>
 
             <EventPreviewModal
                 open={showPreviewModal}
@@ -443,9 +301,8 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                 modalToggle={previewModalToggle}
             />
 
-            {/* assume if dataInputAppConfig is passed in save logic is being handled else where (edit mode) */}
             {!props.dataInputAppConfig && (
-                <div style={{ marginTop: '32px', paddingTop: '20px', borderTop: '1px solid #e0e0e0' }}>
+                <div style={{ marginTop: '32px', paddingTop: '20px', borderBottom: '1px solid #e0e0e0' }}>
                     <Button
                         appearance="primary"
                         onClick={() => {

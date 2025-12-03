@@ -36541,135 +36541,6 @@ function removeByJsonPaths(obj, paths) {
   }
   return clone;
 }
-var TrashCanCross$1 = { exports: {} };
-var hasRequiredTrashCanCross;
-function requireTrashCanCross() {
-  if (hasRequiredTrashCanCross) return TrashCanCross$1.exports;
-  hasRequiredTrashCanCross = 1;
-  (() => {
-    var e2 = {};
-    (() => {
-      e2.n = (r3) => {
-        var t3 = r3 && r3.__esModule ? (
-          /******/
-          () => r3["default"]
-        ) : () => r3;
-        e2.d(t3, {
-          a: t3
-        });
-        return t3;
-      };
-    })();
-    (() => {
-      e2.d = (r3, t3) => {
-        for (var n3 in t3) {
-          if (e2.o(t3, n3) && !e2.o(r3, n3)) {
-            Object.defineProperty(r3, n3, {
-              enumerable: true,
-              get: t3[n3]
-            });
-          }
-        }
-      };
-    })();
-    (() => {
-      e2.o = (e3, r3) => Object.prototype.hasOwnProperty.call(e3, r3);
-    })();
-    (() => {
-      e2.r = (e3) => {
-        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
-          Object.defineProperty(e3, Symbol.toStringTag, {
-            value: "Module"
-          });
-        }
-        Object.defineProperty(e3, "__esModule", {
-          value: true
-        });
-      };
-    })();
-    var r2 = {};
-    e2.r(r2);
-    e2.d(r2, {
-      default: () => (
-        /* binding */
-        s2
-      )
-    });
-    const t2 = requireReact();
-    var n2 = e2.n(t2);
-    const l2 = requireSVG();
-    var a2 = e2.n(l2);
-    const o2 = requireIconProvider();
-    function u2(e3, r3) {
-      if (null == e3) return {};
-      var t3, n3, l3 = i2(e3, r3);
-      if (Object.getOwnPropertySymbols) {
-        var a3 = Object.getOwnPropertySymbols(e3);
-        for (n3 = 0; n3 < a3.length; n3++) {
-          t3 = a3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (l3[t3] = e3[t3]);
-        }
-      }
-      return l3;
-    }
-    function i2(e3, r3) {
-      if (null == e3) return {};
-      var t3 = {};
-      for (var n3 in e3) {
-        if ({}.hasOwnProperty.call(e3, n3)) {
-          if (r3.includes(n3)) continue;
-          t3[n3] = e3[n3];
-        }
-      }
-      return t3;
-    }
-    var c2 = /* @__PURE__ */ new Map();
-    c2.set("outlined", function() {
-      return n2().createElement(n2().Fragment, null, n2().createElement("path", {
-        d: "M10.5858 14L9.2929 15.2929C8.90237 15.6834 8.90237 16.3166 9.2929 16.7071C9.68342 17.0976 10.3166 17.0976 10.7071 16.7071L12 15.4142L13.2929 16.7071C13.6834 17.0976 14.3166 17.0976 14.7071 16.7071C15.0976 16.3166 15.0976 15.6834 14.7071 15.2929L13.4142 14L14.7071 12.7071C15.0976 12.3166 15.0976 11.6834 14.7071 11.2929C14.3166 10.9024 13.6834 10.9024 13.2929 11.2929L12 12.5858L10.7071 11.2929C10.3166 10.9024 9.68342 10.9024 9.29289 11.2929C8.90237 11.6834 8.90237 12.3166 9.29289 12.7071L10.5858 14Z"
-      }), n2().createElement("path", {
-        fillRule: "evenodd",
-        clipRule: "evenodd",
-        d: "M16 6H20C20.5523 6 21 6.44772 21 7C21 7.55228 20.5523 8 20 8H19V20.5C19 21.3284 18.3284 22 17.5 22H6.5C5.67157 22 5 21.3284 5 20.5V8H4C3.44772 8 3 7.55228 3 7C3 6.44772 3.44772 6 4 6H8V3.5C8 2.67157 8.67157 2 9.5 2H14.5C15.3284 2 16 2.67157 16 3.5V6ZM10 4V6H14V4H10ZM7 8V20H17V8H7Z"
-      }));
-    });
-    c2.set("filled", function() {
-      return n2().createElement(n2().Fragment, null, n2().createElement("path", {
-        fillRule: "evenodd",
-        clipRule: "evenodd",
-        d: "M16 6V3.5C16 2.67157 15.3284 2 14.5 2H9.5C8.67157 2 8 2.67157 8 3.5V6H4C3.44772 6 3 6.44772 3 7C3 7.55228 3.44772 8 4 8H5V20.5C5 21.3284 5.67157 22 6.5 22H17.5C18.3284 22 19 21.3284 19 20.5V8H20C20.5523 8 21 7.55228 21 7C21 6.44772 20.5523 6 20 6H16ZM10 6V4H14V6H10ZM12 12.5859L10.7071 11.293C10.3166 10.9025 9.68342 10.9025 9.29289 11.293C8.90237 11.6835 8.90237 12.3167 9.29289 12.7072L10.5858 14.0001L9.2929 15.293C8.90237 15.6835 8.90237 16.3167 9.2929 16.7072C9.68342 17.0978 10.3166 17.0978 10.7071 16.7072L12 15.4143L13.2929 16.7072C13.6834 17.0978 14.3166 17.0978 14.7071 16.7072C15.0976 16.3167 15.0976 15.6835 14.7071 15.293L13.4142 14.0001L14.7071 12.7072C15.0976 12.3167 15.0976 11.6835 14.7071 11.293C14.3166 10.9025 13.6834 10.9025 13.2929 11.293L12 12.5859Z"
-      }));
-    });
-    var d2 = ["default", "outlined", "filled"];
-    var f2 = function e3(r3) {
-      return d2.indexOf(r3) >= 0;
-    };
-    var C2 = function e3(r3) {
-      return r3 === "default" || r3 && !f2(r3) ? "outlined" : r3;
-    };
-    var v2 = function e3(r3) {
-      var l3 = r3.children, i3 = r3.variant, d3 = i3 === void 0 ? "default" : i3, f3 = u2(r3, ["children", "variant"]);
-      var v3 = C2(d3);
-      var s3 = "trashcancross-".concat(v3);
-      var p2 = (0, t2.useContext)(o2.IconContext);
-      var H2 = c2.get(v3);
-      if (p2 && H2) {
-        var m2 = p2.toRender, L2 = p2.addIcon;
-        L2(s3, H2());
-        if (!m2) {
-          return null;
-        }
-      }
-      return n2().createElement(a2(), f3, l3, p2 ? n2().createElement("use", {
-        href: "#".concat(s3)
-      }) : !!H2 && H2());
-    };
-    const s2 = v2;
-    TrashCanCross$1.exports = r2;
-  })();
-  return TrashCanCross$1.exports;
-}
-var TrashCanCrossExports = requireTrashCanCross();
-const TrashCanCross = /* @__PURE__ */ getDefaultExportFromCjs(TrashCanCrossExports);
 var ButtonExports = requireButton();
 const Button = /* @__PURE__ */ getDefaultExportFromCjs(ButtonExports);
 var Heading$1 = { exports: {} };
@@ -44611,10 +44482,216 @@ var SelectExports = requireSelect();
 const Select = /* @__PURE__ */ getDefaultExportFromCjs(SelectExports);
 var TextExports = requireText();
 const Text = /* @__PURE__ */ getDefaultExportFromCjs(TextExports);
-var TypographyExports = requireTypography();
-const Typography = /* @__PURE__ */ getDefaultExportFromCjs(TypographyExports);
 var WaitSpinnerExports = requireWaitSpinner();
 const WaitSpinner = /* @__PURE__ */ getDefaultExportFromCjs(WaitSpinnerExports);
+var TypographyExports = requireTypography();
+const Typography = /* @__PURE__ */ getDefaultExportFromCjs(TypographyExports);
+function FormLabel({ children, required, tooltip }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    Typography,
+    {
+      as: "span",
+      variant: "body",
+      weight: "semiBold",
+      style: { display: "block", marginBottom: "8px" },
+      title: tooltip,
+      children: [
+        children,
+        required && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: " *" })
+      ]
+    }
+  );
+}
+function FormField({ children, label, required, tooltip }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(FormLabel, { required, tooltip, children: label }),
+    children
+  ] });
+}
+function FormSection({ title, children }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Heading,
+      {
+        level: 2,
+        style: {
+          marginTop: "40px",
+          marginBottom: "24px",
+          paddingBottom: "12px",
+          borderBottom: "2px solid #ccc"
+        },
+        children: title
+      }
+    ),
+    children
+  ] });
+}
+var TrashCanCross$1 = { exports: {} };
+var hasRequiredTrashCanCross;
+function requireTrashCanCross() {
+  if (hasRequiredTrashCanCross) return TrashCanCross$1.exports;
+  hasRequiredTrashCanCross = 1;
+  (() => {
+    var e2 = {};
+    (() => {
+      e2.n = (r3) => {
+        var t3 = r3 && r3.__esModule ? (
+          /******/
+          () => r3["default"]
+        ) : () => r3;
+        e2.d(t3, {
+          a: t3
+        });
+        return t3;
+      };
+    })();
+    (() => {
+      e2.d = (r3, t3) => {
+        for (var n3 in t3) {
+          if (e2.o(t3, n3) && !e2.o(r3, n3)) {
+            Object.defineProperty(r3, n3, {
+              enumerable: true,
+              get: t3[n3]
+            });
+          }
+        }
+      };
+    })();
+    (() => {
+      e2.o = (e3, r3) => Object.prototype.hasOwnProperty.call(e3, r3);
+    })();
+    (() => {
+      e2.r = (e3) => {
+        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+          Object.defineProperty(e3, Symbol.toStringTag, {
+            value: "Module"
+          });
+        }
+        Object.defineProperty(e3, "__esModule", {
+          value: true
+        });
+      };
+    })();
+    var r2 = {};
+    e2.r(r2);
+    e2.d(r2, {
+      default: () => (
+        /* binding */
+        s2
+      )
+    });
+    const t2 = requireReact();
+    var n2 = e2.n(t2);
+    const l2 = requireSVG();
+    var a2 = e2.n(l2);
+    const o2 = requireIconProvider();
+    function u2(e3, r3) {
+      if (null == e3) return {};
+      var t3, n3, l3 = i2(e3, r3);
+      if (Object.getOwnPropertySymbols) {
+        var a3 = Object.getOwnPropertySymbols(e3);
+        for (n3 = 0; n3 < a3.length; n3++) {
+          t3 = a3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (l3[t3] = e3[t3]);
+        }
+      }
+      return l3;
+    }
+    function i2(e3, r3) {
+      if (null == e3) return {};
+      var t3 = {};
+      for (var n3 in e3) {
+        if ({}.hasOwnProperty.call(e3, n3)) {
+          if (r3.includes(n3)) continue;
+          t3[n3] = e3[n3];
+        }
+      }
+      return t3;
+    }
+    var c2 = /* @__PURE__ */ new Map();
+    c2.set("outlined", function() {
+      return n2().createElement(n2().Fragment, null, n2().createElement("path", {
+        d: "M10.5858 14L9.2929 15.2929C8.90237 15.6834 8.90237 16.3166 9.2929 16.7071C9.68342 17.0976 10.3166 17.0976 10.7071 16.7071L12 15.4142L13.2929 16.7071C13.6834 17.0976 14.3166 17.0976 14.7071 16.7071C15.0976 16.3166 15.0976 15.6834 14.7071 15.2929L13.4142 14L14.7071 12.7071C15.0976 12.3166 15.0976 11.6834 14.7071 11.2929C14.3166 10.9024 13.6834 10.9024 13.2929 11.2929L12 12.5858L10.7071 11.2929C10.3166 10.9024 9.68342 10.9024 9.29289 11.2929C8.90237 11.6834 8.90237 12.3166 9.29289 12.7071L10.5858 14Z"
+      }), n2().createElement("path", {
+        fillRule: "evenodd",
+        clipRule: "evenodd",
+        d: "M16 6H20C20.5523 6 21 6.44772 21 7C21 7.55228 20.5523 8 20 8H19V20.5C19 21.3284 18.3284 22 17.5 22H6.5C5.67157 22 5 21.3284 5 20.5V8H4C3.44772 8 3 7.55228 3 7C3 6.44772 3.44772 6 4 6H8V3.5C8 2.67157 8.67157 2 9.5 2H14.5C15.3284 2 16 2.67157 16 3.5V6ZM10 4V6H14V4H10ZM7 8V20H17V8H7Z"
+      }));
+    });
+    c2.set("filled", function() {
+      return n2().createElement(n2().Fragment, null, n2().createElement("path", {
+        fillRule: "evenodd",
+        clipRule: "evenodd",
+        d: "M16 6V3.5C16 2.67157 15.3284 2 14.5 2H9.5C8.67157 2 8 2.67157 8 3.5V6H4C3.44772 6 3 6.44772 3 7C3 7.55228 3.44772 8 4 8H5V20.5C5 21.3284 5.67157 22 6.5 22H17.5C18.3284 22 19 21.3284 19 20.5V8H20C20.5523 8 21 7.55228 21 7C21 6.44772 20.5523 6 20 6H16ZM10 6V4H14V6H10ZM12 12.5859L10.7071 11.293C10.3166 10.9025 9.68342 10.9025 9.29289 11.293C8.90237 11.6835 8.90237 12.3167 9.29289 12.7072L10.5858 14.0001L9.2929 15.293C8.90237 15.6835 8.90237 16.3167 9.2929 16.7072C9.68342 17.0978 10.3166 17.0978 10.7071 16.7072L12 15.4143L13.2929 16.7072C13.6834 17.0978 14.3166 17.0978 14.7071 16.7072C15.0976 16.3167 15.0976 15.6835 14.7071 15.293L13.4142 14.0001L14.7071 12.7072C15.0976 12.3167 15.0976 11.6835 14.7071 11.293C14.3166 10.9025 13.6834 10.9025 13.2929 11.293L12 12.5859Z"
+      }));
+    });
+    var d2 = ["default", "outlined", "filled"];
+    var f2 = function e3(r3) {
+      return d2.indexOf(r3) >= 0;
+    };
+    var C2 = function e3(r3) {
+      return r3 === "default" || r3 && !f2(r3) ? "outlined" : r3;
+    };
+    var v2 = function e3(r3) {
+      var l3 = r3.children, i3 = r3.variant, d3 = i3 === void 0 ? "default" : i3, f3 = u2(r3, ["children", "variant"]);
+      var v3 = C2(d3);
+      var s3 = "trashcancross-".concat(v3);
+      var p2 = (0, t2.useContext)(o2.IconContext);
+      var H2 = c2.get(v3);
+      if (p2 && H2) {
+        var m2 = p2.toRender, L2 = p2.addIcon;
+        L2(s3, H2());
+        if (!m2) {
+          return null;
+        }
+      }
+      return n2().createElement(a2(), f3, l3, p2 ? n2().createElement("use", {
+        href: "#".concat(s3)
+      }) : !!H2 && H2());
+    };
+    const s2 = v2;
+    TrashCanCross$1.exports = r2;
+  })();
+  return TrashCanCross$1.exports;
+}
+var TrashCanCrossExports = requireTrashCanCross();
+const TrashCanCross = /* @__PURE__ */ getDefaultExportFromCjs(TrashCanCrossExports);
+function TextInputList({ values, placeholder, buttonLabel, onChange }) {
+  const handleAdd = () => {
+    onChange([...values, ""]);
+  };
+  const handleRemove = (index) => {
+    if (index === 0 || values.length === 1) return;
+    onChange(values.filter((_2, i2) => i2 !== index));
+  };
+  const handleChange = (value, index) => {
+    onChange(values.map((v2, i2) => i2 === index ? value : v2));
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "8px" }, children: [
+    values.map((value, i2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", alignItems: "center" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Text,
+        {
+          style: { width: "80%", fontSize: "1.1em" },
+          placeholder,
+          value,
+          onChange: (_2, { value: value2 }) => handleChange(value2, i2)
+        }
+      ),
+      i2 !== 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Button,
+        {
+          inline: true,
+          appearance: "secondary",
+          onClick: () => handleRemove(i2),
+          label: "",
+          icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrashCanCross, {}),
+          style: { flexShrink: 0 }
+        }
+      )
+    ] }, i2)),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: handleAdd, style: { width: "100%" }, children: buttonLabel })
+  ] });
+}
 var Modal$1 = { exports: {} };
 var ModalLayer = { exports: {} };
 var hasRequiredModalLayer;
@@ -45957,9 +46034,7 @@ const KVStoreDataForm = (props) => {
     config2.excluded_json_paths && config2.excluded_json_paths.length > 0 ? config2.excluded_json_paths : [""]
   );
   React.useEffect(() => {
-    getAllCollectionNames().then((result) => {
-      setCollectionNames(result);
-    });
+    getAllCollectionNames().then(setCollectionNames);
   }, []);
   React.useEffect(() => {
     if (props.dataInputAppConfig) {
@@ -45990,115 +46065,16 @@ const KVStoreDataForm = (props) => {
       });
     }
   }, [props.onAddExcludePathRef]);
-  const handleNewJsonPathExclusion = () => {
-    setJsonPathValues((prev) => {
-      const updated = [...prev, ""];
-      props.onJSONPathsChange(updated.filter(Boolean));
-      updateConfigField("excluded_json_paths", updated.filter(Boolean));
-      return updated;
-    });
+  const handleJsonPathsChange = (values) => {
+    setJsonPathValues(values);
+    const filtered = values.filter(Boolean);
+    props.onJSONPathsChange(filtered);
+    updateConfigField("excluded_json_paths", filtered);
   };
-  const handleRemoveJsonPathRow = (index) => {
-    if (index === 0) return;
-    setJsonPathValues((prev) => {
-      if (prev.length === 1) return prev;
-      const updated = prev.filter((_2, i2) => i2 !== index);
-      props.onJSONPathsChange(updated.filter(Boolean));
-      updateConfigField("excluded_json_paths", updated.filter(Boolean));
-      return updated;
-    });
+  const handleHttpHeadersChange = (values) => {
+    setHttpHeaders(values);
+    updateConfigField("http_headers", values.filter(Boolean));
   };
-  const handleJsonPathTextChange = (value, { index }) => {
-    setJsonPathValues((prev) => {
-      const updated = prev.map((v2, i2) => i2 === index ? value : v2);
-      props.onJSONPathsChange(updated.filter(Boolean));
-      updateConfigField("excluded_json_paths", updated.filter(Boolean));
-      return updated;
-    });
-  };
-  const controlledJsonPathRows = /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "8px" }, children: [
-    jsonPathValues.map((value, i2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", alignItems: "center" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Text,
-        {
-          style: { width: "80%", fontSize: "1.1em" },
-          placeholder: "e.g. $.bar[*].baz",
-          value,
-          onChange: (_2, { value: value2 }) => handleJsonPathTextChange(value2, { index: i2 })
-        }
-      ),
-      i2 !== 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Button,
-        {
-          inline: true,
-          appearance: "secondary",
-          onClick: () => handleRemoveJsonPathRow(i2),
-          label: "",
-          icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrashCanCross, {}),
-          style: { flexShrink: 0 }
-        }
-      )
-    ] }, i2)),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Button,
-      {
-        appearance: "secondary",
-        onClick: handleNewJsonPathExclusion,
-        style: { width: "100%" },
-        children: "Add Exclude JSONPath"
-      }
-    )
-  ] });
-  const handleNewHttpHeader = () => {
-    setHttpHeaders((prev) => [...prev, ""]);
-  };
-  const handleRemoveHttpHeader = (index) => {
-    if (index === 0) return;
-    setHttpHeaders((prev) => {
-      if (prev.length === 1) return prev;
-      return prev.filter((_2, i2) => i2 !== index);
-    });
-  };
-  const handleHttpHeaderTextChange = (value, { index }) => {
-    setHttpHeaders((prev) => {
-      const updated = prev.map((v2, i2) => i2 === index ? value : v2);
-      updateConfigField("http_headers", updated.filter(Boolean));
-      return updated;
-    });
-  };
-  const controlledHttpHeaderRows = /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "8px" }, children: [
-    http_headers.map((value, i2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", alignItems: "center" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Text,
-        {
-          style: { fontSize: "1.1em", width: "80%" },
-          placeholder: "Header: Value",
-          value,
-          onChange: (_2, { value: value2 }) => handleHttpHeaderTextChange(value2, { index: i2 })
-        }
-      ),
-      i2 !== 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Button,
-        {
-          inline: true,
-          appearance: "secondary",
-          onClick: () => handleRemoveHttpHeader(i2),
-          label: "",
-          icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrashCanCross, {}),
-          style: { flexShrink: 0 }
-        }
-      )
-    ] }, i2)),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Button,
-      {
-        appearance: "secondary",
-        onClick: handleNewHttpHeader,
-        style: { width: "100%" },
-        children: "Add HTTP Header"
-      }
-    )
-  ] });
   const getPaths = () => jsonPathValues.filter(Boolean);
   const handleOnCreateCollection = async (createdCollectionName, appName, fields) => {
     try {
@@ -46112,14 +46088,13 @@ const KVStoreDataForm = (props) => {
       const selectedOutput = generateSelectedOutputString(appName, createdCollectionName);
       setSelectedCollection(selectedOutput);
       updateConfigField("selected_output_location", selectedOutput);
-      getAllCollectionNames().then((names) => {
-        setCollectionNames(names);
-      });
+      getAllCollectionNames().then(setCollectionNames);
     } catch (error) {
       props.setError(error instanceof Error ? error.message : "Failed to create KV Store collection");
     }
   };
   const clearInputs = () => {
+    var _a;
     setInputName("");
     setDataInputType("kvstore");
     setUrl("https://dummyjson.com/products");
@@ -46130,73 +46105,61 @@ const KVStoreDataForm = (props) => {
     setHttpHeaders([""]);
     setSeparateArrayPaths([]);
     props.onJSONPathsChange([]);
-    props.setJsonPreview && props.setJsonPreview("");
+    (_a = props.setJsonPreview) == null ? void 0 : _a.call(props, "");
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%", padding: "0" }, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "0", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Basic Configuration" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
-        "Input Name ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
-      ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Input Name", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Text,
+      {
+        value: name,
+        onChange: (_2, { value }) => {
+          updateConfigField("name", value);
+          setInputName(value);
+        },
+        placeholder: "Enter input name",
+        required: true,
+        canClear: true,
+        style: { width: "100%" }
+      }
+    ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "API URL", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Text,
         {
-          value: name,
+          value: url2,
           onChange: (_2, { value }) => {
-            updateConfigField("name", value);
-            setInputName(value);
+            updateConfigField("url", value);
+            setUrl(value);
           },
-          placeholder: "Enter input name",
-          required: true,
+          disabled: props.loading,
           canClear: true,
-          style: { width: "100%" }
+          required: true,
+          style: { width: "60%" }
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Button,
+        {
+          type: "submit",
+          disabled: props.loading,
+          onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
+          style: { minWidth: "140px" },
+          children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
         }
       )
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
-        "API URL ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Text,
-          {
-            value: url2,
-            onChange: (_2, { value }) => {
-              updateConfigField("url", value);
-              setUrl(value);
-            },
-            disabled: props.loading,
-            canClear: true,
-            required: true,
-            style: { width: "60%" }
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Button,
-          {
-            type: "submit",
-            disabled: props.loading,
-            onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
-            style: { minWidth: "140px" },
-            children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Add one or more HTTP headers in the format 'Header: Value'", children: "HTTP Headers" }),
-      controlledHttpHeaderRows
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Splunk Configuration" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Cron expression for scheduling data input", children: [
-        "Cron Expression ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "HTTP Headers", tooltip: "Add one or more HTTP headers in the format 'Header: Value'", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      TextInputList,
+      {
+        values: http_headers,
+        placeholder: "Header: Value",
+        buttonLabel: "Add HTTP Header",
+        onChange: handleHttpHeadersChange
+      }
+    ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(FormSection, { title: "Splunk Configuration", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Cron Expression", required: true, tooltip: "Cron expression for scheduling data input", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         Text,
         {
           value: cronExpression,
@@ -46208,14 +46171,8 @@ const KVStoreDataForm = (props) => {
           required: true,
           style: { width: "100%" }
         }
-      )
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
-        "Select KVStore Collection ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Select KVStore Collection", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Select,
           {
@@ -46238,37 +46195,34 @@ const KVStoreDataForm = (props) => {
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateCollectionModal(true), elementRef: modalToggle, style: { minWidth: "180px" }, children: "Create New Collection" })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      NewKVStoreForm,
-      {
-        open: showCreateCollectionModal,
-        onClose: () => setShowCreateCollectionModal(false),
-        onCreate: handleOnCreateCollection,
-        modalToggle,
-        initialFields: props.fieldsForKvStoreCreation
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Overwrite will replace all existing data in the collection", children: [
-        "Mode ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList, { value: mode, onChange: (_2, { value }) => {
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        NewKVStoreForm,
+        {
+          open: showCreateCollectionModal,
+          onClose: () => setShowCreateCollectionModal(false),
+          onCreate: handleOnCreateCollection,
+          modalToggle,
+          initialFields: props.fieldsForKvStoreCreation
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Mode", required: true, tooltip: "Overwrite will replace all existing data in the collection", children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList, { value: mode, onChange: (_2, { value }) => {
         updateConfigField("mode", value);
         setMode(value);
-      }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "overwrite", children: "Overwrite" }) })
+      }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "overwrite", children: "Overwrite" }) }) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Data Processing" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "warning", style: { marginBottom: "20px" }, children: "Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields." }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: "Exclude JSONPaths" }),
-      controlledJsonPathRows
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", children: "Separate Arrays as Events" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(FormSection, { title: "Data Processing", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "warning", style: { marginBottom: "20px" }, children: "Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Exclude JSONPaths", tooltip: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        TextInputList,
+        {
+          values: jsonPathValues,
+          placeholder: "e.g. $.bar[*].baz",
+          buttonLabel: "Add Exclude JSONPath",
+          onChange: handleJsonPathsChange
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(FormField, { label: "Separate Arrays as Events", tooltip: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           ArrayFieldSelector,
           {
@@ -46304,7 +46258,7 @@ const KVStoreDataForm = (props) => {
         modalToggle: previewModalToggle
       }
     ),
-    !props.dataInputAppConfig && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { marginTop: "32px", paddingTop: "20px", borderTop: "1px solid #e0e0e0" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    !props.dataInputAppConfig && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { marginTop: "32px", paddingTop: "20px", borderBottom: "1px solid #e0e0e0" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Button,
       {
         appearance: "primary",
@@ -47290,7 +47244,7 @@ function NewDataInput() {
     []
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout, { gutter: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Row, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Column, { span: 6, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Column, { span: 5, children: [
       successMessage && /* @__PURE__ */ jsxRuntimeExports.jsx(
         MessageBar,
         {
@@ -47330,7 +47284,7 @@ function NewDataInput() {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(JSONViewer, { initialData: jsonData, onPathClick: handlePathClick }) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 7, children: /* @__PURE__ */ jsxRuntimeExports.jsx(JSONViewer, { initialData: jsonData, onPathClick: handlePathClick }) })
   ] }) });
 }
 var Pencil$1 = { exports: {} };
