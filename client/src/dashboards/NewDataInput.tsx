@@ -1,12 +1,12 @@
-import { useCallback, useState, useRef } from 'react';
 import ColumnLayout from '@splunk/react-ui/ColumnLayout';
+import MessageBar from '@splunk/react-ui/MessageBar';
+import TabBar from '@splunk/react-ui/TabBar';
+import { useCallback, useRef, useState } from 'react';
 import NewKVStoreDataInputForm from '../components/DataInputs/KVStore/NewDataInputForm';
 import JSONViewer from '../components/Json/JsonViewer';
-import MessageBar from '@splunk/react-ui/MessageBar';
 /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import { createDOMID } from '@splunk/ui-utils/id';
-import TabBar from '@splunk/react-ui/TabBar';
 import NewIndexDataInputForm from '../components/DataInputs/Index/NewIndexDataInputForm';
 
 export default function NewDataInput() {
@@ -32,6 +32,7 @@ export default function NewDataInput() {
     ) => {
       if (selectedTabId) {
         setActiveTabId(selectedTabId);
+        setJsonData(''); // Reset JSON preview when switching tabs
       }
     },
     []
@@ -51,7 +52,7 @@ export default function NewDataInput() {
               {successMessage}
             </MessageBar>
           )}
-          <TabBar style={{marginBottom: '25px', width: '80%'}} activeTabId={activeTabId} onChange={handleTabChange}>
+          <TabBar style={{marginBottom: '25px', width: '100%', fontSize: '1.2em'}} activeTabId={activeTabId} onChange={handleTabChange}>
             <TabBar.Tab label="KV Store" tabId="kvstore" />
             <TabBar.Tab label="Index" tabId="index" />
           </TabBar>

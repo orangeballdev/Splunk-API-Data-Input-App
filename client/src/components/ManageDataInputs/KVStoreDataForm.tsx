@@ -1,8 +1,8 @@
 import TrashCanCross from '@splunk/react-icons/TrashCanCross';
 import Button from '@splunk/react-ui/Button';
 import ControlGroup from '@splunk/react-ui/ControlGroup';
-import FormRows from '@splunk/react-ui/FormRows';
 import Heading from '@splunk/react-ui/Heading';
+import Message from '@splunk/react-ui/Message';
 import RadioList from '@splunk/react-ui/RadioList';
 import Select from '@splunk/react-ui/Select';
 import Text from '@splunk/react-ui/Text';
@@ -142,30 +142,38 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
         });
     };
 
-    // Render controlled rows with ColumnLayout.Row
-    const controlledJsonPathRows = jsonPathValues.map((value, i) => (
-        <FormRows.Row index={i} key={i}>
-            <div style={{ display: 'flex'}}>
-                <div style={{ flexGrow: 1, marginRight: '8px', minWidth: 0 }}>
+    // Render controlled rows with inline layout
+    const controlledJsonPathRows = (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {jsonPathValues.map((value, i) => (
+                <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <Text
-                        style={{ width: '100%', fontSize: '1.1em' }}
+                        style={{ width: '80%', fontSize: '1.1em' }}
                         placeholder="e.g. $.bar[*].baz"
                         value={value}
                         onChange={(_, { value }) => handleJsonPathTextChange(value, { index: i })}
                     />
+                    {i !== 0 && (
+                        <Button
+                            inline
+                            appearance="secondary"
+                            onClick={() => handleRemoveJsonPathRow(i)}
+                            label=""
+                            icon={<TrashCanCross />}
+                            style={{ flexShrink: 0 }}
+                        />
+                    )}
                 </div>
-                {i !== 0 && (
-                    <Button
-                        inline
-                        appearance="secondary"
-                        onClick={() => handleRemoveJsonPathRow(i)}
-                        label=""
-                        icon={<TrashCanCross />}
-                    />
-                )}
-            </div>
-        </FormRows.Row>
-    ));
+            ))}
+            <Button
+                appearance="secondary"
+                onClick={handleNewJsonPathExclusion}
+                style={{ width: '100%' }}
+            >
+                Add Exclude JSONPath
+            </Button>
+        </div>
+    );
 
     // Add new HTTP header row
     const handleNewHttpHeader = () => {
@@ -190,30 +198,38 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
         });
     };
 
-    // Render controlled rows for HTTP headers
-    const controlledHttpHeaderRows = http_headers.map((value, i) => (
-        <FormRows.Row index={i} key={i}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div style={{ flexGrow: 1, marginRight: '8px', minWidth: 0 }}>
+    // Render controlled rows for HTTP headers with inline layout
+    const controlledHttpHeaderRows = (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {http_headers.map((value, i) => (
+                <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <Text
-                        style={{ width: '100%', fontSize: '1.1em' }}
+                        style={{ fontSize: '1.1em', width: '80%' }}
                         placeholder="Header: Value"
                         value={value}
                         onChange={(_, { value }) => handleHttpHeaderTextChange(value, { index: i })}
                     />
+                    {i !== 0 && (
+                        <Button
+                            inline
+                            appearance="secondary"
+                            onClick={() => handleRemoveHttpHeader(i)}
+                            label=""
+                            icon={<TrashCanCross />}
+                            style={{ flexShrink: 0 }}
+                        />
+                    )}
                 </div>
-                {i !== 0 && (
-                    <Button
-                        inline
-                        appearance="secondary"
-                        onClick={() => handleRemoveHttpHeader(i)}
-                        label=""
-                        icon={<TrashCanCross />}
-                    />
-                )}
-            </div>
-        </FormRows.Row>
-    ));
+            ))}
+            <Button
+                appearance="secondary"
+                onClick={handleNewHttpHeader}
+                style={{ width: '100%' }}
+            >
+                Add HTTP Header
+            </Button>
+        </div>
+    );
 
     // Collect JSONPath values from all Text fields in rows
     const getPaths = () => jsonPathValues.filter(Boolean);
@@ -258,13 +274,13 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
     };
 
     return (
-        <div>
+        <div style={{ maxWidth: '900px', width: '100%', padding: '0' }}>
             {/* Basic Configuration Section */}
-            <Heading level={2} style={{ marginTop: '0', marginBottom: '20px', paddingBottom: '10px', borderBottom: '2px solid #e0e0e0' }}>
+            <Heading level={2} style={{ marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                 Basic Configuration
             </Heading>
 
-            <ControlGroup label="Input Name:" required>
+            <ControlGroup label="Input Name" required labelPosition="top" style={{ marginBottom: '20px' }}>
                 <Text
                     value={name}
                     onChange={(_, { value }) => {
@@ -274,71 +290,74 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                     placeholder="Enter input name"
                     required
                     canClear
+                    style={{ width: '100%' }}
                 />
             </ControlGroup>
 
-            <ControlGroup label="API URL:" required>
-                <Text
-                    value={url}
-                    onChange={(_, { value }) => {updateConfigField('url', value); setUrl(value)}}
-                    disabled={props.loading}
-                    canClear
-                    required
-                />
-                <Button
-                    type="submit"
-                    disabled={props.loading}
-                    onClick={() => props.fetchDataPreview(url, getPaths(), http_headers)}
-                >
-                    {props.loading ? <WaitSpinner size="medium" /> : "Fetch"}
-                </Button>
+            <ControlGroup label="API URL" required labelPosition="top" style={{ marginBottom: '20px' }}>
+                <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+                    <Text
+                        value={url}
+                        onChange={(_, { value }) => {updateConfigField('url', value); setUrl(value)}}
+                        disabled={props.loading}
+                        canClear
+                        required
+                        style={{ width: '60%'}}
+                    />
+                    <Button
+                        type="submit"
+                        disabled={props.loading}
+                        onClick={() => props.fetchDataPreview(url, getPaths(), http_headers)}
+                        style={{ minWidth: '140px' }}
+                    >
+                        {props.loading ? <WaitSpinner size="medium" /> : "Fetch"}
+                    </Button>
+                </div>
             </ControlGroup>
 
-            <ControlGroup label="HTTP Headers" tooltip="Add one or more HTTP headers in the format 'Header: Value'">
-                <FormRows
-                    onRequestAdd={handleNewHttpHeader}
-                    addLabel="Add HTTP Header"
-                >
-                    {controlledHttpHeaderRows}
-                </FormRows>
+            <ControlGroup label="HTTP Headers" labelPosition="top" tooltip="Add one or more HTTP headers in the format 'Header: Value'" style={{ marginBottom: '20px' }}>
+                {controlledHttpHeaderRows}
             </ControlGroup>
 
             {/* Splunk Configuration Section */}
-            <Heading level={2} style={{ marginTop: '32px', marginBottom: '20px', paddingBottom: '10px', borderBottom: '2px solid #e0e0e0' }}>
+            <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                 Splunk Configuration
             </Heading>
 
-            <ControlGroup label="Cron Expression:" required tooltip="Cron expression for scheduling data input">
+            <ControlGroup label="Cron Expression" required labelPosition="top" tooltip="Cron expression for scheduling data input" style={{ marginBottom: '20px' }}>
                 <Text
                     value={cronExpression}
                     onChange={(_, { value }) => {updateConfigField('cron_expression', value); setCronExpression(value)}}
                     placeholder="0 * * * *"
                     required
+                    style={{ width: '100%' }}
                 />
             </ControlGroup>
 
-            <ControlGroup label="Select KVStore Collection:" required>
-                <Select
-                    value={selected_output_location}
-                    onChange={(_, { value }) => {
-                        updateConfigField('selected_output_location', String(value));
-                        setSelectedCollection(String(value));
-                    }}
-                    filter
-                    placeholder="Select a collection..."
-                    style={{ flex: 1, minWidth: '400px' }}
-                >
-                    {collectionNames.map((collection: KVStoreCollection) => (
-                        <Select.Option
-                            value={generateSelectedOutputString(collection.app, collection.name)}
-                            key={collection.name}
-                            label={`${collection.name} (${collection.app})`}
-                        />
-                    ))}
-                </Select>
-                <Button appearance="secondary" onClick={() => setShowCreateCollectionModal(true)} elementRef={modalToggle}>
-                    Create New Collection
-                </Button>
+            <ControlGroup label="Select KVStore Collection" required labelPosition="top" style={{ marginBottom: '20px' }}>
+                <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+                    <Select
+                        value={selected_output_location}
+                        onChange={(_, { value }) => {
+                            updateConfigField('selected_output_location', String(value));
+                            setSelectedCollection(String(value));
+                        }}
+                        filter
+                        placeholder="Select a collection..."
+                        style={{ width: '60%' }}
+                    >
+                        {collectionNames.map((collection: KVStoreCollection) => (
+                            <Select.Option
+                                value={generateSelectedOutputString(collection.app, collection.name)}
+                                key={collection.name}
+                                label={`${collection.name} (${collection.app})`}
+                            />
+                        ))}
+                    </Select>
+                    <Button appearance="secondary" onClick={() => setShowCreateCollectionModal(true)} elementRef={modalToggle} style={{ minWidth: '180px' }}>
+                        Create New Collection
+                    </Button>   
+                </div>
             </ControlGroup>
             <NewKVStoreForm
                 open={showCreateCollectionModal}
@@ -348,7 +367,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                 initialFields={props.fieldsForKvStoreCreation}
             />
 
-            <ControlGroup label="Mode:" required tooltip="Overwrite will replace all existing data in the collection">
+            <ControlGroup label="Mode" required labelPosition="top" tooltip="Overwrite will replace all existing data in the collection" style={{ marginBottom: '20px' }}>
                 <RadioList value={mode} onChange={(_, { value }) => {
                     updateConfigField('mode', value as DataInputMode);
                     setMode(value as DataInputMode)
@@ -358,21 +377,19 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
             </ControlGroup>
 
             {/* Data Processing Section */}
-            <Heading level={2} style={{ marginTop: '32px', marginBottom: '20px', paddingBottom: '10px', borderBottom: '2px solid #e0e0e0' }}>
+            <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                 Data Processing
             </Heading>
-
-            <ControlGroup label="Exclude JSONPaths" tooltip="Provide one or more JSONPath expressions to exclude fields from the JSON.">
-                <FormRows
-                    onRequestAdd={handleNewJsonPathExclusion}
-                    addLabel="Add Exclude JSONPath"
-                >
-                    {controlledJsonPathRows}
-                </FormRows>
+            <Message type="warning" style={{ marginBottom: '20px' }}>
+                Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields.
+            </Message>
+            <ControlGroup label="Exclude JSONPaths" labelPosition="top" tooltip="Provide one or more JSONPath expressions to exclude fields from the JSON." style={{ marginBottom: '20px' }}>
+                {controlledJsonPathRows}
             </ControlGroup>
 
-            <ControlGroup label="Separate Arrays as Events" tooltip="Select which arrays should be split into separate events. Each array item will become its own event in Splunk.">
+            <ControlGroup label="Separate Arrays as Events" labelPosition="top" tooltip="Select which arrays should be split into separate events. Each array item will become its own event in Splunk." style={{ marginBottom: '20px', fontSize: '0.9em' }}>
                 <div style={{ width: '100%' }}>
+                   
                     <ArrayFieldSelector
                         data={props.rawData}
                         selectedPaths={separateArrayPaths}
@@ -381,16 +398,15 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                             updateConfigField('separate_array_paths', paths);
                         }}
                     />
-                    {!!props.rawData && (
-                        <Button
-                            appearance="secondary"
-                            onClick={() => setShowPreviewModal(true)}
-                            elementRef={previewModalToggle}
-                            style={{ marginTop: '12px' }}
-                        >
-                            Preview Events
-                        </Button>
-                    )}
+                    <Button
+                        appearance="secondary"
+                        onClick={() => setShowPreviewModal(true)}
+                        elementRef={previewModalToggle}
+                        disabled={!props.rawData}
+                        style={{ marginTop: '12px', width: '100%' }}
+                    >
+                        Preview Events
+                    </Button>
                 </div>
             </ControlGroup>
 
@@ -399,33 +415,36 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                 onClose={() => setShowPreviewModal(false)}
                 data={props.rawData}
                 separateArrayPaths={separateArrayPaths}
+                excludedJsonPaths={jsonPathValues.filter(Boolean)}
                 modalToggle={previewModalToggle}
             />
 
-            <br />
             {/* assume if dataInputAppConfig is passed in save logic is being handled else where (edit mode) */}
             {!props.dataInputAppConfig && (
-                <Button
-                    appearance="primary"
-                    onClick={() => {
-                        props.handleSave(
-                            {
-                                name,
-                                input_type: dataInputType,
-                                url,
-                                http_headers,
-                                excluded_json_paths: getPaths(),
-                                enabled: true,
-                                cron_expression: cronExpression,
-                                selected_output_location: selected_output_location,
-                                mode,
-                                separate_array_paths: separateArrayPaths
-                            } as DataInputAppConfig, clearInputs
-                        );
-                    }}
-                >
-                    Save Data Input
-                </Button>
+                <div style={{ marginTop: '32px', paddingTop: '20px', borderTop: '1px solid #e0e0e0' }}>
+                    <Button
+                        appearance="primary"
+                        onClick={() => {
+                            props.handleSave(
+                                {
+                                    name,
+                                    input_type: dataInputType,
+                                    url,
+                                    http_headers,
+                                    excluded_json_paths: getPaths(),
+                                    enabled: true,
+                                    cron_expression: cronExpression,
+                                    selected_output_location: selected_output_location,
+                                    mode,
+                                    separate_array_paths: separateArrayPaths
+                                } as DataInputAppConfig, clearInputs
+                            );
+                        }}
+                        style={{ width: '100%' }}
+                    >
+                        Save Data Input
+                    </Button>
+                </div>
             )}
         </div>
     );

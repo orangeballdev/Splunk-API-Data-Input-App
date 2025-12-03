@@ -94,8 +94,8 @@ def get_api_data(config):
     url = config.get('url')
     excluded_paths = config.get('excluded_json_paths', [])
     try:
-        headers = parse_headers(config.get('headers', []))
-        data = call_splunk_api('get', url, headers=headers)
+        headers = parse_headers(config.get('http_headers', []))
+        data = call_api('get', url, headers=headers)
         if data is None:
             raise Exception('No data returned from API')
         # Apply JSONPath exclusions if any
@@ -121,16 +121,29 @@ def get_api_data(config):
         return None
 
 def write_to_kvstore(app, collection, data):
-    logger.info(f"Writing to KV Store collection: {collection}")
+    logger.info(f"Writing to KV Store collection: {collection} in app: {app}")
     url = f"https://localhost:{SPLUNKD_PORT}/servicesNS/nobody/{app}/storage/collections/data/{collection}"
+    
     if isinstance(data, list):
-        results = []
-        for item in data:
-            result = call_splunk_api('post', url, session_key=SESSION_KEY, data=item)
-            results.append(result)
-        return results
+        # Use batch insert for better performance and reliability
+        batch_url = f"{url}/batch_save"
+        logger.info(f"Batch writing {len(data)} items to KV Store at {batch_url}")
+        logger.debug(f"Sample data (first item): {json.dumps(data[0]) if data else 'empty'}")
+        result = call_splunk_api('post', batch_url, session_key=SESSION_KEY, data=data)
+        if result:
+            logger.info(f"Successfully wrote {len(data)} items to KV Store")
+        else:
+            logger.error(f"Failed to write to KV Store - no result returned")
+        return result
     else:
-        return call_splunk_api('post', url, session_key=SESSION_KEY, data=data)
+        logger.info(f"Writing single item to KV Store at {url}")
+        logger.debug(f"Data: {json.dumps(data)}")
+        result = call_splunk_api('post', url, session_key=SESSION_KEY, data=data)
+        if result:
+            logger.info(f"Successfully wrote 1 item to KV Store")
+        else:
+            logger.error(f"Failed to write to KV Store - no result returned")
+        return result
 
 def empty_kvstore(app, collection):
     logger.info(f"Emptying KV Store collection: {collection}")
@@ -251,21 +264,31 @@ def main():
             return
         logger.info(f"App config: {json.dumps(app_config)}")
         for item in app_config:
+            # Check if input is enabled
+            if not item.get('enabled', False):
+                logger.info(f"Skipping disabled input: {item.get('name')}")
+                continue
+            
             input_type = item.get('input_type')
             output_name = item.get('selected_output_location')
             if not output_name:
                 logger.info(f"Skipping item with no output location: {item}")
                 continue
             if input_type == 'kvstore':
+                logger.info(f"Processing KV Store input: {item.get('name')}")
                 api_data = get_api_data(item)
                 if api_data is None:
                     logger.error(f"Failed to fetch API data for kvstore input: {item.get('name')}")
                     continue
+                logger.info(f"Fetched API data, type: {type(api_data)}, length: {len(api_data) if isinstance(api_data, (list, dict)) else 'N/A'}")
                 # Apply array separation if configured
                 separate_paths = item.get('separate_array_paths', [])
                 if separate_paths:
+                    logger.info(f"Applying array separation for paths: {separate_paths}")
                     api_data = separate_arrays_into_events(api_data, separate_paths)
+                    logger.info(f"After separation: {len(api_data)} events")
                 app, collection = get_kvstore_details_from_config(item)
+                logger.info(f"Target: app={app}, collection={collection}")
                 if item.get('mode') == 'overwrite':
                     empty_kvstore(app, collection)
                 write_to_kvstore(app, collection, api_data)

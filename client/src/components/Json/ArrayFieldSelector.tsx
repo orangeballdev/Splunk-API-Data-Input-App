@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
 import Switch from '@splunk/react-ui/Switch';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { detectArraysInJson, type DetectedArray } from './arrayUtils';
 
@@ -97,7 +97,7 @@ const ArrayFieldSelector: React.FC<ArrayFieldSelectorProps> = ({
                     />
                     <PathInfo>
                         <PathName>{arr.path}</PathName>
-                        <ArrayLength>({arr.length} items)</ArrayLength>
+                        <ArrayLength>({arr.totalCount} items)</ArrayLength>
                     </PathInfo>
                 </ArrayItem>
             ))}

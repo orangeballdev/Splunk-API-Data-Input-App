@@ -1,15 +1,18 @@
-import React, { useMemo, useState } from 'react';
-import Modal from '@splunk/react-ui/Modal';
 import Button from '@splunk/react-ui/Button';
+import { type JSONElement } from '@splunk/react-ui/JSONTree';
+import Modal from '@splunk/react-ui/Modal';
 import TabBar from '@splunk/react-ui/TabBar';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { generateSeparateEvents } from './arrayUtils';
+import { removeByJsonPaths } from './utils';
 
 interface EventPreviewModalProps {
     open: boolean;
     onClose: () => void;
     data: unknown;
     separateArrayPaths: string[];
+    excludedJsonPaths?: string[];
     modalToggle: React.RefObject<HTMLButtonElement | null>;
 }
 
@@ -53,36 +56,9 @@ const EventBody = styled.pre`
     padding: 12px;
     font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
     font-size: 12px;
-    color: #d4d4d4;
+    color: #403c3c;
     white-space: pre-wrap;
     word-break: break-all;
-`;
-
-const SummaryBar = styled.div`
-    background: #e3f2fd;
-    padding: 12px 16px;
-    border-radius: 4px;
-    margin-bottom: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`;
-
-const SummaryText = styled.span`
-    font-size: 14px;
-    color: #1565c0;
-`;
-
-const SummaryCount = styled.span`
-    font-size: 24px;
-    font-weight: 600;
-    color: #1565c0;
-`;
-
-const NoSelectionMessage = styled.div`
-    text-align: center;
-    padding: 40px;
-    color: #666;
 `;
 
 const PaginationBar = styled.div`
@@ -105,26 +81,38 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
     onClose,
     data,
     separateArrayPaths,
+    excludedJsonPaths = [],
     modalToggle
 }) => {
-    const [activeTab, setActiveTab] = useState<'separated' | 'original'>('separated');
+    const [activeTab, setActiveTab] = useState<'processed' | 'original'>('processed');
     const [currentPage, setCurrentPage] = useState(0);
     const eventsPerPage = 10;
 
-    const separatedEvents = useMemo(() => {
-        if (!data) return [];
-        return generateSeparateEvents(data, separateArrayPaths);
-    }, [data, separateArrayPaths]);
+    // Apply excluded paths to data before generating events
+    const filteredData = useMemo(() => {
+        if (!data || excludedJsonPaths.length === 0) return data;
+        try {
+            return removeByJsonPaths(data as JSONElement, excludedJsonPaths);
+        } catch (error) {
+            console.error('Error filtering data:', error);
+            return data;
+        }
+    }, [data, excludedJsonPaths]);
 
-    const totalPages = Math.ceil(separatedEvents.length / eventsPerPage);
-    const paginatedEvents = separatedEvents.slice(
+    const processedEvents = useMemo(() => {
+        if (!filteredData) return [];
+        return generateSeparateEvents(filteredData, separateArrayPaths);
+    }, [filteredData, separateArrayPaths]);
+
+    const totalPages = Math.ceil(processedEvents.length / eventsPerPage);
+    const paginatedEvents = processedEvents.slice(
         currentPage * eventsPerPage,
         (currentPage + 1) * eventsPerPage
     );
 
     const handleTabChange = (_: React.SyntheticEvent, { selectedTabId }: { selectedTabId?: string }) => {
         if (selectedTabId) {
-            setActiveTab(selectedTabId as 'separated' | 'original');
+            setActiveTab(selectedTabId as 'processed' | 'original');
             setCurrentPage(0);
         }
     };
@@ -155,8 +143,8 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
             <Modal.Body>
                 <TabBar activeTabId={activeTab} onChange={handleTabChange}>
                     <TabBar.Tab
-                        label={`Separated Events (${separatedEvents.length})`}
-                        tabId="separated"
+                        label={`Processed Events (${processedEvents.length})`}
+                        tabId="processed"
                     />
                     <TabBar.Tab
                         label="Original (1 event)"
@@ -165,26 +153,20 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
                 </TabBar>
 
                 <PreviewContainer>
-                    {activeTab === 'separated' ? (
+                    {activeTab === 'processed' ? (
                         <>
-                            <SummaryBar>
-                                <SummaryText>
-                                    {separateArrayPaths.length > 0
-                                        ? `Arrays being separated: ${separateArrayPaths.join(', ')}`
-                                        : 'No arrays selected for separation'
-                                    }
-                                </SummaryText>
-                                <div>
-                                    <SummaryCount>{separatedEvents.length}</SummaryCount>
-                                    <SummaryText> events</SummaryText>
-                                </div>
-                            </SummaryBar>
+                            
 
                             {separateArrayPaths.length === 0 ? (
-                                <NoSelectionMessage>
-                                    <p>Select arrays above to see how they will be separated into individual events.</p>
-                                    <p>Each array item will become a separate Splunk event.</p>
-                                </NoSelectionMessage>
+                                <>
+                                    
+                                    <EventCard>
+                                        <EventHeader>
+                                            <EventNumber>Event #1</EventNumber>
+                                        </EventHeader>
+                                        <EventBody>{JSON.stringify(filteredData, null, 2)}</EventBody>
+                                    </EventCard>
+                                </>
                             ) : (
                                 <>
                                     {paginatedEvents.map((event, idx) =>
@@ -217,18 +199,12 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
                         </>
                     ) : (
                         <>
-                            <SummaryBar>
-                                <SummaryText>Original response as single event</SummaryText>
-                                <div>
-                                    <SummaryCount>1</SummaryCount>
-                                    <SummaryText> event</SummaryText>
-                                </div>
-                            </SummaryBar>
+                            
                             <EventCard>
                                 <EventHeader>
                                     <EventNumber>Event #1</EventNumber>
                                 </EventHeader>
-                                <EventBody>{JSON.stringify(data, null, 2)}</EventBody>
+                                <EventBody>{JSON.stringify(filteredData, null, 2)}</EventBody>
                             </EventCard>
                         </>
                     )}

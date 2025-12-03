@@ -104,7 +104,9 @@ const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPath
     const handleKeyClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (onPathClick && path) {
-            onPathClick(path);
+            // Convert array indices to wildcards: $.products[0].name -> $.products[*].name
+            const wildcardPath = path.replace(/\[\d+\]/g, '[*]');
+            onPathClick(wildcardPath);
         }
     };
 

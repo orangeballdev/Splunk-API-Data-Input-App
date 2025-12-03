@@ -5,7 +5,3 @@ export = system
 [views/*]
 access = read : [ * ]
 export = none
-
-[script:api_proxy]
-access = read : [ * ], write : [ admin ]
-export = system

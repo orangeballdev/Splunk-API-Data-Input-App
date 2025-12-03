@@ -1,9 +1,8 @@
-import React, { useMemo, useState } from "react";
 import Message from '@splunk/react-ui/Message';
+import React, { useMemo, useState } from "react";
 
-import { removeByJsonPaths } from '../../Json/utils';
 import { addNewDataInputToKVStore } from "../../../utils/dataInputUtils";
-import { proxyApiRequest } from "../../../utils/splunk";
+import { removeByJsonPaths } from '../../Json/utils';
 
 import type { JSONElement } from "@splunk/react-ui/JSONTree";
 import type { DataInputAppConfig } from "../../ManageDataInputs/DataInputs.types";
@@ -98,28 +97,32 @@ const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataI
 
       const headers = parseHeaders(httpHeaders);
 
-      // Use the backend proxy to avoid CORS issues
-      const proxyResponse = await proxyApiRequest(url, headers, 'GET');
+      // Fetch data directly from the API
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: headers,
+      });
 
-      if (proxyResponse.status_code >= 400) {
-        const errorMessage = getHttpErrorMessage(proxyResponse.status_code, '');
-        let errorDetails = `HTTP ${proxyResponse.status_code}: ${errorMessage}`;
+      if (!response.ok) {
+        const errorMessage = getHttpErrorMessage(response.status, response.statusText);
+        let errorDetails = `HTTP ${response.status}: ${errorMessage}`;
 
         // Include server response if available
-        if (proxyResponse.data && proxyResponse.data.length < 500) {
-          errorDetails += `\n\nServer response: ${proxyResponse.data}`;
+        const responseText = await response.text();
+        if (responseText && responseText.length < 500) {
+          errorDetails += `\n\nServer response: ${responseText}`;
         }
 
         throw new Error(errorDetails);
       }
 
-      const contentType = proxyResponse.content_type;
+      const contentType = response.headers.get('content-type');
       if (contentType && !contentType.includes('application/json')) {
         throw new Error(`Expected JSON response but received: ${contentType}`);
       }
 
-      // Parse the JSON data from the proxy response
-      const data = JSON.parse(proxyResponse.data);
+      // Parse the JSON data from the response
+      const data = await response.json();
       setRawData(data as import('@splunk/react-ui/JSONTree').JSONElement);
       const filtered = jsonPaths.length ? removeByJsonPaths(data as import('@splunk/react-ui/JSONTree').JSONElement, jsonPaths) : data;
       if (onDataFetched) onDataFetched(JSON.stringify(filtered));
@@ -149,6 +152,9 @@ const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataI
         setError(null);
         if (onSuccess) onSuccess();
         if (clearInputs) clearInputs();
+        // Reset rawData to clear the array field selector
+        setRawData(null);
+        setFilteredData({});
       } catch {
         setError('Failed to save data input to KV Store');
       }
