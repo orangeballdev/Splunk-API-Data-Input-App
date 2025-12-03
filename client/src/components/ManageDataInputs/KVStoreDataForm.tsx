@@ -247,12 +247,13 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                     initialFields={props.fieldsForKvStoreCreation}
                 />
 
-                <FormField label="Mode" required tooltip="Overwrite will replace all existing data in the collection">
+                <FormField label="Mode" required tooltip="Choose how data should be written to the collection">
                     <RadioList value={mode} onChange={(_, { value }) => {
                         updateConfigField('mode', value as DataInputMode);
                         setMode(value as DataInputMode)
                     }}>
                         <RadioList.Option value="overwrite">Overwrite</RadioList.Option>
+                        <RadioList.Option value="append">Append</RadioList.Option>
                     </RadioList>
                 </FormField>
             </FormSection>

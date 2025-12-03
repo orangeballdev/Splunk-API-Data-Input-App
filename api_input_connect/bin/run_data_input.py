@@ -289,7 +289,9 @@ def main():
                     logger.info(f"After separation: {len(api_data)} events")
                 app, collection = get_kvstore_details_from_config(item)
                 logger.info(f"Target: app={app}, collection={collection}")
-                if item.get('mode') == 'overwrite':
+                mode = item.get('mode', 'overwrite')
+                logger.info(f"Mode: {mode}")
+                if mode == 'overwrite':
                     empty_kvstore(app, collection)
                 write_to_kvstore(app, collection, api_data)
             elif input_type == 'index':

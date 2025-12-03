@@ -46206,10 +46206,13 @@ const KVStoreDataForm = (props) => {
           initialFields: props.fieldsForKvStoreCreation
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Mode", required: true, tooltip: "Overwrite will replace all existing data in the collection", children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList, { value: mode, onChange: (_2, { value }) => {
+      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Mode", required: true, tooltip: "Choose how data should be written to the collection", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(RadioList, { value: mode, onChange: (_2, { value }) => {
         updateConfigField("mode", value);
         setMode(value);
-      }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "overwrite", children: "Overwrite" }) }) })
+      }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "overwrite", children: "Overwrite" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "append", children: "Append" })
+      ] }) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(FormSection, { title: "Data Processing", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "warning", style: { marginBottom: "20px" }, children: "Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields." }),

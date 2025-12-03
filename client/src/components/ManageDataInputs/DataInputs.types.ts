@@ -1,4 +1,4 @@
-export type DataInputMode = 'overwrite';
+export type DataInputMode = 'overwrite' | 'append';
 
 export interface DataInputAppConfig {
     _key?: string;
