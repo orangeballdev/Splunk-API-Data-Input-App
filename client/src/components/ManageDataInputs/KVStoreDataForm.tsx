@@ -1,11 +1,11 @@
 import TrashCanCross from '@splunk/react-icons/TrashCanCross';
 import Button from '@splunk/react-ui/Button';
-import ControlGroup from '@splunk/react-ui/ControlGroup';
 import Heading from '@splunk/react-ui/Heading';
 import Message from '@splunk/react-ui/Message';
 import RadioList from '@splunk/react-ui/RadioList';
 import Select from '@splunk/react-ui/Select';
 import Text from '@splunk/react-ui/Text';
+import Typography from '@splunk/react-ui/Typography';
 import WaitSpinner from '@splunk/react-ui/WaitSpinner';
 import React, { useState } from 'react';
 import { generateSelectedOutputString } from '../../utils/dataInputUtils';
@@ -274,13 +274,16 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
     };
 
     return (
-        <div style={{ maxWidth: '900px', width: '100%', padding: '0' }}>
+        <div style={{ width: '100%', padding: '0' }}>
             {/* Basic Configuration Section */}
             <Heading level={2} style={{ marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                 Basic Configuration
             </Heading>
 
-            <ControlGroup label="Input Name" required labelPosition="top" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }}>
+                    Input Name <span style={{ color: 'red' }}>*</span>
+                </Typography>
                 <Text
                     value={name}
                     onChange={(_, { value }) => {
@@ -292,9 +295,12 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                     canClear
                     style={{ width: '100%' }}
                 />
-            </ControlGroup>
+            </div>
 
-            <ControlGroup label="API URL" required labelPosition="top" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }}>
+                    API URL <span style={{ color: 'red' }}>*</span>
+                </Typography>
                 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
                     <Text
                         value={url}
@@ -313,18 +319,24 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                         {props.loading ? <WaitSpinner size="medium" /> : "Fetch"}
                     </Button>
                 </div>
-            </ControlGroup>
+            </div>
 
-            <ControlGroup label="HTTP Headers" labelPosition="top" tooltip="Add one or more HTTP headers in the format 'Header: Value'" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Add one or more HTTP headers in the format 'Header: Value'">
+                    HTTP Headers
+                </Typography>
                 {controlledHttpHeaderRows}
-            </ControlGroup>
+            </div>
 
             {/* Splunk Configuration Section */}
             <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                 Splunk Configuration
             </Heading>
 
-            <ControlGroup label="Cron Expression" required labelPosition="top" tooltip="Cron expression for scheduling data input" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Cron expression for scheduling data input">
+                    Cron Expression <span style={{ color: 'red' }}>*</span>
+                </Typography>
                 <Text
                     value={cronExpression}
                     onChange={(_, { value }) => {updateConfigField('cron_expression', value); setCronExpression(value)}}
@@ -332,9 +344,12 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                     required
                     style={{ width: '100%' }}
                 />
-            </ControlGroup>
+            </div>
 
-            <ControlGroup label="Select KVStore Collection" required labelPosition="top" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }}>
+                    Select KVStore Collection <span style={{ color: 'red' }}>*</span>
+                </Typography>
                 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
                     <Select
                         value={selected_output_location}
@@ -358,7 +373,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                         Create New Collection
                     </Button>   
                 </div>
-            </ControlGroup>
+            </div>
             <NewKVStoreForm
                 open={showCreateCollectionModal}
                 onClose={() => setShowCreateCollectionModal(false)}
@@ -367,14 +382,17 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                 initialFields={props.fieldsForKvStoreCreation}
             />
 
-            <ControlGroup label="Mode" required labelPosition="top" tooltip="Overwrite will replace all existing data in the collection" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Overwrite will replace all existing data in the collection">
+                    Mode <span style={{ color: 'red' }}>*</span>
+                </Typography>
                 <RadioList value={mode} onChange={(_, { value }) => {
                     updateConfigField('mode', value as DataInputMode);
                     setMode(value as DataInputMode)
                 }}>
                     <RadioList.Option value="overwrite">Overwrite</RadioList.Option>
                 </RadioList>
-            </ControlGroup>
+            </div>
 
             {/* Data Processing Section */}
             <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
@@ -383,11 +401,17 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
             <Message type="warning" style={{ marginBottom: '20px' }}>
                 Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields.
             </Message>
-            <ControlGroup label="Exclude JSONPaths" labelPosition="top" tooltip="Provide one or more JSONPath expressions to exclude fields from the JSON." style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Provide one or more JSONPath expressions to exclude fields from the JSON.">
+                    Exclude JSONPaths
+                </Typography>
                 {controlledJsonPathRows}
-            </ControlGroup>
+            </div>
 
-            <ControlGroup label="Separate Arrays as Events" labelPosition="top" tooltip="Select which arrays should be split into separate events. Each array item will become its own event in Splunk." style={{ marginBottom: '20px', fontSize: '0.9em' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Select which arrays should be split into separate events. Each array item will become its own event in Splunk.">
+                    Separate Arrays as Events
+                </Typography>
                 <div style={{ width: '100%' }}>
                    
                     <ArrayFieldSelector
@@ -408,7 +432,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                         Preview Events
                     </Button>
                 </div>
-            </ControlGroup>
+            </div>
 
             <EventPreviewModal
                 open={showPreviewModal}

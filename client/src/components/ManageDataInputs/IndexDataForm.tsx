@@ -1,9 +1,9 @@
 import TrashCanCross from '@splunk/react-icons/TrashCanCross';
 import Button from '@splunk/react-ui/Button';
-import ControlGroup from '@splunk/react-ui/ControlGroup';
 import Heading from '@splunk/react-ui/Heading';
 import Select from '@splunk/react-ui/Select';
 import Text from '@splunk/react-ui/Text';
+import Typography from '@splunk/react-ui/Typography';
 import WaitSpinner from '@splunk/react-ui/WaitSpinner';
 import React, { useState } from 'react';
 import { getAllIndexNames } from '../../utils/splunk';
@@ -263,7 +263,10 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                 Basic Configuration
             </Heading>
             
-            <ControlGroup label="Input Name" required labelPosition="top" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }}>
+                    Input Name <span style={{ color: 'red' }}>*</span>
+                </Typography>
                 <Text
                     value={name}
                     onChange={(_, { value }) => {
@@ -275,9 +278,12 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                     canClear
                     style={{ width: '100%' }}
                 />
-            </ControlGroup>
+            </div>
 
-            <ControlGroup label="API URL" required labelPosition="top" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }}>
+                    API URL <span style={{ color: 'red' }}>*</span>
+                </Typography>
                 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
                     <Text
                         value={url}
@@ -296,18 +302,24 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                         {props.loading ? <WaitSpinner size="medium" /> : "Fetch"}
                     </Button>
                 </div>
-            </ControlGroup>
+            </div>
 
-            <ControlGroup label="HTTP Headers" labelPosition="top" tooltip="Add one or more HTTP headers in the format 'Header: Value'" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Add one or more HTTP headers in the format 'Header: Value'">
+                    HTTP Headers
+                </Typography>
                 {controlledHttpHeaderRows}
-            </ControlGroup>
+            </div>
 
             {/* Splunk Configuration Section */}
             <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                 Splunk Configuration
             </Heading>
 
-            <ControlGroup label="Cron Expression" required labelPosition="top" tooltip="Cron expression for scheduling data input" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Cron expression for scheduling data input">
+                    Cron Expression <span style={{ color: 'red' }}>*</span>
+                </Typography>
                 <Text
                     value={cronExpression}
                     onChange={(_, { value }) => {updateConfigField('cron_expression', value); setCronExpression(value)}}
@@ -315,9 +327,12 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                     required
                     style={{ width: '100%' }}
                 />
-            </ControlGroup>
+            </div>
 
-            <ControlGroup label="Select Index" required labelPosition="top" style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }}>
+                    Select Index <span style={{ color: 'red' }}>*</span>
+                </Typography>
                 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
                     <Select
                         value={selected_output_location}
@@ -334,7 +349,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                         Create New Index
                     </Button>
                 </div>
-            </ControlGroup>
+            </div>
             <CreateNewIndex
                 open={showCreateIndexModal}
                 onClose={() => setShowCreateIndexModal(false)}
@@ -347,11 +362,17 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                 Data Processing
             </Heading>
 
-            <ControlGroup label="Exclude JSONPaths" labelPosition="top" tooltip="Provide one or more JSONPath expressions to exclude fields from the JSON." style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Provide one or more JSONPath expressions to exclude fields from the JSON.">
+                    Exclude JSONPaths
+                </Typography>
                 {controlledJsonPathRows}
-            </ControlGroup>
+            </div>
 
-            <ControlGroup label="Separate Arrays as Events" labelPosition="top" tooltip="Select which arrays should be split into separate events. Each array item will become its own event in Splunk." style={{ marginBottom: '20px', fontSize: '0.9em' }}>
+            <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Select which arrays should be split into separate events. Each array item will become its own event in Splunk.">
+                    Separate Arrays as Events
+                </Typography>
                 <div style={{ width: '100%' }}>
                     <ArrayFieldSelector
                         data={props.rawData}
@@ -371,7 +392,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                         Preview Events
                     </Button>
                 </div>
-            </ControlGroup>
+            </div>
 
             <EventPreviewModal
                 open={showPreviewModal}

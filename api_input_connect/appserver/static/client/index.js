@@ -36672,726 +36672,11 @@ var TrashCanCrossExports = requireTrashCanCross();
 const TrashCanCross = /* @__PURE__ */ getDefaultExportFromCjs(TrashCanCrossExports);
 var ButtonExports = requireButton();
 const Button = /* @__PURE__ */ getDefaultExportFromCjs(ButtonExports);
-var ControlGroup$1 = { exports: {} };
-var Box = { exports: {} };
-var hasRequiredBox;
-function requireBox() {
-  if (hasRequiredBox) return Box.exports;
-  hasRequiredBox = 1;
-  (() => {
-    var e2 = {};
-    (() => {
-      e2.n = (n3) => {
-        var t3 = n3 && n3.__esModule ? (
-          /******/
-          () => n3["default"]
-        ) : () => n3;
-        e2.d(t3, {
-          a: t3
-        });
-        return t3;
-      };
-    })();
-    (() => {
-      e2.d = (n3, t3) => {
-        for (var r3 in t3) {
-          if (e2.o(t3, r3) && !e2.o(n3, r3)) {
-            Object.defineProperty(n3, r3, {
-              enumerable: true,
-              get: t3[r3]
-            });
-          }
-        }
-      };
-    })();
-    (() => {
-      e2.o = (e3, n3) => Object.prototype.hasOwnProperty.call(e3, n3);
-    })();
-    (() => {
-      e2.r = (e3) => {
-        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
-          Object.defineProperty(e3, Symbol.toStringTag, {
-            value: "Module"
-          });
-        }
-        Object.defineProperty(e3, "__esModule", {
-          value: true
-        });
-      };
-    })();
-    var n2 = {};
-    e2.r(n2);
-    e2.d(n2, {
-      default: () => (
-        /* reexport */
-        v2
-      )
-    });
-    const t2 = requireReact();
-    var r2 = e2.n(t2);
-    const l2 = /* @__PURE__ */ requirePropTypes();
-    var i2 = e2.n(l2);
-    const o2 = require$$21;
-    var a2 = e2.n(o2);
-    const f2 = requireThemes();
-    var d2 = a2().div.withConfig({
-      displayName: "BoxStyles__Styled",
-      componentId: "sc-1h4b5f6-0"
-    })(["", ";align-items:stretch;align-content:stretch;flex-flow:row nowrap;flex-grow:0;flex-shrink:0;justify-content:flex-start;width:auto;max-width:100%;&[data-inline]{display:inline-block;vertical-align:middle;}&[data-flex]{display:flex;}&[data-flex][data-inline]{display:inline-flex;}"], f2.mixins.reset("block"));
-    function s2() {
-      return s2 = Object.assign ? Object.assign.bind() : function(e3) {
-        for (var n3 = 1; n3 < arguments.length; n3++) {
-          var t3 = arguments[n3];
-          for (var r3 in t3) {
-            ({}).hasOwnProperty.call(t3, r3) && (e3[r3] = t3[r3]);
-          }
-        }
-        return e3;
-      }, s2.apply(null, arguments);
-    }
-    function c2(e3, n3) {
-      if (null == e3) return {};
-      var t3, r3, l3 = u2(e3, n3);
-      if (Object.getOwnPropertySymbols) {
-        var i3 = Object.getOwnPropertySymbols(e3);
-        for (r3 = 0; r3 < i3.length; r3++) {
-          t3 = i3[r3], n3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (l3[t3] = e3[t3]);
-        }
-      }
-      return l3;
-    }
-    function u2(e3, n3) {
-      if (null == e3) return {};
-      var t3 = {};
-      for (var r3 in e3) {
-        if ({}.hasOwnProperty.call(e3, r3)) {
-          if (n3.includes(r3)) continue;
-          t3[r3] = e3[r3];
-        }
-      }
-      return t3;
-    }
-    var p2 = {
-      children: i2().node,
-      elementRef: i2().oneOfType([i2().func, i2().object]),
-      flex: i2().bool,
-      inline: i2().bool
-    };
-    function y2(e3) {
-      var n3 = e3.children, t3 = e3.elementRef, l3 = e3.flex, i3 = l3 === void 0 ? false : l3, o3 = e3.tag, a3 = o3 === void 0 ? "div" : o3, f3 = e3.inline, u3 = f3 === void 0 ? false : f3, p3 = c2(e3, ["children", "elementRef", "flex", "tag", "inline"]);
-      return r2().createElement(d2, s2({
-        as: a3,
-        ref: t3
-      }, p3, {
-        "data-inline": u3 || void 0,
-        "data-flex": i3 || void 0
-      }), n3);
-    }
-    y2.propTypes = p2;
-    const v2 = y2;
-    Box.exports = n2;
-  })();
-  return Box.exports;
-}
-var hasRequiredControlGroup;
-function requireControlGroup() {
-  if (hasRequiredControlGroup) return ControlGroup$1.exports;
-  hasRequiredControlGroup = 1;
-  (() => {
-    var e2 = {};
-    (() => {
-      e2.n = (r3) => {
-        var t3 = r3 && r3.__esModule ? (
-          /******/
-          () => r3["default"]
-        ) : () => r3;
-        e2.d(t3, {
-          a: t3
-        });
-        return t3;
-      };
-    })();
-    (() => {
-      e2.d = (r3, t3) => {
-        for (var n3 in t3) {
-          if (e2.o(t3, n3) && !e2.o(r3, n3)) {
-            Object.defineProperty(r3, n3, {
-              enumerable: true,
-              get: t3[n3]
-            });
-          }
-        }
-      };
-    })();
-    (() => {
-      e2.o = (e3, r3) => Object.prototype.hasOwnProperty.call(e3, r3);
-    })();
-    (() => {
-      e2.r = (e3) => {
-        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
-          Object.defineProperty(e3, Symbol.toStringTag, {
-            value: "Module"
-          });
-        }
-        Object.defineProperty(e3, "__esModule", {
-          value: true
-        });
-      };
-    })();
-    var r2 = {};
-    e2.r(r2);
-    e2.d(r2, {
-      ControlGroupContext: () => (
-        /* reexport */
-        p2
-      ),
-      default: () => (
-        /* reexport */
-        ve2
-      )
-    });
-    const t2 = requireReact();
-    var n2 = e2.n(t2);
-    const l2 = /* @__PURE__ */ requirePropTypes();
-    var o2 = e2.n(l2);
-    const i2 = requireScreenReaderContent();
-    var a2 = e2.n(i2);
-    const s2 = requireUsePrevious();
-    var c2 = e2.n(s2);
-    const u2 = requireId();
-    var d2 = n2().createContext({});
-    const p2 = d2;
-    const f2 = require$$21;
-    var y2 = e2.n(f2);
-    const v2 = requireBox();
-    var b2 = e2.n(v2);
-    const m2 = requireTooltip();
-    var h2 = e2.n(m2);
-    const g2 = requireThemes();
-    var w2 = "24px";
-    var S2 = y2()(b2()).withConfig({
-      displayName: "ControlGroupStyles__StyledBox",
-      componentId: "wjnyif-0"
-    })(["", " max-width:600px;margin-block-end:", ";&:last-child{margin-block-end:0;}", ""], g2.mixins.reset("flex"), g2.variables.spacingLarge, function(e3) {
-      var r3 = e3.$labelPosition;
-      return r3 === "top" ? (0, f2.css)(["flex-direction:column;gap:", ";"], g2.variables.spacingXSmall) : (0, f2.css)(["flex-direction:row;gap:", ";"], g2.variables.spacingMedium);
-    });
-    var O2 = y2().div.withConfig({
-      displayName: "ControlGroupStyles__StyledLabelWrapper",
-      componentId: "wjnyif-1"
-    })(["display:inline-flex;align-items:flex-start;gap:", ";flex-shrink:0;"], g2.variables.spacingXSmall);
-    var I2 = y2().label.withConfig({
-      displayName: "ControlGroupStyles__StyledLabel",
-      componentId: "wjnyif-2"
-    })(["", ";word-wrap:break-word;", ";"], g2.mixins.typography("body", {
-      color: "active"
-    }), function(e3) {
-      var r3 = e3.$disabled;
-      return r3 && (0, f2.css)(["color:", ";"], g2.variables.contentColorDisabled);
-    });
-    var C2 = y2().div.withConfig({
-      displayName: "ControlGroupStyles__StyledLabelInnerWrapper",
-      componentId: "wjnyif-3"
-    })(
-      ["display:inline-flex;gap:", ";align-items:center;:has(", ":not(:empty)){min-height:", ";}"],
-      g2.variables.spacingXSmall,
-      /* sc-sel */
-      I2,
-      (0, g2.pickVariant)("$labelPosition", {
-        /* Ensures label is vertically centered with input */
-        left: g2.variables.inputHeight,
-        /**
-        * Ensures inputs in ControlGroups next to each other are vertically aligned regardless of Tooltip presence.
-        * Checked by HorizontalLabelTopLayout story.
-        */
-        top: w2
-      })
-    );
-    var x2 = y2()(h2()).withConfig({
-      displayName: "ControlGroupStyles__StyledTooltip",
-      componentId: "wjnyif-4"
-    })(["flex-shrink:0;& button{min-width:", ";min-height:", ";width:", ";height:", ";}"], w2, w2, w2, w2);
-    var j2 = y2().div.withConfig({
-      displayName: "ControlGroupStyles__StyledControlsAndMessagingWrapper",
-      componentId: "wjnyif-5"
-    })(["display:flex;flex-direction:column;gap:", ";min-width:0;", ""], g2.variables.spacingXSmall, function(e3) {
-      var r3 = e3.$controlsLayout;
-      return r3 !== "none" && (0, f2.css)(["flex-grow:1;"]);
-    });
-    var E2 = y2()(b2()).withConfig({
-      displayName: "ControlGroupStyles__StyledControlsWrapper",
-      componentId: "wjnyif-6"
-    })(["gap:", ";", ""], g2.variables.spacingMedium, (0, g2.pickVariant)("$controlsLayout", {
-      fillJoin: (0, f2.css)(["gap:0;"]),
-      stack: (0, f2.css)(["flex-direction:column;"])
-    }));
-    var P2 = y2().div.withConfig({
-      displayName: "ControlGroupStyles__StyledHelp",
-      componentId: "wjnyif-7"
-    })(["", ";", ";", ";"], g2.mixins.reset("block"), g2.mixins.typography("smallBody"), function(e3) {
-      var r3 = e3.$disabled;
-      return r3 && (0, f2.css)(["color:", ";"], g2.variables.contentColorDisabled);
-    });
-    var k2 = y2().span.withConfig({
-      displayName: "ControlGroupStyles__StyledAsterisk",
-      componentId: "wjnyif-8"
-    })(["color:", ";margin-right:2px;"], g2.variables.contentColorNegative);
-    const _2 = requireI18n();
-    const q2 = requireExclamationTriangle();
-    var D2 = e2.n(q2);
-    const T2 = requireMixins();
-    var M2 = y2().div.withConfig({
-      displayName: "ErrorMessageBarStyles__StyledErrorMessageBarWrapper",
-      componentId: "sc-1praezx-0"
-    })(["display:flex;gap:", ";word-break:break-word;border-radius:", ";padding:", ";background-color:", ";"], g2.variables.spacingXSmall, g2.variables.borderRadius, g2.variables.spacingXSmall, g2.variables.notificationColorNegativeWeak);
-    var L2 = y2()(D2()).withConfig({
-      displayName: "ErrorMessageBarStyles__StyledIcon",
-      componentId: "sc-1praezx-1"
-    })(["position:relative;fill:", ";"], g2.variables.interactiveColorAccentError);
-    var N2 = y2().p.withConfig({
-      displayName: "ErrorMessageBarStyles__StyledErrorMessage",
-      componentId: "sc-1praezx-2"
-    })(["", ";", ";"], g2.mixins.reset("block"), (0, T2.typography)("smallBody", {
-      color: "active"
-    }));
-    function $2(e3, r3) {
-      if (null == e3) return {};
-      var t3, n3, l3 = G2(e3, r3);
-      if (Object.getOwnPropertySymbols) {
-        var o3 = Object.getOwnPropertySymbols(e3);
-        for (n3 = 0; n3 < o3.length; n3++) {
-          t3 = o3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (l3[t3] = e3[t3]);
-        }
-      }
-      return l3;
-    }
-    function G2(e3, r3) {
-      if (null == e3) return {};
-      var t3 = {};
-      for (var n3 in e3) {
-        if ({}.hasOwnProperty.call(e3, n3)) {
-          if (r3.includes(n3)) continue;
-          t3[n3] = e3[n3];
-        }
-      }
-      return t3;
-    }
-    var B2 = (0, _2._)("Error: ");
-    var A2 = {
-      children: o2().node.isRequired
-    };
-    function W2(e3) {
-      var r3 = e3.children, t3 = $2(e3, ["children"]);
-      return n2().createElement(M2, t3, n2().createElement(L2, {
-        variant: "filled"
-      }), n2().createElement(a2(), null, B2), n2().createElement(N2, null, r3));
-    }
-    W2.propTypes = A2;
-    const F2 = W2;
-    function X2(e3) {
-      "@babel/helpers - typeof";
-      return X2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e4) {
-        return typeof e4;
-      } : function(e4) {
-        return e4 && "function" == typeof Symbol && e4.constructor === Symbol && e4 !== Symbol.prototype ? "symbol" : typeof e4;
-      }, X2(e3);
-    }
-    function R2() {
-      return R2 = Object.assign ? Object.assign.bind() : function(e3) {
-        for (var r3 = 1; r3 < arguments.length; r3++) {
-          var t3 = arguments[r3];
-          for (var n3 in t3) {
-            ({}).hasOwnProperty.call(t3, n3) && (e3[n3] = t3[n3]);
-          }
-        }
-        return e3;
-      }, R2.apply(null, arguments);
-    }
-    function H2(e3, r3) {
-      if (null == e3) return {};
-      var t3, n3, l3 = J2(e3, r3);
-      if (Object.getOwnPropertySymbols) {
-        var o3 = Object.getOwnPropertySymbols(e3);
-        for (n3 = 0; n3 < o3.length; n3++) {
-          t3 = o3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (l3[t3] = e3[t3]);
-        }
-      }
-      return l3;
-    }
-    function J2(e3, r3) {
-      if (null == e3) return {};
-      var t3 = {};
-      for (var n3 in e3) {
-        if ({}.hasOwnProperty.call(e3, n3)) {
-          if (r3.includes(n3)) continue;
-          t3[n3] = e3[n3];
-        }
-      }
-      return t3;
-    }
-    function z2(e3, r3) {
-      var t3 = Object.keys(e3);
-      if (Object.getOwnPropertySymbols) {
-        var n3 = Object.getOwnPropertySymbols(e3);
-        r3 && (n3 = n3.filter(function(r4) {
-          return Object.getOwnPropertyDescriptor(e3, r4).enumerable;
-        })), t3.push.apply(t3, n3);
-      }
-      return t3;
-    }
-    function K2(e3) {
-      for (var r3 = 1; r3 < arguments.length; r3++) {
-        var t3 = null != arguments[r3] ? arguments[r3] : {};
-        r3 % 2 ? z2(Object(t3), true).forEach(function(r4) {
-          V2(e3, r4, t3[r4]);
-        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t3)) : z2(Object(t3)).forEach(function(r4) {
-          Object.defineProperty(e3, r4, Object.getOwnPropertyDescriptor(t3, r4));
-        });
-      }
-      return e3;
-    }
-    function V2(e3, r3, t3) {
-      return (r3 = U2(r3)) in e3 ? Object.defineProperty(e3, r3, {
-        value: t3,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      }) : e3[r3] = t3, e3;
-    }
-    function U2(e3) {
-      var r3 = Q2(e3, "string");
-      return "symbol" == X2(r3) ? r3 : r3 + "";
-    }
-    function Q2(e3, r3) {
-      if ("object" != X2(e3) || !e3) return e3;
-      var t3 = e3[Symbol.toPrimitive];
-      if (void 0 !== t3) {
-        var n3 = t3.call(e3, r3);
-        if ("object" != X2(n3)) return n3;
-        throw new TypeError("@@toPrimitive must return a primitive value.");
-      }
-      return ("string" === r3 ? String : Number)(e3);
-    }
-    function Y2(e3, r3) {
-      return ne2(e3) || te2(e3, r3) || ee2(e3, r3) || Z2();
-    }
-    function Z2() {
-      throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-    }
-    function ee2(e3, r3) {
-      if (e3) {
-        if ("string" == typeof e3) return re2(e3, r3);
-        var t3 = {}.toString.call(e3).slice(8, -1);
-        return "Object" === t3 && e3.constructor && (t3 = e3.constructor.name), "Map" === t3 || "Set" === t3 ? Array.from(e3) : "Arguments" === t3 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t3) ? re2(e3, r3) : void 0;
-      }
-    }
-    function re2(e3, r3) {
-      (null == r3 || r3 > e3.length) && (r3 = e3.length);
-      for (var t3 = 0, n3 = Array(r3); t3 < r3; t3++) {
-        n3[t3] = e3[t3];
-      }
-      return n3;
-    }
-    function te2(e3, r3) {
-      var t3 = null == e3 ? null : "undefined" != typeof Symbol && e3[Symbol.iterator] || e3["@@iterator"];
-      if (null != t3) {
-        var n3, l3, o3, i3, a3 = [], s3 = true, c3 = false;
-        try {
-          if (o3 = (t3 = t3.call(e3)).next, 0 === r3) {
-            if (Object(t3) !== t3) return;
-            s3 = false;
-          } else for (; !(s3 = (n3 = o3.call(t3)).done) && (a3.push(n3.value), a3.length !== r3); s3 = true) {
-          }
-        } catch (e4) {
-          c3 = true, l3 = e4;
-        } finally {
-          try {
-            if (!s3 && null != t3["return"] && (i3 = t3["return"](), Object(i3) !== i3)) return;
-          } finally {
-            if (c3) throw l3;
-          }
-        }
-        return a3;
-      }
-    }
-    function ne2(e3) {
-      if (Array.isArray(e3)) return e3;
-    }
-    var le2 = {
-      children: o2().node,
-      controlsLayout: o2().oneOf(["fill", "fillJoin", "none", "stack"]),
-      elementRef: o2().oneOfType([o2().func, o2().object]),
-      error: o2().oneOfType([o2().bool, o2().string]),
-      help: o2().node,
-      hideLabel: o2().bool,
-      label: o2().string.isRequired,
-      labelFor: o2().string,
-      labelPosition: o2().oneOf(["left", "top"]),
-      labelWidth: o2().oneOfType([o2().number, o2().string]),
-      required: o2().bool,
-      tooltip: o2().node,
-      tooltipDefaultPlacement: o2().oneOf(["above", "below", "left", "right"])
-    };
-    var oe2 = {
-      flexGrow: 1
-    };
-    function ie2(e3) {
-      return e3.type && e3.type.propTypes && Object.prototype.hasOwnProperty.call(e3.type.propTypes, "inputId");
-    }
-    function ae2(e3, r3) {
-      var t3 = "".concat(e3, "-").concat(r3);
-      var n3 = (0, u2.createDOMID)(e3);
-      return {
-        childKey: t3,
-        value: n3
-      };
-    }
-    function se2(e3) {
-      var r3 = {};
-      var t3 = e3.length;
-      var n3 = 0;
-      e3.forEach(function(e4, t4) {
-        if (ie2(e4) && e4.props.inputId == null) {
-          var l3 = ae2("input-id", t4), o3 = l3.childKey, i3 = l3.value;
-          r3[o3] = i3;
-        } else if (e4.props.id == null) {
-          var a3 = ae2("id", t4), s3 = a3.childKey, c3 = a3.value;
-          r3[s3] = c3;
-        } else {
-          n3 += 1;
-        }
-      });
-      return {
-        newChildIds: r3,
-        allChildrenHaveId: n3 === t3
-      };
-    }
-    function ce2(e3, r3, t3) {
-      var n3 = "".concat(e3, "-").concat(r3);
-      var l3 = t3[n3];
-      if (!l3 || !l3.length) {
-        return void 0;
-      }
-      return l3;
-    }
-    function ue2(e3) {
-      if (e3.length === 0) {
-        return void 0;
-      }
-      var r3 = Y2(e3, 1), t3 = r3[0];
-      var n3 = e3.find(function(e4) {
-        return e4.type && e4.type.componentType === "Text";
-      });
-      var l3 = ie2(t3);
-      var o3 = t3.props, i3 = o3.id, a3 = o3.inputId;
-      if (e3.length === 1 && (t3 === null || t3 === void 0 ? void 0 : t3.props)) {
-        return l3 ? a3 : i3;
-      }
-      if (n3 === null || n3 === void 0 ? void 0 : n3.props) {
-        return n3.props.inputId;
-      }
-      if (t3.props) {
-        return l3 ? a3 : i3;
-      }
-      return void 0;
-    }
-    function de2(e3, r3, n3) {
-      var l3 = e3.props, o3 = l3.disabled, i3 = l3.error, a3 = l3.id, s3 = l3.inputId, c3 = l3.style;
-      var u3 = n3.childIds, d3 = n3.controlsLayout, p3 = n3.help, f3 = n3.helpId, y3 = n3.error, v3 = n3.errorId, b3 = n3.label, m3 = n3.labelFor, h3 = n3.labelId, g3 = n3.numChildren, w3 = n3.required, S3 = n3.showErrorText;
-      var O3 = {
-        key: e3.key || r3,
-        labelledBy: h3
-      };
-      if (d3 === "fillJoin") {
-        if (r3 > 0) {
-          O3.prepend = true;
-        }
-        if (r3 < g3 - 1) {
-          O3.append = true;
-        }
-        if (O3.prepend || O3.append) {
-          O3.inline = false;
-        }
-      }
-      if (d3 === "fill" && g3 > 1) {
-        O3.inline = true;
-      }
-      if (d3 === "stack") {
-        O3.inline = false;
-      }
-      if (p3 && typeof y3 === "boolean") {
-        O3.describedBy = f3;
-      } else if (p3 && typeof y3 === "string") {
-        O3.describedBy = "".concat(f3, " ").concat(v3);
-      } else if (!p3 && typeof y3 === "string") {
-        O3.describedBy = v3;
-      }
-      if (w3) {
-        O3.required = true;
-      }
-      if (e3.type.componentType === "Multiselect") {
-        var I3 = e3;
-        if (!I3.props.compact) {
-          O3.labelText = b3;
-        }
-      } else {
-        O3.labelText = b3;
-      }
-      if (g3 === 1 && (d3 === "fillJoin" || d3 === "fill")) {
-        O3.style = c3 ? K2(K2({}, c3), oe2) : oe2;
-      }
-      if (!m3 && e3) {
-        if (ie2(e3)) {
-          O3.inputId = s3 || ce2("input-id", r3, u3);
-        } else {
-          O3.id = a3 || ce2("id", r3, u3);
-        }
-      }
-      if (S3 && i3 === true) {
-        O3["aria-errormessage"] = v3;
-      }
-      return {
-        child: (0, t2.cloneElement)(e3, O3),
-        childDisabled: o3 !== null && o3 !== void 0 ? o3 : false
-      };
-    }
-    function pe2(e3, r3) {
-      var t3 = e3.length;
-      var n3 = 0;
-      var l3 = K2({
-        numChildren: t3
-      }, r3);
-      var o3 = e3.map(function(e4, r4) {
-        var t4 = de2(e4, r4, l3), o4 = t4.child, i3 = t4.childDisabled;
-        if (i3) {
-          n3 += 1;
-        }
-        return o4;
-      });
-      return {
-        childrenFormatted: o3,
-        controlGroupDisabled: n3 === t3
-      };
-    }
-    var fe2 = 120;
-    function ye2(e3) {
-      var r3 = e3.children, l3 = e3.controlsLayout, o3 = l3 === void 0 ? "fill" : l3, i3 = e3.error, s3 = i3 === void 0 ? false : i3, d3 = e3.help, f3 = e3.hideLabel, y3 = e3.label, v3 = e3.labelFor, b3 = e3.labelPosition, m3 = b3 === void 0 ? "top" : b3, h3 = e3.labelWidth, g3 = h3 === void 0 ? fe2 : h3, w3 = e3.required, _3 = w3 === void 0 ? false : w3, q3 = e3.tooltip, D3 = e3.tooltipDefaultPlacement, T3 = H2(e3, ["children", "controlsLayout", "error", "help", "hideLabel", "label", "labelFor", "labelPosition", "labelWidth", "required", "tooltip", "tooltipDefaultPlacement"]);
-      var M3 = (0, t2.useState)(function() {
-        return {
-          errorId: (0, u2.createDOMID)("error"),
-          helpId: (0, u2.createDOMID)("help"),
-          labelId: (0, u2.createDOMID)("label")
-        };
-      }), L3 = Y2(M3, 1), N3 = L3[0], $3 = N3.errorId, G3 = N3.helpId, B3 = N3.labelId;
-      var A3 = (0, t2.useState)({}), W3 = Y2(A3, 2), X3 = W3[0], J3 = W3[1];
-      var z3 = (0, t2.useState)(false), K3 = Y2(z3, 2), V3 = K3[0], U3 = K3[1];
-      var Q3 = c2()(n2().Children.count(r3));
-      var Z3 = (0, t2.useCallback)(function(e4) {
-        J3(e4);
-      }, []);
-      var ee3 = (0, t2.useCallback)(function(e4) {
-        U3(e4);
-      }, []);
-      var re3 = (0, t2.useMemo)(function() {
-        return t2.Children.toArray(r3).filter(t2.isValidElement);
-      }, [r3]);
-      (0, t2.useEffect)(function() {
-      }, [s3, d3, m3]);
-      (0, t2.useEffect)(function() {
-      }, [m3, g3]);
-      (0, t2.useEffect)(function() {
-        if (Q3 != null && n2().Children.count(r3) !== Q3) {
-          J3({});
-        }
-        if (Object.keys(X3).length === 0 && !v3 && !V3) {
-          var e4 = se2(re3), t3 = e4.newChildIds, l4 = e4.allChildrenHaveId;
-          J3(t3);
-          U3(l4);
-        }
-      }, [V3, X3, r3, v3, Q3, Z3, ee3, re3]);
-      var te3 = (0, t2.useMemo)(function() {
-        return {
-          labelAttrs: {
-            text: y3,
-            id: B3
-          }
-        };
-      }, [y3, B3]);
-      var ne3 = typeof s3 === "string";
-      var le3 = ne3 && s3 !== "";
-      var oe3 = Number.isFinite(g3) ? "".concat(g3, "px") : g3;
-      var ie3 = m3 === "left" ? {
-        width: oe3
-      } : void 0;
-      var ae3 = pe2(re3, {
-        childIds: X3,
-        controlsLayout: o3,
-        help: d3,
-        helpId: G3,
-        error: s3,
-        errorId: $3,
-        label: y3,
-        labelFor: v3,
-        labelId: B3,
-        required: _3,
-        showErrorText: le3
-      }), ce3 = ae3.childrenFormatted, de3 = ae3.controlGroupDisabled;
-      var ye3 = (0, t2.useMemo)(function() {
-        return v3 || ue2(ce3);
-      }, [ce3, v3]);
-      var ve3 = n2().createElement(O2, {
-        style: ie3,
-        $labelPosition: m3
-      }, n2().createElement(C2, {
-        $labelPosition: m3
-      }, n2().createElement(I2, {
-        "data-test": "label",
-        $disabled: de3,
-        id: B3,
-        htmlFor: ye3
-      }, _3 && n2().createElement(k2, {
-        "aria-hidden": "true"
-      }, "*"), y3, !f3 && q3 && n2().createElement(a2(), null, q3)), !f3 && q3 && n2().createElement(x2, {
-        closeWhen: "notOnClick",
-        content: q3,
-        defaultPlacement: D3,
-        "aria-hidden": "true"
-      })));
-      return n2().createElement(S2, R2({
-        "data-test": "control-group",
-        "data-test-required": _3,
-        $labelPosition: m3,
-        "aria-invalid": !!s3 || void 0
-      }, T3), n2().createElement(p2.Provider, {
-        value: te3
-      }, f3 ? n2().createElement(a2(), null, ve3) : ve3, n2().createElement(j2, {
-        $controlsLayout: o3
-      }, n2().createElement(E2, {
-        $controlsLayout: o3,
-        "data-test": "controls",
-        flex: o3 !== "none"
-      }, ce3), le3 && n2().createElement(F2, {
-        "data-test": "error",
-        id: $3
-      }, s3), d3 && n2().createElement(P2, {
-        "data-test": "help",
-        $disabled: de3,
-        id: G3
-      }, d3))));
-    }
-    ye2.propTypes = le2;
-    const ve2 = ye2;
-    ControlGroup$1.exports = r2;
-  })();
-  return ControlGroup$1.exports;
-}
-var ControlGroupExports = requireControlGroup();
-const ControlGroup = /* @__PURE__ */ getDefaultExportFromCjs(ControlGroupExports);
 var Heading$1 = { exports: {} };
-var Typography = { exports: {} };
+var Typography$1 = { exports: {} };
 var hasRequiredTypography;
 function requireTypography() {
-  if (hasRequiredTypography) return Typography.exports;
+  if (hasRequiredTypography) return Typography$1.exports;
   hasRequiredTypography = 1;
   (() => {
     var e2 = {};
@@ -37528,9 +36813,9 @@ function requireTypography() {
     }
     g2.propTypes = y2;
     const h2 = g2;
-    Typography.exports = r2;
+    Typography$1.exports = r2;
   })();
-  return Typography.exports;
+  return Typography$1.exports;
 }
 var hasRequiredHeading;
 function requireHeading() {
@@ -38605,6 +37890,126 @@ function requireLink() {
 var Menu$1 = { exports: {} };
 var NonInteractiveCheckbox = { exports: {} };
 var Switch$1 = { exports: {} };
+var Box = { exports: {} };
+var hasRequiredBox;
+function requireBox() {
+  if (hasRequiredBox) return Box.exports;
+  hasRequiredBox = 1;
+  (() => {
+    var e2 = {};
+    (() => {
+      e2.n = (n3) => {
+        var t3 = n3 && n3.__esModule ? (
+          /******/
+          () => n3["default"]
+        ) : () => n3;
+        e2.d(t3, {
+          a: t3
+        });
+        return t3;
+      };
+    })();
+    (() => {
+      e2.d = (n3, t3) => {
+        for (var r3 in t3) {
+          if (e2.o(t3, r3) && !e2.o(n3, r3)) {
+            Object.defineProperty(n3, r3, {
+              enumerable: true,
+              get: t3[r3]
+            });
+          }
+        }
+      };
+    })();
+    (() => {
+      e2.o = (e3, n3) => Object.prototype.hasOwnProperty.call(e3, n3);
+    })();
+    (() => {
+      e2.r = (e3) => {
+        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+          Object.defineProperty(e3, Symbol.toStringTag, {
+            value: "Module"
+          });
+        }
+        Object.defineProperty(e3, "__esModule", {
+          value: true
+        });
+      };
+    })();
+    var n2 = {};
+    e2.r(n2);
+    e2.d(n2, {
+      default: () => (
+        /* reexport */
+        v2
+      )
+    });
+    const t2 = requireReact();
+    var r2 = e2.n(t2);
+    const l2 = /* @__PURE__ */ requirePropTypes();
+    var i2 = e2.n(l2);
+    const o2 = require$$21;
+    var a2 = e2.n(o2);
+    const f2 = requireThemes();
+    var d2 = a2().div.withConfig({
+      displayName: "BoxStyles__Styled",
+      componentId: "sc-1h4b5f6-0"
+    })(["", ";align-items:stretch;align-content:stretch;flex-flow:row nowrap;flex-grow:0;flex-shrink:0;justify-content:flex-start;width:auto;max-width:100%;&[data-inline]{display:inline-block;vertical-align:middle;}&[data-flex]{display:flex;}&[data-flex][data-inline]{display:inline-flex;}"], f2.mixins.reset("block"));
+    function s2() {
+      return s2 = Object.assign ? Object.assign.bind() : function(e3) {
+        for (var n3 = 1; n3 < arguments.length; n3++) {
+          var t3 = arguments[n3];
+          for (var r3 in t3) {
+            ({}).hasOwnProperty.call(t3, r3) && (e3[r3] = t3[r3]);
+          }
+        }
+        return e3;
+      }, s2.apply(null, arguments);
+    }
+    function c2(e3, n3) {
+      if (null == e3) return {};
+      var t3, r3, l3 = u2(e3, n3);
+      if (Object.getOwnPropertySymbols) {
+        var i3 = Object.getOwnPropertySymbols(e3);
+        for (r3 = 0; r3 < i3.length; r3++) {
+          t3 = i3[r3], n3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (l3[t3] = e3[t3]);
+        }
+      }
+      return l3;
+    }
+    function u2(e3, n3) {
+      if (null == e3) return {};
+      var t3 = {};
+      for (var r3 in e3) {
+        if ({}.hasOwnProperty.call(e3, r3)) {
+          if (n3.includes(r3)) continue;
+          t3[r3] = e3[r3];
+        }
+      }
+      return t3;
+    }
+    var p2 = {
+      children: i2().node,
+      elementRef: i2().oneOfType([i2().func, i2().object]),
+      flex: i2().bool,
+      inline: i2().bool
+    };
+    function y2(e3) {
+      var n3 = e3.children, t3 = e3.elementRef, l3 = e3.flex, i3 = l3 === void 0 ? false : l3, o3 = e3.tag, a3 = o3 === void 0 ? "div" : o3, f3 = e3.inline, u3 = f3 === void 0 ? false : f3, p3 = c2(e3, ["children", "elementRef", "flex", "tag", "inline"]);
+      return r2().createElement(d2, s2({
+        as: a3,
+        ref: t3
+      }, p3, {
+        "data-inline": u3 || void 0,
+        "data-flex": i3 || void 0
+      }), n3);
+    }
+    y2.propTypes = p2;
+    const v2 = y2;
+    Box.exports = n2;
+  })();
+  return Box.exports;
+}
 var CheckBoxCompleted = { exports: {} };
 var hasRequiredCheckBoxCompleted;
 function requireCheckBoxCompleted() {
@@ -41933,6 +41338,599 @@ function requirePickBy() {
   pickBy_1 = pickBy;
   return pickBy_1;
 }
+var ControlGroup$1 = { exports: {} };
+var hasRequiredControlGroup;
+function requireControlGroup() {
+  if (hasRequiredControlGroup) return ControlGroup$1.exports;
+  hasRequiredControlGroup = 1;
+  (() => {
+    var e2 = {};
+    (() => {
+      e2.n = (r3) => {
+        var t3 = r3 && r3.__esModule ? (
+          /******/
+          () => r3["default"]
+        ) : () => r3;
+        e2.d(t3, {
+          a: t3
+        });
+        return t3;
+      };
+    })();
+    (() => {
+      e2.d = (r3, t3) => {
+        for (var n3 in t3) {
+          if (e2.o(t3, n3) && !e2.o(r3, n3)) {
+            Object.defineProperty(r3, n3, {
+              enumerable: true,
+              get: t3[n3]
+            });
+          }
+        }
+      };
+    })();
+    (() => {
+      e2.o = (e3, r3) => Object.prototype.hasOwnProperty.call(e3, r3);
+    })();
+    (() => {
+      e2.r = (e3) => {
+        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+          Object.defineProperty(e3, Symbol.toStringTag, {
+            value: "Module"
+          });
+        }
+        Object.defineProperty(e3, "__esModule", {
+          value: true
+        });
+      };
+    })();
+    var r2 = {};
+    e2.r(r2);
+    e2.d(r2, {
+      ControlGroupContext: () => (
+        /* reexport */
+        p2
+      ),
+      default: () => (
+        /* reexport */
+        ve2
+      )
+    });
+    const t2 = requireReact();
+    var n2 = e2.n(t2);
+    const l2 = /* @__PURE__ */ requirePropTypes();
+    var o2 = e2.n(l2);
+    const i2 = requireScreenReaderContent();
+    var a2 = e2.n(i2);
+    const s2 = requireUsePrevious();
+    var c2 = e2.n(s2);
+    const u2 = requireId();
+    var d2 = n2().createContext({});
+    const p2 = d2;
+    const f2 = require$$21;
+    var y2 = e2.n(f2);
+    const v2 = requireBox();
+    var b2 = e2.n(v2);
+    const m2 = requireTooltip();
+    var h2 = e2.n(m2);
+    const g2 = requireThemes();
+    var w2 = "24px";
+    var S2 = y2()(b2()).withConfig({
+      displayName: "ControlGroupStyles__StyledBox",
+      componentId: "wjnyif-0"
+    })(["", " max-width:600px;margin-block-end:", ";&:last-child{margin-block-end:0;}", ""], g2.mixins.reset("flex"), g2.variables.spacingLarge, function(e3) {
+      var r3 = e3.$labelPosition;
+      return r3 === "top" ? (0, f2.css)(["flex-direction:column;gap:", ";"], g2.variables.spacingXSmall) : (0, f2.css)(["flex-direction:row;gap:", ";"], g2.variables.spacingMedium);
+    });
+    var O2 = y2().div.withConfig({
+      displayName: "ControlGroupStyles__StyledLabelWrapper",
+      componentId: "wjnyif-1"
+    })(["display:inline-flex;align-items:flex-start;gap:", ";flex-shrink:0;"], g2.variables.spacingXSmall);
+    var I2 = y2().label.withConfig({
+      displayName: "ControlGroupStyles__StyledLabel",
+      componentId: "wjnyif-2"
+    })(["", ";word-wrap:break-word;", ";"], g2.mixins.typography("body", {
+      color: "active"
+    }), function(e3) {
+      var r3 = e3.$disabled;
+      return r3 && (0, f2.css)(["color:", ";"], g2.variables.contentColorDisabled);
+    });
+    var C2 = y2().div.withConfig({
+      displayName: "ControlGroupStyles__StyledLabelInnerWrapper",
+      componentId: "wjnyif-3"
+    })(
+      ["display:inline-flex;gap:", ";align-items:center;:has(", ":not(:empty)){min-height:", ";}"],
+      g2.variables.spacingXSmall,
+      /* sc-sel */
+      I2,
+      (0, g2.pickVariant)("$labelPosition", {
+        /* Ensures label is vertically centered with input */
+        left: g2.variables.inputHeight,
+        /**
+        * Ensures inputs in ControlGroups next to each other are vertically aligned regardless of Tooltip presence.
+        * Checked by HorizontalLabelTopLayout story.
+        */
+        top: w2
+      })
+    );
+    var x2 = y2()(h2()).withConfig({
+      displayName: "ControlGroupStyles__StyledTooltip",
+      componentId: "wjnyif-4"
+    })(["flex-shrink:0;& button{min-width:", ";min-height:", ";width:", ";height:", ";}"], w2, w2, w2, w2);
+    var j2 = y2().div.withConfig({
+      displayName: "ControlGroupStyles__StyledControlsAndMessagingWrapper",
+      componentId: "wjnyif-5"
+    })(["display:flex;flex-direction:column;gap:", ";min-width:0;", ""], g2.variables.spacingXSmall, function(e3) {
+      var r3 = e3.$controlsLayout;
+      return r3 !== "none" && (0, f2.css)(["flex-grow:1;"]);
+    });
+    var E2 = y2()(b2()).withConfig({
+      displayName: "ControlGroupStyles__StyledControlsWrapper",
+      componentId: "wjnyif-6"
+    })(["gap:", ";", ""], g2.variables.spacingMedium, (0, g2.pickVariant)("$controlsLayout", {
+      fillJoin: (0, f2.css)(["gap:0;"]),
+      stack: (0, f2.css)(["flex-direction:column;"])
+    }));
+    var P2 = y2().div.withConfig({
+      displayName: "ControlGroupStyles__StyledHelp",
+      componentId: "wjnyif-7"
+    })(["", ";", ";", ";"], g2.mixins.reset("block"), g2.mixins.typography("smallBody"), function(e3) {
+      var r3 = e3.$disabled;
+      return r3 && (0, f2.css)(["color:", ";"], g2.variables.contentColorDisabled);
+    });
+    var k2 = y2().span.withConfig({
+      displayName: "ControlGroupStyles__StyledAsterisk",
+      componentId: "wjnyif-8"
+    })(["color:", ";margin-right:2px;"], g2.variables.contentColorNegative);
+    const _2 = requireI18n();
+    const q2 = requireExclamationTriangle();
+    var D2 = e2.n(q2);
+    const T2 = requireMixins();
+    var M2 = y2().div.withConfig({
+      displayName: "ErrorMessageBarStyles__StyledErrorMessageBarWrapper",
+      componentId: "sc-1praezx-0"
+    })(["display:flex;gap:", ";word-break:break-word;border-radius:", ";padding:", ";background-color:", ";"], g2.variables.spacingXSmall, g2.variables.borderRadius, g2.variables.spacingXSmall, g2.variables.notificationColorNegativeWeak);
+    var L2 = y2()(D2()).withConfig({
+      displayName: "ErrorMessageBarStyles__StyledIcon",
+      componentId: "sc-1praezx-1"
+    })(["position:relative;fill:", ";"], g2.variables.interactiveColorAccentError);
+    var N2 = y2().p.withConfig({
+      displayName: "ErrorMessageBarStyles__StyledErrorMessage",
+      componentId: "sc-1praezx-2"
+    })(["", ";", ";"], g2.mixins.reset("block"), (0, T2.typography)("smallBody", {
+      color: "active"
+    }));
+    function $2(e3, r3) {
+      if (null == e3) return {};
+      var t3, n3, l3 = G2(e3, r3);
+      if (Object.getOwnPropertySymbols) {
+        var o3 = Object.getOwnPropertySymbols(e3);
+        for (n3 = 0; n3 < o3.length; n3++) {
+          t3 = o3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (l3[t3] = e3[t3]);
+        }
+      }
+      return l3;
+    }
+    function G2(e3, r3) {
+      if (null == e3) return {};
+      var t3 = {};
+      for (var n3 in e3) {
+        if ({}.hasOwnProperty.call(e3, n3)) {
+          if (r3.includes(n3)) continue;
+          t3[n3] = e3[n3];
+        }
+      }
+      return t3;
+    }
+    var B2 = (0, _2._)("Error: ");
+    var A2 = {
+      children: o2().node.isRequired
+    };
+    function W2(e3) {
+      var r3 = e3.children, t3 = $2(e3, ["children"]);
+      return n2().createElement(M2, t3, n2().createElement(L2, {
+        variant: "filled"
+      }), n2().createElement(a2(), null, B2), n2().createElement(N2, null, r3));
+    }
+    W2.propTypes = A2;
+    const F2 = W2;
+    function X2(e3) {
+      "@babel/helpers - typeof";
+      return X2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e4) {
+        return typeof e4;
+      } : function(e4) {
+        return e4 && "function" == typeof Symbol && e4.constructor === Symbol && e4 !== Symbol.prototype ? "symbol" : typeof e4;
+      }, X2(e3);
+    }
+    function R2() {
+      return R2 = Object.assign ? Object.assign.bind() : function(e3) {
+        for (var r3 = 1; r3 < arguments.length; r3++) {
+          var t3 = arguments[r3];
+          for (var n3 in t3) {
+            ({}).hasOwnProperty.call(t3, n3) && (e3[n3] = t3[n3]);
+          }
+        }
+        return e3;
+      }, R2.apply(null, arguments);
+    }
+    function H2(e3, r3) {
+      if (null == e3) return {};
+      var t3, n3, l3 = J2(e3, r3);
+      if (Object.getOwnPropertySymbols) {
+        var o3 = Object.getOwnPropertySymbols(e3);
+        for (n3 = 0; n3 < o3.length; n3++) {
+          t3 = o3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (l3[t3] = e3[t3]);
+        }
+      }
+      return l3;
+    }
+    function J2(e3, r3) {
+      if (null == e3) return {};
+      var t3 = {};
+      for (var n3 in e3) {
+        if ({}.hasOwnProperty.call(e3, n3)) {
+          if (r3.includes(n3)) continue;
+          t3[n3] = e3[n3];
+        }
+      }
+      return t3;
+    }
+    function z2(e3, r3) {
+      var t3 = Object.keys(e3);
+      if (Object.getOwnPropertySymbols) {
+        var n3 = Object.getOwnPropertySymbols(e3);
+        r3 && (n3 = n3.filter(function(r4) {
+          return Object.getOwnPropertyDescriptor(e3, r4).enumerable;
+        })), t3.push.apply(t3, n3);
+      }
+      return t3;
+    }
+    function K2(e3) {
+      for (var r3 = 1; r3 < arguments.length; r3++) {
+        var t3 = null != arguments[r3] ? arguments[r3] : {};
+        r3 % 2 ? z2(Object(t3), true).forEach(function(r4) {
+          V2(e3, r4, t3[r4]);
+        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t3)) : z2(Object(t3)).forEach(function(r4) {
+          Object.defineProperty(e3, r4, Object.getOwnPropertyDescriptor(t3, r4));
+        });
+      }
+      return e3;
+    }
+    function V2(e3, r3, t3) {
+      return (r3 = U2(r3)) in e3 ? Object.defineProperty(e3, r3, {
+        value: t3,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      }) : e3[r3] = t3, e3;
+    }
+    function U2(e3) {
+      var r3 = Q2(e3, "string");
+      return "symbol" == X2(r3) ? r3 : r3 + "";
+    }
+    function Q2(e3, r3) {
+      if ("object" != X2(e3) || !e3) return e3;
+      var t3 = e3[Symbol.toPrimitive];
+      if (void 0 !== t3) {
+        var n3 = t3.call(e3, r3);
+        if ("object" != X2(n3)) return n3;
+        throw new TypeError("@@toPrimitive must return a primitive value.");
+      }
+      return ("string" === r3 ? String : Number)(e3);
+    }
+    function Y2(e3, r3) {
+      return ne2(e3) || te2(e3, r3) || ee2(e3, r3) || Z2();
+    }
+    function Z2() {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+    function ee2(e3, r3) {
+      if (e3) {
+        if ("string" == typeof e3) return re2(e3, r3);
+        var t3 = {}.toString.call(e3).slice(8, -1);
+        return "Object" === t3 && e3.constructor && (t3 = e3.constructor.name), "Map" === t3 || "Set" === t3 ? Array.from(e3) : "Arguments" === t3 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t3) ? re2(e3, r3) : void 0;
+      }
+    }
+    function re2(e3, r3) {
+      (null == r3 || r3 > e3.length) && (r3 = e3.length);
+      for (var t3 = 0, n3 = Array(r3); t3 < r3; t3++) {
+        n3[t3] = e3[t3];
+      }
+      return n3;
+    }
+    function te2(e3, r3) {
+      var t3 = null == e3 ? null : "undefined" != typeof Symbol && e3[Symbol.iterator] || e3["@@iterator"];
+      if (null != t3) {
+        var n3, l3, o3, i3, a3 = [], s3 = true, c3 = false;
+        try {
+          if (o3 = (t3 = t3.call(e3)).next, 0 === r3) {
+            if (Object(t3) !== t3) return;
+            s3 = false;
+          } else for (; !(s3 = (n3 = o3.call(t3)).done) && (a3.push(n3.value), a3.length !== r3); s3 = true) {
+          }
+        } catch (e4) {
+          c3 = true, l3 = e4;
+        } finally {
+          try {
+            if (!s3 && null != t3["return"] && (i3 = t3["return"](), Object(i3) !== i3)) return;
+          } finally {
+            if (c3) throw l3;
+          }
+        }
+        return a3;
+      }
+    }
+    function ne2(e3) {
+      if (Array.isArray(e3)) return e3;
+    }
+    var le2 = {
+      children: o2().node,
+      controlsLayout: o2().oneOf(["fill", "fillJoin", "none", "stack"]),
+      elementRef: o2().oneOfType([o2().func, o2().object]),
+      error: o2().oneOfType([o2().bool, o2().string]),
+      help: o2().node,
+      hideLabel: o2().bool,
+      label: o2().string.isRequired,
+      labelFor: o2().string,
+      labelPosition: o2().oneOf(["left", "top"]),
+      labelWidth: o2().oneOfType([o2().number, o2().string]),
+      required: o2().bool,
+      tooltip: o2().node,
+      tooltipDefaultPlacement: o2().oneOf(["above", "below", "left", "right"])
+    };
+    var oe2 = {
+      flexGrow: 1
+    };
+    function ie2(e3) {
+      return e3.type && e3.type.propTypes && Object.prototype.hasOwnProperty.call(e3.type.propTypes, "inputId");
+    }
+    function ae2(e3, r3) {
+      var t3 = "".concat(e3, "-").concat(r3);
+      var n3 = (0, u2.createDOMID)(e3);
+      return {
+        childKey: t3,
+        value: n3
+      };
+    }
+    function se2(e3) {
+      var r3 = {};
+      var t3 = e3.length;
+      var n3 = 0;
+      e3.forEach(function(e4, t4) {
+        if (ie2(e4) && e4.props.inputId == null) {
+          var l3 = ae2("input-id", t4), o3 = l3.childKey, i3 = l3.value;
+          r3[o3] = i3;
+        } else if (e4.props.id == null) {
+          var a3 = ae2("id", t4), s3 = a3.childKey, c3 = a3.value;
+          r3[s3] = c3;
+        } else {
+          n3 += 1;
+        }
+      });
+      return {
+        newChildIds: r3,
+        allChildrenHaveId: n3 === t3
+      };
+    }
+    function ce2(e3, r3, t3) {
+      var n3 = "".concat(e3, "-").concat(r3);
+      var l3 = t3[n3];
+      if (!l3 || !l3.length) {
+        return void 0;
+      }
+      return l3;
+    }
+    function ue2(e3) {
+      if (e3.length === 0) {
+        return void 0;
+      }
+      var r3 = Y2(e3, 1), t3 = r3[0];
+      var n3 = e3.find(function(e4) {
+        return e4.type && e4.type.componentType === "Text";
+      });
+      var l3 = ie2(t3);
+      var o3 = t3.props, i3 = o3.id, a3 = o3.inputId;
+      if (e3.length === 1 && (t3 === null || t3 === void 0 ? void 0 : t3.props)) {
+        return l3 ? a3 : i3;
+      }
+      if (n3 === null || n3 === void 0 ? void 0 : n3.props) {
+        return n3.props.inputId;
+      }
+      if (t3.props) {
+        return l3 ? a3 : i3;
+      }
+      return void 0;
+    }
+    function de2(e3, r3, n3) {
+      var l3 = e3.props, o3 = l3.disabled, i3 = l3.error, a3 = l3.id, s3 = l3.inputId, c3 = l3.style;
+      var u3 = n3.childIds, d3 = n3.controlsLayout, p3 = n3.help, f3 = n3.helpId, y3 = n3.error, v3 = n3.errorId, b3 = n3.label, m3 = n3.labelFor, h3 = n3.labelId, g3 = n3.numChildren, w3 = n3.required, S3 = n3.showErrorText;
+      var O3 = {
+        key: e3.key || r3,
+        labelledBy: h3
+      };
+      if (d3 === "fillJoin") {
+        if (r3 > 0) {
+          O3.prepend = true;
+        }
+        if (r3 < g3 - 1) {
+          O3.append = true;
+        }
+        if (O3.prepend || O3.append) {
+          O3.inline = false;
+        }
+      }
+      if (d3 === "fill" && g3 > 1) {
+        O3.inline = true;
+      }
+      if (d3 === "stack") {
+        O3.inline = false;
+      }
+      if (p3 && typeof y3 === "boolean") {
+        O3.describedBy = f3;
+      } else if (p3 && typeof y3 === "string") {
+        O3.describedBy = "".concat(f3, " ").concat(v3);
+      } else if (!p3 && typeof y3 === "string") {
+        O3.describedBy = v3;
+      }
+      if (w3) {
+        O3.required = true;
+      }
+      if (e3.type.componentType === "Multiselect") {
+        var I3 = e3;
+        if (!I3.props.compact) {
+          O3.labelText = b3;
+        }
+      } else {
+        O3.labelText = b3;
+      }
+      if (g3 === 1 && (d3 === "fillJoin" || d3 === "fill")) {
+        O3.style = c3 ? K2(K2({}, c3), oe2) : oe2;
+      }
+      if (!m3 && e3) {
+        if (ie2(e3)) {
+          O3.inputId = s3 || ce2("input-id", r3, u3);
+        } else {
+          O3.id = a3 || ce2("id", r3, u3);
+        }
+      }
+      if (S3 && i3 === true) {
+        O3["aria-errormessage"] = v3;
+      }
+      return {
+        child: (0, t2.cloneElement)(e3, O3),
+        childDisabled: o3 !== null && o3 !== void 0 ? o3 : false
+      };
+    }
+    function pe2(e3, r3) {
+      var t3 = e3.length;
+      var n3 = 0;
+      var l3 = K2({
+        numChildren: t3
+      }, r3);
+      var o3 = e3.map(function(e4, r4) {
+        var t4 = de2(e4, r4, l3), o4 = t4.child, i3 = t4.childDisabled;
+        if (i3) {
+          n3 += 1;
+        }
+        return o4;
+      });
+      return {
+        childrenFormatted: o3,
+        controlGroupDisabled: n3 === t3
+      };
+    }
+    var fe2 = 120;
+    function ye2(e3) {
+      var r3 = e3.children, l3 = e3.controlsLayout, o3 = l3 === void 0 ? "fill" : l3, i3 = e3.error, s3 = i3 === void 0 ? false : i3, d3 = e3.help, f3 = e3.hideLabel, y3 = e3.label, v3 = e3.labelFor, b3 = e3.labelPosition, m3 = b3 === void 0 ? "top" : b3, h3 = e3.labelWidth, g3 = h3 === void 0 ? fe2 : h3, w3 = e3.required, _3 = w3 === void 0 ? false : w3, q3 = e3.tooltip, D3 = e3.tooltipDefaultPlacement, T3 = H2(e3, ["children", "controlsLayout", "error", "help", "hideLabel", "label", "labelFor", "labelPosition", "labelWidth", "required", "tooltip", "tooltipDefaultPlacement"]);
+      var M3 = (0, t2.useState)(function() {
+        return {
+          errorId: (0, u2.createDOMID)("error"),
+          helpId: (0, u2.createDOMID)("help"),
+          labelId: (0, u2.createDOMID)("label")
+        };
+      }), L3 = Y2(M3, 1), N3 = L3[0], $3 = N3.errorId, G3 = N3.helpId, B3 = N3.labelId;
+      var A3 = (0, t2.useState)({}), W3 = Y2(A3, 2), X3 = W3[0], J3 = W3[1];
+      var z3 = (0, t2.useState)(false), K3 = Y2(z3, 2), V3 = K3[0], U3 = K3[1];
+      var Q3 = c2()(n2().Children.count(r3));
+      var Z3 = (0, t2.useCallback)(function(e4) {
+        J3(e4);
+      }, []);
+      var ee3 = (0, t2.useCallback)(function(e4) {
+        U3(e4);
+      }, []);
+      var re3 = (0, t2.useMemo)(function() {
+        return t2.Children.toArray(r3).filter(t2.isValidElement);
+      }, [r3]);
+      (0, t2.useEffect)(function() {
+      }, [s3, d3, m3]);
+      (0, t2.useEffect)(function() {
+      }, [m3, g3]);
+      (0, t2.useEffect)(function() {
+        if (Q3 != null && n2().Children.count(r3) !== Q3) {
+          J3({});
+        }
+        if (Object.keys(X3).length === 0 && !v3 && !V3) {
+          var e4 = se2(re3), t3 = e4.newChildIds, l4 = e4.allChildrenHaveId;
+          J3(t3);
+          U3(l4);
+        }
+      }, [V3, X3, r3, v3, Q3, Z3, ee3, re3]);
+      var te3 = (0, t2.useMemo)(function() {
+        return {
+          labelAttrs: {
+            text: y3,
+            id: B3
+          }
+        };
+      }, [y3, B3]);
+      var ne3 = typeof s3 === "string";
+      var le3 = ne3 && s3 !== "";
+      var oe3 = Number.isFinite(g3) ? "".concat(g3, "px") : g3;
+      var ie3 = m3 === "left" ? {
+        width: oe3
+      } : void 0;
+      var ae3 = pe2(re3, {
+        childIds: X3,
+        controlsLayout: o3,
+        help: d3,
+        helpId: G3,
+        error: s3,
+        errorId: $3,
+        label: y3,
+        labelFor: v3,
+        labelId: B3,
+        required: _3,
+        showErrorText: le3
+      }), ce3 = ae3.childrenFormatted, de3 = ae3.controlGroupDisabled;
+      var ye3 = (0, t2.useMemo)(function() {
+        return v3 || ue2(ce3);
+      }, [ce3, v3]);
+      var ve3 = n2().createElement(O2, {
+        style: ie3,
+        $labelPosition: m3
+      }, n2().createElement(C2, {
+        $labelPosition: m3
+      }, n2().createElement(I2, {
+        "data-test": "label",
+        $disabled: de3,
+        id: B3,
+        htmlFor: ye3
+      }, _3 && n2().createElement(k2, {
+        "aria-hidden": "true"
+      }, "*"), y3, !f3 && q3 && n2().createElement(a2(), null, q3)), !f3 && q3 && n2().createElement(x2, {
+        closeWhen: "notOnClick",
+        content: q3,
+        defaultPlacement: D3,
+        "aria-hidden": "true"
+      })));
+      return n2().createElement(S2, R2({
+        "data-test": "control-group",
+        "data-test-required": _3,
+        $labelPosition: m3,
+        "aria-invalid": !!s3 || void 0
+      }, T3), n2().createElement(p2.Provider, {
+        value: te3
+      }, f3 ? n2().createElement(a2(), null, ve3) : ve3, n2().createElement(j2, {
+        $controlsLayout: o3
+      }, n2().createElement(E2, {
+        $controlsLayout: o3,
+        "data-test": "controls",
+        flex: o3 !== "none"
+      }, ce3), le3 && n2().createElement(F2, {
+        "data-test": "error",
+        id: $3
+      }, s3), d3 && n2().createElement(P2, {
+        "data-test": "help",
+        $disabled: de3,
+        id: G3
+      }, d3))));
+    }
+    ye2.propTypes = le2;
+    const ve2 = ye2;
+    ControlGroup$1.exports = r2;
+  })();
+  return ControlGroup$1.exports;
+}
 var EyeSlashed = { exports: {} };
 var hasRequiredEyeSlashed;
 function requireEyeSlashed() {
@@ -44613,6 +44611,8 @@ var SelectExports = requireSelect();
 const Select = /* @__PURE__ */ getDefaultExportFromCjs(SelectExports);
 var TextExports = requireText();
 const Text = /* @__PURE__ */ getDefaultExportFromCjs(TextExports);
+var TypographyExports = requireTypography();
+const Typography = /* @__PURE__ */ getDefaultExportFromCjs(TypographyExports);
 var WaitSpinnerExports = requireWaitSpinner();
 const WaitSpinner = /* @__PURE__ */ getDefaultExportFromCjs(WaitSpinnerExports);
 var Modal$1 = { exports: {} };
@@ -45510,6 +45510,8 @@ function requireModal() {
 }
 var ModalExports = requireModal();
 const Modal = /* @__PURE__ */ getDefaultExportFromCjs(ModalExports);
+var ControlGroupExports = requireControlGroup();
+const ControlGroup = /* @__PURE__ */ getDefaultExportFromCjs(ControlGroupExports);
 const NewKVStoreForm = ({ onCreate, open, onClose, initialFields, modalToggle }) => {
   const [name, setName] = reactExports.useState("");
   const [fields, setFields] = reactExports.useState(initialFields);
@@ -46130,87 +46132,114 @@ const KVStoreDataForm = (props) => {
     props.onJSONPathsChange([]);
     props.setJsonPreview && props.setJsonPreview("");
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { maxWidth: "900px", width: "100%", padding: "0" }, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%", padding: "0" }, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "0", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Basic Configuration" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Input Name", required: true, labelPosition: "top", style: { marginBottom: "20px" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Text,
-      {
-        value: name,
-        onChange: (_2, { value }) => {
-          updateConfigField("name", value);
-          setInputName(value);
-        },
-        placeholder: "Enter input name",
-        required: true,
-        canClear: true,
-        style: { width: "100%" }
-      }
-    ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "API URL", required: true, labelPosition: "top", style: { marginBottom: "20px" }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
+        "Input Name ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Text,
         {
-          value: url2,
+          value: name,
           onChange: (_2, { value }) => {
-            updateConfigField("url", value);
-            setUrl(value);
+            updateConfigField("name", value);
+            setInputName(value);
           },
-          disabled: props.loading,
-          canClear: true,
+          placeholder: "Enter input name",
           required: true,
-          style: { width: "60%" }
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Button,
-        {
-          type: "submit",
-          disabled: props.loading,
-          onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
-          style: { minWidth: "140px" },
-          children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
+          canClear: true,
+          style: { width: "100%" }
         }
       )
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "HTTP Headers", labelPosition: "top", tooltip: "Add one or more HTTP headers in the format 'Header: Value'", style: { marginBottom: "20px" }, children: controlledHttpHeaderRows }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Splunk Configuration" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Cron Expression", required: true, labelPosition: "top", tooltip: "Cron expression for scheduling data input", style: { marginBottom: "20px" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Text,
-      {
-        value: cronExpression,
-        onChange: (_2, { value }) => {
-          updateConfigField("cron_expression", value);
-          setCronExpression(value);
-        },
-        placeholder: "0 * * * *",
-        required: true,
-        style: { width: "100%" }
-      }
-    ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Select KVStore Collection", required: true, labelPosition: "top", style: { marginBottom: "20px" }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Select,
-        {
-          value: selected_output_location,
-          onChange: (_2, { value }) => {
-            updateConfigField("selected_output_location", String(value));
-            setSelectedCollection(String(value));
-          },
-          filter: true,
-          placeholder: "Select a collection...",
-          style: { width: "60%" },
-          children: collectionNames.map((collection) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Select.Option,
-            {
-              value: generateSelectedOutputString(collection.app, collection.name),
-              label: `${collection.name} (${collection.app})`
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
+        "API URL ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Text,
+          {
+            value: url2,
+            onChange: (_2, { value }) => {
+              updateConfigField("url", value);
+              setUrl(value);
             },
-            collection.name
-          ))
+            disabled: props.loading,
+            canClear: true,
+            required: true,
+            style: { width: "60%" }
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            type: "submit",
+            disabled: props.loading,
+            onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
+            style: { minWidth: "140px" },
+            children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Add one or more HTTP headers in the format 'Header: Value'", children: "HTTP Headers" }),
+      controlledHttpHeaderRows
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Splunk Configuration" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Cron expression for scheduling data input", children: [
+        "Cron Expression ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Text,
+        {
+          value: cronExpression,
+          onChange: (_2, { value }) => {
+            updateConfigField("cron_expression", value);
+            setCronExpression(value);
+          },
+          placeholder: "0 * * * *",
+          required: true,
+          style: { width: "100%" }
         }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateCollectionModal(true), elementRef: modalToggle, style: { minWidth: "180px" }, children: "Create New Collection" })
-    ] }) }),
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
+        "Select KVStore Collection ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Select,
+          {
+            value: selected_output_location,
+            onChange: (_2, { value }) => {
+              updateConfigField("selected_output_location", String(value));
+              setSelectedCollection(String(value));
+            },
+            filter: true,
+            placeholder: "Select a collection...",
+            style: { width: "60%" },
+            children: collectionNames.map((collection) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Select.Option,
+              {
+                value: generateSelectedOutputString(collection.app, collection.name),
+                label: `${collection.name} (${collection.app})`
+              },
+              collection.name
+            ))
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateCollectionModal(true), elementRef: modalToggle, style: { minWidth: "180px" }, children: "Create New Collection" })
+      ] })
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       NewKVStoreForm,
       {
@@ -46221,37 +46250,49 @@ const KVStoreDataForm = (props) => {
         initialFields: props.fieldsForKvStoreCreation
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Mode", required: true, labelPosition: "top", tooltip: "Overwrite will replace all existing data in the collection", style: { marginBottom: "20px" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList, { value: mode, onChange: (_2, { value }) => {
-      updateConfigField("mode", value);
-      setMode(value);
-    }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "overwrite", children: "Overwrite" }) }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Overwrite will replace all existing data in the collection", children: [
+        "Mode ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList, { value: mode, onChange: (_2, { value }) => {
+        updateConfigField("mode", value);
+        setMode(value);
+      }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "overwrite", children: "Overwrite" }) })
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Data Processing" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "warning", style: { marginBottom: "20px" }, children: "Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields." }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Exclude JSONPaths", labelPosition: "top", tooltip: "Provide one or more JSONPath expressions to exclude fields from the JSON.", style: { marginBottom: "20px" }, children: controlledJsonPathRows }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Separate Arrays as Events", labelPosition: "top", tooltip: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", style: { marginBottom: "20px", fontSize: "0.9em" }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        ArrayFieldSelector,
-        {
-          data: props.rawData,
-          selectedPaths: separateArrayPaths,
-          onSelectionChange: (paths) => {
-            setSeparateArrayPaths(paths);
-            updateConfigField("separate_array_paths", paths);
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: "Exclude JSONPaths" }),
+      controlledJsonPathRows
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", children: "Separate Arrays as Events" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          ArrayFieldSelector,
+          {
+            data: props.rawData,
+            selectedPaths: separateArrayPaths,
+            onSelectionChange: (paths) => {
+              setSeparateArrayPaths(paths);
+              updateConfigField("separate_array_paths", paths);
+            }
           }
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Button,
-        {
-          appearance: "secondary",
-          onClick: () => setShowPreviewModal(true),
-          elementRef: previewModalToggle,
-          disabled: !props.rawData,
-          style: { marginTop: "12px", width: "100%" },
-          children: "Preview Events"
-        }
-      )
-    ] }) }),
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            appearance: "secondary",
+            onClick: () => setShowPreviewModal(true),
+            elementRef: previewModalToggle,
+            disabled: !props.rawData,
+            style: { marginTop: "12px", width: "100%" },
+            children: "Preview Events"
+          }
+        )
+      ] })
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       EventPreviewModal,
       {
@@ -46930,78 +46971,105 @@ const IndexDataForm = (props) => {
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%", padding: "0" }, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "0", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Basic Configuration" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Input Name", required: true, labelPosition: "top", style: { marginBottom: "20px" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Text,
-      {
-        value: name,
-        onChange: (_2, { value }) => {
-          updateConfigField("name", value);
-          setInputName(value);
-        },
-        placeholder: "Enter input name",
-        required: true,
-        canClear: true,
-        style: { width: "100%" }
-      }
-    ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "API URL", required: true, labelPosition: "top", style: { marginBottom: "20px" }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
+        "Input Name ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Text,
         {
-          value: url2,
+          value: name,
           onChange: (_2, { value }) => {
-            updateConfigField("url", value);
-            setUrl(value);
+            updateConfigField("name", value);
+            setInputName(value);
           },
-          disabled: props.loading,
-          canClear: true,
+          placeholder: "Enter input name",
           required: true,
-          style: { width: "60%" }
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Button,
-        {
-          type: "submit",
-          disabled: props.loading,
-          onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
-          style: { minWidth: "140px" },
-          children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
+          canClear: true,
+          style: { width: "100%" }
         }
       )
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "HTTP Headers", labelPosition: "top", tooltip: "Add one or more HTTP headers in the format 'Header: Value'", style: { marginBottom: "20px" }, children: controlledHttpHeaderRows }),
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
+        "API URL ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Text,
+          {
+            value: url2,
+            onChange: (_2, { value }) => {
+              updateConfigField("url", value);
+              setUrl(value);
+            },
+            disabled: props.loading,
+            canClear: true,
+            required: true,
+            style: { width: "60%" }
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            type: "submit",
+            disabled: props.loading,
+            onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
+            style: { minWidth: "140px" },
+            children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Add one or more HTTP headers in the format 'Header: Value'", children: "HTTP Headers" }),
+      controlledHttpHeaderRows
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Splunk Configuration" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Cron Expression", required: true, labelPosition: "top", tooltip: "Cron expression for scheduling data input", style: { marginBottom: "20px" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Text,
-      {
-        value: cronExpression,
-        onChange: (_2, { value }) => {
-          updateConfigField("cron_expression", value);
-          setCronExpression(value);
-        },
-        placeholder: "0 * * * *",
-        required: true,
-        style: { width: "100%" }
-      }
-    ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Select Index", required: true, labelPosition: "top", style: { marginBottom: "20px" }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Cron expression for scheduling data input", children: [
+        "Cron Expression ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Select,
+        Text,
         {
-          value: selected_output_location,
+          value: cronExpression,
           onChange: (_2, { value }) => {
-            updateConfigField("selected_output_location", String(value));
-            setSelectedIndex(String(value));
+            updateConfigField("cron_expression", value);
+            setCronExpression(value);
           },
-          filter: true,
-          placeholder: "Select an index...",
-          style: { width: "60%" },
-          children: indexNames.map((indexName) => /* @__PURE__ */ jsxRuntimeExports.jsx(Select.Option, { value: indexName, label: indexName }, indexName))
+          placeholder: "0 * * * *",
+          required: true,
+          style: { width: "100%" }
         }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateIndexModal(true), elementRef: modalToggle, style: { minWidth: "180px" }, children: "Create New Index" })
-    ] }) }),
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
+        "Select Index ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Select,
+          {
+            value: selected_output_location,
+            onChange: (_2, { value }) => {
+              updateConfigField("selected_output_location", String(value));
+              setSelectedIndex(String(value));
+            },
+            filter: true,
+            placeholder: "Select an index...",
+            style: { width: "60%" },
+            children: indexNames.map((indexName) => /* @__PURE__ */ jsxRuntimeExports.jsx(Select.Option, { value: indexName, label: indexName }, indexName))
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateIndexModal(true), elementRef: modalToggle, style: { minWidth: "180px" }, children: "Create New Index" })
+      ] })
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       NewIndexForm,
       {
@@ -47012,31 +47080,37 @@ const IndexDataForm = (props) => {
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Data Processing" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Exclude JSONPaths", labelPosition: "top", tooltip: "Provide one or more JSONPath expressions to exclude fields from the JSON.", style: { marginBottom: "20px" }, children: controlledJsonPathRows }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ControlGroup, { label: "Separate Arrays as Events", labelPosition: "top", tooltip: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", style: { marginBottom: "20px", fontSize: "0.9em" }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        ArrayFieldSelector,
-        {
-          data: props.rawData,
-          selectedPaths: separateArrayPaths,
-          onSelectionChange: (paths) => {
-            setSeparateArrayPaths(paths);
-            updateConfigField("separate_array_paths", paths);
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: "Exclude JSONPaths" }),
+      controlledJsonPathRows
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", children: "Separate Arrays as Events" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          ArrayFieldSelector,
+          {
+            data: props.rawData,
+            selectedPaths: separateArrayPaths,
+            onSelectionChange: (paths) => {
+              setSeparateArrayPaths(paths);
+              updateConfigField("separate_array_paths", paths);
+            }
           }
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Button,
-        {
-          appearance: "secondary",
-          onClick: () => setShowPreviewModal(true),
-          elementRef: previewModalToggle,
-          disabled: !props.rawData,
-          style: { marginTop: "12px", width: "100%" },
-          children: "Preview Events"
-        }
-      )
-    ] }) }),
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            appearance: "secondary",
+            onClick: () => setShowPreviewModal(true),
+            elementRef: previewModalToggle,
+            disabled: !props.rawData,
+            style: { marginTop: "12px", width: "100%" },
+            children: "Preview Events"
+          }
+        )
+      ] })
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       EventPreviewModal,
       {
@@ -57174,87 +57248,9 @@ var TableExports = requireTable();
 const Table = /* @__PURE__ */ getDefaultExportFromCjs(TableExports);
 var TooltipExports = requireTooltip();
 const Tooltip = /* @__PURE__ */ getDefaultExportFromCjs(TooltipExports);
-var i18nExports = requireI18n();
 var MenuExports = requireMenu();
 const Menu = /* @__PURE__ */ getDefaultExportFromCjs(MenuExports);
-function EditKVStorePage({ dataInputAppConfig, setDataInputAppConfig, onSuccess }) {
-  const [jsonData, setJsonData] = reactExports.useState("");
-  const addExcludePathRef = reactExports.useRef(null);
-  const handlePathClick = reactExports.useCallback((path) => {
-    if (addExcludePathRef.current) {
-      addExcludePathRef.current(path);
-    }
-  }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout, { gutter: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Row, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      NewKVStoreDataInputForm,
-      {
-        dataInputAppConfig,
-        setDataInputAppConfig,
-        onDataFetched: (data) => {
-          setJsonData(data);
-        },
-        onSuccess,
-        onAddExcludePathRef: (fn) => {
-          addExcludePathRef.current = fn;
-        }
-      }
-    ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(JSONViewer, { initialData: jsonData, onPathClick: handlePathClick }) })
-  ] }) });
-}
-const EditKVStoreInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess }) => {
-  const [data, setData] = reactExports.useState();
-  const [error, setError] = reactExports.useState(null);
-  reactExports.useEffect(() => {
-    async function fetchData() {
-      try {
-        const result = await getDataInputsConfigById(id2 || "");
-        setError(null);
-        setData(result);
-      } catch {
-        setError("Failed to fetch config");
-      }
-    }
-    if (!id2) {
-      setError("No ID provided for EditKVStoreInputModal");
-      return;
-    }
-    if (open && id2) {
-      fetchData();
-    }
-  }, [id2, open]);
-  const handleSave = async () => {
-    if (data) {
-      try {
-        console.log("Saving data input config:", data);
-        await updateDataInputConfigById(data);
-        setError(null);
-        if (onSuccess) onSuccess();
-        onClose();
-      } catch {
-        setError("Failed to update config");
-      }
-    }
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Modal,
-    {
-      returnFocus: modalToggle,
-      onRequestClose: onClose,
-      open,
-      style: { width: "90vw", height: "90vh" },
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Header, { title: "Edit KV Store Input" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "100%" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : data ? /* @__PURE__ */ jsxRuntimeExports.jsx(EditKVStorePage, { dataInputAppConfig: data, setDataInputAppConfig: setData, onSuccess: onClose }) : null }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Modal.Footer, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "primary", onClick: handleSave, label: "Save" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: onClose, label: "Cancel" })
-        ] })
-      ]
-    }
-  );
-};
+var i18nExports = requireI18n();
 function EditIndexPage({ dataInputAppConfig, setDataInputAppConfig, onSuccess }) {
   const [jsonData, setJsonData] = reactExports.useState("");
   const addExcludePathRef = reactExports.useRef(null);
@@ -57325,6 +57321,84 @@ const EditIndexInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess })
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Header, { title: "Edit Index Input" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "100%" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : /* @__PURE__ */ jsxRuntimeExports.jsx(EditIndexPage, { dataInputAppConfig: data, setDataInputAppConfig: setData, onSuccess: onClose }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Modal.Footer, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "primary", onClick: handleSave, label: "Save" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: onClose, label: "Cancel" })
+        ] })
+      ]
+    }
+  );
+};
+function EditKVStorePage({ dataInputAppConfig, setDataInputAppConfig, onSuccess }) {
+  const [jsonData, setJsonData] = reactExports.useState("");
+  const addExcludePathRef = reactExports.useRef(null);
+  const handlePathClick = reactExports.useCallback((path) => {
+    if (addExcludePathRef.current) {
+      addExcludePathRef.current(path);
+    }
+  }, []);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout, { gutter: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Row, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      NewKVStoreDataInputForm,
+      {
+        dataInputAppConfig,
+        setDataInputAppConfig,
+        onDataFetched: (data) => {
+          setJsonData(data);
+        },
+        onSuccess,
+        onAddExcludePathRef: (fn) => {
+          addExcludePathRef.current = fn;
+        }
+      }
+    ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(JSONViewer, { initialData: jsonData, onPathClick: handlePathClick }) })
+  ] }) });
+}
+const EditKVStoreInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess }) => {
+  const [data, setData] = reactExports.useState();
+  const [error, setError] = reactExports.useState(null);
+  reactExports.useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await getDataInputsConfigById(id2 || "");
+        setError(null);
+        setData(result);
+      } catch {
+        setError("Failed to fetch config");
+      }
+    }
+    if (!id2) {
+      setError("No ID provided for EditKVStoreInputModal");
+      return;
+    }
+    if (open && id2) {
+      fetchData();
+    }
+  }, [id2, open]);
+  const handleSave = async () => {
+    if (data) {
+      try {
+        console.log("Saving data input config:", data);
+        await updateDataInputConfigById(data);
+        setError(null);
+        if (onSuccess) onSuccess();
+        onClose();
+      } catch {
+        setError("Failed to update config");
+      }
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    Modal,
+    {
+      returnFocus: modalToggle,
+      onRequestClose: onClose,
+      open,
+      style: { width: "90vw", height: "90vh" },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Header, { title: "Edit KV Store Input" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "100%" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : data ? /* @__PURE__ */ jsxRuntimeExports.jsx(EditKVStorePage, { dataInputAppConfig: data, setDataInputAppConfig: setData, onSuccess: onClose }) : null }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Modal.Footer, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "primary", onClick: handleSave, label: "Save" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: onClose, label: "Cancel" })
@@ -57439,7 +57513,6 @@ function ManageDataInputsTable() {
         /* @__PURE__ */ jsxRuntimeExports.jsx(Table.HeadCell, { children: "Input Type" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Table.HeadCell, { children: "Output Location" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Table.HeadCell, { children: "URL" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Table.HeadCell, { children: "Excluded JSON Paths" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Table.HeadCell, { children: "Enabled" })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Body, { children: data.length > 0 ? Array.isArray(data) && data.map((row, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -57453,7 +57526,6 @@ function ManageDataInputsTable() {
             /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Cell, { children: row.input_type }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Cell, { children: row.selected_output_location }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Cell, { children: row.url }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Cell, { children: row.excluded_json_paths.join(", ") }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(Table.Cell, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
               Switch,
               {

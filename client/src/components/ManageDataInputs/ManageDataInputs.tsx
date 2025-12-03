@@ -1,22 +1,24 @@
-import { useState, useEffect } from 'react';
 import Pencil from '@splunk/react-icons/Pencil';
 import Plus from '@splunk/react-icons/Plus';
 import Button from '@splunk/react-ui/Button';
+import Switch from '@splunk/react-ui/Switch';
 import Table from '@splunk/react-ui/Table';
 import Tooltip from '@splunk/react-ui/Tooltip';
-import Switch from '@splunk/react-ui/Switch';
+import { useEffect, useState } from 'react';
+/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+// @ts-ignore
+import ColumnLayout from '@splunk/react-ui/ColumnLayout';
+import Heading from '@splunk/react-ui/Heading';
+import Menu from '@splunk/react-ui/Menu';
 /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import { _ } from '@splunk/ui-utils/i18n';
 import { deleteConfigItemFromKVStore, fetchDataInputsData, parseSelectedOutput, updateDataInputConfigById } from '../../utils/dataInputUtils';
-import Heading from '@splunk/react-ui/Heading';
-import ColumnLayout from '@splunk/react-ui/ColumnLayout';
-import Menu from '@splunk/react-ui/Menu';
 import type { DataInputAppConfig } from './DataInputs.types';
 // import EditDataInputModal from './EditDataInput';
 import React from 'react';
-import EditKVStoreInputModal from './EditKVStoreInputModal';
 import EditIndexInputModal from './EditIndexInputModal';
+import EditKVStoreInputModal from './EditKVStoreInputModal';
 
 
 function ManageDataInputsTable() {
@@ -148,7 +150,6 @@ function ManageDataInputsTable() {
                     <Table.HeadCell>Input Type</Table.HeadCell>
                     <Table.HeadCell>Output Location</Table.HeadCell>
                     <Table.HeadCell>URL</Table.HeadCell>
-                    <Table.HeadCell>Excluded JSON Paths</Table.HeadCell>
                     <Table.HeadCell>Enabled</Table.HeadCell>
                 </Table.Head>
                 <Table.Body>
@@ -164,7 +165,6 @@ function ManageDataInputsTable() {
                                 <Table.Cell>{row.input_type}</Table.Cell>
                                 <Table.Cell>{row.selected_output_location}</Table.Cell>
                                 <Table.Cell>{row.url}</Table.Cell>
-                                <Table.Cell>{row.excluded_json_paths.join(', ')}</Table.Cell>
                                 <Table.Cell>
                                     <Switch
                                         selected={row.enabled}
