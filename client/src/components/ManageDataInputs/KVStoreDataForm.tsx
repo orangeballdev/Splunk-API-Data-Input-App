@@ -10,6 +10,7 @@ import { generateSelectedOutputString } from '../../utils/dataInputUtils';
 import { createNewKVStoreCollection, getAllCollectionNames, type KVStoreCollection } from '../../utils/splunk';
 import FormField from '../common/FormField';
 import FormSection from '../common/FormSection';
+import KeyMappingList from '../common/KeyMappingList';
 import TextInputList from '../common/TextInputList';
 import NewKVStoreForm from '../DataInputs/KVStore/NewKVStoreForm';
 import ArrayFieldSelector from '../Json/ArrayFieldSelector';
@@ -28,6 +29,8 @@ interface KVStoreDataFormProps {
     onJSONPathsChange: (jsonPaths: string[]) => void;
     setJsonPreview?: (data: string) => void;
     onAddExcludePathRef?: (fn: (path: string) => void) => void;
+    onAddKeyMappingRef?: (fn: (oldKey: string, newKey: string) => void) => void;
+    onKeyMappingsChange?: (mappings: Record<string, string>) => void;
     rawData?: unknown;
 }
 
@@ -47,6 +50,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
     const [selected_output_location, setSelectedCollection] = useState<string>(config.selected_output_location ?? '');
     const [mode, setMode] = useState<DataInputMode>(config.mode ?? 'overwrite');
     const [separateArrayPaths, setSeparateArrayPaths] = useState<string[]>(config.separate_array_paths ?? []);
+    const [keyMappings, setKeyMappings] = useState<Record<string, string>>(config.key_mappings ?? {});
 
 
     const updateConfigField = <K extends keyof DataInputAppConfig>(
@@ -83,6 +87,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
             setSelectedCollection(config.selected_output_location ?? '');
             setMode(config.mode ?? 'overwrite');
             setSeparateArrayPaths(config.separate_array_paths ?? []);
+            setKeyMappings(config.key_mappings ?? {});
             setJsonPathValues(
                 config.excluded_json_paths && config.excluded_json_paths.length > 0
                     ? config.excluded_json_paths
@@ -105,6 +110,21 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
         }
     }, [props.onAddExcludePathRef]);
 
+    React.useEffect(() => {
+        if (props.onAddKeyMappingRef) {
+            props.onAddKeyMappingRef((oldKey: string, newKey: string) => {
+                setKeyMappings(prev => {
+                    const updated = { ...prev, [oldKey]: newKey };
+                    updateConfigField('key_mappings', updated);
+                    if (props.onKeyMappingsChange) {
+                        props.onKeyMappingsChange(updated);
+                    }
+                    return updated;
+                });
+            });
+        }
+    }, [props.onAddKeyMappingRef]);
+
     const handleJsonPathsChange = (values: string[]) => {
         setJsonPathValues(values);
         const filtered = values.filter(Boolean);
@@ -115,6 +135,14 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
     const handleHttpHeadersChange = (values: string[]) => {
         setHttpHeaders(values);
         updateConfigField('http_headers', values.filter(Boolean));
+    };
+
+    const handleKeyMappingsChange = (mappings: Record<string, string>) => {
+        setKeyMappings(mappings);
+        updateConfigField('key_mappings', mappings);
+        if (props.onKeyMappingsChange) {
+            props.onKeyMappingsChange(mappings);
+        }
     };
 
     const getPaths = () => jsonPathValues.filter(Boolean);
@@ -148,6 +176,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
         setJsonPathValues([""]);
         setHttpHeaders([""]);
         setSeparateArrayPaths([]);
+        setKeyMappings({});
         props.onJSONPathsChange([]);
         props.setJsonPreview?.('')
     };
@@ -272,6 +301,21 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                     />
                 </FormField>
 
+                <FormField label="Rename Keys">
+                    <div style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
+                        Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Shift+Click on keys in the preview to generate JSONPath mappings.
+                    </div>
+                    <KeyMappingList
+                        mappings={keyMappings}
+                        onChange={(updated) => {
+                            const filtered = Object.fromEntries(
+                                Object.entries(updated).filter(([key, value]) => key && value)
+                            );
+                            handleKeyMappingsChange(filtered);
+                        }}
+                    />
+                </FormField>
+
                 <FormField label="Separate Arrays as Events" tooltip="Select which arrays should be split into separate events. Each array item will become its own event in Splunk.">
                     <ArrayFieldSelector
                         data={props.rawData}
@@ -299,6 +343,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                 data={props.rawData}
                 separateArrayPaths={separateArrayPaths}
                 excludedJsonPaths={jsonPathValues.filter(Boolean)}
+                keyMappings={keyMappings}
                 modalToggle={previewModalToggle}
             />
 
@@ -318,7 +363,8 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                                     cron_expression: cronExpression,
                                     selected_output_location: selected_output_location,
                                     mode,
-                                    separate_array_paths: separateArrayPaths
+                                    separate_array_paths: separateArrayPaths,
+                                    key_mappings: keyMappings
                                 } as DataInputAppConfig, clearInputs
                             );
                         }}

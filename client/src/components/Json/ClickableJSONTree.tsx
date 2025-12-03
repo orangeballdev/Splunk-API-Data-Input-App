@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 interface ClickableJSONTreeProps {
     data: unknown;
     onPathClick?: (path: string) => void;
+    onKeyRename?: (oldKey: string, newKey: string) => void;
+    keyMappings?: Record<string, string>;
 }
 
 const TreeContainer = styled.div`
@@ -29,18 +31,35 @@ const ExpandButton = styled.span`
     }
 `;
 
-const KeySpan = styled.span<{ $clickable: boolean }>`
+const KeySpan = styled.span<{ $clickable: boolean; $isEditing?: boolean }>`
     color: #881391;
     cursor: ${props => props.$clickable ? 'pointer' : 'default'};
     border-radius: 3px;
     padding: 0 2px;
 
-    ${props => props.$clickable && `
+    ${props => props.$clickable && !props.$isEditing && `
         &:hover {
             background-color: #e8f4fc;
             text-decoration: underline;
         }
     `}
+    
+    ${props => props.$isEditing && `
+        background-color: #fff3cd;
+        border: 1px solid #ffc107;
+    `}
+`;
+
+const KeyInput = styled.input`
+    color: #881391;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 3px;
+    padding: 0 2px;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    min-width: 50px;
 `;
 
 const ValueSpan = styled.span<{ $type: string }>`
@@ -90,19 +109,39 @@ interface JSONNodeProps {
     path: string;
     depth: number;
     onPathClick?: (path: string) => void;
+    onKeyRename?: (oldKey: string, newKey: string) => void;
+    keyMappings?: Record<string, string>;
     isArrayItem?: boolean;
 }
 
-const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPathClick, isArrayItem }) => {
+const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPathClick, onKeyRename, keyMappings, isArrayItem }) => {
     const [expanded, setExpanded] = useState(true);
     const [tooltip, setTooltip] = useState<{ x: number; y: number; text: string } | null>(null);
+    const [isEditingKey, setIsEditingKey] = useState(false);
+    const [editedKeyName, setEditedKeyName] = useState('');
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const isObject = value !== null && typeof value === 'object' && !Array.isArray(value);
     const isArray = Array.isArray(value);
     const hasChildren = isObject || isArray;
 
+    // Get the display name (check if this key has been renamed)
+    // Convert the current path to wildcard format and check if it matches any key mapping
+    const wildcardPath = path.replace(/\[\d+\]/g, '[*]');
+    const displayName = keyMappings?.[wildcardPath] || keyName;
+
     const handleKeyClick = (e: React.MouseEvent) => {
         e.stopPropagation();
+        
+        // If Shift key is held, rename the key (only for object keys, not array indices)
+        if (e.shiftKey && onKeyRename && typeof keyName === 'string' && !isArrayItem) {
+            setTooltip(null); // Clear tooltip when entering edit mode
+            setIsEditingKey(true);
+            setEditedKeyName(displayName as string);
+            return;
+        }
+        
+        // Otherwise, exclude the path
         if (onPathClick && path) {
             // Convert array indices to wildcards: $.products[0].name -> $.products[*].name
             const wildcardPath = path.replace(/\[\d+\]/g, '[*]');
@@ -110,13 +149,54 @@ const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPath
         }
     };
 
+    const handleKeyEditSubmit = () => {
+        if (editedKeyName.trim() && editedKeyName !== displayName && onKeyRename && typeof keyName === 'string') {
+            // Convert array indices to wildcards so it applies to all matching keys
+            // e.g., $.items[0].title -> $.items[*].title
+            const wildcardPath = path.replace(/\[\d+\]/g, '[*]');
+            onKeyRename(wildcardPath, editedKeyName.trim());
+        }
+        setIsEditingKey(false);
+    };
+
+    const handleKeyEditCancel = () => {
+        setIsEditingKey(false);
+        setEditedKeyName('');
+    };
+
+    const handleKeyInputKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleKeyEditSubmit();
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            handleKeyEditCancel();
+        }
+    };
+
+    useEffect(() => {
+        if (isEditingKey && inputRef.current) {
+            inputRef.current.focus();
+            inputRef.current.select();
+        }
+    }, [isEditingKey]);
+
     const handleMouseEnter = (e: React.MouseEvent) => {
-        if (path && onPathClick) {
-            setTooltip({
-                x: e.clientX + 10,
-                y: e.clientY + 10,
-                text: `Click to exclude: ${path}`
-            });
+        if (path) {
+            let tooltipText = '';
+            if (onPathClick) {
+                tooltipText = `Click to exclude: ${path}`;
+            }
+            if (onKeyRename && typeof keyName === 'string' && !isArrayItem) {
+                tooltipText = tooltipText ? `${tooltipText} | Shift+Click to rename` : 'Shift+Click to rename';
+            }
+            if (tooltipText) {
+                setTooltip({
+                    x: e.clientX + 10,
+                    y: e.clientY + 10,
+                    text: tooltipText
+                });
+            }
         }
     };
 
@@ -169,15 +249,30 @@ const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPath
 
         return (
             <>
-                <KeySpan
-                    $clickable={!!onPathClick}
-                    onClick={handleKeyClick}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseMove={handleMouseMove}
-                >
-                    "{keyName}"
-                </KeySpan>
+                {isEditingKey ? (
+                    <>
+                        <span>"</span>
+                        <KeyInput
+                            ref={inputRef}
+                            value={editedKeyName}
+                            onChange={(e) => setEditedKeyName(e.target.value)}
+                            onKeyDown={handleKeyInputKeyDown}
+                            onBlur={handleKeyEditSubmit}
+                        />
+                        <span>"</span>
+                    </>
+                ) : (
+                    <KeySpan
+                        $clickable={!!(onPathClick || onKeyRename)}
+                        $isEditing={isEditingKey}
+                        onClick={handleKeyClick}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseMove={handleMouseMove}
+                    >
+                        "{displayName}"
+                    </KeySpan>
+                )}
                 <span>: </span>
             </>
         );
@@ -228,6 +323,8 @@ const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPath
                                 path={`${path}[${index}]`}
                                 depth={depth + 1}
                                 onPathClick={onPathClick}
+                                onKeyRename={onKeyRename}
+                                keyMappings={keyMappings}
                                 isArrayItem
                             />
                         ))
@@ -239,6 +336,8 @@ const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPath
                                 path={path ? `${path}.${key}` : `$.${key}`}
                                 depth={depth + 1}
                                 onPathClick={onPathClick}
+                                onKeyRename={onKeyRename}
+                                keyMappings={keyMappings}
                             />
                         ))
                     }
@@ -252,7 +351,7 @@ const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPath
     );
 };
 
-const ClickableJSONTree: React.FC<ClickableJSONTreeProps> = ({ data, onPathClick }) => {
+const ClickableJSONTree: React.FC<ClickableJSONTreeProps> = ({ data, onPathClick, onKeyRename, keyMappings }) => {
     if (data === null || data === undefined) {
         return null;
     }
@@ -264,14 +363,30 @@ const ClickableJSONTree: React.FC<ClickableJSONTreeProps> = ({ data, onPathClick
         // Primitive value at root
         return (
             <TreeContainer>
-                <JSONNode keyName={null} value={data} path="$" depth={0} onPathClick={onPathClick} />
+                <JSONNode 
+                    keyName={null} 
+                    value={data} 
+                    path="$" 
+                    depth={0} 
+                    onPathClick={onPathClick}
+                    onKeyRename={onKeyRename}
+                    keyMappings={keyMappings}
+                />
             </TreeContainer>
         );
     }
 
     return (
         <TreeContainer>
-            <JSONNode keyName={null} value={data} path="$" depth={0} onPathClick={onPathClick} />
+            <JSONNode 
+                keyName={null} 
+                value={data} 
+                path="$" 
+                depth={0} 
+                onPathClick={onPathClick}
+                onKeyRename={onKeyRename}
+                keyMappings={keyMappings}
+            />
         </TreeContainer>
     );
 };

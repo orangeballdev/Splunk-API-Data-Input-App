@@ -1,5 +1,5 @@
 import Message from '@splunk/react-ui/Message';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { addNewDataInputToIndex } from "../../../utils/dataInputUtils";
 import { removeByJsonPaths } from '../../Json/utils';
@@ -15,9 +15,11 @@ interface NewIndexDataInputFormProps {
   onDataFetched?: (data: string) => void;
   onSuccess?: () => void;
   onAddExcludePathRef?: (fn: (path: string) => void) => void;
+  onAddKeyMappingRef?: (fn: (oldKey: string, newKey: string) => void) => void;
+  onKeyMappingsChange?: (mappings: Record<string, string>) => void;
 }
 
-const NewIndexDataInputForm: React.FC<NewIndexDataInputFormProps> = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef }) => {
+const NewIndexDataInputForm: React.FC<NewIndexDataInputFormProps> = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef, onAddKeyMappingRef, onKeyMappingsChange }) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -146,6 +148,16 @@ const NewIndexDataInputForm: React.FC<NewIndexDataInputFormProps> = ({ dataInput
     }
   };
 
+  // Fetch initial data when editing an existing input
+  useEffect(() => {
+    if (dataInputAppConfig?.url) {
+      const jsonPaths = dataInputAppConfig.excluded_json_paths ?? [];
+      const httpHeaders = dataInputAppConfig.http_headers ?? [];
+      fetchDataPreview(dataInputAppConfig.url, jsonPaths, httpHeaders);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataInputAppConfig?.url]); // Run when URL is available
+
   return (
     <>
       {error && (
@@ -163,6 +175,8 @@ const NewIndexDataInputForm: React.FC<NewIndexDataInputFormProps> = ({ dataInput
         setError={setError}
         onJSONPathsChange={onJSONPathsChange}
         onAddExcludePathRef={onAddExcludePathRef}
+        onAddKeyMappingRef={onAddKeyMappingRef}
+        onKeyMappingsChange={onKeyMappingsChange}
         rawData={rawData}
       />
     </>

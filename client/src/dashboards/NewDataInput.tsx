@@ -13,14 +13,23 @@ export default function NewDataInput() {
   const [jsonData, setJsonData] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [activeTabId, setActiveTabId] = useState('kvstore');
+  const [keyMappings, setKeyMappings] = useState<Record<string, string>>({});
   const headingId = createDOMID('data-input-success');
 
   // Ref to pass path additions to form components
   const addExcludePathRef = useRef<((path: string) => void) | null>(null);
+  const addKeyMappingRef = useRef<((oldKey: string, newKey: string) => void) | null>(null);
 
   const handlePathClick = useCallback((path: string) => {
     if (addExcludePathRef.current) {
       addExcludePathRef.current(path);
+    }
+  }, []);
+
+  const handleKeyRename = useCallback((oldKey: string, newKey: string) => {
+    setKeyMappings(prev => ({ ...prev, [oldKey]: newKey }));
+    if (addKeyMappingRef.current) {
+      addKeyMappingRef.current(oldKey, newKey);
     }
   }, []);
 
@@ -33,6 +42,7 @@ export default function NewDataInput() {
       if (selectedTabId) {
         setActiveTabId(selectedTabId);
         setJsonData(''); // Reset JSON preview when switching tabs
+        setKeyMappings({}); // Reset key mappings when switching tabs
       }
     },
     []
@@ -58,25 +68,30 @@ export default function NewDataInput() {
           </TabBar>
           {activeTabId === 'kvstore' && (
             <NewKVStoreDataInputForm
-              onDataFetched={(data: string) => {
-                setJsonData(data);
-              }}
+              onDataFetched={setJsonData}
               onSuccess={() => setSuccessMessage('Successfully added data input to KV Store.')}
               onAddExcludePathRef={(fn) => { addExcludePathRef.current = fn; }}
+              onAddKeyMappingRef={(fn) => { addKeyMappingRef.current = fn; }}
+              onKeyMappingsChange={setKeyMappings}
             />
           )}
           {activeTabId === 'index' && (
             <NewIndexDataInputForm
-              onDataFetched={(data: string) => {
-                setJsonData(data);
-              }}
+              onDataFetched={setJsonData}
               onSuccess={() => setSuccessMessage('Successfully added data input for Index.')}
               onAddExcludePathRef={(fn) => { addExcludePathRef.current = fn; }}
+              onAddKeyMappingRef={(fn) => { addKeyMappingRef.current = fn; }}
+              onKeyMappingsChange={setKeyMappings}
             />
           )}
         </ColumnLayout.Column>
         <ColumnLayout.Column span={7}>
-          <JSONViewer initialData={jsonData} onPathClick={handlePathClick} />
+          <JSONViewer 
+            initialData={jsonData} 
+            onPathClick={handlePathClick}
+            onKeyRename={handleKeyRename}
+            keyMappings={keyMappings}
+          />
         </ColumnLayout.Column>
       </ColumnLayout.Row>
     </ColumnLayout>

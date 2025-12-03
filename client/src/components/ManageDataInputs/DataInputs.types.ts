@@ -13,4 +13,6 @@ export interface DataInputAppConfig {
     selected_output_location: string;
     /** Array paths to explode into separate events (e.g., ["$.products", "$.users"]) */
     separate_array_paths?: string[];
+    /** Key renaming mappings (e.g., {"oldKey": "newKey"}) */
+    key_mappings?: Record<string, string>;
 }

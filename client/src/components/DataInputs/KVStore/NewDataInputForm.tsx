@@ -1,5 +1,5 @@
 import Message from '@splunk/react-ui/Message';
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { addNewDataInputToKVStore } from "../../../utils/dataInputUtils";
 import { removeByJsonPaths } from '../../Json/utils';
@@ -15,9 +15,11 @@ interface NewKVStoreDataInputFormProps {
   onDataFetched?: (data: string) => void;
   onSuccess?: () => void;
   onAddExcludePathRef?: (fn: (path: string) => void) => void;
+  onAddKeyMappingRef?: (fn: (oldKey: string, newKey: string) => void) => void;
+  onKeyMappingsChange?: (mappings: Record<string, string>) => void;
 }
 
-const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef }) => {
+const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef, onAddKeyMappingRef, onKeyMappingsChange }) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -161,6 +163,16 @@ const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataI
     }
   };
 
+  // Fetch initial data when editing an existing input
+  useEffect(() => {
+    if (dataInputAppConfig?.url) {
+      const jsonPaths = dataInputAppConfig.excluded_json_paths ?? [];
+      const httpHeaders = dataInputAppConfig.http_headers ?? [];
+      fetchDataPreview(dataInputAppConfig.url, jsonPaths, httpHeaders);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataInputAppConfig?.url]); // Run when URL is available
+
   return (
     <>
       {error && (
@@ -168,7 +180,21 @@ const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataI
           {error}
         </Message>
       )}
-      <KVStoreDataForm dataInputAppConfig={dataInputAppConfig} setDataInputAppConfig={setDataInputAppConfig} fetchDataPreview={fetchDataPreview} setJsonPreview={onDataFetched} fieldsForKvStoreCreation={initialFields} loading={loading} handleSave={handleSaveDataInput} setError={setError} onJSONPathsChange={onJSONPathsChange} onAddExcludePathRef={onAddExcludePathRef} rawData={rawData} />
+      <KVStoreDataForm 
+        dataInputAppConfig={dataInputAppConfig} 
+        setDataInputAppConfig={setDataInputAppConfig} 
+        fetchDataPreview={fetchDataPreview} 
+        setJsonPreview={onDataFetched} 
+        fieldsForKvStoreCreation={initialFields} 
+        loading={loading} 
+        handleSave={handleSaveDataInput} 
+        setError={setError} 
+        onJSONPathsChange={onJSONPathsChange} 
+        onAddExcludePathRef={onAddExcludePathRef}
+        onAddKeyMappingRef={onAddKeyMappingRef}
+        onKeyMappingsChange={onKeyMappingsChange}
+        rawData={rawData} 
+      />
     </>
   );
 };

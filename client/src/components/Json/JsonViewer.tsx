@@ -1,14 +1,16 @@
-import { useMemo } from 'react';
-import Message from '@splunk/react-ui/Message';
 import Heading from '@splunk/react-ui/Heading';
+import Message from '@splunk/react-ui/Message';
+import { useMemo } from 'react';
 import ClickableJSONTree from './ClickableJSONTree';
 
 interface JSONViewerProps {
     initialData: string;
     onPathClick?: (path: string) => void;
+    onKeyRename?: (oldKey: string, newKey: string) => void;
+    keyMappings?: Record<string, string>;
 }
 
-export default function JSONViewer({ initialData, onPathClick }: JSONViewerProps) {
+export default function JSONViewer({ initialData, onPathClick, onKeyRename, keyMappings }: JSONViewerProps) {
     const { parsedJSON, isValidJSON } = useMemo(() => {
         if (!initialData) return { parsedJSON: null, isValidJSON: true };
         try {
@@ -21,18 +23,25 @@ export default function JSONViewer({ initialData, onPathClick }: JSONViewerProps
 
     const JSONTreeMemo = useMemo(() => {
         return parsedJSON ? (
-            <ClickableJSONTree data={parsedJSON} onPathClick={onPathClick} />
+            <ClickableJSONTree 
+                data={parsedJSON} 
+                onPathClick={onPathClick}
+                onKeyRename={onKeyRename}
+                keyMappings={keyMappings}
+            />
         ) : (
             <Message type="info">Fetch data to see preview. Click on any key to add it to exclusions.</Message>
         );
-    }, [parsedJSON, onPathClick]);
+    }, [parsedJSON, onPathClick, onKeyRename, keyMappings]);
 
     return (
         <div>
             <Heading level={2}>Preview</Heading>
-            {onPathClick && (
+            {(onPathClick || onKeyRename) && (
                 <p style={{ fontSize: '12px', color: '#666', marginBottom: '10px' }}>
-                    Click on any key to add it to the exclude list
+                    {onPathClick && 'Click on any key to add it to the exclude list'}
+                    {onPathClick && onKeyRename && ' | '}
+                    {onKeyRename && 'Shift+Click to rename a key'}
                 </p>
             )}
             {isValidJSON ? (

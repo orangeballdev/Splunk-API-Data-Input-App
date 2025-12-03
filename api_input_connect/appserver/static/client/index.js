@@ -29291,6 +29291,1930 @@ const fetchDataInputsData = async (setState) => {
     setState([]);
   }
 };
+var JSONTree = { exports: {} };
+var toLength_1;
+var hasRequiredToLength;
+function requireToLength() {
+  if (hasRequiredToLength) return toLength_1;
+  hasRequiredToLength = 1;
+  var baseClamp = require_baseClamp(), toInteger = requireToInteger();
+  var MAX_ARRAY_LENGTH = 4294967295;
+  function toLength(value) {
+    return value ? baseClamp(toInteger(value), 0, MAX_ARRAY_LENGTH) : 0;
+  }
+  toLength_1 = toLength;
+  return toLength_1;
+}
+var _baseFill;
+var hasRequired_baseFill;
+function require_baseFill() {
+  if (hasRequired_baseFill) return _baseFill;
+  hasRequired_baseFill = 1;
+  var toInteger = requireToInteger(), toLength = requireToLength();
+  function baseFill(array, value, start, end) {
+    var length = array.length;
+    start = toInteger(start);
+    if (start < 0) {
+      start = -start > length ? 0 : length + start;
+    }
+    end = end === void 0 || end > length ? length : toInteger(end);
+    if (end < 0) {
+      end += length;
+    }
+    end = start > end ? 0 : toLength(end);
+    while (start < end) {
+      array[start++] = value;
+    }
+    return array;
+  }
+  _baseFill = baseFill;
+  return _baseFill;
+}
+var fill_1;
+var hasRequiredFill;
+function requireFill() {
+  if (hasRequiredFill) return fill_1;
+  hasRequiredFill = 1;
+  var baseFill = require_baseFill(), isIterateeCall = require_isIterateeCall();
+  function fill(array, value, start, end) {
+    var length = array == null ? 0 : array.length;
+    if (!length) {
+      return [];
+    }
+    if (start && typeof start != "number" && isIterateeCall(array, value, start)) {
+      start = 0;
+      end = length;
+    }
+    return baseFill(array, value, start, end);
+  }
+  fill_1 = fill;
+  return fill_1;
+}
+var isEmpty_1;
+var hasRequiredIsEmpty;
+function requireIsEmpty() {
+  if (hasRequiredIsEmpty) return isEmpty_1;
+  hasRequiredIsEmpty = 1;
+  var baseKeys = require_baseKeys(), getTag = require_getTag(), isArguments = requireIsArguments(), isArray = requireIsArray(), isArrayLike = requireIsArrayLike(), isBuffer2 = requireIsBuffer(), isPrototype = require_isPrototype(), isTypedArray = requireIsTypedArray();
+  var mapTag = "[object Map]", setTag = "[object Set]";
+  var objectProto = Object.prototype;
+  var hasOwnProperty = objectProto.hasOwnProperty;
+  function isEmpty(value) {
+    if (value == null) {
+      return true;
+    }
+    if (isArrayLike(value) && (isArray(value) || typeof value == "string" || typeof value.splice == "function" || isBuffer2(value) || isTypedArray(value) || isArguments(value))) {
+      return !value.length;
+    }
+    var tag = getTag(value);
+    if (tag == mapTag || tag == setTag) {
+      return !value.size;
+    }
+    if (isPrototype(value)) {
+      return !baseKeys(value).length;
+    }
+    for (var key2 in value) {
+      if (hasOwnProperty.call(value, key2)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  isEmpty_1 = isEmpty;
+  return isEmpty_1;
+}
+var isNumber_1;
+var hasRequiredIsNumber;
+function requireIsNumber() {
+  if (hasRequiredIsNumber) return isNumber_1;
+  hasRequiredIsNumber = 1;
+  var baseGetTag = require_baseGetTag(), isObjectLike = requireIsObjectLike();
+  var numberTag = "[object Number]";
+  function isNumber(value) {
+    return typeof value == "number" || isObjectLike(value) && baseGetTag(value) == numberTag;
+  }
+  isNumber_1 = isNumber;
+  return isNumber_1;
+}
+var _baseRepeat;
+var hasRequired_baseRepeat;
+function require_baseRepeat() {
+  if (hasRequired_baseRepeat) return _baseRepeat;
+  hasRequired_baseRepeat = 1;
+  var MAX_SAFE_INTEGER = 9007199254740991;
+  var nativeFloor = Math.floor;
+  function baseRepeat(string, n2) {
+    var result = "";
+    if (!string || n2 < 1 || n2 > MAX_SAFE_INTEGER) {
+      return result;
+    }
+    do {
+      if (n2 % 2) {
+        result += string;
+      }
+      n2 = nativeFloor(n2 / 2);
+      if (n2) {
+        string += string;
+      }
+    } while (n2);
+    return result;
+  }
+  _baseRepeat = baseRepeat;
+  return _baseRepeat;
+}
+var repeat_1;
+var hasRequiredRepeat;
+function requireRepeat() {
+  if (hasRequiredRepeat) return repeat_1;
+  hasRequiredRepeat = 1;
+  var baseRepeat = require_baseRepeat(), isIterateeCall = require_isIterateeCall(), toInteger = requireToInteger(), toString = requireToString();
+  function repeat(string, n2, guard) {
+    if (guard ? isIterateeCall(string, n2, guard) : n2 === void 0) {
+      n2 = 1;
+    } else {
+      n2 = toInteger(n2);
+    }
+    return baseRepeat(toString(string), n2);
+  }
+  repeat_1 = repeat;
+  return repeat_1;
+}
+var Tooltip$2 = { exports: {} };
+var hasRequiredTooltip;
+function requireTooltip() {
+  if (hasRequiredTooltip) return Tooltip$2.exports;
+  hasRequiredTooltip = 1;
+  (() => {
+    var e2 = {};
+    (() => {
+      e2.n = (n3) => {
+        var r3 = n3 && n3.__esModule ? (
+          /******/
+          () => n3["default"]
+        ) : () => n3;
+        e2.d(r3, {
+          a: r3
+        });
+        return r3;
+      };
+    })();
+    (() => {
+      e2.d = (n3, r3) => {
+        for (var t3 in r3) {
+          if (e2.o(r3, t3) && !e2.o(n3, t3)) {
+            Object.defineProperty(n3, t3, {
+              enumerable: true,
+              get: r3[t3]
+            });
+          }
+        }
+      };
+    })();
+    (() => {
+      e2.o = (e3, n3) => Object.prototype.hasOwnProperty.call(e3, n3);
+    })();
+    (() => {
+      e2.r = (e3) => {
+        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+          Object.defineProperty(e3, Symbol.toStringTag, {
+            value: "Module"
+          });
+        }
+        Object.defineProperty(e3, "__esModule", {
+          value: true
+        });
+      };
+    })();
+    var n2 = {};
+    e2.r(n2);
+    e2.d(n2, {
+      default: () => (
+        /* reexport */
+        Y2
+      )
+    });
+    const r2 = requireReact();
+    var t2 = e2.n(r2);
+    const o2 = /* @__PURE__ */ requirePropTypes();
+    var a2 = e2.n(o2);
+    const l2 = requireThrottle();
+    var i2 = e2.n(l2);
+    const u2 = requireInformationCircle();
+    var s2 = e2.n(u2);
+    const c2 = requirePopover();
+    var f2 = e2.n(c2);
+    const v2 = requireScreenReaderContent();
+    var p2 = e2.n(v2);
+    const d2 = requireUseControlled();
+    var m2 = e2.n(d2);
+    const b2 = requireI18n();
+    const y2 = requireId();
+    const g2 = require$$21;
+    var O2 = e2.n(g2);
+    const h2 = requireButton();
+    var S2 = e2.n(h2);
+    const C2 = requireThemes();
+    var k2 = O2().span.withConfig({
+      displayName: "TooltipStyles__Styled",
+      componentId: "sc-67fvgm-0"
+    })(["", ";position:relative;"], C2.mixins.reset("block"));
+    var E2 = O2().span.withConfig({
+      displayName: "TooltipStyles__StyledInline",
+      componentId: "sc-67fvgm-1"
+    })(["", ";position:relative;"], C2.mixins.reset("inline-block"));
+    var T2 = O2().span.withConfig({
+      displayName: "TooltipStyles__StyledToggle",
+      componentId: "sc-67fvgm-2"
+    })(["display:block;"]);
+    var P2 = O2().span.withConfig({
+      displayName: "TooltipStyles__StyledToggleInline",
+      componentId: "sc-67fvgm-3"
+    })(["display:inline-block;"]);
+    var j2 = O2().div.withConfig({
+      displayName: "TooltipStyles__StyledContent",
+      componentId: "sc-67fvgm-4"
+    })(["", ";padding:", ";user-select:none;"], C2.mixins.typography("smallBody", {
+      color: "active"
+    }), C2.variables.spacingSmall);
+    var w2 = O2()(S2()).withConfig({
+      displayName: "TooltipStyles__StyledButton",
+      componentId: "sc-67fvgm-5"
+    })(["cursor:help;border-radius:50%;"]);
+    function R2(e3, n3) {
+      if (e3) {
+        if (typeof e3 === "function") {
+          e3(n3);
+        } else {
+          e3.current = n3;
+        }
+      }
+    }
+    function L2(e3) {
+      "@babel/helpers - typeof";
+      return L2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e4) {
+        return typeof e4;
+      } : function(e4) {
+        return e4 && "function" == typeof Symbol && e4.constructor === Symbol && e4 !== Symbol.prototype ? "symbol" : typeof e4;
+      }, L2(e3);
+    }
+    function q2() {
+      return q2 = Object.assign ? Object.assign.bind() : function(e3) {
+        for (var n3 = 1; n3 < arguments.length; n3++) {
+          var r3 = arguments[n3];
+          for (var t3 in r3) {
+            ({}).hasOwnProperty.call(r3, t3) && (e3[t3] = r3[t3]);
+          }
+        }
+        return e3;
+      }, q2.apply(null, arguments);
+    }
+    function I2(e3, n3) {
+      var r3 = Object.keys(e3);
+      if (Object.getOwnPropertySymbols) {
+        var t3 = Object.getOwnPropertySymbols(e3);
+        n3 && (t3 = t3.filter(function(n4) {
+          return Object.getOwnPropertyDescriptor(e3, n4).enumerable;
+        })), r3.push.apply(r3, t3);
+      }
+      return r3;
+    }
+    function A2(e3) {
+      for (var n3 = 1; n3 < arguments.length; n3++) {
+        var r3 = null != arguments[n3] ? arguments[n3] : {};
+        n3 % 2 ? I2(Object(r3), true).forEach(function(n4) {
+          _2(e3, n4, r3[n4]);
+        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(r3)) : I2(Object(r3)).forEach(function(n4) {
+          Object.defineProperty(e3, n4, Object.getOwnPropertyDescriptor(r3, n4));
+        });
+      }
+      return e3;
+    }
+    function _2(e3, n3, r3) {
+      return (n3 = D2(n3)) in e3 ? Object.defineProperty(e3, n3, {
+        value: r3,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      }) : e3[n3] = r3, e3;
+    }
+    function D2(e3) {
+      var n3 = N2(e3, "string");
+      return "symbol" == L2(n3) ? n3 : n3 + "";
+    }
+    function N2(e3, n3) {
+      if ("object" != L2(e3) || !e3) return e3;
+      var r3 = e3[Symbol.toPrimitive];
+      if (void 0 !== r3) {
+        var t3 = r3.call(e3, n3);
+        if ("object" != L2(t3)) return t3;
+        throw new TypeError("@@toPrimitive must return a primitive value.");
+      }
+      return ("string" === n3 ? String : Number)(e3);
+    }
+    function B2(e3, n3) {
+      return K2(e3) || F2(e3, n3) || H2(e3, n3) || M2();
+    }
+    function M2() {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+    function H2(e3, n3) {
+      if (e3) {
+        if ("string" == typeof e3) return x2(e3, n3);
+        var r3 = {}.toString.call(e3).slice(8, -1);
+        return "Object" === r3 && e3.constructor && (r3 = e3.constructor.name), "Map" === r3 || "Set" === r3 ? Array.from(e3) : "Arguments" === r3 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r3) ? x2(e3, n3) : void 0;
+      }
+    }
+    function x2(e3, n3) {
+      (null == n3 || n3 > e3.length) && (n3 = e3.length);
+      for (var r3 = 0, t3 = Array(n3); r3 < n3; r3++) {
+        t3[r3] = e3[r3];
+      }
+      return t3;
+    }
+    function F2(e3, n3) {
+      var r3 = null == e3 ? null : "undefined" != typeof Symbol && e3[Symbol.iterator] || e3["@@iterator"];
+      if (null != r3) {
+        var t3, o3, a3, l3, i3 = [], u3 = true, s3 = false;
+        try {
+          if (a3 = (r3 = r3.call(e3)).next, 0 === n3) {
+            if (Object(r3) !== r3) return;
+            u3 = false;
+          } else for (; !(u3 = (t3 = a3.call(r3)).done) && (i3.push(t3.value), i3.length !== n3); u3 = true) {
+          }
+        } catch (e4) {
+          s3 = true, o3 = e4;
+        } finally {
+          try {
+            if (!u3 && null != r3["return"] && (l3 = r3["return"](), Object(l3) !== l3)) return;
+          } finally {
+            if (s3) throw o3;
+          }
+        }
+        return i3;
+      }
+    }
+    function K2(e3) {
+      if (Array.isArray(e3)) return e3;
+    }
+    function W2(e3, n3) {
+      if (null == e3) return {};
+      var r3, t3, o3 = V2(e3, n3);
+      if (Object.getOwnPropertySymbols) {
+        var a3 = Object.getOwnPropertySymbols(e3);
+        for (t3 = 0; t3 < a3.length; t3++) {
+          r3 = a3[t3], n3.includes(r3) || {}.propertyIsEnumerable.call(e3, r3) && (o3[r3] = e3[r3]);
+        }
+      }
+      return o3;
+    }
+    function V2(e3, n3) {
+      if (null == e3) return {};
+      var r3 = {};
+      for (var t3 in e3) {
+        if ({}.hasOwnProperty.call(e3, t3)) {
+          if (n3.includes(t3)) continue;
+          r3[t3] = e3[t3];
+        }
+      }
+      return r3;
+    }
+    var U2 = ["focusToggle", "mouseEnterPopover", "mouseEnterToggle", "mouseEnterHitArea"];
+    var $2 = ["blurToggle", "clickAway", "escapeKey", "mouseLeaveHitArea", "mouseLeavePopover", "mouseLeaveToggle", "mouseStopHitArea", "offScreen", "tabKey", "toggleClick"];
+    var z2 = {
+      /** @private */
+      appearance: a2().string,
+      children: a2().node,
+      closeDelay: a2().number,
+      /** @private */
+      closeWhen: a2().oneOf(["default", "notOnClick"]),
+      content: a2().node,
+      contentRelationship: a2().oneOf(["label", "description"]),
+      defaultPlacement: a2().oneOf(["above", "below", "left", "right"]),
+      elementRef: a2().oneOfType([a2().func, a2().object]),
+      inline: a2().bool,
+      onRequestClose: a2().func,
+      onRequestOpen: a2().func,
+      open: a2().bool,
+      openDelay: a2().oneOfType([a2().oneOf(["primary", "secondary"]), a2().number]),
+      renderAnchor: a2().func
+    };
+    var G2 = {
+      tension: 400
+    };
+    var J2 = ["offScreen", "escapeKey"];
+    var Q2 = t2().createElement(s2(), null);
+    function X2(e3) {
+      var n3 = e3.appearance, o3 = e3.children, a3 = e3.closeDelay, l3 = a3 === void 0 ? 300 : a3, u3 = e3.closeWhen, s3 = u3 === void 0 ? "default" : u3, c3 = e3.content, v3 = e3.contentRelationship, d3 = e3.defaultPlacement, g3 = d3 === void 0 ? "above" : d3, O3 = e3.elementRef, h3 = e3.inline, S3 = h3 === void 0 ? true : h3, C3 = e3.onRequestClose, L3 = e3.onRequestOpen, I3 = e3.open, _3 = e3.openDelay, D3 = _3 === void 0 ? "primary" : _3, N3 = e3.renderAnchor, M3 = W2(e3, ["appearance", "children", "closeDelay", "closeWhen", "content", "contentRelationship", "defaultPlacement", "elementRef", "inline", "onRequestClose", "onRequestOpen", "open", "openDelay", "renderAnchor"]);
+      var H3 = (0, r2.useState)(false), x3 = B2(H3, 2), F3 = x3[0], K3 = x3[1];
+      var V3 = (0, r2.useState)(null), U3 = B2(V3, 2), $3 = U3[0], z3 = U3[1];
+      var X3 = (0, r2.useState)(null), Y3 = B2(X3, 2), Z2 = Y3[0], ee2 = Y3[1];
+      var ne2 = (0, r2.useState)(null), re2 = B2(ne2, 2), te2 = re2[0], oe2 = re2[1];
+      var ae2 = (0, r2.useState)(null), le2 = B2(ae2, 2), ie2 = le2[0], ue2 = le2[1];
+      var se2 = (0, r2.useState)(function() {
+        return {
+          ariaId: (0, y2.createDOMID)("aria-id"),
+          popoverId: (0, y2.createDOMID)("popover")
+        };
+      }), ce2 = B2(se2, 1), fe2 = ce2[0], ve2 = fe2.ariaId, pe2 = fe2.popoverId;
+      var de2 = m2()({
+        componentName: "Tooltip",
+        /* eslint-disable-next-line prefer-rest-params */
+        componentProps: arguments[0],
+        // see SUI-7028
+        defaultValuePropName: "defaultOpen",
+        valuePropName: "open"
+      });
+      var me2 = (0, r2.useMemo)(function() {
+        var e4 = !!c3;
+        return !!$3 && de2 ? I3 : e4 && F3;
+      }, [$3, c3, de2, F3, I3]);
+      var be2 = (0, r2.useRef)();
+      (0, r2.useEffect)(function() {
+        return function() {
+          if (be2.current !== void 0) {
+            clearTimeout(be2.current);
+          }
+        };
+      }, []);
+      var ye2 = (0, r2.useCallback)(function(e4, n4) {
+        if (be2.current !== void 0) {
+          clearTimeout(be2.current);
+        }
+        be2.current = setTimeout(function() {
+          if (!de2) {
+            K3(false);
+          }
+          C3 === null || C3 === void 0 ? void 0 : C3(e4, n4);
+        }, l3);
+      }, [l3, de2, C3]);
+      var ge2 = (0, r2.useCallback)(function(e4, n4) {
+        var r3 = D3 === "primary" ? 300 : 750;
+        var t3 = typeof D3 === "number" ? D3 : r3;
+        if (be2.current !== void 0) {
+          clearTimeout(be2.current);
+        }
+        be2.current = setTimeout(function() {
+          var r4 = me2;
+          if (!de2) {
+            K3(true);
+          }
+          if (!r4) {
+            L3 === null || L3 === void 0 ? void 0 : L3(e4, n4);
+          }
+        }, t3);
+      }, [de2, me2, L3, D3]);
+      var Oe2 = (0, r2.useCallback)(function(e4) {
+        ge2(e4, {
+          reason: "mouseEnterToggle"
+        });
+      }, [ge2]);
+      var he2 = (0, r2.useCallback)(function(e4) {
+        ge2(e4, {
+          reason: "mouseEnterPopover"
+        });
+      }, [ge2]);
+      var Se2 = (0, r2.useCallback)(function(e4) {
+        ge2(e4, {
+          reason: "mouseEnterHitArea"
+        });
+      }, [ge2]);
+      var Ce = (0, r2.useCallback)(function(e4) {
+        var n4 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "mouseLeaveToggle";
+        if (e4.relatedTarget == null || e4.relatedTarget !== te2 && e4.relatedTarget !== ie2) {
+          ye2(e4, {
+            reason: n4
+          });
+        }
+      }, [ye2, te2, ie2]);
+      var ke2 = (0, r2.useCallback)(function(e4) {
+        Ce(e4, "mouseLeavePopover");
+      }, [Ce]);
+      var Ee2 = (0, r2.useCallback)(function(e4) {
+        Ce(e4, "mouseLeaveHitArea");
+      }, [Ce]);
+      var Te2 = (0, r2.useCallback)(function(e4) {
+        ye2(e4, {
+          reason: "mouseStopHitArea"
+        });
+      }, [ye2]);
+      var Pe = i2()(Te2, 10);
+      var je2 = (0, r2.useCallback)(function(e4) {
+        if (e4) {
+          e4.addEventListener("mouseenter", Oe2);
+          e4.addEventListener("mouseleave", Ce);
+        } else if ($3) {
+          $3.removeEventListener("mouseenter", Oe2);
+          $3.removeEventListener("mouseleave", Ce);
+        }
+        z3(e4);
+      }, [$3, Oe2, Ce]);
+      var we2 = (0, r2.useCallback)(function(e4) {
+        if (e4) {
+          e4.addEventListener("mouseenter", he2);
+          e4.addEventListener("mouseleave", ke2);
+        } else if (te2) {
+          te2.removeEventListener("mouseenter", he2);
+          te2.removeEventListener("mouseleave", ke2);
+        }
+        oe2(e4);
+      }, [he2, ke2, te2]);
+      var Re2 = (0, r2.useCallback)(function(e4) {
+        ue2(e4);
+      }, []);
+      var Le2 = (0, r2.useCallback)(function(e4) {
+        if (e4) {
+          e4.addEventListener("mouseenter", Se2);
+          e4.addEventListener("mousemove", Pe);
+          e4.addEventListener("mouseleave", Ee2);
+        } else if (Z2) {
+          Z2.removeEventListener("mouseenter", Se2);
+          Z2.removeEventListener("mousemove", Pe);
+          Z2.removeEventListener("mouseleave", Ee2);
+        }
+        ee2(e4);
+      }, [Se2, Ee2, Pe, Z2]);
+      var qe2 = (0, r2.useCallback)(function(e4) {
+        if (s3 !== "notOnClick") {
+          ye2(e4, {
+            reason: "toggleClick"
+          });
+        }
+      }, [s3, ye2]);
+      var Ie = (0, r2.useCallback)(function(e4) {
+        ge2(e4, {
+          reason: "focusToggle"
+        });
+      }, [ge2]);
+      var Ae2 = (0, r2.useCallback)(function(e4) {
+        ye2(e4, {
+          reason: "blurToggle"
+        });
+      }, [ye2]);
+      var _e2 = (0, r2.useCallback)(function(e4) {
+        ye2(null, e4);
+      }, [ye2]);
+      var De2 = (0, r2.useCallback)(function(e4) {
+        je2(e4);
+        R2(O3, e4);
+      }, [O3, je2]);
+      var Ne2 = (0, r2.useCallback)(function() {
+        var e4 = {
+          onBlur: Ae2,
+          onFocus: Ie,
+          onClick: qe2,
+          elementRef: De2,
+          "data-test": "toggle"
+        };
+        if (v3 === "label") {
+          return N3 === null || N3 === void 0 ? void 0 : N3(A2(A2({}, e4), {}, {
+            "aria-labelledby": ve2,
+            labelledBy: ve2
+          }));
+        }
+        return N3 === null || N3 === void 0 ? void 0 : N3(A2(A2({}, e4), {}, {
+          "aria-describedby": ve2,
+          describedBy: ve2
+        }));
+      }, [ve2, o3, v3, Ae2, qe2, Ie, De2, N3]);
+      var Be2 = (0, r2.useCallback)(function() {
+        var e4 = S3 ? P2 : T2;
+        var n4;
+        if ((0, r2.isValidElement)(o3)) {
+          var a4;
+          if (v3 === "label") {
+            a4 = {
+              labelledBy: ve2,
+              "aria-labelledby": ve2
+            };
+          } else {
+            a4 = {
+              describedBy: ve2,
+              "aria-describedby": ve2
+            };
+          }
+          n4 = (0, r2.cloneElement)(o3, a4);
+        } else if (o3) {
+          n4 = o3;
+        } else {
+          n4 = t2().createElement(w2, {
+            appearance: "subtle",
+            "aria-describedby": ve2,
+            "aria-label": (0, b2._)("More info"),
+            icon: Q2
+          });
+        }
+        return t2().createElement(e4, {
+          onClick: qe2,
+          onFocus: Ie,
+          onBlur: Ae2,
+          ref: je2,
+          "data-test": "toggle"
+        }, n4);
+      }, [ve2, o3, v3, Ae2, qe2, Ie, je2, S3]);
+      var Me2 = S3 ? E2 : k2;
+      var He2 = !!c3 && t2().createElement(p2(), {
+        "aria-hidden": "true",
+        id: ve2
+      }, c3);
+      var xe2 = t2().createElement(f2(), {
+        role: "tooltip",
+        align: "center",
+        anchor: $3,
+        animationConfig: G2,
+        appearance: n3,
+        closeReasons: J2,
+        defaultPlacement: g3,
+        id: pe2,
+        open: me2,
+        onRequestClose: _e2,
+        elementRef: we2,
+        hitAreaRef: Le2,
+        outerRef: Re2
+      }, t2().createElement(j2, null, c3));
+      if (N3) {
+        return t2().createElement(t2().Fragment, null, Ne2(), He2, xe2);
+      }
+      return t2().createElement(Me2, q2({
+        "data-test": "tooltip",
+        "data-test-open": me2,
+        "data-test-popover-id": pe2,
+        ref: O3
+      }, M3), Be2(), He2, xe2);
+    }
+    X2.propTypes = z2;
+    X2.possibleOpenReasons = U2;
+    X2.possibleCloseReasons = $2;
+    const Y2 = X2;
+    Tooltip$2.exports = n2;
+  })();
+  return Tooltip$2.exports;
+}
+var hasRequiredJSONTree;
+function requireJSONTree() {
+  if (hasRequiredJSONTree) return JSONTree.exports;
+  hasRequiredJSONTree = 1;
+  (() => {
+    var e2 = {
+      /***/
+      4610: (
+        /***/
+        (e3, n3, r3) => {
+          r3.d(n3, {
+            default: () => (
+              /* reexport */
+              ee2
+            )
+          });
+          var t3 = r3(9497);
+          var o2 = r3.n(t3);
+          var a2 = r3(23);
+          var l2 = r3.n(a2);
+          var i2 = (0, t3.createContext)({
+            defaultIndent: true
+          });
+          const u2 = i2;
+          var c2 = r3(232);
+          var d2 = r3.n(c2);
+          var f2 = r3(3563);
+          var s2 = d2().span.withConfig({
+            displayName: "TreeItemStyles__StyledTreeItemNode",
+            componentId: "ie7zrw-0"
+          })(["padding:", ";&:focus{box-shadow:", ";outline:0;&:active{box-shadow:none;}}"], f2.variables.spacingXSmall, f2.variables.focusShadowInset);
+          var v2 = d2().ul.withConfig({
+            displayName: "TreeStyles__StyledUnorderedList",
+            componentId: "sc-13pokwt-0"
+          })(["", ";color:inherit;font-family:inherit;list-style:none;white-space:inherit;", ";"], f2.mixins.reset("ul"), function(e4) {
+            var n4 = e4.$defaultIndent;
+            return n4 && (0, c2.css)(["padding-inline-start:", ";"], f2.variables.spacingXXXLarge);
+          });
+          function p2() {
+            return p2 = Object.assign ? Object.assign.bind() : function(e4) {
+              for (var n4 = 1; n4 < arguments.length; n4++) {
+                var r4 = arguments[n4];
+                for (var t4 in r4) {
+                  ({}).hasOwnProperty.call(r4, t4) && (e4[t4] = r4[t4]);
+                }
+              }
+              return e4;
+            }, p2.apply(null, arguments);
+          }
+          function y2(e4, n4) {
+            return S2(e4) || g2(e4, n4) || b2(e4, n4) || m2();
+          }
+          function m2() {
+            throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+          }
+          function b2(e4, n4) {
+            if (e4) {
+              if ("string" == typeof e4) return h2(e4, n4);
+              var r4 = {}.toString.call(e4).slice(8, -1);
+              return "Object" === r4 && e4.constructor && (r4 = e4.constructor.name), "Map" === r4 || "Set" === r4 ? Array.from(e4) : "Arguments" === r4 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r4) ? h2(e4, n4) : void 0;
+            }
+          }
+          function h2(e4, n4) {
+            (null == n4 || n4 > e4.length) && (n4 = e4.length);
+            for (var r4 = 0, t4 = Array(n4); r4 < n4; r4++) {
+              t4[r4] = e4[r4];
+            }
+            return t4;
+          }
+          function g2(e4, n4) {
+            var r4 = null == e4 ? null : "undefined" != typeof Symbol && e4[Symbol.iterator] || e4["@@iterator"];
+            if (null != r4) {
+              var t4, o3, a3, l3, i3 = [], u3 = true, c3 = false;
+              try {
+                if (a3 = (r4 = r4.call(e4)).next, 0 === n4) ;
+                else for (; !(u3 = (t4 = a3.call(r4)).done) && (i3.push(t4.value), i3.length !== n4); u3 = true) {
+                }
+              } catch (e5) {
+                c3 = true, o3 = e5;
+              } finally {
+                try {
+                  if (!u3 && null != r4["return"] && (l3 = r4["return"](), Object(l3) !== l3)) return;
+                } finally {
+                  if (c3) throw o3;
+                }
+              }
+              return i3;
+            }
+          }
+          function S2(e4) {
+            if (Array.isArray(e4)) return e4;
+          }
+          function w2(e4, n4) {
+            if (null == e4) return {};
+            var r4, t4, o3 = k2(e4, n4);
+            if (Object.getOwnPropertySymbols) {
+              var a3 = Object.getOwnPropertySymbols(e4);
+              for (t4 = 0; t4 < a3.length; t4++) {
+                r4 = a3[t4], n4.includes(r4) || {}.propertyIsEnumerable.call(e4, r4) && (o3[r4] = e4[r4]);
+              }
+            }
+            return o3;
+          }
+          function k2(e4, n4) {
+            if (null == e4) return {};
+            var r4 = {};
+            for (var t4 in e4) {
+              if ({}.hasOwnProperty.call(e4, t4)) {
+                if (n4.includes(t4)) continue;
+                r4[t4] = e4[t4];
+              }
+            }
+            return r4;
+          }
+          var x2 = {
+            id: l2().string,
+            children: l2().node,
+            content: l2().node,
+            customIndent: l2().node,
+            endAdornment: l2().node,
+            labelledBy: l2().string,
+            onFocus: l2().func,
+            onKeyDown: l2().func,
+            onToggle: l2().func,
+            open: l2().bool,
+            toggle: l2().node
+          };
+          function O2(e4) {
+            var n4 = e4.id, r4 = e4.children, a3 = e4.content, l3 = e4.customIndent, i3 = e4.endAdornment, c3 = e4.labelledBy, d3 = e4.onFocus, f3 = e4.onKeyDown, m3 = e4.onToggle, b3 = e4.open, h3 = b3 === void 0 ? true : b3, g3 = e4.toggle, S3 = w2(e4, ["id", "children", "content", "customIndent", "endAdornment", "labelledBy", "onFocus", "onKeyDown", "onToggle", "open", "toggle"]);
+            var k3 = (0, t3.useContext)(u2), x3 = k3.defaultIndent, O3 = x3 === void 0 ? true : x3, I3 = k3.onItemKeyDown, E3 = k3.onItemClick, j3 = k3.removeNode, C3 = k3.setNode, A3 = k3.itemPaths, T3 = k3.focusedItemId;
+            var P3 = (0, t3.useState)(h3), R3 = y2(P3, 2), K3 = R3[0], _3 = R3[1];
+            var D3 = (0, t3.useState)((A3 === null || A3 === void 0 ? void 0 : A3.get("".concat(n4))) === "0" ? 0 : -1), N3 = y2(D3, 2), V3 = N3[0], L3 = N3[1];
+            var F3 = (0, t3.useRef)(null);
+            var q3 = (0, t3.useRef)(null);
+            var M3 = t3.Children.toArray(r4).filter(t3.isValidElement);
+            M3.forEach(function(e5, r5) {
+              if (e5.props.id) {
+                if (K3 && C3) {
+                  C3("".concat(e5.props.id), "".concat(A3 === null || A3 === void 0 ? void 0 : A3.get("".concat(n4)), "-").concat(r5));
+                } else if (j3) {
+                  j3(e5.props.id);
+                }
+              }
+            });
+            var $3 = function e5(n5, r5) {
+              _3(n5);
+              m3 === null || m3 === void 0 ? void 0 : m3(n5, r5);
+            };
+            var J3 = function e5(r5) {
+              E3 === null || E3 === void 0 ? void 0 : E3(r5, n4);
+            };
+            var B3 = function e5(n5) {
+              var r5;
+              n5.stopPropagation();
+              F3 === null || F3 === void 0 ? void 0 : (r5 = F3.current) === null || r5 === void 0 ? void 0 : r5.focus();
+              d3 === null || d3 === void 0 ? void 0 : d3(n5);
+            };
+            var U3 = function e5() {
+              if ((A3 === null || A3 === void 0 ? void 0 : A3.get("".concat(n4))) === "0") {
+                L3(0);
+              }
+            };
+            (0, t3.useEffect)(function() {
+              if (T3 === n4) {
+                var e5;
+                q3 === null || q3 === void 0 ? void 0 : (e5 = q3.current) === null || e5 === void 0 ? void 0 : e5.focus();
+              }
+            }, [T3, q3]);
+            var X3 = function e5(n5) {
+              n5.stopPropagation();
+            };
+            var G3 = function e5(r5) {
+              r5.stopPropagation();
+              if (r5.shiftKey && r5.key === "Tab" && (A3 === null || A3 === void 0 ? void 0 : A3.get("".concat(n4))) === "0") {
+                L3(-1);
+              }
+              I3 === null || I3 === void 0 ? void 0 : I3(r5, n4, K3, M3, $3);
+              f3 === null || f3 === void 0 ? void 0 : f3(r5);
+            };
+            var H3 = function e5() {
+              if (!g3) {
+                return void 0;
+              }
+              return (0, t3.cloneElement)(g3, {
+                onClick: function e6(n5) {
+                  var r5, t4;
+                  $3(!K3, n5);
+                  J3(n5);
+                  (r5 = (t4 = g3.props).onClick) === null || r5 === void 0 ? void 0 : r5.call(t4, n5);
+                },
+                "aria-expanded": K3
+              });
+            };
+            return o2().createElement("li", p2({}, S3, {
+              ref: q3,
+              tabIndex: V3,
+              onBlur: U3,
+              onFocus: B3,
+              onKeyDown: G3,
+              role: "treeitem",
+              "aria-labelledby": c3,
+              "aria-expanded": M3.length ? K3 : void 0
+            }), l3, o2().createElement(s2, {
+              ref: F3,
+              tabIndex: -1,
+              onFocus: X3,
+              onClick: J3
+            }, a3, H3(), !K3 && i3), K3 && o2().createElement(o2().Fragment, null, o2().createElement(v2, {
+              role: "group",
+              $defaultIndent: O3
+            }, r4), i3));
+          }
+          O2.propTypes = x2;
+          const I2 = O2;
+          function E2(e4, n4) {
+            return P2(e4) || T2(e4, n4) || C2(e4, n4) || j2();
+          }
+          function j2() {
+            throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+          }
+          function C2(e4, n4) {
+            if (e4) {
+              if ("string" == typeof e4) return A2(e4, n4);
+              var r4 = {}.toString.call(e4).slice(8, -1);
+              return "Object" === r4 && e4.constructor && (r4 = e4.constructor.name), "Map" === r4 || "Set" === r4 ? Array.from(e4) : "Arguments" === r4 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r4) ? A2(e4, n4) : void 0;
+            }
+          }
+          function A2(e4, n4) {
+            (null == n4 || n4 > e4.length) && (n4 = e4.length);
+            for (var r4 = 0, t4 = Array(n4); r4 < n4; r4++) {
+              t4[r4] = e4[r4];
+            }
+            return t4;
+          }
+          function T2(e4, n4) {
+            var r4 = null == e4 ? null : "undefined" != typeof Symbol && e4[Symbol.iterator] || e4["@@iterator"];
+            if (null != r4) {
+              var t4, o3, a3, l3, i3 = [], u3 = true, c3 = false;
+              try {
+                if (a3 = (r4 = r4.call(e4)).next, 0 === n4) ;
+                else for (; !(u3 = (t4 = a3.call(r4)).done) && (i3.push(t4.value), i3.length !== n4); u3 = true) {
+                }
+              } catch (e5) {
+                c3 = true, o3 = e5;
+              } finally {
+                try {
+                  if (!u3 && null != r4["return"] && (l3 = r4["return"](), Object(l3) !== l3)) return;
+                } finally {
+                  if (c3) throw o3;
+                }
+              }
+              return i3;
+            }
+          }
+          function P2(e4) {
+            if (Array.isArray(e4)) return e4;
+          }
+          function R2(e4, n4) {
+            var r4;
+            var t4 = Array.from(e4.entries());
+            return (r4 = t4.find(function(e5) {
+              var r5 = E2(e5, 2), t5 = r5[1];
+              return t5 === n4;
+            })) === null || r4 === void 0 ? void 0 : r4[0];
+          }
+          function K2(e4) {
+            return e4.split("-").slice(0, -1).join("-");
+          }
+          function _2(e4, n4) {
+            return e4 === null || e4 === void 0 ? void 0 : e4.replace(/([^-]*)$/, "".concat(n4 + 1));
+          }
+          function D2(e4) {
+            var n4 = e4.split("-").pop();
+            if (!n4) {
+              return 0;
+            }
+            return parseInt(n4, 10) || 0;
+          }
+          function N2(e4, n4) {
+            var r4 = e4.get(n4);
+            if (!r4) {
+              return n4;
+            }
+            var t4 = K2(r4);
+            return R2(e4, t4) || n4;
+          }
+          function V2(e4, n4) {
+            var r4 = K2(n4);
+            if (!r4) {
+              return R2(e4, n4);
+            }
+            var t4 = D2(r4);
+            var o3 = _2(r4, t4);
+            var a3 = R2(e4, o3);
+            if (a3) {
+              return a3;
+            }
+            return V2(e4, o3);
+          }
+          function L2(e4, n4) {
+            var r4 = e4.get(n4);
+            if (!r4) {
+              return n4;
+            }
+            var t4 = R2(e4, "".concat(r4, "-0"));
+            if (t4) {
+              return t4;
+            }
+            var o3 = D2(r4);
+            var a3 = _2(r4, o3);
+            var l3 = R2(e4, a3);
+            if (l3) {
+              return l3;
+            }
+            return V2(e4, r4) || n4;
+          }
+          function F2(e4, n4) {
+            var r4 = R2(e4, "".concat(n4, "-0"));
+            if (!r4) {
+              return R2(e4, n4);
+            }
+            var t4 = R2(e4, n4);
+            var o3 = "".concat(n4, "-0");
+            while (t4) {
+              var a3 = D2(o3);
+              var l3 = _2(o3, a3);
+              t4 = R2(e4, l3);
+              if (t4) {
+                o3 = l3;
+              }
+            }
+            return F2(e4, o3);
+          }
+          function q2(e4, n4) {
+            var r4 = e4.get(n4);
+            if (!r4) {
+              return n4;
+            }
+            var t4 = D2(r4);
+            if (t4 === 0) {
+              return N2(e4, n4);
+            }
+            var o3 = r4.replace(/[^-]+$/, "".concat(t4 - 1));
+            return F2(e4, o3) || n4;
+          }
+          function M2(e4) {
+            return R2(e4, "0");
+          }
+          function $2(e4) {
+            var n4 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "0";
+            var r4 = R2(e4, n4);
+            var t4 = n4;
+            while (r4) {
+              var o3 = D2(t4);
+              r4 = R2(e4, _2(t4, o3));
+              if (r4) {
+                t4 = _2(t4, o3);
+              }
+            }
+            var a3 = R2(e4, "".concat(t4, "-0"));
+            if (!a3) {
+              return R2(e4, t4);
+            }
+            t4 = "".concat(t4, "-0");
+            return $2(e4, t4);
+          }
+          function J2() {
+            return J2 = Object.assign ? Object.assign.bind() : function(e4) {
+              for (var n4 = 1; n4 < arguments.length; n4++) {
+                var r4 = arguments[n4];
+                for (var t4 in r4) {
+                  ({}).hasOwnProperty.call(r4, t4) && (e4[t4] = r4[t4]);
+                }
+              }
+              return e4;
+            }, J2.apply(null, arguments);
+          }
+          function B2(e4, n4) {
+            return z2(e4) || H2(e4, n4) || X2(e4, n4) || U2();
+          }
+          function U2() {
+            throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+          }
+          function X2(e4, n4) {
+            if (e4) {
+              if ("string" == typeof e4) return G2(e4, n4);
+              var r4 = {}.toString.call(e4).slice(8, -1);
+              return "Object" === r4 && e4.constructor && (r4 = e4.constructor.name), "Map" === r4 || "Set" === r4 ? Array.from(e4) : "Arguments" === r4 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r4) ? G2(e4, n4) : void 0;
+            }
+          }
+          function G2(e4, n4) {
+            (null == n4 || n4 > e4.length) && (n4 = e4.length);
+            for (var r4 = 0, t4 = Array(n4); r4 < n4; r4++) {
+              t4[r4] = e4[r4];
+            }
+            return t4;
+          }
+          function H2(e4, n4) {
+            var r4 = null == e4 ? null : "undefined" != typeof Symbol && e4[Symbol.iterator] || e4["@@iterator"];
+            if (null != r4) {
+              var t4, o3, a3, l3, i3 = [], u3 = true, c3 = false;
+              try {
+                if (a3 = (r4 = r4.call(e4)).next, 0 === n4) ;
+                else for (; !(u3 = (t4 = a3.call(r4)).done) && (i3.push(t4.value), i3.length !== n4); u3 = true) {
+                }
+              } catch (e5) {
+                c3 = true, o3 = e5;
+              } finally {
+                try {
+                  if (!u3 && null != r4["return"] && (l3 = r4["return"](), Object(l3) !== l3)) return;
+                } finally {
+                  if (c3) throw o3;
+                }
+              }
+              return i3;
+            }
+          }
+          function z2(e4) {
+            if (Array.isArray(e4)) return e4;
+          }
+          function W2(e4, n4) {
+            if (null == e4) return {};
+            var r4, t4, o3 = Q2(e4, n4);
+            if (Object.getOwnPropertySymbols) {
+              var a3 = Object.getOwnPropertySymbols(e4);
+              for (t4 = 0; t4 < a3.length; t4++) {
+                r4 = a3[t4], n4.includes(r4) || {}.propertyIsEnumerable.call(e4, r4) && (o3[r4] = e4[r4]);
+              }
+            }
+            return o3;
+          }
+          function Q2(e4, n4) {
+            if (null == e4) return {};
+            var r4 = {};
+            for (var t4 in e4) {
+              if ({}.hasOwnProperty.call(e4, t4)) {
+                if (n4.includes(t4)) continue;
+                r4[t4] = e4[t4];
+              }
+            }
+            return r4;
+          }
+          var Y2 = {
+            children: l2().node,
+            defaultIndent: l2().bool
+          };
+          function Z2(e4) {
+            var n4 = e4.children, r4 = e4.defaultIndent, a3 = r4 === void 0 ? true : r4, l3 = W2(e4, ["children", "defaultIndent"]);
+            var i3 = (0, t3.useState)(), c3 = B2(i3, 2), d3 = c3[0], f3 = c3[1];
+            var s3 = /* @__PURE__ */ new Map();
+            var p3 = function e5(n5, r5, t4, o3, a4) {
+              n5.stopPropagation();
+              var l4 = t4 && (o3 === null || o3 === void 0 ? void 0 : o3.length);
+              switch (n5.key) {
+                case "ArrowUp":
+                  n5.preventDefault();
+                  f3(q2(s3, r5));
+                  break;
+                case "ArrowDown":
+                  n5.preventDefault();
+                  f3(L2(s3, r5));
+                  break;
+                case "ArrowLeft":
+                  n5.preventDefault();
+                  if (l4) {
+                    a4(false, n5);
+                  } else {
+                    f3(N2(s3, r5));
+                  }
+                  break;
+                case "ArrowRight":
+                  n5.preventDefault();
+                  if (l4) {
+                    f3(L2(s3, r5));
+                  } else {
+                    a4(true, n5);
+                  }
+                  break;
+                case "Home":
+                  n5.preventDefault();
+                  f3(M2(s3));
+                  break;
+                case "End":
+                  n5.preventDefault();
+                  f3($2(s3));
+                  break;
+                case "Enter":
+                  n5.preventDefault();
+                  a4(!l4, n5);
+                  break;
+              }
+            };
+            var y3 = function e5(n5, r5) {
+              n5.preventDefault();
+              f3(r5);
+            };
+            var m3 = function e5(n5) {
+              s3["delete"](n5);
+            };
+            var b3 = function e5(n5, r5) {
+              s3.set(n5, r5);
+            };
+            var h3 = t3.Children.toArray(n4).filter(t3.isValidElement);
+            h3.forEach(function(e5, n5) {
+              if (e5.props.id && b3) {
+                b3("".concat(e5.props.id), "".concat(n5));
+              }
+            });
+            var g3 = (0, t3.useMemo)(function() {
+              return {
+                defaultIndent: a3,
+                onItemKeyDown: p3,
+                onItemClick: y3,
+                removeNode: m3,
+                setNode: b3,
+                itemPaths: s3,
+                focusedItemId: d3
+              };
+            }, [a3, d3, s3, p3, m3, b3]);
+            return o2().createElement(u2.Provider, {
+              value: g3
+            }, o2().createElement(v2, J2({
+              role: "tree",
+              $defaultIndent: a3
+            }, l3), n4));
+          }
+          Z2.propTypes = Y2;
+          Z2.TreeItem = I2;
+          const ee2 = Z2;
+        }
+      ),
+      /***/
+      3563: (
+        /***/
+        (e3) => {
+          e3.exports = requireThemes();
+        }
+      ),
+      /***/
+      23: (
+        /***/
+        (e3) => {
+          e3.exports = /* @__PURE__ */ requirePropTypes();
+        }
+      ),
+      /***/
+      9497: (
+        /***/
+        (e3) => {
+          e3.exports = requireReact();
+        }
+      ),
+      /***/
+      232: (
+        /***/
+        (e3) => {
+          e3.exports = require$$21;
+        }
+      )
+    };
+    var n2 = {};
+    function r2(t3) {
+      var o2 = n2[t3];
+      if (o2 !== void 0) {
+        return o2.exports;
+      }
+      var a2 = n2[t3] = {
+        /******/
+        // no module.id needed
+        /******/
+        // no module.loaded needed
+        /******/
+        exports: {}
+        /******/
+      };
+      e2[t3](a2, a2.exports, r2);
+      return a2.exports;
+    }
+    (() => {
+      r2.n = (e3) => {
+        var n3 = e3 && e3.__esModule ? (
+          /******/
+          () => e3["default"]
+        ) : () => e3;
+        r2.d(n3, {
+          a: n3
+        });
+        return n3;
+      };
+    })();
+    (() => {
+      r2.d = (e3, n3) => {
+        for (var t3 in n3) {
+          if (r2.o(n3, t3) && !r2.o(e3, t3)) {
+            Object.defineProperty(e3, t3, {
+              enumerable: true,
+              get: n3[t3]
+            });
+          }
+        }
+      };
+    })();
+    (() => {
+      r2.o = (e3, n3) => Object.prototype.hasOwnProperty.call(e3, n3);
+    })();
+    (() => {
+      r2.r = (e3) => {
+        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+          Object.defineProperty(e3, Symbol.toStringTag, {
+            value: "Module"
+          });
+        }
+        Object.defineProperty(e3, "__esModule", {
+          value: true
+        });
+      };
+    })();
+    var t2 = {};
+    (() => {
+      r2.r(t2);
+      r2.d(t2, {
+        default: () => (
+          /* reexport */
+          je2
+        )
+      });
+      var e3 = r2(9497);
+      var n3 = r2.n(e3);
+      var o2 = r2(23);
+      var a2 = r2.n(o2);
+      const l2 = requireIsString();
+      var i2 = r2.n(l2);
+      var u2 = r2(232);
+      var c2 = r2.n(u2);
+      var d2 = r2(3563);
+      var f2 = (0, u2.css)(["", ";", ";color:", ";"], d2.mixins.reset("block"), d2.mixins.typography({
+        family: "monospace"
+      }), d2.variables.syntaxGray);
+      var s2 = c2().code.withConfig({
+        displayName: "JSONTreeStyles__StyledScrollCode",
+        componentId: "vrdt21-0"
+      })(["", ";overflow-x:auto;white-space:nowrap;"], f2);
+      var v2 = c2().code.withConfig({
+        displayName: "JSONTreeStyles__StyledWrapCode",
+        componentId: "vrdt21-1"
+      })(["", ";white-space:pre-wrap;"], f2);
+      const p2 = requireFill();
+      var y2 = r2.n(p2);
+      const m2 = requireIsArray();
+      var b2 = r2.n(m2);
+      const h2 = requireIsEmpty();
+      var g2 = r2.n(h2);
+      const S2 = requireIsNumber();
+      var w2 = r2.n(S2);
+      const k2 = requireIsObject();
+      var x2 = r2.n(k2);
+      const O2 = requireKeys();
+      var I2 = r2.n(O2);
+      const E2 = requireRepeat();
+      var j2 = r2.n(E2);
+      const C2 = requireI18n();
+      var A2 = r2(4610);
+      function T2() {
+        return T2 = Object.assign ? Object.assign.bind() : function(e4) {
+          for (var n4 = 1; n4 < arguments.length; n4++) {
+            var r3 = arguments[n4];
+            for (var t3 in r3) {
+              ({}).hasOwnProperty.call(r3, t3) && (e4[t3] = r3[t3]);
+            }
+          }
+          return e4;
+        }, T2.apply(null, arguments);
+      }
+      function P2(e4, n4) {
+        return N2(e4) || D2(e4, n4) || K2(e4, n4) || R2();
+      }
+      function R2() {
+        throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+      }
+      function K2(e4, n4) {
+        if (e4) {
+          if ("string" == typeof e4) return _2(e4, n4);
+          var r3 = {}.toString.call(e4).slice(8, -1);
+          return "Object" === r3 && e4.constructor && (r3 = e4.constructor.name), "Map" === r3 || "Set" === r3 ? Array.from(e4) : "Arguments" === r3 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r3) ? _2(e4, n4) : void 0;
+        }
+      }
+      function _2(e4, n4) {
+        (null == n4 || n4 > e4.length) && (n4 = e4.length);
+        for (var r3 = 0, t3 = Array(n4); r3 < n4; r3++) {
+          t3[r3] = e4[r3];
+        }
+        return t3;
+      }
+      function D2(e4, n4) {
+        var r3 = null == e4 ? null : "undefined" != typeof Symbol && e4[Symbol.iterator] || e4["@@iterator"];
+        if (null != r3) {
+          var t3, o3, a3, l3, i3 = [], u3 = true, c3 = false;
+          try {
+            if (a3 = (r3 = r3.call(e4)).next, 0 === n4) ;
+            else for (; !(u3 = (t3 = a3.call(r3)).done) && (i3.push(t3.value), i3.length !== n4); u3 = true) {
+            }
+          } catch (e5) {
+            c3 = true, o3 = e5;
+          } finally {
+            try {
+              if (!u3 && null != r3["return"] && (l3 = r3["return"](), Object(l3) !== l3)) return;
+            } finally {
+              if (c3) throw o3;
+            }
+          }
+          return i3;
+        }
+      }
+      function N2(e4) {
+        if (Array.isArray(e4)) return e4;
+      }
+      function V2(e4, n4) {
+        if (null == e4) return {};
+        var r3, t3, o3 = L2(e4, n4);
+        if (Object.getOwnPropertySymbols) {
+          var a3 = Object.getOwnPropertySymbols(e4);
+          for (t3 = 0; t3 < a3.length; t3++) {
+            r3 = a3[t3], n4.includes(r3) || {}.propertyIsEnumerable.call(e4, r3) && (o3[r3] = e4[r3]);
+          }
+        }
+        return o3;
+      }
+      function L2(e4, n4) {
+        if (null == e4) return {};
+        var r3 = {};
+        for (var t3 in e4) {
+          if ({}.hasOwnProperty.call(e4, t3)) {
+            if (n4.includes(t3)) continue;
+            r3[t3] = e4[t3];
+          }
+        }
+        return r3;
+      }
+      var F2 = {
+        clickableKeyRef: a2().object,
+        clickableValRef: a2().object,
+        hasChildren: a2().bool,
+        indentArray: a2().arrayOf(a2().string),
+        index: a2().number,
+        initialOpenState: a2().bool,
+        properties: a2().arrayOf(a2().string),
+        propertyDataPath: a2().string,
+        propertyElement: a2().node,
+        renderExpandLink: a2().func,
+        representation: a2().node,
+        value: a2().oneOfType([a2().string, a2().object, a2().array, a2().number, a2().bool])
+      };
+      function q2(r3) {
+        var t3 = r3.clickableKeyRef, o3 = r3.clickableValRef, a3 = r3.hasChildren, l3 = r3.indentArray, i3 = r3.index, u3 = r3.initialOpenState, c3 = r3.onFocus, d3 = r3.properties, f3 = r3.propertyDataPath, s3 = r3.propertyElement, v3 = r3.renderExpandLink, p3 = r3.representation, y3 = r3.value, m3 = V2(r3, ["clickableKeyRef", "clickableValRef", "hasChildren", "indentArray", "index", "initialOpenState", "onFocus", "properties", "propertyDataPath", "propertyElement", "renderExpandLink", "representation", "value"]);
+        var h3 = (0, e3.useState)(u3), g3 = P2(h3, 2), S3 = g3[0], w3 = g3[1];
+        var k3 = function e4(n4) {
+          w3(n4);
+        };
+        var x3 = (0, e3.useRef)(null);
+        var O3 = v3 ? v3({
+          open: S3,
+          withTooltip: true,
+          expandLinkRef: x3
+        }) : {
+          expandLink: void 0
+        }, I3 = O3.expandLink;
+        var E3 = (d3 === null || d3 === void 0 ? void 0 : d3.length) && i3 + 1 < (d3 === null || d3 === void 0 ? void 0 : d3.length) ? "," : null;
+        return n3().createElement(A2["default"].TreeItem, T2({
+          content: n3().createElement(n3().Fragment, null, s3, a3 && (b2()(y3) ? "[" : "{"), !a3 && n3().createElement(n3().Fragment, null, p3, E3)),
+          customIndent: l3,
+          "data-test": a3 ? "node" : null,
+          "data-test-path": f3,
+          endAdornment: a3 && n3().createElement(n3().Fragment, null, S3 && l3, b2()(y3) ? "]" : "}", E3),
+          onFocus: function e4(n4) {
+            c3 === null || c3 === void 0 ? void 0 : c3(n4);
+            var r4 = n4.relatedTarget === (t3 === null || t3 === void 0 ? void 0 : t3.current) || n4.relatedTarget === (o3 === null || o3 === void 0 ? void 0 : o3.current) || n4.relatedTarget === (x3 === null || x3 === void 0 ? void 0 : x3.current) ? n4.relatedTarget : null;
+            if (m3.id === "root") {
+              var a4;
+              x3 === null || x3 === void 0 ? void 0 : (a4 = x3.current) === null || a4 === void 0 ? void 0 : a4.focus();
+            }
+            if (!r4) {
+              if (s3 && (t3 === null || t3 === void 0 ? void 0 : t3.current)) {
+                var l4;
+                (l4 = t3.current) === null || l4 === void 0 ? void 0 : l4.focus();
+              } else if (o3 === null || o3 === void 0 ? void 0 : o3.current) {
+                var i4;
+                (i4 = o3.current) === null || i4 === void 0 ? void 0 : i4.focus();
+              }
+            } else {
+              r4.focus();
+            }
+          },
+          onToggle: k3,
+          open: u3,
+          tabIndex: 0,
+          toggle: a3 ? I3 : void 0
+        }, m3), a3 && p3);
+      }
+      q2.propTypes = F2;
+      const M2 = requireButtonSimple();
+      var $2 = r2.n(M2);
+      const J2 = requireClickable();
+      var B2 = r2.n(J2);
+      const U2 = requireTooltip();
+      var X2 = r2.n(U2);
+      var G2 = {
+        string: d2.variables.syntaxTeal,
+        number: d2.variables.syntaxBlue,
+        boolean: d2.variables.syntaxPurple,
+        null: d2.variables.syntaxBrown,
+        object: d2.variables.syntaxGray,
+        array: d2.variables.syntaxGray
+      };
+      var H2 = (0, u2.css)(["word-break:break-word;word-wrap:break-word;"]);
+      var z2 = (0, u2.css)(["white-space:nowrap;"]);
+      var W2 = (0, u2.css)(["padding-block:2px;"]);
+      var Q2 = (0, u2.css)(["font-family:inherit;&:focus{box-shadow:", ";outline:0;&:active{box-shadow:none;}}&:hover{background-color:", ";}"], d2.variables.focusShadow, d2.variables.neutral50);
+      var Y2 = (0, u2.css)(["color:", ";", ";", ""], function(e4) {
+        var n4 = e4.valueType;
+        return G2[n4];
+      }, function(e4) {
+        var n4 = e4.overflowType;
+        return n4 === "wrap" ? H2 : z2;
+      }, W2);
+      var Z2 = c2().span.withConfig({
+        displayName: "JSONTreeItemStyles__StyledValue",
+        componentId: "o558h3-0"
+      })(["", ""], Y2);
+      var ee2 = c2()(B2()).withConfig({
+        displayName: "JSONTreeItemStyles__StyledValueInteractiveClickable",
+        componentId: "o558h3-1"
+      })(["", " ", " min-width:24px;text-align:center;"], Y2, Q2);
+      var ne2 = (0, u2.css)(["", " color:", ";"], W2, d2.variables.syntaxRed);
+      var re2 = c2().span.withConfig({
+        displayName: "JSONTreeItemStyles__StyledProperty",
+        componentId: "o558h3-2"
+      })(["", ""], ne2);
+      var te2 = c2()(B2()).withConfig({
+        displayName: "JSONTreeItemStyles__StyledPropertyInteractiveClickable",
+        componentId: "o558h3-3"
+      })(["", " ", ""], ne2, Q2);
+      var oe2 = c2()($2()).withConfig({
+        displayName: "JSONTreeItemStyles__StyledExpandLinkClickable",
+        componentId: "o558h3-4"
+      })(["", ";border:none;border-radius:0;font-family:inherit;padding:1px ", " 3px ", ";&:hover{background-color:", ";text-decoration:none;}&:focus{box-shadow:", ";&:active{box-shadow:none;}}"], W2, d2.variables.spacingXSmall, d2.variables.spacingXSmall, d2.variables.actionColorBackgroundSubtleHover, d2.variables.focusShadowInset);
+      var ae2 = c2()(X2()).withConfig({
+        displayName: "JSONTreeItemStyles__StyledTooltip",
+        componentId: "o558h3-5"
+      })(["font-family:", ";"], d2.variables.monoFontFamily);
+      function le2(e4) {
+        "@babel/helpers - typeof";
+        return le2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e5) {
+          return typeof e5;
+        } : function(e5) {
+          return e5 && "function" == typeof Symbol && e5.constructor === Symbol && e5 !== Symbol.prototype ? "symbol" : typeof e5;
+        }, le2(e4);
+      }
+      function ie2(e4) {
+        return fe2(e4) || de2(e4) || ce2(e4) || ue2();
+      }
+      function ue2() {
+        throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+      }
+      function ce2(e4, n4) {
+        if (e4) {
+          if ("string" == typeof e4) return se2(e4, n4);
+          var r3 = {}.toString.call(e4).slice(8, -1);
+          return "Object" === r3 && e4.constructor && (r3 = e4.constructor.name), "Map" === r3 || "Set" === r3 ? Array.from(e4) : "Arguments" === r3 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r3) ? se2(e4, n4) : void 0;
+        }
+      }
+      function de2(e4) {
+        if ("undefined" != typeof Symbol && null != e4[Symbol.iterator] || null != e4["@@iterator"]) return Array.from(e4);
+      }
+      function fe2(e4) {
+        if (Array.isArray(e4)) return se2(e4);
+      }
+      function se2(e4, n4) {
+        (null == n4 || n4 > e4.length) && (n4 = e4.length);
+        for (var r3 = 0, t3 = Array(n4); r3 < n4; r3++) {
+          t3[r3] = e4[r3];
+        }
+        return t3;
+      }
+      function ve2(r3) {
+        var t3 = r3.id, o3 = r3.childKey, a3 = r3.index, l3 = r3.value, i3 = r3.properties, u3 = r3.propertyDataPath, c3 = r3.obj, d3 = r3.renderValue, f3 = r3.renderKey, s3 = r3.getInitialOpenState, v3 = r3.indentArray, p3 = r3.renderExpandLink, y3 = r3.onFocus;
+        var m3 = (0, e3.useRef)(null);
+        var h3 = (0, e3.useRef)(null);
+        var S3 = d3({
+          key: o3,
+          value: l3,
+          clickValueRef: m3
+        }), w3 = S3.representation, k3 = S3.clickableValRef;
+        var O3 = !b2()(c3) ? f3(o3, h3) : {
+          propertyElement: void 0,
+          clickableKeyRef: void 0
+        }, I3 = O3.propertyElement, E3 = O3.clickableKeyRef;
+        var j3 = x2()(l3) && !g2()(l3) || b2()(l3) && l3.length > 0;
+        return n3().createElement(q2, {
+          id: t3,
+          propertyDataPath: u3,
+          propertyElement: I3,
+          hasChildren: j3,
+          initialOpenState: s3(),
+          representation: w3,
+          indentArray: v3,
+          value: l3,
+          index: a3,
+          properties: i3,
+          renderExpandLink: p3,
+          clickableKeyRef: E3,
+          clickableValRef: k3,
+          onFocus: function e4() {
+            y3(E3, k3);
+          }
+        });
+      }
+      function pe2(r3) {
+        var t3 = r3.renderValue, o3 = r3.obj;
+        var a3 = (0, e3.useRef)(null);
+        var l3 = t3({
+          value: o3,
+          clickValueRef: a3
+        }), i3 = l3.representation;
+        return n3().createElement(A2["default"].TreeItem, {
+          id: "0",
+          "data-test-path": ".",
+          content: i3
+        });
+      }
+      function ye2(e4) {
+        var r3 = e4.defaultOpen, t3 = r3 === void 0 ? false : r3, o3 = e4.defaultExpanded, a3 = o3 === void 0 ? false : o3, l3 = e4.expandChildrenOnShiftKey, u3 = l3 === void 0 ? false : l3, c3 = e4.indent, d3 = c3 === void 0 ? 4 : c3, f3 = e4.indentLevel, s3 = f3 === void 0 ? 1 : f3, v3 = e4.obj, p3 = e4.onClickKey, m3 = e4.onClickValue, h3 = e4.overflow, S3 = h3 === void 0 ? "scroll" : h3, k3 = e4.path, O3 = k3 === void 0 ? [] : k3, E3 = e4.shift, A3 = e4.updateShift;
+        var T3 = y2()(Array(s3), j2()(" ", d3));
+        var P3;
+        var R3;
+        var K3 = function e5() {
+          if (a3 && E3 == null) {
+            return true;
+          }
+          if (u3) {
+            return !!E3;
+          }
+          return t3;
+        };
+        var _3 = function e5(n4) {
+          if (u3 && A3 != null) {
+            A3(n4.shiftKey);
+          }
+        };
+        var D3 = function e5(n4, r4) {
+          var t4, o4;
+          var a4 = r4 !== void 0 ? [].concat(ie2(O3), [r4]) : ie2(O3);
+          var l4 = ".".concat(a4.join("."));
+          (t4 = R3) === null || t4 === void 0 ? void 0 : (o4 = t4.current) === null || o4 === void 0 ? void 0 : o4.focus();
+          p3 === null || p3 === void 0 ? void 0 : p3(n4, {
+            key: l4,
+            keyPath: a4
+          });
+        };
+        var N3 = function e5(n4, r4) {
+          var t4, o4;
+          var a4 = r4 !== void 0 ? [].concat(ie2(O3), [r4]) : ie2(O3);
+          var l4 = ".".concat(a4.join("."));
+          (t4 = P3) === null || t4 === void 0 ? void 0 : (o4 = t4.current) === null || o4 === void 0 ? void 0 : o4.focus();
+          m3 === null || m3 === void 0 ? void 0 : m3(n4, {
+            key: l4,
+            keyPath: a4,
+            value: n4.target.textContent
+          });
+        };
+        var V3 = function e5(n4, r4) {
+          var t4, o4;
+          var a4 = n4.key;
+          if (a4 === "ArrowLeft" && p3 && ((t4 = R3) === null || t4 === void 0 ? void 0 : t4.current) && !r4) {
+            var l4;
+            n4.stopPropagation();
+            (l4 = R3.current) === null || l4 === void 0 ? void 0 : l4.focus();
+          }
+          if (a4 === "ArrowRight" && m3 && ((o4 = P3) === null || o4 === void 0 ? void 0 : o4.current) && r4) {
+            var i3;
+            n4.stopPropagation();
+            (i3 = P3.current) === null || i3 === void 0 ? void 0 : i3.focus();
+          }
+        };
+        var L3 = function e5(r4) {
+          var t4 = r4.open, o4 = r4.withTooltip, a4 = r4.expandLinkRef;
+          var l4 = t4 ? "[-]" : "[+]";
+          var i3 = t4 ? (0, C2._)("Collapse all") : (0, C2._)("Shift click to expand all");
+          var c4 = n3().createElement(oe2, {
+            appearance: "subtle",
+            elementRef: a4,
+            tabIndex: -1,
+            onClick: function e6(n4) {
+              _3(n4);
+            },
+            "aria-expanded": t4,
+            "data-test": "toggle"
+          }, l4);
+          if (u3 && o4) {
+            return {
+              expandLink: n3().createElement(ae2, {
+                contentRelationship: "description",
+                openDelay: "secondary",
+                defaultPlacement: "above",
+                content: (0, C2._)(i3)
+              }, c4),
+              expandLinkRef: a4
+            };
+          }
+          return {
+            expandLink: c4,
+            expandLinkRef: a4
+          };
+        };
+        var F3 = function e5(r4) {
+          var t4 = r4.value, o4 = r4.key, l4 = r4.clickValueRef;
+          var c4;
+          if (!x2()(t4)) {
+            if (typeof t4 === "string") {
+              c4 = '"'.concat(t4, '"');
+            } else if (typeof t4 === "boolean") {
+              c4 = t4.toString();
+            } else if (t4 === null) {
+              c4 = "null";
+            } else {
+              c4 = t4;
+            }
+          } else if (g2()(t4)) {
+            c4 = b2()(t4) ? "[]" : "{}";
+          } else {
+            c4 = ye2({
+              defaultOpen: a3 === true,
+              defaultExpanded: a3,
+              expandChildrenOnShiftKey: u3,
+              onClickKey: p3,
+              onClickValue: m3,
+              overflow: S3,
+              obj: t4,
+              path: o4 !== void 0 ? [].concat(ie2(O3), [o4]) : ie2(O3),
+              indentLevel: s3 + 1,
+              shift: E3,
+              updateShift: A3
+            });
+          }
+          if (i2()(c4) || w2()(c4)) {
+            var d4 = t4 === null ? "null" : (
+              // TS: bigint, function, symbol are prevented by JSONElement type
+              le2(t4)
+            );
+            if (m3) {
+              return {
+                representation: n3().createElement(ee2, {
+                  elementRef: l4,
+                  valueType: d4,
+                  overflowType: S3,
+                  onClick: function e6(n4) {
+                    P3 = l4;
+                    N3(n4, o4);
+                  },
+                  onKeyDown: function e6(n4) {
+                    V3(n4, false);
+                  },
+                  tabIndex: -1
+                }, c4),
+                clickableValRef: l4
+              };
+            }
+            return {
+              representation: n3().createElement(Z2, {
+                valueType: d4,
+                overflowType: S3
+              }, c4)
+            };
+          }
+          return {
+            representation: c4
+          };
+        };
+        var M3 = function e5(r4, t4) {
+          if (p3) {
+            return {
+              propertyElement: n3().createElement(n3().Fragment, null, n3().createElement(te2, {
+                elementRef: t4,
+                tabIndex: -1,
+                onClick: function e6(n4) {
+                  R3 = t4;
+                  D3(n4, r4);
+                },
+                onKeyDown: function e6(n4) {
+                  V3(n4, true);
+                }
+              }, r4), ":", " "),
+              clickableKeyRef: t4
+            };
+          }
+          return {
+            propertyElement: n3().createElement(n3().Fragment, null, n3().createElement(re2, null, r4), ":", " ")
+          };
+        };
+        if (x2()(v3) && !g2()(v3) || b2()(v3) && v3.length > 0) {
+          var $3 = I2()(v3).map(function(e5, r4, t4) {
+            var o4 = v3[e5];
+            var a4 = b2()(v3) ? parseInt(e5, 10) : e5;
+            var l4 = O3.length === 0 ? ".".concat(a4) : ".".concat(O3.join("."), ".").concat(a4);
+            return n3().createElement(ve2, {
+              id: l4,
+              key: l4,
+              propertyDataPath: l4,
+              childKey: a4,
+              index: r4,
+              value: o4,
+              properties: t4,
+              obj: v3,
+              renderValue: F3,
+              renderKey: M3,
+              getInitialOpenState: K3,
+              indentArray: T3,
+              renderExpandLink: L3,
+              onFocus: function e6(n4, r5) {
+                R3 = n4;
+                P3 = r5;
+              }
+            });
+          });
+          if (O3.length === 0) {
+            var J3 = x2()(v3) && !g2()(v3) || b2()(v3) && v3.length > 0;
+            return n3().createElement(q2, {
+              id: "root",
+              propertyDataPath: ".",
+              key: ".",
+              hasChildren: J3,
+              initialOpenState: t3 || a3,
+              value: v3,
+              index: 0,
+              renderExpandLink: L3,
+              representation: $3
+            });
+          }
+          return $3;
+        }
+        return n3().createElement(pe2, {
+          obj: v3,
+          renderValue: F3
+        });
+      }
+      function me2() {
+        return me2 = Object.assign ? Object.assign.bind() : function(e4) {
+          for (var n4 = 1; n4 < arguments.length; n4++) {
+            var r3 = arguments[n4];
+            for (var t3 in r3) {
+              ({}).hasOwnProperty.call(r3, t3) && (e4[t3] = r3[t3]);
+            }
+          }
+          return e4;
+        }, me2.apply(null, arguments);
+      }
+      function be2(e4, n4) {
+        return ke2(e4) || we2(e4, n4) || ge2(e4, n4) || he2();
+      }
+      function he2() {
+        throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+      }
+      function ge2(e4, n4) {
+        if (e4) {
+          if ("string" == typeof e4) return Se2(e4, n4);
+          var r3 = {}.toString.call(e4).slice(8, -1);
+          return "Object" === r3 && e4.constructor && (r3 = e4.constructor.name), "Map" === r3 || "Set" === r3 ? Array.from(e4) : "Arguments" === r3 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r3) ? Se2(e4, n4) : void 0;
+        }
+      }
+      function Se2(e4, n4) {
+        (null == n4 || n4 > e4.length) && (n4 = e4.length);
+        for (var r3 = 0, t3 = Array(n4); r3 < n4; r3++) {
+          t3[r3] = e4[r3];
+        }
+        return t3;
+      }
+      function we2(e4, n4) {
+        var r3 = null == e4 ? null : "undefined" != typeof Symbol && e4[Symbol.iterator] || e4["@@iterator"];
+        if (null != r3) {
+          var t3, o3, a3, l3, i3 = [], u3 = true, c3 = false;
+          try {
+            if (a3 = (r3 = r3.call(e4)).next, 0 === n4) ;
+            else for (; !(u3 = (t3 = a3.call(r3)).done) && (i3.push(t3.value), i3.length !== n4); u3 = true) {
+            }
+          } catch (e5) {
+            c3 = true, o3 = e5;
+          } finally {
+            try {
+              if (!u3 && null != r3["return"] && (l3 = r3["return"](), Object(l3) !== l3)) return;
+            } finally {
+              if (c3) throw o3;
+            }
+          }
+          return i3;
+        }
+      }
+      function ke2(e4) {
+        if (Array.isArray(e4)) return e4;
+      }
+      function xe2(e4, n4) {
+        if (null == e4) return {};
+        var r3, t3, o3 = Oe2(e4, n4);
+        if (Object.getOwnPropertySymbols) {
+          var a3 = Object.getOwnPropertySymbols(e4);
+          for (t3 = 0; t3 < a3.length; t3++) {
+            r3 = a3[t3], n4.includes(r3) || {}.propertyIsEnumerable.call(e4, r3) && (o3[r3] = e4[r3]);
+          }
+        }
+        return o3;
+      }
+      function Oe2(e4, n4) {
+        if (null == e4) return {};
+        var r3 = {};
+        for (var t3 in e4) {
+          if ({}.hasOwnProperty.call(e4, t3)) {
+            if (n4.includes(t3)) continue;
+            r3[t3] = e4[t3];
+          }
+        }
+        return r3;
+      }
+      var Ie = {
+        elementRef: a2().oneOfType([a2().func, a2().object]),
+        defaultExpanded: a2().bool,
+        indent: a2().number,
+        json: a2().oneOfType([a2().string, a2().object, a2().array, a2().number, a2().bool]).isRequired,
+        onClickKey: a2().func,
+        onClickValue: a2().func,
+        overflow: a2().oneOf(["wrap", "scroll"]),
+        expandChildrenOnShiftKey: a2().bool
+      };
+      function Ee2(r3) {
+        var t3 = r3.elementRef, o3 = r3.defaultExpanded, a3 = o3 === void 0 ? false : o3, l3 = r3.indent, u3 = l3 === void 0 ? 4 : l3, c3 = r3.json, d3 = r3.onClickKey, f3 = r3.onClickValue, p3 = r3.overflow, y3 = p3 === void 0 ? "scroll" : p3, m3 = r3.expandChildrenOnShiftKey, b3 = m3 === void 0 ? true : m3, h3 = xe2(r3, ["elementRef", "defaultExpanded", "indent", "json", "onClickKey", "onClickValue", "overflow", "expandChildrenOnShiftKey"]);
+        var g3 = i2()(c3) ? JSON.parse(c3) : c3;
+        var S3 = y3 === "wrap" ? v2 : s2;
+        var w3 = (0, e3.useState)(void 0), k3 = be2(w3, 2), x3 = k3[0], O3 = k3[1];
+        var I3 = function e4(n4) {
+          O3(n4);
+        };
+        return n3().createElement(S3, me2({
+          "data-language": "language-json",
+          "data-test": "json-tree",
+          ref: t3,
+          role: "tree"
+        }, h3), n3().createElement(A2["default"], {
+          defaultIndent: false
+        }, ye2({
+          defaultOpen: true,
+          defaultExpanded: a3,
+          expandChildrenOnShiftKey: b3,
+          indent: u3,
+          obj: g3,
+          onClickKey: d3,
+          onClickValue: f3,
+          overflow: y3,
+          shift: x3,
+          updateShift: I3
+        })));
+      }
+      Ee2.propTypes = Ie;
+      const je2 = Ee2;
+    })();
+    JSONTree.exports = t2;
+  })();
+  return JSONTree.exports;
+}
+requireJSONTree();
 function commonjsRequire(path) {
   throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
 }
@@ -34597,1930 +36521,43 @@ function requireJsonpath() {
 }
 var jsonpathExports = requireJsonpath();
 const jp = /* @__PURE__ */ getDefaultExportFromCjs(jsonpathExports);
-var JSONTree = { exports: {} };
-var toLength_1;
-var hasRequiredToLength;
-function requireToLength() {
-  if (hasRequiredToLength) return toLength_1;
-  hasRequiredToLength = 1;
-  var baseClamp = require_baseClamp(), toInteger = requireToInteger();
-  var MAX_ARRAY_LENGTH = 4294967295;
-  function toLength(value) {
-    return value ? baseClamp(toInteger(value), 0, MAX_ARRAY_LENGTH) : 0;
-  }
-  toLength_1 = toLength;
-  return toLength_1;
-}
-var _baseFill;
-var hasRequired_baseFill;
-function require_baseFill() {
-  if (hasRequired_baseFill) return _baseFill;
-  hasRequired_baseFill = 1;
-  var toInteger = requireToInteger(), toLength = requireToLength();
-  function baseFill(array, value, start, end) {
-    var length = array.length;
-    start = toInteger(start);
-    if (start < 0) {
-      start = -start > length ? 0 : length + start;
-    }
-    end = end === void 0 || end > length ? length : toInteger(end);
-    if (end < 0) {
-      end += length;
-    }
-    end = start > end ? 0 : toLength(end);
-    while (start < end) {
-      array[start++] = value;
-    }
-    return array;
-  }
-  _baseFill = baseFill;
-  return _baseFill;
-}
-var fill_1;
-var hasRequiredFill;
-function requireFill() {
-  if (hasRequiredFill) return fill_1;
-  hasRequiredFill = 1;
-  var baseFill = require_baseFill(), isIterateeCall = require_isIterateeCall();
-  function fill(array, value, start, end) {
-    var length = array == null ? 0 : array.length;
-    if (!length) {
-      return [];
-    }
-    if (start && typeof start != "number" && isIterateeCall(array, value, start)) {
-      start = 0;
-      end = length;
-    }
-    return baseFill(array, value, start, end);
-  }
-  fill_1 = fill;
-  return fill_1;
-}
-var isEmpty_1;
-var hasRequiredIsEmpty;
-function requireIsEmpty() {
-  if (hasRequiredIsEmpty) return isEmpty_1;
-  hasRequiredIsEmpty = 1;
-  var baseKeys = require_baseKeys(), getTag = require_getTag(), isArguments = requireIsArguments(), isArray = requireIsArray(), isArrayLike = requireIsArrayLike(), isBuffer2 = requireIsBuffer(), isPrototype = require_isPrototype(), isTypedArray = requireIsTypedArray();
-  var mapTag = "[object Map]", setTag = "[object Set]";
-  var objectProto = Object.prototype;
-  var hasOwnProperty = objectProto.hasOwnProperty;
-  function isEmpty(value) {
-    if (value == null) {
-      return true;
-    }
-    if (isArrayLike(value) && (isArray(value) || typeof value == "string" || typeof value.splice == "function" || isBuffer2(value) || isTypedArray(value) || isArguments(value))) {
-      return !value.length;
-    }
-    var tag = getTag(value);
-    if (tag == mapTag || tag == setTag) {
-      return !value.size;
-    }
-    if (isPrototype(value)) {
-      return !baseKeys(value).length;
-    }
-    for (var key2 in value) {
-      if (hasOwnProperty.call(value, key2)) {
-        return false;
-      }
-    }
-    return true;
-  }
-  isEmpty_1 = isEmpty;
-  return isEmpty_1;
-}
-var isNumber_1;
-var hasRequiredIsNumber;
-function requireIsNumber() {
-  if (hasRequiredIsNumber) return isNumber_1;
-  hasRequiredIsNumber = 1;
-  var baseGetTag = require_baseGetTag(), isObjectLike = requireIsObjectLike();
-  var numberTag = "[object Number]";
-  function isNumber(value) {
-    return typeof value == "number" || isObjectLike(value) && baseGetTag(value) == numberTag;
-  }
-  isNumber_1 = isNumber;
-  return isNumber_1;
-}
-var _baseRepeat;
-var hasRequired_baseRepeat;
-function require_baseRepeat() {
-  if (hasRequired_baseRepeat) return _baseRepeat;
-  hasRequired_baseRepeat = 1;
-  var MAX_SAFE_INTEGER = 9007199254740991;
-  var nativeFloor = Math.floor;
-  function baseRepeat(string, n2) {
-    var result = "";
-    if (!string || n2 < 1 || n2 > MAX_SAFE_INTEGER) {
-      return result;
-    }
-    do {
-      if (n2 % 2) {
-        result += string;
-      }
-      n2 = nativeFloor(n2 / 2);
-      if (n2) {
-        string += string;
-      }
-    } while (n2);
-    return result;
-  }
-  _baseRepeat = baseRepeat;
-  return _baseRepeat;
-}
-var repeat_1;
-var hasRequiredRepeat;
-function requireRepeat() {
-  if (hasRequiredRepeat) return repeat_1;
-  hasRequiredRepeat = 1;
-  var baseRepeat = require_baseRepeat(), isIterateeCall = require_isIterateeCall(), toInteger = requireToInteger(), toString = requireToString();
-  function repeat(string, n2, guard) {
-    if (guard ? isIterateeCall(string, n2, guard) : n2 === void 0) {
-      n2 = 1;
-    } else {
-      n2 = toInteger(n2);
-    }
-    return baseRepeat(toString(string), n2);
-  }
-  repeat_1 = repeat;
-  return repeat_1;
-}
-var Tooltip$2 = { exports: {} };
-var hasRequiredTooltip;
-function requireTooltip() {
-  if (hasRequiredTooltip) return Tooltip$2.exports;
-  hasRequiredTooltip = 1;
-  (() => {
-    var e2 = {};
-    (() => {
-      e2.n = (n3) => {
-        var r3 = n3 && n3.__esModule ? (
-          /******/
-          () => n3["default"]
-        ) : () => n3;
-        e2.d(r3, {
-          a: r3
-        });
-        return r3;
-      };
-    })();
-    (() => {
-      e2.d = (n3, r3) => {
-        for (var t3 in r3) {
-          if (e2.o(r3, t3) && !e2.o(n3, t3)) {
-            Object.defineProperty(n3, t3, {
-              enumerable: true,
-              get: r3[t3]
-            });
+function renameKeysByJsonPath(obj, mappings) {
+  if (!Object.keys(mappings).length) return obj;
+  const clone = structuredClone(obj);
+  for (const [oldPath, newKeyName] of Object.entries(mappings)) {
+    if (!newKeyName) continue;
+    try {
+      const matches = jp.paths(clone, oldPath);
+      console.log(`Renaming path "${oldPath}" to "${newKeyName}", found ${matches.length} matches:`, matches);
+      for (const match of matches) {
+        if (match.length < 2) continue;
+        const oldKey = match[match.length - 1];
+        const parentPath = match.slice(0, -1);
+        const parent = jp.value(clone, jp.stringify(parentPath));
+        console.log(`  - Match: oldKey="${oldKey}", parentPath="${jp.stringify(parentPath)}", parent:`, parent);
+        if (parent && typeof parent === "object" && !Array.isArray(parent) && oldKey in parent) {
+          const value = parent[oldKey];
+          console.log(`    Renaming "${oldKey}" -> "${newKeyName}", value:`, value);
+          const entries = Object.entries(parent);
+          const newEntries = entries.map(
+            ([k2, v2]) => k2 === oldKey ? [newKeyName, v2] : [k2, v2]
+          );
+          for (const key2 of Object.keys(parent)) {
+            delete parent[key2];
           }
-        }
-      };
-    })();
-    (() => {
-      e2.o = (e3, n3) => Object.prototype.hasOwnProperty.call(e3, n3);
-    })();
-    (() => {
-      e2.r = (e3) => {
-        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
-          Object.defineProperty(e3, Symbol.toStringTag, {
-            value: "Module"
-          });
-        }
-        Object.defineProperty(e3, "__esModule", {
-          value: true
-        });
-      };
-    })();
-    var n2 = {};
-    e2.r(n2);
-    e2.d(n2, {
-      default: () => (
-        /* reexport */
-        Y2
-      )
-    });
-    const r2 = requireReact();
-    var t2 = e2.n(r2);
-    const o2 = /* @__PURE__ */ requirePropTypes();
-    var a2 = e2.n(o2);
-    const l2 = requireThrottle();
-    var i2 = e2.n(l2);
-    const u2 = requireInformationCircle();
-    var s2 = e2.n(u2);
-    const c2 = requirePopover();
-    var f2 = e2.n(c2);
-    const v2 = requireScreenReaderContent();
-    var p2 = e2.n(v2);
-    const d2 = requireUseControlled();
-    var m2 = e2.n(d2);
-    const b2 = requireI18n();
-    const y2 = requireId();
-    const g2 = require$$21;
-    var O2 = e2.n(g2);
-    const h2 = requireButton();
-    var S2 = e2.n(h2);
-    const C2 = requireThemes();
-    var k2 = O2().span.withConfig({
-      displayName: "TooltipStyles__Styled",
-      componentId: "sc-67fvgm-0"
-    })(["", ";position:relative;"], C2.mixins.reset("block"));
-    var E2 = O2().span.withConfig({
-      displayName: "TooltipStyles__StyledInline",
-      componentId: "sc-67fvgm-1"
-    })(["", ";position:relative;"], C2.mixins.reset("inline-block"));
-    var T2 = O2().span.withConfig({
-      displayName: "TooltipStyles__StyledToggle",
-      componentId: "sc-67fvgm-2"
-    })(["display:block;"]);
-    var P2 = O2().span.withConfig({
-      displayName: "TooltipStyles__StyledToggleInline",
-      componentId: "sc-67fvgm-3"
-    })(["display:inline-block;"]);
-    var j2 = O2().div.withConfig({
-      displayName: "TooltipStyles__StyledContent",
-      componentId: "sc-67fvgm-4"
-    })(["", ";padding:", ";user-select:none;"], C2.mixins.typography("smallBody", {
-      color: "active"
-    }), C2.variables.spacingSmall);
-    var w2 = O2()(S2()).withConfig({
-      displayName: "TooltipStyles__StyledButton",
-      componentId: "sc-67fvgm-5"
-    })(["cursor:help;border-radius:50%;"]);
-    function R2(e3, n3) {
-      if (e3) {
-        if (typeof e3 === "function") {
-          e3(n3);
+          for (const [k2, v2] of newEntries) {
+            parent[k2] = v2;
+          }
         } else {
-          e3.current = n3;
+          console.log(`    Skipping - parent invalid or key not found`);
         }
       }
+    } catch (error) {
+      console.warn(`Error renaming path "${oldPath}":`, error);
     }
-    function L2(e3) {
-      "@babel/helpers - typeof";
-      return L2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e4) {
-        return typeof e4;
-      } : function(e4) {
-        return e4 && "function" == typeof Symbol && e4.constructor === Symbol && e4 !== Symbol.prototype ? "symbol" : typeof e4;
-      }, L2(e3);
-    }
-    function q2() {
-      return q2 = Object.assign ? Object.assign.bind() : function(e3) {
-        for (var n3 = 1; n3 < arguments.length; n3++) {
-          var r3 = arguments[n3];
-          for (var t3 in r3) {
-            ({}).hasOwnProperty.call(r3, t3) && (e3[t3] = r3[t3]);
-          }
-        }
-        return e3;
-      }, q2.apply(null, arguments);
-    }
-    function I2(e3, n3) {
-      var r3 = Object.keys(e3);
-      if (Object.getOwnPropertySymbols) {
-        var t3 = Object.getOwnPropertySymbols(e3);
-        n3 && (t3 = t3.filter(function(n4) {
-          return Object.getOwnPropertyDescriptor(e3, n4).enumerable;
-        })), r3.push.apply(r3, t3);
-      }
-      return r3;
-    }
-    function A2(e3) {
-      for (var n3 = 1; n3 < arguments.length; n3++) {
-        var r3 = null != arguments[n3] ? arguments[n3] : {};
-        n3 % 2 ? I2(Object(r3), true).forEach(function(n4) {
-          _2(e3, n4, r3[n4]);
-        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(r3)) : I2(Object(r3)).forEach(function(n4) {
-          Object.defineProperty(e3, n4, Object.getOwnPropertyDescriptor(r3, n4));
-        });
-      }
-      return e3;
-    }
-    function _2(e3, n3, r3) {
-      return (n3 = D2(n3)) in e3 ? Object.defineProperty(e3, n3, {
-        value: r3,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      }) : e3[n3] = r3, e3;
-    }
-    function D2(e3) {
-      var n3 = N2(e3, "string");
-      return "symbol" == L2(n3) ? n3 : n3 + "";
-    }
-    function N2(e3, n3) {
-      if ("object" != L2(e3) || !e3) return e3;
-      var r3 = e3[Symbol.toPrimitive];
-      if (void 0 !== r3) {
-        var t3 = r3.call(e3, n3);
-        if ("object" != L2(t3)) return t3;
-        throw new TypeError("@@toPrimitive must return a primitive value.");
-      }
-      return ("string" === n3 ? String : Number)(e3);
-    }
-    function B2(e3, n3) {
-      return K2(e3) || F2(e3, n3) || H2(e3, n3) || M2();
-    }
-    function M2() {
-      throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-    }
-    function H2(e3, n3) {
-      if (e3) {
-        if ("string" == typeof e3) return x2(e3, n3);
-        var r3 = {}.toString.call(e3).slice(8, -1);
-        return "Object" === r3 && e3.constructor && (r3 = e3.constructor.name), "Map" === r3 || "Set" === r3 ? Array.from(e3) : "Arguments" === r3 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r3) ? x2(e3, n3) : void 0;
-      }
-    }
-    function x2(e3, n3) {
-      (null == n3 || n3 > e3.length) && (n3 = e3.length);
-      for (var r3 = 0, t3 = Array(n3); r3 < n3; r3++) {
-        t3[r3] = e3[r3];
-      }
-      return t3;
-    }
-    function F2(e3, n3) {
-      var r3 = null == e3 ? null : "undefined" != typeof Symbol && e3[Symbol.iterator] || e3["@@iterator"];
-      if (null != r3) {
-        var t3, o3, a3, l3, i3 = [], u3 = true, s3 = false;
-        try {
-          if (a3 = (r3 = r3.call(e3)).next, 0 === n3) {
-            if (Object(r3) !== r3) return;
-            u3 = false;
-          } else for (; !(u3 = (t3 = a3.call(r3)).done) && (i3.push(t3.value), i3.length !== n3); u3 = true) {
-          }
-        } catch (e4) {
-          s3 = true, o3 = e4;
-        } finally {
-          try {
-            if (!u3 && null != r3["return"] && (l3 = r3["return"](), Object(l3) !== l3)) return;
-          } finally {
-            if (s3) throw o3;
-          }
-        }
-        return i3;
-      }
-    }
-    function K2(e3) {
-      if (Array.isArray(e3)) return e3;
-    }
-    function W2(e3, n3) {
-      if (null == e3) return {};
-      var r3, t3, o3 = V2(e3, n3);
-      if (Object.getOwnPropertySymbols) {
-        var a3 = Object.getOwnPropertySymbols(e3);
-        for (t3 = 0; t3 < a3.length; t3++) {
-          r3 = a3[t3], n3.includes(r3) || {}.propertyIsEnumerable.call(e3, r3) && (o3[r3] = e3[r3]);
-        }
-      }
-      return o3;
-    }
-    function V2(e3, n3) {
-      if (null == e3) return {};
-      var r3 = {};
-      for (var t3 in e3) {
-        if ({}.hasOwnProperty.call(e3, t3)) {
-          if (n3.includes(t3)) continue;
-          r3[t3] = e3[t3];
-        }
-      }
-      return r3;
-    }
-    var U2 = ["focusToggle", "mouseEnterPopover", "mouseEnterToggle", "mouseEnterHitArea"];
-    var $2 = ["blurToggle", "clickAway", "escapeKey", "mouseLeaveHitArea", "mouseLeavePopover", "mouseLeaveToggle", "mouseStopHitArea", "offScreen", "tabKey", "toggleClick"];
-    var z2 = {
-      /** @private */
-      appearance: a2().string,
-      children: a2().node,
-      closeDelay: a2().number,
-      /** @private */
-      closeWhen: a2().oneOf(["default", "notOnClick"]),
-      content: a2().node,
-      contentRelationship: a2().oneOf(["label", "description"]),
-      defaultPlacement: a2().oneOf(["above", "below", "left", "right"]),
-      elementRef: a2().oneOfType([a2().func, a2().object]),
-      inline: a2().bool,
-      onRequestClose: a2().func,
-      onRequestOpen: a2().func,
-      open: a2().bool,
-      openDelay: a2().oneOfType([a2().oneOf(["primary", "secondary"]), a2().number]),
-      renderAnchor: a2().func
-    };
-    var G2 = {
-      tension: 400
-    };
-    var J2 = ["offScreen", "escapeKey"];
-    var Q2 = t2().createElement(s2(), null);
-    function X2(e3) {
-      var n3 = e3.appearance, o3 = e3.children, a3 = e3.closeDelay, l3 = a3 === void 0 ? 300 : a3, u3 = e3.closeWhen, s3 = u3 === void 0 ? "default" : u3, c3 = e3.content, v3 = e3.contentRelationship, d3 = e3.defaultPlacement, g3 = d3 === void 0 ? "above" : d3, O3 = e3.elementRef, h3 = e3.inline, S3 = h3 === void 0 ? true : h3, C3 = e3.onRequestClose, L3 = e3.onRequestOpen, I3 = e3.open, _3 = e3.openDelay, D3 = _3 === void 0 ? "primary" : _3, N3 = e3.renderAnchor, M3 = W2(e3, ["appearance", "children", "closeDelay", "closeWhen", "content", "contentRelationship", "defaultPlacement", "elementRef", "inline", "onRequestClose", "onRequestOpen", "open", "openDelay", "renderAnchor"]);
-      var H3 = (0, r2.useState)(false), x3 = B2(H3, 2), F3 = x3[0], K3 = x3[1];
-      var V3 = (0, r2.useState)(null), U3 = B2(V3, 2), $3 = U3[0], z3 = U3[1];
-      var X3 = (0, r2.useState)(null), Y3 = B2(X3, 2), Z2 = Y3[0], ee2 = Y3[1];
-      var ne2 = (0, r2.useState)(null), re2 = B2(ne2, 2), te2 = re2[0], oe2 = re2[1];
-      var ae2 = (0, r2.useState)(null), le2 = B2(ae2, 2), ie2 = le2[0], ue2 = le2[1];
-      var se2 = (0, r2.useState)(function() {
-        return {
-          ariaId: (0, y2.createDOMID)("aria-id"),
-          popoverId: (0, y2.createDOMID)("popover")
-        };
-      }), ce2 = B2(se2, 1), fe2 = ce2[0], ve2 = fe2.ariaId, pe2 = fe2.popoverId;
-      var de2 = m2()({
-        componentName: "Tooltip",
-        /* eslint-disable-next-line prefer-rest-params */
-        componentProps: arguments[0],
-        // see SUI-7028
-        defaultValuePropName: "defaultOpen",
-        valuePropName: "open"
-      });
-      var me2 = (0, r2.useMemo)(function() {
-        var e4 = !!c3;
-        return !!$3 && de2 ? I3 : e4 && F3;
-      }, [$3, c3, de2, F3, I3]);
-      var be2 = (0, r2.useRef)();
-      (0, r2.useEffect)(function() {
-        return function() {
-          if (be2.current !== void 0) {
-            clearTimeout(be2.current);
-          }
-        };
-      }, []);
-      var ye2 = (0, r2.useCallback)(function(e4, n4) {
-        if (be2.current !== void 0) {
-          clearTimeout(be2.current);
-        }
-        be2.current = setTimeout(function() {
-          if (!de2) {
-            K3(false);
-          }
-          C3 === null || C3 === void 0 ? void 0 : C3(e4, n4);
-        }, l3);
-      }, [l3, de2, C3]);
-      var ge2 = (0, r2.useCallback)(function(e4, n4) {
-        var r3 = D3 === "primary" ? 300 : 750;
-        var t3 = typeof D3 === "number" ? D3 : r3;
-        if (be2.current !== void 0) {
-          clearTimeout(be2.current);
-        }
-        be2.current = setTimeout(function() {
-          var r4 = me2;
-          if (!de2) {
-            K3(true);
-          }
-          if (!r4) {
-            L3 === null || L3 === void 0 ? void 0 : L3(e4, n4);
-          }
-        }, t3);
-      }, [de2, me2, L3, D3]);
-      var Oe2 = (0, r2.useCallback)(function(e4) {
-        ge2(e4, {
-          reason: "mouseEnterToggle"
-        });
-      }, [ge2]);
-      var he2 = (0, r2.useCallback)(function(e4) {
-        ge2(e4, {
-          reason: "mouseEnterPopover"
-        });
-      }, [ge2]);
-      var Se2 = (0, r2.useCallback)(function(e4) {
-        ge2(e4, {
-          reason: "mouseEnterHitArea"
-        });
-      }, [ge2]);
-      var Ce = (0, r2.useCallback)(function(e4) {
-        var n4 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "mouseLeaveToggle";
-        if (e4.relatedTarget == null || e4.relatedTarget !== te2 && e4.relatedTarget !== ie2) {
-          ye2(e4, {
-            reason: n4
-          });
-        }
-      }, [ye2, te2, ie2]);
-      var ke2 = (0, r2.useCallback)(function(e4) {
-        Ce(e4, "mouseLeavePopover");
-      }, [Ce]);
-      var Ee2 = (0, r2.useCallback)(function(e4) {
-        Ce(e4, "mouseLeaveHitArea");
-      }, [Ce]);
-      var Te2 = (0, r2.useCallback)(function(e4) {
-        ye2(e4, {
-          reason: "mouseStopHitArea"
-        });
-      }, [ye2]);
-      var Pe = i2()(Te2, 10);
-      var je2 = (0, r2.useCallback)(function(e4) {
-        if (e4) {
-          e4.addEventListener("mouseenter", Oe2);
-          e4.addEventListener("mouseleave", Ce);
-        } else if ($3) {
-          $3.removeEventListener("mouseenter", Oe2);
-          $3.removeEventListener("mouseleave", Ce);
-        }
-        z3(e4);
-      }, [$3, Oe2, Ce]);
-      var we2 = (0, r2.useCallback)(function(e4) {
-        if (e4) {
-          e4.addEventListener("mouseenter", he2);
-          e4.addEventListener("mouseleave", ke2);
-        } else if (te2) {
-          te2.removeEventListener("mouseenter", he2);
-          te2.removeEventListener("mouseleave", ke2);
-        }
-        oe2(e4);
-      }, [he2, ke2, te2]);
-      var Re2 = (0, r2.useCallback)(function(e4) {
-        ue2(e4);
-      }, []);
-      var Le2 = (0, r2.useCallback)(function(e4) {
-        if (e4) {
-          e4.addEventListener("mouseenter", Se2);
-          e4.addEventListener("mousemove", Pe);
-          e4.addEventListener("mouseleave", Ee2);
-        } else if (Z2) {
-          Z2.removeEventListener("mouseenter", Se2);
-          Z2.removeEventListener("mousemove", Pe);
-          Z2.removeEventListener("mouseleave", Ee2);
-        }
-        ee2(e4);
-      }, [Se2, Ee2, Pe, Z2]);
-      var qe2 = (0, r2.useCallback)(function(e4) {
-        if (s3 !== "notOnClick") {
-          ye2(e4, {
-            reason: "toggleClick"
-          });
-        }
-      }, [s3, ye2]);
-      var Ie = (0, r2.useCallback)(function(e4) {
-        ge2(e4, {
-          reason: "focusToggle"
-        });
-      }, [ge2]);
-      var Ae2 = (0, r2.useCallback)(function(e4) {
-        ye2(e4, {
-          reason: "blurToggle"
-        });
-      }, [ye2]);
-      var _e2 = (0, r2.useCallback)(function(e4) {
-        ye2(null, e4);
-      }, [ye2]);
-      var De2 = (0, r2.useCallback)(function(e4) {
-        je2(e4);
-        R2(O3, e4);
-      }, [O3, je2]);
-      var Ne2 = (0, r2.useCallback)(function() {
-        var e4 = {
-          onBlur: Ae2,
-          onFocus: Ie,
-          onClick: qe2,
-          elementRef: De2,
-          "data-test": "toggle"
-        };
-        if (v3 === "label") {
-          return N3 === null || N3 === void 0 ? void 0 : N3(A2(A2({}, e4), {}, {
-            "aria-labelledby": ve2,
-            labelledBy: ve2
-          }));
-        }
-        return N3 === null || N3 === void 0 ? void 0 : N3(A2(A2({}, e4), {}, {
-          "aria-describedby": ve2,
-          describedBy: ve2
-        }));
-      }, [ve2, o3, v3, Ae2, qe2, Ie, De2, N3]);
-      var Be2 = (0, r2.useCallback)(function() {
-        var e4 = S3 ? P2 : T2;
-        var n4;
-        if ((0, r2.isValidElement)(o3)) {
-          var a4;
-          if (v3 === "label") {
-            a4 = {
-              labelledBy: ve2,
-              "aria-labelledby": ve2
-            };
-          } else {
-            a4 = {
-              describedBy: ve2,
-              "aria-describedby": ve2
-            };
-          }
-          n4 = (0, r2.cloneElement)(o3, a4);
-        } else if (o3) {
-          n4 = o3;
-        } else {
-          n4 = t2().createElement(w2, {
-            appearance: "subtle",
-            "aria-describedby": ve2,
-            "aria-label": (0, b2._)("More info"),
-            icon: Q2
-          });
-        }
-        return t2().createElement(e4, {
-          onClick: qe2,
-          onFocus: Ie,
-          onBlur: Ae2,
-          ref: je2,
-          "data-test": "toggle"
-        }, n4);
-      }, [ve2, o3, v3, Ae2, qe2, Ie, je2, S3]);
-      var Me2 = S3 ? E2 : k2;
-      var He2 = !!c3 && t2().createElement(p2(), {
-        "aria-hidden": "true",
-        id: ve2
-      }, c3);
-      var xe2 = t2().createElement(f2(), {
-        role: "tooltip",
-        align: "center",
-        anchor: $3,
-        animationConfig: G2,
-        appearance: n3,
-        closeReasons: J2,
-        defaultPlacement: g3,
-        id: pe2,
-        open: me2,
-        onRequestClose: _e2,
-        elementRef: we2,
-        hitAreaRef: Le2,
-        outerRef: Re2
-      }, t2().createElement(j2, null, c3));
-      if (N3) {
-        return t2().createElement(t2().Fragment, null, Ne2(), He2, xe2);
-      }
-      return t2().createElement(Me2, q2({
-        "data-test": "tooltip",
-        "data-test-open": me2,
-        "data-test-popover-id": pe2,
-        ref: O3
-      }, M3), Be2(), He2, xe2);
-    }
-    X2.propTypes = z2;
-    X2.possibleOpenReasons = U2;
-    X2.possibleCloseReasons = $2;
-    const Y2 = X2;
-    Tooltip$2.exports = n2;
-  })();
-  return Tooltip$2.exports;
+  }
+  return clone;
 }
-var hasRequiredJSONTree;
-function requireJSONTree() {
-  if (hasRequiredJSONTree) return JSONTree.exports;
-  hasRequiredJSONTree = 1;
-  (() => {
-    var e2 = {
-      /***/
-      4610: (
-        /***/
-        (e3, n3, r3) => {
-          r3.d(n3, {
-            default: () => (
-              /* reexport */
-              ee2
-            )
-          });
-          var t3 = r3(9497);
-          var o2 = r3.n(t3);
-          var a2 = r3(23);
-          var l2 = r3.n(a2);
-          var i2 = (0, t3.createContext)({
-            defaultIndent: true
-          });
-          const u2 = i2;
-          var c2 = r3(232);
-          var d2 = r3.n(c2);
-          var f2 = r3(3563);
-          var s2 = d2().span.withConfig({
-            displayName: "TreeItemStyles__StyledTreeItemNode",
-            componentId: "ie7zrw-0"
-          })(["padding:", ";&:focus{box-shadow:", ";outline:0;&:active{box-shadow:none;}}"], f2.variables.spacingXSmall, f2.variables.focusShadowInset);
-          var v2 = d2().ul.withConfig({
-            displayName: "TreeStyles__StyledUnorderedList",
-            componentId: "sc-13pokwt-0"
-          })(["", ";color:inherit;font-family:inherit;list-style:none;white-space:inherit;", ";"], f2.mixins.reset("ul"), function(e4) {
-            var n4 = e4.$defaultIndent;
-            return n4 && (0, c2.css)(["padding-inline-start:", ";"], f2.variables.spacingXXXLarge);
-          });
-          function p2() {
-            return p2 = Object.assign ? Object.assign.bind() : function(e4) {
-              for (var n4 = 1; n4 < arguments.length; n4++) {
-                var r4 = arguments[n4];
-                for (var t4 in r4) {
-                  ({}).hasOwnProperty.call(r4, t4) && (e4[t4] = r4[t4]);
-                }
-              }
-              return e4;
-            }, p2.apply(null, arguments);
-          }
-          function y2(e4, n4) {
-            return S2(e4) || g2(e4, n4) || b2(e4, n4) || m2();
-          }
-          function m2() {
-            throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-          }
-          function b2(e4, n4) {
-            if (e4) {
-              if ("string" == typeof e4) return h2(e4, n4);
-              var r4 = {}.toString.call(e4).slice(8, -1);
-              return "Object" === r4 && e4.constructor && (r4 = e4.constructor.name), "Map" === r4 || "Set" === r4 ? Array.from(e4) : "Arguments" === r4 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r4) ? h2(e4, n4) : void 0;
-            }
-          }
-          function h2(e4, n4) {
-            (null == n4 || n4 > e4.length) && (n4 = e4.length);
-            for (var r4 = 0, t4 = Array(n4); r4 < n4; r4++) {
-              t4[r4] = e4[r4];
-            }
-            return t4;
-          }
-          function g2(e4, n4) {
-            var r4 = null == e4 ? null : "undefined" != typeof Symbol && e4[Symbol.iterator] || e4["@@iterator"];
-            if (null != r4) {
-              var t4, o3, a3, l3, i3 = [], u3 = true, c3 = false;
-              try {
-                if (a3 = (r4 = r4.call(e4)).next, 0 === n4) ;
-                else for (; !(u3 = (t4 = a3.call(r4)).done) && (i3.push(t4.value), i3.length !== n4); u3 = true) {
-                }
-              } catch (e5) {
-                c3 = true, o3 = e5;
-              } finally {
-                try {
-                  if (!u3 && null != r4["return"] && (l3 = r4["return"](), Object(l3) !== l3)) return;
-                } finally {
-                  if (c3) throw o3;
-                }
-              }
-              return i3;
-            }
-          }
-          function S2(e4) {
-            if (Array.isArray(e4)) return e4;
-          }
-          function w2(e4, n4) {
-            if (null == e4) return {};
-            var r4, t4, o3 = k2(e4, n4);
-            if (Object.getOwnPropertySymbols) {
-              var a3 = Object.getOwnPropertySymbols(e4);
-              for (t4 = 0; t4 < a3.length; t4++) {
-                r4 = a3[t4], n4.includes(r4) || {}.propertyIsEnumerable.call(e4, r4) && (o3[r4] = e4[r4]);
-              }
-            }
-            return o3;
-          }
-          function k2(e4, n4) {
-            if (null == e4) return {};
-            var r4 = {};
-            for (var t4 in e4) {
-              if ({}.hasOwnProperty.call(e4, t4)) {
-                if (n4.includes(t4)) continue;
-                r4[t4] = e4[t4];
-              }
-            }
-            return r4;
-          }
-          var x2 = {
-            id: l2().string,
-            children: l2().node,
-            content: l2().node,
-            customIndent: l2().node,
-            endAdornment: l2().node,
-            labelledBy: l2().string,
-            onFocus: l2().func,
-            onKeyDown: l2().func,
-            onToggle: l2().func,
-            open: l2().bool,
-            toggle: l2().node
-          };
-          function O2(e4) {
-            var n4 = e4.id, r4 = e4.children, a3 = e4.content, l3 = e4.customIndent, i3 = e4.endAdornment, c3 = e4.labelledBy, d3 = e4.onFocus, f3 = e4.onKeyDown, m3 = e4.onToggle, b3 = e4.open, h3 = b3 === void 0 ? true : b3, g3 = e4.toggle, S3 = w2(e4, ["id", "children", "content", "customIndent", "endAdornment", "labelledBy", "onFocus", "onKeyDown", "onToggle", "open", "toggle"]);
-            var k3 = (0, t3.useContext)(u2), x3 = k3.defaultIndent, O3 = x3 === void 0 ? true : x3, I3 = k3.onItemKeyDown, E3 = k3.onItemClick, j3 = k3.removeNode, C3 = k3.setNode, A3 = k3.itemPaths, T3 = k3.focusedItemId;
-            var P3 = (0, t3.useState)(h3), R3 = y2(P3, 2), K3 = R3[0], _3 = R3[1];
-            var D3 = (0, t3.useState)((A3 === null || A3 === void 0 ? void 0 : A3.get("".concat(n4))) === "0" ? 0 : -1), N3 = y2(D3, 2), V3 = N3[0], L3 = N3[1];
-            var F3 = (0, t3.useRef)(null);
-            var q3 = (0, t3.useRef)(null);
-            var M3 = t3.Children.toArray(r4).filter(t3.isValidElement);
-            M3.forEach(function(e5, r5) {
-              if (e5.props.id) {
-                if (K3 && C3) {
-                  C3("".concat(e5.props.id), "".concat(A3 === null || A3 === void 0 ? void 0 : A3.get("".concat(n4)), "-").concat(r5));
-                } else if (j3) {
-                  j3(e5.props.id);
-                }
-              }
-            });
-            var $3 = function e5(n5, r5) {
-              _3(n5);
-              m3 === null || m3 === void 0 ? void 0 : m3(n5, r5);
-            };
-            var J3 = function e5(r5) {
-              E3 === null || E3 === void 0 ? void 0 : E3(r5, n4);
-            };
-            var B3 = function e5(n5) {
-              var r5;
-              n5.stopPropagation();
-              F3 === null || F3 === void 0 ? void 0 : (r5 = F3.current) === null || r5 === void 0 ? void 0 : r5.focus();
-              d3 === null || d3 === void 0 ? void 0 : d3(n5);
-            };
-            var U3 = function e5() {
-              if ((A3 === null || A3 === void 0 ? void 0 : A3.get("".concat(n4))) === "0") {
-                L3(0);
-              }
-            };
-            (0, t3.useEffect)(function() {
-              if (T3 === n4) {
-                var e5;
-                q3 === null || q3 === void 0 ? void 0 : (e5 = q3.current) === null || e5 === void 0 ? void 0 : e5.focus();
-              }
-            }, [T3, q3]);
-            var X3 = function e5(n5) {
-              n5.stopPropagation();
-            };
-            var G3 = function e5(r5) {
-              r5.stopPropagation();
-              if (r5.shiftKey && r5.key === "Tab" && (A3 === null || A3 === void 0 ? void 0 : A3.get("".concat(n4))) === "0") {
-                L3(-1);
-              }
-              I3 === null || I3 === void 0 ? void 0 : I3(r5, n4, K3, M3, $3);
-              f3 === null || f3 === void 0 ? void 0 : f3(r5);
-            };
-            var H3 = function e5() {
-              if (!g3) {
-                return void 0;
-              }
-              return (0, t3.cloneElement)(g3, {
-                onClick: function e6(n5) {
-                  var r5, t4;
-                  $3(!K3, n5);
-                  J3(n5);
-                  (r5 = (t4 = g3.props).onClick) === null || r5 === void 0 ? void 0 : r5.call(t4, n5);
-                },
-                "aria-expanded": K3
-              });
-            };
-            return o2().createElement("li", p2({}, S3, {
-              ref: q3,
-              tabIndex: V3,
-              onBlur: U3,
-              onFocus: B3,
-              onKeyDown: G3,
-              role: "treeitem",
-              "aria-labelledby": c3,
-              "aria-expanded": M3.length ? K3 : void 0
-            }), l3, o2().createElement(s2, {
-              ref: F3,
-              tabIndex: -1,
-              onFocus: X3,
-              onClick: J3
-            }, a3, H3(), !K3 && i3), K3 && o2().createElement(o2().Fragment, null, o2().createElement(v2, {
-              role: "group",
-              $defaultIndent: O3
-            }, r4), i3));
-          }
-          O2.propTypes = x2;
-          const I2 = O2;
-          function E2(e4, n4) {
-            return P2(e4) || T2(e4, n4) || C2(e4, n4) || j2();
-          }
-          function j2() {
-            throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-          }
-          function C2(e4, n4) {
-            if (e4) {
-              if ("string" == typeof e4) return A2(e4, n4);
-              var r4 = {}.toString.call(e4).slice(8, -1);
-              return "Object" === r4 && e4.constructor && (r4 = e4.constructor.name), "Map" === r4 || "Set" === r4 ? Array.from(e4) : "Arguments" === r4 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r4) ? A2(e4, n4) : void 0;
-            }
-          }
-          function A2(e4, n4) {
-            (null == n4 || n4 > e4.length) && (n4 = e4.length);
-            for (var r4 = 0, t4 = Array(n4); r4 < n4; r4++) {
-              t4[r4] = e4[r4];
-            }
-            return t4;
-          }
-          function T2(e4, n4) {
-            var r4 = null == e4 ? null : "undefined" != typeof Symbol && e4[Symbol.iterator] || e4["@@iterator"];
-            if (null != r4) {
-              var t4, o3, a3, l3, i3 = [], u3 = true, c3 = false;
-              try {
-                if (a3 = (r4 = r4.call(e4)).next, 0 === n4) ;
-                else for (; !(u3 = (t4 = a3.call(r4)).done) && (i3.push(t4.value), i3.length !== n4); u3 = true) {
-                }
-              } catch (e5) {
-                c3 = true, o3 = e5;
-              } finally {
-                try {
-                  if (!u3 && null != r4["return"] && (l3 = r4["return"](), Object(l3) !== l3)) return;
-                } finally {
-                  if (c3) throw o3;
-                }
-              }
-              return i3;
-            }
-          }
-          function P2(e4) {
-            if (Array.isArray(e4)) return e4;
-          }
-          function R2(e4, n4) {
-            var r4;
-            var t4 = Array.from(e4.entries());
-            return (r4 = t4.find(function(e5) {
-              var r5 = E2(e5, 2), t5 = r5[1];
-              return t5 === n4;
-            })) === null || r4 === void 0 ? void 0 : r4[0];
-          }
-          function K2(e4) {
-            return e4.split("-").slice(0, -1).join("-");
-          }
-          function _2(e4, n4) {
-            return e4 === null || e4 === void 0 ? void 0 : e4.replace(/([^-]*)$/, "".concat(n4 + 1));
-          }
-          function D2(e4) {
-            var n4 = e4.split("-").pop();
-            if (!n4) {
-              return 0;
-            }
-            return parseInt(n4, 10) || 0;
-          }
-          function N2(e4, n4) {
-            var r4 = e4.get(n4);
-            if (!r4) {
-              return n4;
-            }
-            var t4 = K2(r4);
-            return R2(e4, t4) || n4;
-          }
-          function V2(e4, n4) {
-            var r4 = K2(n4);
-            if (!r4) {
-              return R2(e4, n4);
-            }
-            var t4 = D2(r4);
-            var o3 = _2(r4, t4);
-            var a3 = R2(e4, o3);
-            if (a3) {
-              return a3;
-            }
-            return V2(e4, o3);
-          }
-          function L2(e4, n4) {
-            var r4 = e4.get(n4);
-            if (!r4) {
-              return n4;
-            }
-            var t4 = R2(e4, "".concat(r4, "-0"));
-            if (t4) {
-              return t4;
-            }
-            var o3 = D2(r4);
-            var a3 = _2(r4, o3);
-            var l3 = R2(e4, a3);
-            if (l3) {
-              return l3;
-            }
-            return V2(e4, r4) || n4;
-          }
-          function F2(e4, n4) {
-            var r4 = R2(e4, "".concat(n4, "-0"));
-            if (!r4) {
-              return R2(e4, n4);
-            }
-            var t4 = R2(e4, n4);
-            var o3 = "".concat(n4, "-0");
-            while (t4) {
-              var a3 = D2(o3);
-              var l3 = _2(o3, a3);
-              t4 = R2(e4, l3);
-              if (t4) {
-                o3 = l3;
-              }
-            }
-            return F2(e4, o3);
-          }
-          function q2(e4, n4) {
-            var r4 = e4.get(n4);
-            if (!r4) {
-              return n4;
-            }
-            var t4 = D2(r4);
-            if (t4 === 0) {
-              return N2(e4, n4);
-            }
-            var o3 = r4.replace(/[^-]+$/, "".concat(t4 - 1));
-            return F2(e4, o3) || n4;
-          }
-          function M2(e4) {
-            return R2(e4, "0");
-          }
-          function $2(e4) {
-            var n4 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "0";
-            var r4 = R2(e4, n4);
-            var t4 = n4;
-            while (r4) {
-              var o3 = D2(t4);
-              r4 = R2(e4, _2(t4, o3));
-              if (r4) {
-                t4 = _2(t4, o3);
-              }
-            }
-            var a3 = R2(e4, "".concat(t4, "-0"));
-            if (!a3) {
-              return R2(e4, t4);
-            }
-            t4 = "".concat(t4, "-0");
-            return $2(e4, t4);
-          }
-          function J2() {
-            return J2 = Object.assign ? Object.assign.bind() : function(e4) {
-              for (var n4 = 1; n4 < arguments.length; n4++) {
-                var r4 = arguments[n4];
-                for (var t4 in r4) {
-                  ({}).hasOwnProperty.call(r4, t4) && (e4[t4] = r4[t4]);
-                }
-              }
-              return e4;
-            }, J2.apply(null, arguments);
-          }
-          function B2(e4, n4) {
-            return z2(e4) || H2(e4, n4) || X2(e4, n4) || U2();
-          }
-          function U2() {
-            throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-          }
-          function X2(e4, n4) {
-            if (e4) {
-              if ("string" == typeof e4) return G2(e4, n4);
-              var r4 = {}.toString.call(e4).slice(8, -1);
-              return "Object" === r4 && e4.constructor && (r4 = e4.constructor.name), "Map" === r4 || "Set" === r4 ? Array.from(e4) : "Arguments" === r4 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r4) ? G2(e4, n4) : void 0;
-            }
-          }
-          function G2(e4, n4) {
-            (null == n4 || n4 > e4.length) && (n4 = e4.length);
-            for (var r4 = 0, t4 = Array(n4); r4 < n4; r4++) {
-              t4[r4] = e4[r4];
-            }
-            return t4;
-          }
-          function H2(e4, n4) {
-            var r4 = null == e4 ? null : "undefined" != typeof Symbol && e4[Symbol.iterator] || e4["@@iterator"];
-            if (null != r4) {
-              var t4, o3, a3, l3, i3 = [], u3 = true, c3 = false;
-              try {
-                if (a3 = (r4 = r4.call(e4)).next, 0 === n4) ;
-                else for (; !(u3 = (t4 = a3.call(r4)).done) && (i3.push(t4.value), i3.length !== n4); u3 = true) {
-                }
-              } catch (e5) {
-                c3 = true, o3 = e5;
-              } finally {
-                try {
-                  if (!u3 && null != r4["return"] && (l3 = r4["return"](), Object(l3) !== l3)) return;
-                } finally {
-                  if (c3) throw o3;
-                }
-              }
-              return i3;
-            }
-          }
-          function z2(e4) {
-            if (Array.isArray(e4)) return e4;
-          }
-          function W2(e4, n4) {
-            if (null == e4) return {};
-            var r4, t4, o3 = Q2(e4, n4);
-            if (Object.getOwnPropertySymbols) {
-              var a3 = Object.getOwnPropertySymbols(e4);
-              for (t4 = 0; t4 < a3.length; t4++) {
-                r4 = a3[t4], n4.includes(r4) || {}.propertyIsEnumerable.call(e4, r4) && (o3[r4] = e4[r4]);
-              }
-            }
-            return o3;
-          }
-          function Q2(e4, n4) {
-            if (null == e4) return {};
-            var r4 = {};
-            for (var t4 in e4) {
-              if ({}.hasOwnProperty.call(e4, t4)) {
-                if (n4.includes(t4)) continue;
-                r4[t4] = e4[t4];
-              }
-            }
-            return r4;
-          }
-          var Y2 = {
-            children: l2().node,
-            defaultIndent: l2().bool
-          };
-          function Z2(e4) {
-            var n4 = e4.children, r4 = e4.defaultIndent, a3 = r4 === void 0 ? true : r4, l3 = W2(e4, ["children", "defaultIndent"]);
-            var i3 = (0, t3.useState)(), c3 = B2(i3, 2), d3 = c3[0], f3 = c3[1];
-            var s3 = /* @__PURE__ */ new Map();
-            var p3 = function e5(n5, r5, t4, o3, a4) {
-              n5.stopPropagation();
-              var l4 = t4 && (o3 === null || o3 === void 0 ? void 0 : o3.length);
-              switch (n5.key) {
-                case "ArrowUp":
-                  n5.preventDefault();
-                  f3(q2(s3, r5));
-                  break;
-                case "ArrowDown":
-                  n5.preventDefault();
-                  f3(L2(s3, r5));
-                  break;
-                case "ArrowLeft":
-                  n5.preventDefault();
-                  if (l4) {
-                    a4(false, n5);
-                  } else {
-                    f3(N2(s3, r5));
-                  }
-                  break;
-                case "ArrowRight":
-                  n5.preventDefault();
-                  if (l4) {
-                    f3(L2(s3, r5));
-                  } else {
-                    a4(true, n5);
-                  }
-                  break;
-                case "Home":
-                  n5.preventDefault();
-                  f3(M2(s3));
-                  break;
-                case "End":
-                  n5.preventDefault();
-                  f3($2(s3));
-                  break;
-                case "Enter":
-                  n5.preventDefault();
-                  a4(!l4, n5);
-                  break;
-              }
-            };
-            var y3 = function e5(n5, r5) {
-              n5.preventDefault();
-              f3(r5);
-            };
-            var m3 = function e5(n5) {
-              s3["delete"](n5);
-            };
-            var b3 = function e5(n5, r5) {
-              s3.set(n5, r5);
-            };
-            var h3 = t3.Children.toArray(n4).filter(t3.isValidElement);
-            h3.forEach(function(e5, n5) {
-              if (e5.props.id && b3) {
-                b3("".concat(e5.props.id), "".concat(n5));
-              }
-            });
-            var g3 = (0, t3.useMemo)(function() {
-              return {
-                defaultIndent: a3,
-                onItemKeyDown: p3,
-                onItemClick: y3,
-                removeNode: m3,
-                setNode: b3,
-                itemPaths: s3,
-                focusedItemId: d3
-              };
-            }, [a3, d3, s3, p3, m3, b3]);
-            return o2().createElement(u2.Provider, {
-              value: g3
-            }, o2().createElement(v2, J2({
-              role: "tree",
-              $defaultIndent: a3
-            }, l3), n4));
-          }
-          Z2.propTypes = Y2;
-          Z2.TreeItem = I2;
-          const ee2 = Z2;
-        }
-      ),
-      /***/
-      3563: (
-        /***/
-        (e3) => {
-          e3.exports = requireThemes();
-        }
-      ),
-      /***/
-      23: (
-        /***/
-        (e3) => {
-          e3.exports = /* @__PURE__ */ requirePropTypes();
-        }
-      ),
-      /***/
-      9497: (
-        /***/
-        (e3) => {
-          e3.exports = requireReact();
-        }
-      ),
-      /***/
-      232: (
-        /***/
-        (e3) => {
-          e3.exports = require$$21;
-        }
-      )
-    };
-    var n2 = {};
-    function r2(t3) {
-      var o2 = n2[t3];
-      if (o2 !== void 0) {
-        return o2.exports;
-      }
-      var a2 = n2[t3] = {
-        /******/
-        // no module.id needed
-        /******/
-        // no module.loaded needed
-        /******/
-        exports: {}
-        /******/
-      };
-      e2[t3](a2, a2.exports, r2);
-      return a2.exports;
-    }
-    (() => {
-      r2.n = (e3) => {
-        var n3 = e3 && e3.__esModule ? (
-          /******/
-          () => e3["default"]
-        ) : () => e3;
-        r2.d(n3, {
-          a: n3
-        });
-        return n3;
-      };
-    })();
-    (() => {
-      r2.d = (e3, n3) => {
-        for (var t3 in n3) {
-          if (r2.o(n3, t3) && !r2.o(e3, t3)) {
-            Object.defineProperty(e3, t3, {
-              enumerable: true,
-              get: n3[t3]
-            });
-          }
-        }
-      };
-    })();
-    (() => {
-      r2.o = (e3, n3) => Object.prototype.hasOwnProperty.call(e3, n3);
-    })();
-    (() => {
-      r2.r = (e3) => {
-        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
-          Object.defineProperty(e3, Symbol.toStringTag, {
-            value: "Module"
-          });
-        }
-        Object.defineProperty(e3, "__esModule", {
-          value: true
-        });
-      };
-    })();
-    var t2 = {};
-    (() => {
-      r2.r(t2);
-      r2.d(t2, {
-        default: () => (
-          /* reexport */
-          je2
-        )
-      });
-      var e3 = r2(9497);
-      var n3 = r2.n(e3);
-      var o2 = r2(23);
-      var a2 = r2.n(o2);
-      const l2 = requireIsString();
-      var i2 = r2.n(l2);
-      var u2 = r2(232);
-      var c2 = r2.n(u2);
-      var d2 = r2(3563);
-      var f2 = (0, u2.css)(["", ";", ";color:", ";"], d2.mixins.reset("block"), d2.mixins.typography({
-        family: "monospace"
-      }), d2.variables.syntaxGray);
-      var s2 = c2().code.withConfig({
-        displayName: "JSONTreeStyles__StyledScrollCode",
-        componentId: "vrdt21-0"
-      })(["", ";overflow-x:auto;white-space:nowrap;"], f2);
-      var v2 = c2().code.withConfig({
-        displayName: "JSONTreeStyles__StyledWrapCode",
-        componentId: "vrdt21-1"
-      })(["", ";white-space:pre-wrap;"], f2);
-      const p2 = requireFill();
-      var y2 = r2.n(p2);
-      const m2 = requireIsArray();
-      var b2 = r2.n(m2);
-      const h2 = requireIsEmpty();
-      var g2 = r2.n(h2);
-      const S2 = requireIsNumber();
-      var w2 = r2.n(S2);
-      const k2 = requireIsObject();
-      var x2 = r2.n(k2);
-      const O2 = requireKeys();
-      var I2 = r2.n(O2);
-      const E2 = requireRepeat();
-      var j2 = r2.n(E2);
-      const C2 = requireI18n();
-      var A2 = r2(4610);
-      function T2() {
-        return T2 = Object.assign ? Object.assign.bind() : function(e4) {
-          for (var n4 = 1; n4 < arguments.length; n4++) {
-            var r3 = arguments[n4];
-            for (var t3 in r3) {
-              ({}).hasOwnProperty.call(r3, t3) && (e4[t3] = r3[t3]);
-            }
-          }
-          return e4;
-        }, T2.apply(null, arguments);
-      }
-      function P2(e4, n4) {
-        return N2(e4) || D2(e4, n4) || K2(e4, n4) || R2();
-      }
-      function R2() {
-        throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-      }
-      function K2(e4, n4) {
-        if (e4) {
-          if ("string" == typeof e4) return _2(e4, n4);
-          var r3 = {}.toString.call(e4).slice(8, -1);
-          return "Object" === r3 && e4.constructor && (r3 = e4.constructor.name), "Map" === r3 || "Set" === r3 ? Array.from(e4) : "Arguments" === r3 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r3) ? _2(e4, n4) : void 0;
-        }
-      }
-      function _2(e4, n4) {
-        (null == n4 || n4 > e4.length) && (n4 = e4.length);
-        for (var r3 = 0, t3 = Array(n4); r3 < n4; r3++) {
-          t3[r3] = e4[r3];
-        }
-        return t3;
-      }
-      function D2(e4, n4) {
-        var r3 = null == e4 ? null : "undefined" != typeof Symbol && e4[Symbol.iterator] || e4["@@iterator"];
-        if (null != r3) {
-          var t3, o3, a3, l3, i3 = [], u3 = true, c3 = false;
-          try {
-            if (a3 = (r3 = r3.call(e4)).next, 0 === n4) ;
-            else for (; !(u3 = (t3 = a3.call(r3)).done) && (i3.push(t3.value), i3.length !== n4); u3 = true) {
-            }
-          } catch (e5) {
-            c3 = true, o3 = e5;
-          } finally {
-            try {
-              if (!u3 && null != r3["return"] && (l3 = r3["return"](), Object(l3) !== l3)) return;
-            } finally {
-              if (c3) throw o3;
-            }
-          }
-          return i3;
-        }
-      }
-      function N2(e4) {
-        if (Array.isArray(e4)) return e4;
-      }
-      function V2(e4, n4) {
-        if (null == e4) return {};
-        var r3, t3, o3 = L2(e4, n4);
-        if (Object.getOwnPropertySymbols) {
-          var a3 = Object.getOwnPropertySymbols(e4);
-          for (t3 = 0; t3 < a3.length; t3++) {
-            r3 = a3[t3], n4.includes(r3) || {}.propertyIsEnumerable.call(e4, r3) && (o3[r3] = e4[r3]);
-          }
-        }
-        return o3;
-      }
-      function L2(e4, n4) {
-        if (null == e4) return {};
-        var r3 = {};
-        for (var t3 in e4) {
-          if ({}.hasOwnProperty.call(e4, t3)) {
-            if (n4.includes(t3)) continue;
-            r3[t3] = e4[t3];
-          }
-        }
-        return r3;
-      }
-      var F2 = {
-        clickableKeyRef: a2().object,
-        clickableValRef: a2().object,
-        hasChildren: a2().bool,
-        indentArray: a2().arrayOf(a2().string),
-        index: a2().number,
-        initialOpenState: a2().bool,
-        properties: a2().arrayOf(a2().string),
-        propertyDataPath: a2().string,
-        propertyElement: a2().node,
-        renderExpandLink: a2().func,
-        representation: a2().node,
-        value: a2().oneOfType([a2().string, a2().object, a2().array, a2().number, a2().bool])
-      };
-      function q2(r3) {
-        var t3 = r3.clickableKeyRef, o3 = r3.clickableValRef, a3 = r3.hasChildren, l3 = r3.indentArray, i3 = r3.index, u3 = r3.initialOpenState, c3 = r3.onFocus, d3 = r3.properties, f3 = r3.propertyDataPath, s3 = r3.propertyElement, v3 = r3.renderExpandLink, p3 = r3.representation, y3 = r3.value, m3 = V2(r3, ["clickableKeyRef", "clickableValRef", "hasChildren", "indentArray", "index", "initialOpenState", "onFocus", "properties", "propertyDataPath", "propertyElement", "renderExpandLink", "representation", "value"]);
-        var h3 = (0, e3.useState)(u3), g3 = P2(h3, 2), S3 = g3[0], w3 = g3[1];
-        var k3 = function e4(n4) {
-          w3(n4);
-        };
-        var x3 = (0, e3.useRef)(null);
-        var O3 = v3 ? v3({
-          open: S3,
-          withTooltip: true,
-          expandLinkRef: x3
-        }) : {
-          expandLink: void 0
-        }, I3 = O3.expandLink;
-        var E3 = (d3 === null || d3 === void 0 ? void 0 : d3.length) && i3 + 1 < (d3 === null || d3 === void 0 ? void 0 : d3.length) ? "," : null;
-        return n3().createElement(A2["default"].TreeItem, T2({
-          content: n3().createElement(n3().Fragment, null, s3, a3 && (b2()(y3) ? "[" : "{"), !a3 && n3().createElement(n3().Fragment, null, p3, E3)),
-          customIndent: l3,
-          "data-test": a3 ? "node" : null,
-          "data-test-path": f3,
-          endAdornment: a3 && n3().createElement(n3().Fragment, null, S3 && l3, b2()(y3) ? "]" : "}", E3),
-          onFocus: function e4(n4) {
-            c3 === null || c3 === void 0 ? void 0 : c3(n4);
-            var r4 = n4.relatedTarget === (t3 === null || t3 === void 0 ? void 0 : t3.current) || n4.relatedTarget === (o3 === null || o3 === void 0 ? void 0 : o3.current) || n4.relatedTarget === (x3 === null || x3 === void 0 ? void 0 : x3.current) ? n4.relatedTarget : null;
-            if (m3.id === "root") {
-              var a4;
-              x3 === null || x3 === void 0 ? void 0 : (a4 = x3.current) === null || a4 === void 0 ? void 0 : a4.focus();
-            }
-            if (!r4) {
-              if (s3 && (t3 === null || t3 === void 0 ? void 0 : t3.current)) {
-                var l4;
-                (l4 = t3.current) === null || l4 === void 0 ? void 0 : l4.focus();
-              } else if (o3 === null || o3 === void 0 ? void 0 : o3.current) {
-                var i4;
-                (i4 = o3.current) === null || i4 === void 0 ? void 0 : i4.focus();
-              }
-            } else {
-              r4.focus();
-            }
-          },
-          onToggle: k3,
-          open: u3,
-          tabIndex: 0,
-          toggle: a3 ? I3 : void 0
-        }, m3), a3 && p3);
-      }
-      q2.propTypes = F2;
-      const M2 = requireButtonSimple();
-      var $2 = r2.n(M2);
-      const J2 = requireClickable();
-      var B2 = r2.n(J2);
-      const U2 = requireTooltip();
-      var X2 = r2.n(U2);
-      var G2 = {
-        string: d2.variables.syntaxTeal,
-        number: d2.variables.syntaxBlue,
-        boolean: d2.variables.syntaxPurple,
-        null: d2.variables.syntaxBrown,
-        object: d2.variables.syntaxGray,
-        array: d2.variables.syntaxGray
-      };
-      var H2 = (0, u2.css)(["word-break:break-word;word-wrap:break-word;"]);
-      var z2 = (0, u2.css)(["white-space:nowrap;"]);
-      var W2 = (0, u2.css)(["padding-block:2px;"]);
-      var Q2 = (0, u2.css)(["font-family:inherit;&:focus{box-shadow:", ";outline:0;&:active{box-shadow:none;}}&:hover{background-color:", ";}"], d2.variables.focusShadow, d2.variables.neutral50);
-      var Y2 = (0, u2.css)(["color:", ";", ";", ""], function(e4) {
-        var n4 = e4.valueType;
-        return G2[n4];
-      }, function(e4) {
-        var n4 = e4.overflowType;
-        return n4 === "wrap" ? H2 : z2;
-      }, W2);
-      var Z2 = c2().span.withConfig({
-        displayName: "JSONTreeItemStyles__StyledValue",
-        componentId: "o558h3-0"
-      })(["", ""], Y2);
-      var ee2 = c2()(B2()).withConfig({
-        displayName: "JSONTreeItemStyles__StyledValueInteractiveClickable",
-        componentId: "o558h3-1"
-      })(["", " ", " min-width:24px;text-align:center;"], Y2, Q2);
-      var ne2 = (0, u2.css)(["", " color:", ";"], W2, d2.variables.syntaxRed);
-      var re2 = c2().span.withConfig({
-        displayName: "JSONTreeItemStyles__StyledProperty",
-        componentId: "o558h3-2"
-      })(["", ""], ne2);
-      var te2 = c2()(B2()).withConfig({
-        displayName: "JSONTreeItemStyles__StyledPropertyInteractiveClickable",
-        componentId: "o558h3-3"
-      })(["", " ", ""], ne2, Q2);
-      var oe2 = c2()($2()).withConfig({
-        displayName: "JSONTreeItemStyles__StyledExpandLinkClickable",
-        componentId: "o558h3-4"
-      })(["", ";border:none;border-radius:0;font-family:inherit;padding:1px ", " 3px ", ";&:hover{background-color:", ";text-decoration:none;}&:focus{box-shadow:", ";&:active{box-shadow:none;}}"], W2, d2.variables.spacingXSmall, d2.variables.spacingXSmall, d2.variables.actionColorBackgroundSubtleHover, d2.variables.focusShadowInset);
-      var ae2 = c2()(X2()).withConfig({
-        displayName: "JSONTreeItemStyles__StyledTooltip",
-        componentId: "o558h3-5"
-      })(["font-family:", ";"], d2.variables.monoFontFamily);
-      function le2(e4) {
-        "@babel/helpers - typeof";
-        return le2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e5) {
-          return typeof e5;
-        } : function(e5) {
-          return e5 && "function" == typeof Symbol && e5.constructor === Symbol && e5 !== Symbol.prototype ? "symbol" : typeof e5;
-        }, le2(e4);
-      }
-      function ie2(e4) {
-        return fe2(e4) || de2(e4) || ce2(e4) || ue2();
-      }
-      function ue2() {
-        throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-      }
-      function ce2(e4, n4) {
-        if (e4) {
-          if ("string" == typeof e4) return se2(e4, n4);
-          var r3 = {}.toString.call(e4).slice(8, -1);
-          return "Object" === r3 && e4.constructor && (r3 = e4.constructor.name), "Map" === r3 || "Set" === r3 ? Array.from(e4) : "Arguments" === r3 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r3) ? se2(e4, n4) : void 0;
-        }
-      }
-      function de2(e4) {
-        if ("undefined" != typeof Symbol && null != e4[Symbol.iterator] || null != e4["@@iterator"]) return Array.from(e4);
-      }
-      function fe2(e4) {
-        if (Array.isArray(e4)) return se2(e4);
-      }
-      function se2(e4, n4) {
-        (null == n4 || n4 > e4.length) && (n4 = e4.length);
-        for (var r3 = 0, t3 = Array(n4); r3 < n4; r3++) {
-          t3[r3] = e4[r3];
-        }
-        return t3;
-      }
-      function ve2(r3) {
-        var t3 = r3.id, o3 = r3.childKey, a3 = r3.index, l3 = r3.value, i3 = r3.properties, u3 = r3.propertyDataPath, c3 = r3.obj, d3 = r3.renderValue, f3 = r3.renderKey, s3 = r3.getInitialOpenState, v3 = r3.indentArray, p3 = r3.renderExpandLink, y3 = r3.onFocus;
-        var m3 = (0, e3.useRef)(null);
-        var h3 = (0, e3.useRef)(null);
-        var S3 = d3({
-          key: o3,
-          value: l3,
-          clickValueRef: m3
-        }), w3 = S3.representation, k3 = S3.clickableValRef;
-        var O3 = !b2()(c3) ? f3(o3, h3) : {
-          propertyElement: void 0,
-          clickableKeyRef: void 0
-        }, I3 = O3.propertyElement, E3 = O3.clickableKeyRef;
-        var j3 = x2()(l3) && !g2()(l3) || b2()(l3) && l3.length > 0;
-        return n3().createElement(q2, {
-          id: t3,
-          propertyDataPath: u3,
-          propertyElement: I3,
-          hasChildren: j3,
-          initialOpenState: s3(),
-          representation: w3,
-          indentArray: v3,
-          value: l3,
-          index: a3,
-          properties: i3,
-          renderExpandLink: p3,
-          clickableKeyRef: E3,
-          clickableValRef: k3,
-          onFocus: function e4() {
-            y3(E3, k3);
-          }
-        });
-      }
-      function pe2(r3) {
-        var t3 = r3.renderValue, o3 = r3.obj;
-        var a3 = (0, e3.useRef)(null);
-        var l3 = t3({
-          value: o3,
-          clickValueRef: a3
-        }), i3 = l3.representation;
-        return n3().createElement(A2["default"].TreeItem, {
-          id: "0",
-          "data-test-path": ".",
-          content: i3
-        });
-      }
-      function ye2(e4) {
-        var r3 = e4.defaultOpen, t3 = r3 === void 0 ? false : r3, o3 = e4.defaultExpanded, a3 = o3 === void 0 ? false : o3, l3 = e4.expandChildrenOnShiftKey, u3 = l3 === void 0 ? false : l3, c3 = e4.indent, d3 = c3 === void 0 ? 4 : c3, f3 = e4.indentLevel, s3 = f3 === void 0 ? 1 : f3, v3 = e4.obj, p3 = e4.onClickKey, m3 = e4.onClickValue, h3 = e4.overflow, S3 = h3 === void 0 ? "scroll" : h3, k3 = e4.path, O3 = k3 === void 0 ? [] : k3, E3 = e4.shift, A3 = e4.updateShift;
-        var T3 = y2()(Array(s3), j2()(" ", d3));
-        var P3;
-        var R3;
-        var K3 = function e5() {
-          if (a3 && E3 == null) {
-            return true;
-          }
-          if (u3) {
-            return !!E3;
-          }
-          return t3;
-        };
-        var _3 = function e5(n4) {
-          if (u3 && A3 != null) {
-            A3(n4.shiftKey);
-          }
-        };
-        var D3 = function e5(n4, r4) {
-          var t4, o4;
-          var a4 = r4 !== void 0 ? [].concat(ie2(O3), [r4]) : ie2(O3);
-          var l4 = ".".concat(a4.join("."));
-          (t4 = R3) === null || t4 === void 0 ? void 0 : (o4 = t4.current) === null || o4 === void 0 ? void 0 : o4.focus();
-          p3 === null || p3 === void 0 ? void 0 : p3(n4, {
-            key: l4,
-            keyPath: a4
-          });
-        };
-        var N3 = function e5(n4, r4) {
-          var t4, o4;
-          var a4 = r4 !== void 0 ? [].concat(ie2(O3), [r4]) : ie2(O3);
-          var l4 = ".".concat(a4.join("."));
-          (t4 = P3) === null || t4 === void 0 ? void 0 : (o4 = t4.current) === null || o4 === void 0 ? void 0 : o4.focus();
-          m3 === null || m3 === void 0 ? void 0 : m3(n4, {
-            key: l4,
-            keyPath: a4,
-            value: n4.target.textContent
-          });
-        };
-        var V3 = function e5(n4, r4) {
-          var t4, o4;
-          var a4 = n4.key;
-          if (a4 === "ArrowLeft" && p3 && ((t4 = R3) === null || t4 === void 0 ? void 0 : t4.current) && !r4) {
-            var l4;
-            n4.stopPropagation();
-            (l4 = R3.current) === null || l4 === void 0 ? void 0 : l4.focus();
-          }
-          if (a4 === "ArrowRight" && m3 && ((o4 = P3) === null || o4 === void 0 ? void 0 : o4.current) && r4) {
-            var i3;
-            n4.stopPropagation();
-            (i3 = P3.current) === null || i3 === void 0 ? void 0 : i3.focus();
-          }
-        };
-        var L3 = function e5(r4) {
-          var t4 = r4.open, o4 = r4.withTooltip, a4 = r4.expandLinkRef;
-          var l4 = t4 ? "[-]" : "[+]";
-          var i3 = t4 ? (0, C2._)("Collapse all") : (0, C2._)("Shift click to expand all");
-          var c4 = n3().createElement(oe2, {
-            appearance: "subtle",
-            elementRef: a4,
-            tabIndex: -1,
-            onClick: function e6(n4) {
-              _3(n4);
-            },
-            "aria-expanded": t4,
-            "data-test": "toggle"
-          }, l4);
-          if (u3 && o4) {
-            return {
-              expandLink: n3().createElement(ae2, {
-                contentRelationship: "description",
-                openDelay: "secondary",
-                defaultPlacement: "above",
-                content: (0, C2._)(i3)
-              }, c4),
-              expandLinkRef: a4
-            };
-          }
-          return {
-            expandLink: c4,
-            expandLinkRef: a4
-          };
-        };
-        var F3 = function e5(r4) {
-          var t4 = r4.value, o4 = r4.key, l4 = r4.clickValueRef;
-          var c4;
-          if (!x2()(t4)) {
-            if (typeof t4 === "string") {
-              c4 = '"'.concat(t4, '"');
-            } else if (typeof t4 === "boolean") {
-              c4 = t4.toString();
-            } else if (t4 === null) {
-              c4 = "null";
-            } else {
-              c4 = t4;
-            }
-          } else if (g2()(t4)) {
-            c4 = b2()(t4) ? "[]" : "{}";
-          } else {
-            c4 = ye2({
-              defaultOpen: a3 === true,
-              defaultExpanded: a3,
-              expandChildrenOnShiftKey: u3,
-              onClickKey: p3,
-              onClickValue: m3,
-              overflow: S3,
-              obj: t4,
-              path: o4 !== void 0 ? [].concat(ie2(O3), [o4]) : ie2(O3),
-              indentLevel: s3 + 1,
-              shift: E3,
-              updateShift: A3
-            });
-          }
-          if (i2()(c4) || w2()(c4)) {
-            var d4 = t4 === null ? "null" : (
-              // TS: bigint, function, symbol are prevented by JSONElement type
-              le2(t4)
-            );
-            if (m3) {
-              return {
-                representation: n3().createElement(ee2, {
-                  elementRef: l4,
-                  valueType: d4,
-                  overflowType: S3,
-                  onClick: function e6(n4) {
-                    P3 = l4;
-                    N3(n4, o4);
-                  },
-                  onKeyDown: function e6(n4) {
-                    V3(n4, false);
-                  },
-                  tabIndex: -1
-                }, c4),
-                clickableValRef: l4
-              };
-            }
-            return {
-              representation: n3().createElement(Z2, {
-                valueType: d4,
-                overflowType: S3
-              }, c4)
-            };
-          }
-          return {
-            representation: c4
-          };
-        };
-        var M3 = function e5(r4, t4) {
-          if (p3) {
-            return {
-              propertyElement: n3().createElement(n3().Fragment, null, n3().createElement(te2, {
-                elementRef: t4,
-                tabIndex: -1,
-                onClick: function e6(n4) {
-                  R3 = t4;
-                  D3(n4, r4);
-                },
-                onKeyDown: function e6(n4) {
-                  V3(n4, true);
-                }
-              }, r4), ":", " "),
-              clickableKeyRef: t4
-            };
-          }
-          return {
-            propertyElement: n3().createElement(n3().Fragment, null, n3().createElement(re2, null, r4), ":", " ")
-          };
-        };
-        if (x2()(v3) && !g2()(v3) || b2()(v3) && v3.length > 0) {
-          var $3 = I2()(v3).map(function(e5, r4, t4) {
-            var o4 = v3[e5];
-            var a4 = b2()(v3) ? parseInt(e5, 10) : e5;
-            var l4 = O3.length === 0 ? ".".concat(a4) : ".".concat(O3.join("."), ".").concat(a4);
-            return n3().createElement(ve2, {
-              id: l4,
-              key: l4,
-              propertyDataPath: l4,
-              childKey: a4,
-              index: r4,
-              value: o4,
-              properties: t4,
-              obj: v3,
-              renderValue: F3,
-              renderKey: M3,
-              getInitialOpenState: K3,
-              indentArray: T3,
-              renderExpandLink: L3,
-              onFocus: function e6(n4, r5) {
-                R3 = n4;
-                P3 = r5;
-              }
-            });
-          });
-          if (O3.length === 0) {
-            var J3 = x2()(v3) && !g2()(v3) || b2()(v3) && v3.length > 0;
-            return n3().createElement(q2, {
-              id: "root",
-              propertyDataPath: ".",
-              key: ".",
-              hasChildren: J3,
-              initialOpenState: t3 || a3,
-              value: v3,
-              index: 0,
-              renderExpandLink: L3,
-              representation: $3
-            });
-          }
-          return $3;
-        }
-        return n3().createElement(pe2, {
-          obj: v3,
-          renderValue: F3
-        });
-      }
-      function me2() {
-        return me2 = Object.assign ? Object.assign.bind() : function(e4) {
-          for (var n4 = 1; n4 < arguments.length; n4++) {
-            var r3 = arguments[n4];
-            for (var t3 in r3) {
-              ({}).hasOwnProperty.call(r3, t3) && (e4[t3] = r3[t3]);
-            }
-          }
-          return e4;
-        }, me2.apply(null, arguments);
-      }
-      function be2(e4, n4) {
-        return ke2(e4) || we2(e4, n4) || ge2(e4, n4) || he2();
-      }
-      function he2() {
-        throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-      }
-      function ge2(e4, n4) {
-        if (e4) {
-          if ("string" == typeof e4) return Se2(e4, n4);
-          var r3 = {}.toString.call(e4).slice(8, -1);
-          return "Object" === r3 && e4.constructor && (r3 = e4.constructor.name), "Map" === r3 || "Set" === r3 ? Array.from(e4) : "Arguments" === r3 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r3) ? Se2(e4, n4) : void 0;
-        }
-      }
-      function Se2(e4, n4) {
-        (null == n4 || n4 > e4.length) && (n4 = e4.length);
-        for (var r3 = 0, t3 = Array(n4); r3 < n4; r3++) {
-          t3[r3] = e4[r3];
-        }
-        return t3;
-      }
-      function we2(e4, n4) {
-        var r3 = null == e4 ? null : "undefined" != typeof Symbol && e4[Symbol.iterator] || e4["@@iterator"];
-        if (null != r3) {
-          var t3, o3, a3, l3, i3 = [], u3 = true, c3 = false;
-          try {
-            if (a3 = (r3 = r3.call(e4)).next, 0 === n4) ;
-            else for (; !(u3 = (t3 = a3.call(r3)).done) && (i3.push(t3.value), i3.length !== n4); u3 = true) {
-            }
-          } catch (e5) {
-            c3 = true, o3 = e5;
-          } finally {
-            try {
-              if (!u3 && null != r3["return"] && (l3 = r3["return"](), Object(l3) !== l3)) return;
-            } finally {
-              if (c3) throw o3;
-            }
-          }
-          return i3;
-        }
-      }
-      function ke2(e4) {
-        if (Array.isArray(e4)) return e4;
-      }
-      function xe2(e4, n4) {
-        if (null == e4) return {};
-        var r3, t3, o3 = Oe2(e4, n4);
-        if (Object.getOwnPropertySymbols) {
-          var a3 = Object.getOwnPropertySymbols(e4);
-          for (t3 = 0; t3 < a3.length; t3++) {
-            r3 = a3[t3], n4.includes(r3) || {}.propertyIsEnumerable.call(e4, r3) && (o3[r3] = e4[r3]);
-          }
-        }
-        return o3;
-      }
-      function Oe2(e4, n4) {
-        if (null == e4) return {};
-        var r3 = {};
-        for (var t3 in e4) {
-          if ({}.hasOwnProperty.call(e4, t3)) {
-            if (n4.includes(t3)) continue;
-            r3[t3] = e4[t3];
-          }
-        }
-        return r3;
-      }
-      var Ie = {
-        elementRef: a2().oneOfType([a2().func, a2().object]),
-        defaultExpanded: a2().bool,
-        indent: a2().number,
-        json: a2().oneOfType([a2().string, a2().object, a2().array, a2().number, a2().bool]).isRequired,
-        onClickKey: a2().func,
-        onClickValue: a2().func,
-        overflow: a2().oneOf(["wrap", "scroll"]),
-        expandChildrenOnShiftKey: a2().bool
-      };
-      function Ee2(r3) {
-        var t3 = r3.elementRef, o3 = r3.defaultExpanded, a3 = o3 === void 0 ? false : o3, l3 = r3.indent, u3 = l3 === void 0 ? 4 : l3, c3 = r3.json, d3 = r3.onClickKey, f3 = r3.onClickValue, p3 = r3.overflow, y3 = p3 === void 0 ? "scroll" : p3, m3 = r3.expandChildrenOnShiftKey, b3 = m3 === void 0 ? true : m3, h3 = xe2(r3, ["elementRef", "defaultExpanded", "indent", "json", "onClickKey", "onClickValue", "overflow", "expandChildrenOnShiftKey"]);
-        var g3 = i2()(c3) ? JSON.parse(c3) : c3;
-        var S3 = y3 === "wrap" ? v2 : s2;
-        var w3 = (0, e3.useState)(void 0), k3 = be2(w3, 2), x3 = k3[0], O3 = k3[1];
-        var I3 = function e4(n4) {
-          O3(n4);
-        };
-        return n3().createElement(S3, me2({
-          "data-language": "language-json",
-          "data-test": "json-tree",
-          ref: t3,
-          role: "tree"
-        }, h3), n3().createElement(A2["default"], {
-          defaultIndent: false
-        }, ye2({
-          defaultOpen: true,
-          defaultExpanded: a3,
-          expandChildrenOnShiftKey: b3,
-          indent: u3,
-          obj: g3,
-          onClickKey: d3,
-          onClickValue: f3,
-          overflow: y3,
-          shift: x3,
-          updateShift: I3
-        })));
-      }
-      Ee2.propTypes = Ie;
-      const je2 = Ee2;
-    })();
-    JSONTree.exports = t2;
-  })();
-  return JSONTree.exports;
-}
-requireJSONTree();
 function removeByJsonPaths(obj, paths) {
   if (!paths.length) return obj;
   const clone = structuredClone(obj);
@@ -44655,6 +44692,74 @@ function requireTrashCanCross() {
 }
 var TrashCanCrossExports = requireTrashCanCross();
 const TrashCanCross = /* @__PURE__ */ getDefaultExportFromCjs(TrashCanCrossExports);
+function KeyMappingList({ mappings, onChange }) {
+  const entries = Object.entries(mappings).length > 0 ? Object.entries(mappings) : [["", ""]];
+  const handleAdd = () => {
+    onChange({ ...mappings, "": "" });
+  };
+  const handleRemove = (oldKey) => {
+    const updated = { ...mappings };
+    delete updated[oldKey];
+    onChange(updated);
+  };
+  const handleChangeOldKey = (oldKey, newOldKey) => {
+    if (oldKey === newOldKey) return;
+    const updated = { ...mappings };
+    const value = updated[oldKey];
+    delete updated[oldKey];
+    if (!updated.hasOwnProperty(newOldKey)) {
+      updated[newOldKey] = value;
+    }
+    onChange(updated);
+  };
+  const handleChangeNewKey = (oldKey, newValue) => {
+    onChange({ ...mappings, [oldKey]: newValue });
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "8px" }, children: [
+    entries.map(([oldKey, newKey], i2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", alignItems: "center" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Text,
+        {
+          style: { flex: "1", fontSize: "1.1em" },
+          placeholder: "Original key name",
+          value: oldKey,
+          onChange: (_2, { value }) => handleChangeOldKey(oldKey, value)
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#999", flexShrink: 0 }, children: "→" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Text,
+        {
+          style: { flex: "1", fontSize: "1.1em" },
+          placeholder: "New key name",
+          value: newKey,
+          onChange: (_2, { value }) => handleChangeNewKey(oldKey, value)
+        }
+      ),
+      (i2 !== 0 || entries.length > 1) && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Button,
+        {
+          inline: true,
+          appearance: "secondary",
+          onClick: () => handleRemove(oldKey),
+          label: "",
+          icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrashCanCross, {}),
+          style: { flexShrink: 0 }
+        }
+      )
+    ] }, oldKey || `empty-${i2}`)),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Button,
+      {
+        appearance: "secondary",
+        onClick: handleAdd,
+        style: { width: "100%" },
+        disabled: entries.some(([oldKey, newKey]) => oldKey === "" || newKey === ""),
+        children: "Add Key Mapping"
+      }
+    )
+  ] });
+}
 function TextInputList({ values, placeholder, buttonLabel, onChange }) {
   const handleAdd = () => {
     onChange([...values, ""]);
@@ -45892,24 +45997,49 @@ const EventPreviewModal = ({
   data,
   separateArrayPaths,
   excludedJsonPaths = [],
+  keyMappings = {},
   modalToggle
 }) => {
   const [activeTab, setActiveTab] = reactExports.useState("processed");
   const [currentPage, setCurrentPage] = reactExports.useState(0);
   const eventsPerPage = 10;
   const filteredData = reactExports.useMemo(() => {
-    if (!data || excludedJsonPaths.length === 0) return data;
-    try {
-      return removeByJsonPaths(data, excludedJsonPaths);
-    } catch (error) {
-      console.error("Error filtering data:", error);
-      return data;
+    if (!data) return data;
+    let result = data;
+    if (excludedJsonPaths.length > 0) {
+      try {
+        result = removeByJsonPaths(result, excludedJsonPaths);
+      } catch (error) {
+        console.error("Error filtering data:", error);
+      }
     }
+    return result;
   }, [data, excludedJsonPaths]);
   const processedEvents = reactExports.useMemo(() => {
     if (!filteredData) return [];
-    return generateSeparateEvents(filteredData, separateArrayPaths);
-  }, [filteredData, separateArrayPaths]);
+    const events2 = generateSeparateEvents(filteredData, separateArrayPaths);
+    if (Object.keys(keyMappings).length > 0) {
+      return events2.map((event) => {
+        try {
+          return renameKeysByJsonPath(event, keyMappings);
+        } catch (error) {
+          console.error("Error applying key mappings to event:", error);
+          return event;
+        }
+      });
+    }
+    return events2;
+  }, [filteredData, separateArrayPaths, keyMappings]);
+  const renamedOriginalData = reactExports.useMemo(() => {
+    if (!filteredData) return filteredData;
+    if (Object.keys(keyMappings).length === 0) return filteredData;
+    try {
+      return renameKeysByJsonPath(filteredData, keyMappings);
+    } catch (error) {
+      console.error("Error applying key mappings to original data:", error);
+      return filteredData;
+    }
+  }, [filteredData, keyMappings]);
   const totalPages = Math.ceil(processedEvents.length / eventsPerPage);
   const paginatedEvents = processedEvents.slice(
     currentPage * eventsPerPage,
@@ -45966,7 +46096,7 @@ const EventPreviewModal = ({
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(PreviewContainer, { children: activeTab === "processed" ? /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: separateArrayPaths.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(EventCard, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(EventHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(EventNumber, { children: "Event #1" }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(EventBody, { children: JSON.stringify(filteredData, null, 2) })
+            /* @__PURE__ */ jsxRuntimeExports.jsx(EventBody, { children: JSON.stringify(processedEvents[0], null, 2) })
           ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
             paginatedEvents.map(
               (event, idx) => renderEvent(event, idx, currentPage * eventsPerPage + idx)
@@ -45999,7 +46129,7 @@ const EventPreviewModal = ({
             ] })
           ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(EventCard, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(EventHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(EventNumber, { children: "Event #1" }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(EventBody, { children: JSON.stringify(filteredData, null, 2) })
+            /* @__PURE__ */ jsxRuntimeExports.jsx(EventBody, { children: JSON.stringify(renamedOriginalData, null, 2) })
           ] }) }) })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Footer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: onClose, children: "Close" }) })
@@ -46022,6 +46152,7 @@ const KVStoreDataForm = (props) => {
   const [selected_output_location, setSelectedCollection] = reactExports.useState(config2.selected_output_location ?? "");
   const [mode, setMode] = reactExports.useState(config2.mode ?? "overwrite");
   const [separateArrayPaths, setSeparateArrayPaths] = reactExports.useState(config2.separate_array_paths ?? []);
+  const [keyMappings, setKeyMappings] = reactExports.useState(config2.key_mappings ?? {});
   const updateConfigField = (key2, value) => {
     if (props.setDataInputAppConfig) {
       props.setDataInputAppConfig((prev) => ({
@@ -46047,6 +46178,7 @@ const KVStoreDataForm = (props) => {
       setSelectedCollection(config22.selected_output_location ?? "");
       setMode(config22.mode ?? "overwrite");
       setSeparateArrayPaths(config22.separate_array_paths ?? []);
+      setKeyMappings(config22.key_mappings ?? {});
       setJsonPathValues(
         config22.excluded_json_paths && config22.excluded_json_paths.length > 0 ? config22.excluded_json_paths : [""]
       );
@@ -46065,6 +46197,20 @@ const KVStoreDataForm = (props) => {
       });
     }
   }, [props.onAddExcludePathRef]);
+  React.useEffect(() => {
+    if (props.onAddKeyMappingRef) {
+      props.onAddKeyMappingRef((oldKey, newKey) => {
+        setKeyMappings((prev) => {
+          const updated = { ...prev, [oldKey]: newKey };
+          updateConfigField("key_mappings", updated);
+          if (props.onKeyMappingsChange) {
+            props.onKeyMappingsChange(updated);
+          }
+          return updated;
+        });
+      });
+    }
+  }, [props.onAddKeyMappingRef]);
   const handleJsonPathsChange = (values) => {
     setJsonPathValues(values);
     const filtered = values.filter(Boolean);
@@ -46074,6 +46220,13 @@ const KVStoreDataForm = (props) => {
   const handleHttpHeadersChange = (values) => {
     setHttpHeaders(values);
     updateConfigField("http_headers", values.filter(Boolean));
+  };
+  const handleKeyMappingsChange = (mappings) => {
+    setKeyMappings(mappings);
+    updateConfigField("key_mappings", mappings);
+    if (props.onKeyMappingsChange) {
+      props.onKeyMappingsChange(mappings);
+    }
   };
   const getPaths = () => jsonPathValues.filter(Boolean);
   const handleOnCreateCollection = async (createdCollectionName, appName, fields) => {
@@ -46104,6 +46257,7 @@ const KVStoreDataForm = (props) => {
     setJsonPathValues([""]);
     setHttpHeaders([""]);
     setSeparateArrayPaths([]);
+    setKeyMappings({});
     props.onJSONPathsChange([]);
     (_a = props.setJsonPreview) == null ? void 0 : _a.call(props, "");
   };
@@ -46225,6 +46379,21 @@ const KVStoreDataForm = (props) => {
           onChange: handleJsonPathsChange
         }
       ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(FormField, { label: "Rename Keys", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: "12px", color: "#666", marginBottom: "8px" }, children: "Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Shift+Click on keys in the preview to generate JSONPath mappings." }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          KeyMappingList,
+          {
+            mappings: keyMappings,
+            onChange: (updated) => {
+              const filtered = Object.fromEntries(
+                Object.entries(updated).filter(([key2, value]) => key2 && value)
+              );
+              handleKeyMappingsChange(filtered);
+            }
+          }
+        )
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(FormField, { label: "Separate Arrays as Events", tooltip: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           ArrayFieldSelector,
@@ -46258,6 +46427,7 @@ const KVStoreDataForm = (props) => {
         data: props.rawData,
         separateArrayPaths,
         excludedJsonPaths: jsonPathValues.filter(Boolean),
+        keyMappings,
         modalToggle: previewModalToggle
       }
     ),
@@ -46277,7 +46447,8 @@ const KVStoreDataForm = (props) => {
               cron_expression: cronExpression,
               selected_output_location,
               mode,
-              separate_array_paths: separateArrayPaths
+              separate_array_paths: separateArrayPaths,
+              key_mappings: keyMappings
             },
             clearInputs
           );
@@ -46288,7 +46459,7 @@ const KVStoreDataForm = (props) => {
     ) })
   ] });
 };
-const NewKVStoreDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef }) => {
+const NewKVStoreDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef, onAddKeyMappingRef, onKeyMappingsChange }) => {
   const [error, setError] = reactExports.useState(null);
   const [loading, setLoading] = reactExports.useState(false);
   const [rawData, setRawData] = reactExports.useState(null);
@@ -46403,9 +46574,33 @@ Server response: ${responseText}`;
       }
     }
   };
+  reactExports.useEffect(() => {
+    if (dataInputAppConfig == null ? void 0 : dataInputAppConfig.url) {
+      const jsonPaths = dataInputAppConfig.excluded_json_paths ?? [];
+      const httpHeaders = dataInputAppConfig.http_headers ?? [];
+      fetchDataPreview(dataInputAppConfig.url, jsonPaths, httpHeaders);
+    }
+  }, [dataInputAppConfig == null ? void 0 : dataInputAppConfig.url]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     error && /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { style: { marginBottom: "10px" }, appearance: "fill", type: "error", children: error }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(KVStoreDataForm, { dataInputAppConfig, setDataInputAppConfig, fetchDataPreview, setJsonPreview: onDataFetched, fieldsForKvStoreCreation: initialFields, loading, handleSave: handleSaveDataInput, setError, onJSONPathsChange, onAddExcludePathRef, rawData })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      KVStoreDataForm,
+      {
+        dataInputAppConfig,
+        setDataInputAppConfig,
+        fetchDataPreview,
+        setJsonPreview: onDataFetched,
+        fieldsForKvStoreCreation: initialFields,
+        loading,
+        handleSave: handleSaveDataInput,
+        setError,
+        onJSONPathsChange,
+        onAddExcludePathRef,
+        onAddKeyMappingRef,
+        onKeyMappingsChange,
+        rawData
+      }
+    )
   ] });
 };
 const TreeContainer = qe.div`
@@ -46434,12 +46629,28 @@ const KeySpan = qe.span`
     border-radius: 3px;
     padding: 0 2px;
 
-    ${(props) => props.$clickable && `
+    ${(props) => props.$clickable && !props.$isEditing && `
         &:hover {
             background-color: #e8f4fc;
             text-decoration: underline;
         }
     `}
+    
+    ${(props) => props.$isEditing && `
+        background-color: #fff3cd;
+        border: 1px solid #ffc107;
+    `}
+`;
+const KeyInput = qe.input`
+    color: #881391;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 3px;
+    padding: 0 2px;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    min-width: 50px;
 `;
 const ValueSpan = qe.span`
     color: ${(props) => {
@@ -46483,26 +46694,72 @@ const Tooltip$1 = qe.div`
     z-index: 1000;
     pointer-events: none;
 `;
-const JSONNode = ({ keyName, value, path, depth, onPathClick, isArrayItem }) => {
+const JSONNode = ({ keyName, value, path, depth, onPathClick, onKeyRename, keyMappings, isArrayItem }) => {
   const [expanded, setExpanded] = reactExports.useState(true);
   const [tooltip, setTooltip] = reactExports.useState(null);
+  const [isEditingKey, setIsEditingKey] = reactExports.useState(false);
+  const [editedKeyName, setEditedKeyName] = reactExports.useState("");
+  const inputRef = reactExports.useRef(null);
   const isObject = value !== null && typeof value === "object" && !Array.isArray(value);
   const isArray = Array.isArray(value);
   const hasChildren = isObject || isArray;
+  const wildcardPath = path.replace(/\[\d+\]/g, "[*]");
+  const displayName = (keyMappings == null ? void 0 : keyMappings[wildcardPath]) || keyName;
   const handleKeyClick = (e2) => {
     e2.stopPropagation();
+    if (e2.shiftKey && onKeyRename && typeof keyName === "string" && !isArrayItem) {
+      setTooltip(null);
+      setIsEditingKey(true);
+      setEditedKeyName(displayName);
+      return;
+    }
     if (onPathClick && path) {
-      const wildcardPath = path.replace(/\[\d+\]/g, "[*]");
-      onPathClick(wildcardPath);
+      const wildcardPath2 = path.replace(/\[\d+\]/g, "[*]");
+      onPathClick(wildcardPath2);
     }
   };
+  const handleKeyEditSubmit = () => {
+    if (editedKeyName.trim() && editedKeyName !== displayName && onKeyRename && typeof keyName === "string") {
+      const wildcardPath2 = path.replace(/\[\d+\]/g, "[*]");
+      onKeyRename(wildcardPath2, editedKeyName.trim());
+    }
+    setIsEditingKey(false);
+  };
+  const handleKeyEditCancel = () => {
+    setIsEditingKey(false);
+    setEditedKeyName("");
+  };
+  const handleKeyInputKeyDown = (e2) => {
+    if (e2.key === "Enter") {
+      e2.preventDefault();
+      handleKeyEditSubmit();
+    } else if (e2.key === "Escape") {
+      e2.preventDefault();
+      handleKeyEditCancel();
+    }
+  };
+  reactExports.useEffect(() => {
+    if (isEditingKey && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isEditingKey]);
   const handleMouseEnter = (e2) => {
-    if (path && onPathClick) {
-      setTooltip({
-        x: e2.clientX + 10,
-        y: e2.clientY + 10,
-        text: `Click to exclude: ${path}`
-      });
+    if (path) {
+      let tooltipText = "";
+      if (onPathClick) {
+        tooltipText = `Click to exclude: ${path}`;
+      }
+      if (onKeyRename && typeof keyName === "string" && !isArrayItem) {
+        tooltipText = tooltipText ? `${tooltipText} | Shift+Click to rename` : "Shift+Click to rename";
+      }
+      if (tooltipText) {
+        setTooltip({
+          x: e2.clientX + 10,
+          y: e2.clientY + 10,
+          text: tooltipText
+        });
+      }
     }
   };
   const handleMouseLeave = () => {
@@ -46556,17 +46813,31 @@ const JSONNode = ({ keyName, value, path, depth, onPathClick, isArrayItem }) => 
       );
     }
     return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      isEditingKey ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: '"' }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          KeyInput,
+          {
+            ref: inputRef,
+            value: editedKeyName,
+            onChange: (e2) => setEditedKeyName(e2.target.value),
+            onKeyDown: handleKeyInputKeyDown,
+            onBlur: handleKeyEditSubmit
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: '"' })
+      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
         KeySpan,
         {
-          $clickable: !!onPathClick,
+          $clickable: !!(onPathClick || onKeyRename),
+          $isEditing: isEditingKey,
           onClick: handleKeyClick,
           onMouseEnter: handleMouseEnter,
           onMouseLeave: handleMouseLeave,
           onMouseMove: handleMouseMove,
           children: [
             '"',
-            keyName,
+            displayName,
             '"'
           ]
         }
@@ -46602,6 +46873,8 @@ const JSONNode = ({ keyName, value, path, depth, onPathClick, isArrayItem }) => 
           path: `${path}[${index}]`,
           depth: depth + 1,
           onPathClick,
+          onKeyRename,
+          keyMappings,
           isArrayItem: true
         },
         index
@@ -46612,7 +46885,9 @@ const JSONNode = ({ keyName, value, path, depth, onPathClick, isArrayItem }) => 
           value: val,
           path: path ? `${path}.${key2}` : `$.${key2}`,
           depth: depth + 1,
-          onPathClick
+          onPathClick,
+          onKeyRename,
+          keyMappings
         },
         key2
       )),
@@ -46623,18 +46898,40 @@ const JSONNode = ({ keyName, value, path, depth, onPathClick, isArrayItem }) => 
     ] })
   ] });
 };
-const ClickableJSONTree = ({ data, onPathClick }) => {
+const ClickableJSONTree = ({ data, onPathClick, onKeyRename, keyMappings }) => {
   if (data === null || data === void 0) {
     return null;
   }
   const isArray = Array.isArray(data);
   const isObject = typeof data === "object" && !isArray;
   if (!isArray && !isObject) {
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(TreeContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(JSONNode, { keyName: null, value: data, path: "$", depth: 0, onPathClick }) });
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(TreeContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      JSONNode,
+      {
+        keyName: null,
+        value: data,
+        path: "$",
+        depth: 0,
+        onPathClick,
+        onKeyRename,
+        keyMappings
+      }
+    ) });
   }
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(TreeContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(JSONNode, { keyName: null, value: data, path: "$", depth: 0, onPathClick }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(TreeContainer, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    JSONNode,
+    {
+      keyName: null,
+      value: data,
+      path: "$",
+      depth: 0,
+      onPathClick,
+      onKeyRename,
+      keyMappings
+    }
+  ) });
 };
-function JSONViewer({ initialData, onPathClick }) {
+function JSONViewer({ initialData, onPathClick, onKeyRename, keyMappings }) {
   const { parsedJSON, isValidJSON } = reactExports.useMemo(() => {
     if (!initialData) return { parsedJSON: null, isValidJSON: true };
     try {
@@ -46645,11 +46942,23 @@ function JSONViewer({ initialData, onPathClick }) {
     }
   }, [initialData]);
   const JSONTreeMemo = reactExports.useMemo(() => {
-    return parsedJSON ? /* @__PURE__ */ jsxRuntimeExports.jsx(ClickableJSONTree, { data: parsedJSON, onPathClick }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "info", children: "Fetch data to see preview. Click on any key to add it to exclusions." });
-  }, [parsedJSON, onPathClick]);
+    return parsedJSON ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+      ClickableJSONTree,
+      {
+        data: parsedJSON,
+        onPathClick,
+        onKeyRename,
+        keyMappings
+      }
+    ) : /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "info", children: "Fetch data to see preview. Click on any key to add it to exclusions." });
+  }, [parsedJSON, onPathClick, onKeyRename, keyMappings]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "Preview" }),
-    onPathClick && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { fontSize: "12px", color: "#666", marginBottom: "10px" }, children: "Click on any key to add it to the exclude list" }),
+    (onPathClick || onKeyRename) && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { style: { fontSize: "12px", color: "#666", marginBottom: "10px" }, children: [
+      onPathClick && "Click on any key to add it to the exclude list",
+      onPathClick && onKeyRename && " | ",
+      onKeyRename && "Shift+Click to rename a key"
+    ] }),
     isValidJSON ? JSONTreeMemo : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { color: "error", style: { marginTop: 1, textAlign: "center" }, children: "Invalid JSON data provided." })
   ] });
 }
@@ -46750,6 +47059,7 @@ const IndexDataForm = (props) => {
   const [selected_output_location, setSelectedIndex] = reactExports.useState(config2.selected_output_location ?? "");
   const [mode, setMode] = reactExports.useState(config2.mode ?? "overwrite");
   const [separateArrayPaths, setSeparateArrayPaths] = reactExports.useState(config2.separate_array_paths ?? []);
+  const [keyMappings, setKeyMappings] = reactExports.useState(config2.key_mappings ?? {});
   const updateConfigField = (key2, value) => {
     if (props.setDataInputAppConfig) {
       props.setDataInputAppConfig((prev) => ({
@@ -46776,6 +47086,7 @@ const IndexDataForm = (props) => {
       setSelectedIndex(config22.selected_output_location ?? "");
       setMode(config22.mode ?? "overwrite");
       setSeparateArrayPaths(config22.separate_array_paths ?? []);
+      setKeyMappings(config22.key_mappings ?? {});
       setJsonPathValues(
         config22.excluded_json_paths && config22.excluded_json_paths.length > 0 ? config22.excluded_json_paths : [""]
       );
@@ -46794,6 +47105,27 @@ const IndexDataForm = (props) => {
       });
     }
   }, [props.onAddExcludePathRef]);
+  React.useEffect(() => {
+    if (props.onAddKeyMappingRef) {
+      props.onAddKeyMappingRef((oldKey, newKey) => {
+        setKeyMappings((prev) => {
+          const updated = { ...prev, [oldKey]: newKey };
+          updateConfigField("key_mappings", updated);
+          if (props.onKeyMappingsChange) {
+            props.onKeyMappingsChange(updated);
+          }
+          return updated;
+        });
+      });
+    }
+  }, [props.onAddKeyMappingRef]);
+  const handleKeyMappingsChange = (mappings) => {
+    setKeyMappings(mappings);
+    updateConfigField("key_mappings", mappings);
+    if (props.onKeyMappingsChange) {
+      props.onKeyMappingsChange(mappings);
+    }
+  };
   const handleNewJsonPathExclusion = () => {
     setJsonPathValues((prev) => {
       const updated = [...prev, ""];
@@ -46912,6 +47244,7 @@ const IndexDataForm = (props) => {
     setJsonPathValues([""]);
     setHttpHeaders([""]);
     setSeparateArrayPaths([]);
+    setKeyMappings({});
     props.onJSONPathsChange([]);
     props.setJsonPreview && props.setJsonPreview("");
   };
@@ -47042,6 +47375,70 @@ const IndexDataForm = (props) => {
       controlledJsonPathRows
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "4px" }, children: "Rename Keys" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: "12px", color: "#666", marginBottom: "8px" }, children: "Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Shift+Click on keys in the preview to generate JSONPath mappings." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "8px" }, children: [
+        Object.entries(keyMappings).map(([oldKey, newKey]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", alignItems: "center" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Text,
+            {
+              style: { flex: "1", fontFamily: "monospace", fontSize: "1.1em" },
+              placeholder: "Original key name",
+              value: oldKey,
+              onChange: (_2, { value }) => {
+                if (oldKey === value) return;
+                const updated = { ...keyMappings };
+                const val = updated[oldKey];
+                delete updated[oldKey];
+                if (!updated.hasOwnProperty(value)) {
+                  updated[value] = val;
+                }
+                handleKeyMappingsChange(updated);
+              }
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#999", flexShrink: 0 }, children: "→" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Text,
+            {
+              style: { flex: "1", fontFamily: "monospace", fontSize: "1.1em" },
+              placeholder: "New key name",
+              value: newKey,
+              onChange: (_2, { value }) => {
+                handleKeyMappingsChange({ ...keyMappings, [oldKey]: value });
+              }
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Button,
+            {
+              inline: true,
+              appearance: "secondary",
+              onClick: () => {
+                const updated = { ...keyMappings };
+                delete updated[oldKey];
+                handleKeyMappingsChange(updated);
+              },
+              label: "",
+              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrashCanCross, {}),
+              style: { flexShrink: 0 }
+            }
+          )
+        ] }, oldKey)),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            appearance: "secondary",
+            onClick: () => {
+              handleKeyMappingsChange({ ...keyMappings, "": "" });
+            },
+            style: { width: "100%" },
+            children: "Add Key Mapping"
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", children: "Separate Arrays as Events" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%" }, children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -47076,6 +47473,7 @@ const IndexDataForm = (props) => {
         data: props.rawData,
         separateArrayPaths,
         excludedJsonPaths: jsonPathValues.filter(Boolean),
+        keyMappings,
         modalToggle: previewModalToggle
       }
     ),
@@ -47095,7 +47493,8 @@ const IndexDataForm = (props) => {
               cron_expression: cronExpression,
               selected_output_location,
               mode,
-              separate_array_paths: separateArrayPaths
+              separate_array_paths: separateArrayPaths,
+              key_mappings: keyMappings
             },
             clearInputs
           );
@@ -47106,7 +47505,7 @@ const IndexDataForm = (props) => {
     ) })
   ] });
 };
-const NewIndexDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef }) => {
+const NewIndexDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef, onAddKeyMappingRef, onKeyMappingsChange }) => {
   const [error, setError] = reactExports.useState(null);
   const [loading, setLoading] = reactExports.useState(false);
   const [rawData, setRawData] = reactExports.useState(null);
@@ -47207,6 +47606,13 @@ Server response: ${responseText}`;
       setError("Failed to save data input configuration");
     }
   };
+  reactExports.useEffect(() => {
+    if (dataInputAppConfig == null ? void 0 : dataInputAppConfig.url) {
+      const jsonPaths = dataInputAppConfig.excluded_json_paths ?? [];
+      const httpHeaders = dataInputAppConfig.http_headers ?? [];
+      fetchDataPreview(dataInputAppConfig.url, jsonPaths, httpHeaders);
+    }
+  }, [dataInputAppConfig == null ? void 0 : dataInputAppConfig.url]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     error && /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { style: { marginBottom: "10px" }, appearance: "fill", type: "error", children: error }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -47221,6 +47627,8 @@ Server response: ${responseText}`;
         setError,
         onJSONPathsChange,
         onAddExcludePathRef,
+        onAddKeyMappingRef,
+        onKeyMappingsChange,
         rawData
       }
     )
@@ -47230,11 +47638,19 @@ function NewDataInput() {
   const [jsonData, setJsonData] = reactExports.useState("");
   const [successMessage, setSuccessMessage] = reactExports.useState(null);
   const [activeTabId, setActiveTabId] = reactExports.useState("kvstore");
+  const [keyMappings, setKeyMappings] = reactExports.useState({});
   const headingId = idExports.createDOMID("data-input-success");
   const addExcludePathRef = reactExports.useRef(null);
+  const addKeyMappingRef = reactExports.useRef(null);
   const handlePathClick = reactExports.useCallback((path) => {
     if (addExcludePathRef.current) {
       addExcludePathRef.current(path);
+    }
+  }, []);
+  const handleKeyRename = reactExports.useCallback((oldKey, newKey) => {
+    setKeyMappings((prev) => ({ ...prev, [oldKey]: newKey }));
+    if (addKeyMappingRef.current) {
+      addKeyMappingRef.current(oldKey, newKey);
     }
   }, []);
   const handleTabChange = reactExports.useCallback(
@@ -47242,6 +47658,7 @@ function NewDataInput() {
       if (selectedTabId) {
         setActiveTabId(selectedTabId);
         setJsonData("");
+        setKeyMappings({});
       }
     },
     []
@@ -47265,29 +47682,41 @@ function NewDataInput() {
       activeTabId === "kvstore" && /* @__PURE__ */ jsxRuntimeExports.jsx(
         NewKVStoreDataInputForm,
         {
-          onDataFetched: (data) => {
-            setJsonData(data);
-          },
+          onDataFetched: setJsonData,
           onSuccess: () => setSuccessMessage("Successfully added data input to KV Store."),
           onAddExcludePathRef: (fn) => {
             addExcludePathRef.current = fn;
-          }
+          },
+          onAddKeyMappingRef: (fn) => {
+            addKeyMappingRef.current = fn;
+          },
+          onKeyMappingsChange: setKeyMappings
         }
       ),
       activeTabId === "index" && /* @__PURE__ */ jsxRuntimeExports.jsx(
         NewIndexDataInputForm,
         {
-          onDataFetched: (data) => {
-            setJsonData(data);
-          },
+          onDataFetched: setJsonData,
           onSuccess: () => setSuccessMessage("Successfully added data input for Index."),
           onAddExcludePathRef: (fn) => {
             addExcludePathRef.current = fn;
-          }
+          },
+          onAddKeyMappingRef: (fn) => {
+            addKeyMappingRef.current = fn;
+          },
+          onKeyMappingsChange: setKeyMappings
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 7, children: /* @__PURE__ */ jsxRuntimeExports.jsx(JSONViewer, { initialData: jsonData, onPathClick: handlePathClick }) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 7, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      JSONViewer,
+      {
+        initialData: jsonData,
+        onPathClick: handlePathClick,
+        onKeyRename: handleKeyRename,
+        keyMappings
+      }
+    ) })
   ] }) });
 }
 var Pencil$1 = { exports: {} };
@@ -57210,10 +57639,18 @@ const Menu = /* @__PURE__ */ getDefaultExportFromCjs(MenuExports);
 var i18nExports = requireI18n();
 function EditIndexPage({ dataInputAppConfig, setDataInputAppConfig, onSuccess }) {
   const [jsonData, setJsonData] = reactExports.useState("");
+  const [keyMappings, setKeyMappings] = reactExports.useState((dataInputAppConfig == null ? void 0 : dataInputAppConfig.key_mappings) ?? {});
   const addExcludePathRef = reactExports.useRef(null);
+  const addKeyMappingRef = reactExports.useRef(null);
   const handlePathClick = reactExports.useCallback((path) => {
     if (addExcludePathRef.current) {
       addExcludePathRef.current(path);
+    }
+  }, []);
+  const handleKeyRename = reactExports.useCallback((oldKey, newKey) => {
+    setKeyMappings((prev) => ({ ...prev, [oldKey]: newKey }));
+    if (addKeyMappingRef.current) {
+      addKeyMappingRef.current(oldKey, newKey);
     }
   }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout, { gutter: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Row, { children: [
@@ -57222,16 +57659,26 @@ function EditIndexPage({ dataInputAppConfig, setDataInputAppConfig, onSuccess })
       {
         dataInputAppConfig,
         setDataInputAppConfig,
-        onDataFetched: (data) => {
-          setJsonData(data);
-        },
+        onDataFetched: setJsonData,
         onSuccess,
         onAddExcludePathRef: (fn) => {
           addExcludePathRef.current = fn;
-        }
+        },
+        onAddKeyMappingRef: (fn) => {
+          addKeyMappingRef.current = fn;
+        },
+        onKeyMappingsChange: setKeyMappings
       }
     ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(JSONViewer, { initialData: jsonData, onPathClick: handlePathClick }) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      JSONViewer,
+      {
+        initialData: jsonData,
+        onPathClick: handlePathClick,
+        onKeyRename: handleKeyRename,
+        keyMappings
+      }
+    ) })
   ] }) });
 }
 const EditIndexInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess }) => {
@@ -57288,10 +57735,18 @@ const EditIndexInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess })
 };
 function EditKVStorePage({ dataInputAppConfig, setDataInputAppConfig, onSuccess }) {
   const [jsonData, setJsonData] = reactExports.useState("");
+  const [keyMappings, setKeyMappings] = reactExports.useState((dataInputAppConfig == null ? void 0 : dataInputAppConfig.key_mappings) ?? {});
   const addExcludePathRef = reactExports.useRef(null);
+  const addKeyMappingRef = reactExports.useRef(null);
   const handlePathClick = reactExports.useCallback((path) => {
     if (addExcludePathRef.current) {
       addExcludePathRef.current(path);
+    }
+  }, []);
+  const handleKeyRename = reactExports.useCallback((oldKey, newKey) => {
+    setKeyMappings((prev) => ({ ...prev, [oldKey]: newKey }));
+    if (addKeyMappingRef.current) {
+      addKeyMappingRef.current(oldKey, newKey);
     }
   }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout, { gutter: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Row, { children: [
@@ -57300,16 +57755,26 @@ function EditKVStorePage({ dataInputAppConfig, setDataInputAppConfig, onSuccess 
       {
         dataInputAppConfig,
         setDataInputAppConfig,
-        onDataFetched: (data) => {
-          setJsonData(data);
-        },
+        onDataFetched: setJsonData,
         onSuccess,
         onAddExcludePathRef: (fn) => {
           addExcludePathRef.current = fn;
-        }
+        },
+        onAddKeyMappingRef: (fn) => {
+          addKeyMappingRef.current = fn;
+        },
+        onKeyMappingsChange: setKeyMappings
       }
     ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(JSONViewer, { initialData: jsonData, onPathClick: handlePathClick }) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      JSONViewer,
+      {
+        initialData: jsonData,
+        onPathClick: handlePathClick,
+        onKeyRename: handleKeyRename,
+        keyMappings
+      }
+    ) })
   ] }) });
 }
 const EditKVStoreInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess }) => {

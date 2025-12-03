@@ -1,9 +1,9 @@
-import { useState, useRef, useCallback } from 'react';
 import ColumnLayout from '@splunk/react-ui/ColumnLayout';
+import { useCallback, useRef, useState } from 'react';
 
-import type { DataInputAppConfig } from './DataInputs.types';
 import NewIndexDataInputForm from '../DataInputs/Index/NewIndexDataInputForm';
 import JSONViewer from '../Json/JsonViewer';
+import type { DataInputAppConfig } from './DataInputs.types';
 
 interface EditIndexPageProps {
     dataInputAppConfig: DataInputAppConfig;
@@ -13,11 +13,20 @@ interface EditIndexPageProps {
 
 export default function EditIndexPage({ dataInputAppConfig, setDataInputAppConfig, onSuccess }: EditIndexPageProps) {
     const [jsonData, setJsonData] = useState<string>('');
+    const [keyMappings, setKeyMappings] = useState<Record<string, string>>(dataInputAppConfig?.key_mappings ?? {});
     const addExcludePathRef = useRef<((path: string) => void) | null>(null);
+    const addKeyMappingRef = useRef<((oldKey: string, newKey: string) => void) | null>(null);
 
     const handlePathClick = useCallback((path: string) => {
         if (addExcludePathRef.current) {
             addExcludePathRef.current(path);
+        }
+    }, []);
+
+    const handleKeyRename = useCallback((oldKey: string, newKey: string) => {
+        setKeyMappings(prev => ({ ...prev, [oldKey]: newKey }));
+        if (addKeyMappingRef.current) {
+            addKeyMappingRef.current(oldKey, newKey);
         }
     }, []);
 
@@ -28,15 +37,20 @@ export default function EditIndexPage({ dataInputAppConfig, setDataInputAppConfi
                     <NewIndexDataInputForm
                         dataInputAppConfig={dataInputAppConfig}
                         setDataInputAppConfig={setDataInputAppConfig}
-                        onDataFetched={(data: string) => {
-                            setJsonData(data);
-                        }}
+                        onDataFetched={setJsonData}
                         onSuccess={onSuccess}
                         onAddExcludePathRef={(fn) => { addExcludePathRef.current = fn; }}
+                        onAddKeyMappingRef={(fn) => { addKeyMappingRef.current = fn; }}
+                        onKeyMappingsChange={setKeyMappings}
                     />
                 </ColumnLayout.Column>
                 <ColumnLayout.Column span={6}>
-                    <JSONViewer initialData={jsonData} onPathClick={handlePathClick} />
+                    <JSONViewer 
+                        initialData={jsonData} 
+                        onPathClick={handlePathClick}
+                        onKeyRename={handleKeyRename}
+                        keyMappings={keyMappings}
+                    />
                 </ColumnLayout.Column>
             </ColumnLayout.Row>
         </ColumnLayout>

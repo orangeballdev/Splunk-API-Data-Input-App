@@ -23,6 +23,8 @@ interface IndexDataFormProps {
     onJSONPathsChange: (jsonPaths: string[]) => void;
     setJsonPreview?: (data: string) => void;
     onAddExcludePathRef?: (fn: (path: string) => void) => void;
+    onAddKeyMappingRef?: (fn: (oldKey: string, newKey: string) => void) => void;
+    onKeyMappingsChange?: (mappings: Record<string, string>) => void;
     rawData?: unknown;
 }
 
@@ -42,6 +44,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
     const [selected_output_location, setSelectedIndex] = useState<string>(config.selected_output_location ?? '');
     const [mode, setMode] = useState<DataInputMode>(config.mode ?? 'overwrite');
     const [separateArrayPaths, setSeparateArrayPaths] = useState<string[]>(config.separate_array_paths ?? []);
+    const [keyMappings, setKeyMappings] = useState<Record<string, string>>(config.key_mappings ?? {});
 
 
     const updateConfigField = <K extends keyof DataInputAppConfig>(
@@ -80,6 +83,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
             setSelectedIndex(config.selected_output_location ?? '');
             setMode(config.mode ?? 'overwrite');
             setSeparateArrayPaths(config.separate_array_paths ?? []);
+            setKeyMappings(config.key_mappings ?? {});
             setJsonPathValues(
                 config.excluded_json_paths && config.excluded_json_paths.length > 0
                     ? config.excluded_json_paths
@@ -104,6 +108,30 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
             });
         }
     }, [props.onAddExcludePathRef]);
+
+    // Register the addKeyMapping function with the parent
+    React.useEffect(() => {
+        if (props.onAddKeyMappingRef) {
+            props.onAddKeyMappingRef((oldKey: string, newKey: string) => {
+                setKeyMappings(prev => {
+                    const updated = { ...prev, [oldKey]: newKey };
+                    updateConfigField('key_mappings', updated);
+                    if (props.onKeyMappingsChange) {
+                        props.onKeyMappingsChange(updated);
+                    }
+                    return updated;
+                });
+            });
+        }
+    }, [props.onAddKeyMappingRef]);
+
+    const handleKeyMappingsChange = (mappings: Record<string, string>) => {
+        setKeyMappings(mappings);
+        updateConfigField('key_mappings', mappings);
+        if (props.onKeyMappingsChange) {
+            props.onKeyMappingsChange(mappings);
+        }
+    };
 
     // Add new JSONPath row
     const handleNewJsonPathExclusion = () => {
@@ -237,6 +265,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
         setJsonPathValues([""]);
         setHttpHeaders([""]);
         setSeparateArrayPaths([]);
+        setKeyMappings({});
         props.onJSONPathsChange([]);
         props.setJsonPreview && props.setJsonPreview('')
     };
@@ -370,6 +399,66 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
             </div>
 
             <div style={{ marginBottom: '20px', width: '100%' }}>
+                <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '4px' }}>
+                    Rename Keys
+                </Typography>
+                <div style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
+                    Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Shift+Click on keys in the preview to generate JSONPath mappings.
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {Object.entries(keyMappings).map(([oldKey, newKey]) => (
+                        <div key={oldKey} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                            <Text
+                                style={{ flex: '1', fontFamily: 'monospace', fontSize: '1.1em' }}
+                                placeholder="Original key name"
+                                value={oldKey}
+                                onChange={(_, { value }) => {
+                                    if (oldKey === value) return;
+                                    const updated = { ...keyMappings };
+                                    const val = updated[oldKey];
+                                    delete updated[oldKey];
+                                    if (!updated.hasOwnProperty(value)) {
+                                        updated[value] = val;
+                                    }
+                                    handleKeyMappingsChange(updated);
+                                }}
+                            />
+                            <span style={{ color: '#999', flexShrink: 0 }}>→</span>
+                            <Text
+                                style={{ flex: '1', fontFamily: 'monospace', fontSize: '1.1em' }}
+                                placeholder="New key name"
+                                value={newKey}
+                                onChange={(_, { value }) => {
+                                    handleKeyMappingsChange({ ...keyMappings, [oldKey]: value });
+                                }}
+                            />
+                            <Button
+                                inline
+                                appearance="secondary"
+                                onClick={() => {
+                                    const updated = { ...keyMappings };
+                                    delete updated[oldKey];
+                                    handleKeyMappingsChange(updated);
+                                }}
+                                label=""
+                                icon={<TrashCanCross />}
+                                style={{ flexShrink: 0 }}
+                            />
+                        </div>
+                    ))}
+                    <Button
+                        appearance="secondary"
+                        onClick={() => {
+                            handleKeyMappingsChange({ ...keyMappings, '': '' });
+                        }}
+                        style={{ width: '100%' }}
+                    >
+                        Add Key Mapping
+                    </Button>
+                </div>
+            </div>
+
+            <div style={{ marginBottom: '20px', width: '100%' }}>
                 <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Select which arrays should be split into separate events. Each array item will become its own event in Splunk.">
                     Separate Arrays as Events
                 </Typography>
@@ -400,6 +489,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                 data={props.rawData}
                 separateArrayPaths={separateArrayPaths}
                 excludedJsonPaths={jsonPathValues.filter(Boolean)}
+                keyMappings={keyMappings}
                 modalToggle={previewModalToggle}
             />
 
@@ -420,7 +510,8 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                                     cron_expression: cronExpression,
                                     selected_output_location: selected_output_location,
                                     mode,
-                                    separate_array_paths: separateArrayPaths
+                                    separate_array_paths: separateArrayPaths,
+                                    key_mappings: keyMappings
                                 } as DataInputAppConfig, clearInputs
                             );
                         }}

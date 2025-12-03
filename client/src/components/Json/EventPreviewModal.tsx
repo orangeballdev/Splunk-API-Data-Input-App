@@ -5,7 +5,7 @@ import TabBar from '@splunk/react-ui/TabBar';
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { generateSeparateEvents } from './arrayUtils';
-import { removeByJsonPaths } from './utils';
+import { removeByJsonPaths, renameKeysByJsonPath } from './utils';
 
 interface EventPreviewModalProps {
     open: boolean;
@@ -13,6 +13,7 @@ interface EventPreviewModalProps {
     data: unknown;
     separateArrayPaths: string[];
     excludedJsonPaths?: string[];
+    keyMappings?: Record<string, string>;
     modalToggle: React.RefObject<HTMLButtonElement | null>;
 }
 
@@ -82,6 +83,7 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
     data,
     separateArrayPaths,
     excludedJsonPaths = [],
+    keyMappings = {},
     modalToggle
 }) => {
     const [activeTab, setActiveTab] = useState<'processed' | 'original'>('processed');
@@ -89,20 +91,54 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
     const eventsPerPage = 10;
 
     // Apply excluded paths to data before generating events
-    const filteredData = useMemo(() => {
-        if (!data || excludedJsonPaths.length === 0) return data;
-        try {
-            return removeByJsonPaths(data as JSONElement, excludedJsonPaths);
-        } catch (error) {
-            console.error('Error filtering data:', error);
-            return data;
+    const filteredData: unknown = useMemo(() => {
+        if (!data) return data;
+        
+        let result: unknown = data;
+        
+        // Apply exclusions
+        if (excludedJsonPaths.length > 0) {
+            try {
+                result = removeByJsonPaths(result as JSONElement, excludedJsonPaths);
+            } catch (error) {
+                console.error('Error filtering data:', error);
+            }
         }
+        
+        return result;
     }, [data, excludedJsonPaths]);
 
     const processedEvents = useMemo(() => {
         if (!filteredData) return [];
-        return generateSeparateEvents(filteredData, separateArrayPaths);
-    }, [filteredData, separateArrayPaths]);
+        const events = generateSeparateEvents(filteredData, separateArrayPaths);
+        
+        // Apply key mappings to each event after separation
+        if (Object.keys(keyMappings).length > 0) {
+            return events.map(event => {
+                try {
+                    return renameKeysByJsonPath(event as JSONElement, keyMappings);
+                } catch (error) {
+                    console.error('Error applying key mappings to event:', error);
+                    return event;
+                }
+            });
+        }
+        
+        return events;
+    }, [filteredData, separateArrayPaths, keyMappings]);
+
+    // Apply key mappings to the original filtered data for the "Original" tab
+    const renamedOriginalData = useMemo(() => {
+        if (!filteredData) return filteredData;
+        if (Object.keys(keyMappings).length === 0) return filteredData;
+        
+        try {
+            return renameKeysByJsonPath(filteredData as JSONElement, keyMappings);
+        } catch (error) {
+            console.error('Error applying key mappings to original data:', error);
+            return filteredData;
+        }
+    }, [filteredData, keyMappings]);
 
     const totalPages = Math.ceil(processedEvents.length / eventsPerPage);
     const paginatedEvents = processedEvents.slice(
@@ -164,7 +200,7 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
                                         <EventHeader>
                                             <EventNumber>Event #1</EventNumber>
                                         </EventHeader>
-                                        <EventBody>{JSON.stringify(filteredData, null, 2)}</EventBody>
+                                        <EventBody>{JSON.stringify(processedEvents[0], null, 2)}</EventBody>
                                     </EventCard>
                                 </>
                             ) : (
@@ -204,7 +240,7 @@ const EventPreviewModal: React.FC<EventPreviewModalProps> = ({
                                 <EventHeader>
                                     <EventNumber>Event #1</EventNumber>
                                 </EventHeader>
-                                <EventBody>{JSON.stringify(filteredData, null, 2)}</EventBody>
+                                <EventBody>{JSON.stringify(renamedOriginalData, null, 2)}</EventBody>
                             </EventCard>
                         </>
                     )}

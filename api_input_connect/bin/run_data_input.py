@@ -90,9 +90,71 @@ def parse_headers(header_list):
             headers[name.strip()] = value.strip()
     return headers
 
+def rename_keys_by_jsonpath(data, key_mappings):
+    """
+    Renames keys in a JSON object based on JSONPath mappings.
+    
+    Args:
+        data: The JSON object to modify (will be modified in place)
+        key_mappings: Dictionary mapping JSONPath expressions to new key names
+        
+    Returns:
+        The modified data with renamed keys
+    """
+    if not key_mappings:
+        return data
+    
+    try:
+        from jsonpath_ng import parse
+    except ImportError:
+        logger.warning("jsonpath-ng is required for key renaming. Skipping key mappings.")
+        return data
+    
+    import copy
+    result = copy.deepcopy(data)
+    
+    for old_path, new_key_name in key_mappings.items():
+        if not new_key_name:
+            continue
+        
+        try:
+            jsonpath_expr = parse(old_path)
+            matches = list(jsonpath_expr.find(result))
+            
+            for match in matches:
+                # Get the parent object and the old key name
+                if match.context is None:
+                    continue
+                    
+                parent = match.context.value
+                if not isinstance(parent, dict):
+                    continue
+                
+                # Get the old key from the path
+                old_key = str(match.path).split('.')[-1] if hasattr(match.path, '__str__') else None
+                if old_key and old_key in parent:
+                    # Preserve key order by rebuilding the dictionary
+                    items = list(parent.items())
+                    new_items = []
+                    for k, v in items:
+                        if k == old_key:
+                            new_items.append((new_key_name, v))
+                        else:
+                            new_items.append((k, v))
+                    
+                    # Clear and rebuild parent to preserve order
+                    parent.clear()
+                    parent.update(new_items)
+                    
+        except Exception as e:
+            logger.warning(f"Failed to rename key at path '{old_path}': {e}")
+    
+    return result
+
 def get_api_data(config):
     url = config.get('url')
     excluded_paths = config.get('excluded_json_paths', [])
+    
     try:
         headers = parse_headers(config.get('http_headers', []))
         data = call_api('get', url, headers=headers)
@@ -115,6 +177,7 @@ def get_api_data(config):
                     elif isinstance(context, list) and isinstance(match.path.index, int):
                         if 0 <= match.path.index < len(context):
                             context.pop(match.path.index)
+            
         return data
     except Exception as e:
         logger.error(f"Failed to fetch or process API data: {e}")
@@ -287,6 +350,16 @@ def main():
                     logger.info(f"Applying array separation for paths: {separate_paths}")
                     api_data = separate_arrays_into_events(api_data, separate_paths)
                     logger.info(f"After separation: {len(api_data)} events")
+                
+                # Apply key renaming to each event after separation
+                key_mappings = item.get('key_mappings', {})
+                if key_mappings:
+                    logger.info(f"Applying key mappings: {key_mappings}")
+                    if isinstance(api_data, list):
+                        api_data = [rename_keys_by_jsonpath(event, key_mappings) for event in api_data]
+                    else:
+                        api_data = rename_keys_by_jsonpath(api_data, key_mappings)
+                
                 app, collection = get_kvstore_details_from_config(item)
                 logger.info(f"Target: app={app}, collection={collection}")
                 mode = item.get('mode', 'overwrite')
@@ -303,6 +376,16 @@ def main():
                 separate_paths = item.get('separate_array_paths', [])
                 if separate_paths:
                     api_data = separate_arrays_into_events(api_data, separate_paths)
+                
+                # Apply key renaming to each event after separation
+                key_mappings = item.get('key_mappings', {})
+                if key_mappings:
+                    logger.info(f"Applying key mappings: {key_mappings}")
+                    if isinstance(api_data, list):
+                        api_data = [rename_keys_by_jsonpath(event, key_mappings) for event in api_data]
+                    else:
+                        api_data = rename_keys_by_jsonpath(api_data, key_mappings)
+                
                 index_name = output_name  # For index, selected_output_location is just the index name
                 write_to_index_via_hec(index_name, api_data)
     except Exception as e:
