@@ -1,9 +1,9 @@
+import Button from '@splunk/react-ui/Button';
+import Message from '@splunk/react-ui/Message';
+import Modal from '@splunk/react-ui/Modal';
 import React, { useEffect, useState } from 'react';
 import { getDataInputsConfigById, updateDataInputConfigById } from '../../utils/dataInputUtils';
 import type { DataInputAppConfig } from './DataInputs.types';
-import Modal from '@splunk/react-ui/Modal';
-import Button from '@splunk/react-ui/Button';
-import Message from '@splunk/react-ui/Message';
 import EditIndexPage from './EditIndexPage';
 
 interface EditIndexInputModalProps {
@@ -17,6 +17,7 @@ interface EditIndexInputModalProps {
 const EditIndexInputModal: React.FC<EditIndexInputModalProps> = ({ id, open, modalToggle, onClose, onSuccess }) => {
     const [data, setData] = useState<DataInputAppConfig>();
     const [error, setError] = useState<string | null>(null);
+    const [mountKey, setMountKey] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
@@ -35,7 +36,12 @@ const EditIndexInputModal: React.FC<EditIndexInputModalProps> = ({ id, open, mod
         }
 
         if (open && id) {
+            setMountKey(prev => prev + 1);
             fetchData();
+        } else if (!open) {
+            // Clear state when modal closes
+            setData(undefined);
+            setError(null);
         }
     }, [id, open]);
 
@@ -65,7 +71,12 @@ const EditIndexInputModal: React.FC<EditIndexInputModalProps> = ({ id, open, mod
                 {error ? (
                     <Message type="error">{error}</Message>
                 ) : (
-                    <EditIndexPage dataInputAppConfig={data!} setDataInputAppConfig={setData as React.Dispatch<React.SetStateAction<DataInputAppConfig>>} onSuccess={onClose} />
+                    <EditIndexPage 
+                        key={mountKey} 
+                        dataInputAppConfig={data!} 
+                        setDataInputAppConfig={setData as React.Dispatch<React.SetStateAction<DataInputAppConfig>>} 
+                        onSuccess={onClose} 
+                    />
                 )}
             </Modal.Body>
             <Modal.Footer>

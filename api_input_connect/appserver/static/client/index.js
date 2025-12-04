@@ -28051,749 +28051,6 @@ function requireMessage() {
 }
 var MessageExports = requireMessage();
 const Message = /* @__PURE__ */ getDefaultExportFromCjs(MessageExports);
-var url = {};
-var querystring = {};
-var decode;
-var hasRequiredDecode;
-function requireDecode() {
-  if (hasRequiredDecode) return decode;
-  hasRequiredDecode = 1;
-  function hasOwnProperty(obj, prop) {
-    return Object.prototype.hasOwnProperty.call(obj, prop);
-  }
-  decode = function(qs, sep, eq, options) {
-    sep = sep || "&";
-    eq = eq || "=";
-    var obj = {};
-    if (typeof qs !== "string" || qs.length === 0) {
-      return obj;
-    }
-    var regexp = /\+/g;
-    qs = qs.split(sep);
-    var maxKeys = 1e3;
-    if (options && typeof options.maxKeys === "number") {
-      maxKeys = options.maxKeys;
-    }
-    var len = qs.length;
-    if (maxKeys > 0 && len > maxKeys) {
-      len = maxKeys;
-    }
-    for (var i2 = 0; i2 < len; ++i2) {
-      var x2 = qs[i2].replace(regexp, "%20"), idx = x2.indexOf(eq), kstr, vstr, k2, v2;
-      if (idx >= 0) {
-        kstr = x2.substr(0, idx);
-        vstr = x2.substr(idx + 1);
-      } else {
-        kstr = x2;
-        vstr = "";
-      }
-      k2 = decodeURIComponent(kstr);
-      v2 = decodeURIComponent(vstr);
-      if (!hasOwnProperty(obj, k2)) {
-        obj[k2] = v2;
-      } else if (Array.isArray(obj[k2])) {
-        obj[k2].push(v2);
-      } else {
-        obj[k2] = [obj[k2], v2];
-      }
-    }
-    return obj;
-  };
-  return decode;
-}
-var encode;
-var hasRequiredEncode;
-function requireEncode() {
-  if (hasRequiredEncode) return encode;
-  hasRequiredEncode = 1;
-  var stringifyPrimitive = function(v2) {
-    switch (typeof v2) {
-      case "string":
-        return v2;
-      case "boolean":
-        return v2 ? "true" : "false";
-      case "number":
-        return isFinite(v2) ? v2 : "";
-      default:
-        return "";
-    }
-  };
-  encode = function(obj, sep, eq, name) {
-    sep = sep || "&";
-    eq = eq || "=";
-    if (obj === null) {
-      obj = void 0;
-    }
-    if (typeof obj === "object") {
-      return Object.keys(obj).map(function(k2) {
-        var ks = encodeURIComponent(stringifyPrimitive(k2)) + eq;
-        if (Array.isArray(obj[k2])) {
-          return obj[k2].map(function(v2) {
-            return ks + encodeURIComponent(stringifyPrimitive(v2));
-          }).join(sep);
-        } else {
-          return ks + encodeURIComponent(stringifyPrimitive(obj[k2]));
-        }
-      }).filter(Boolean).join(sep);
-    }
-    if (!name) return "";
-    return encodeURIComponent(stringifyPrimitive(name)) + eq + encodeURIComponent(stringifyPrimitive(obj));
-  };
-  return encode;
-}
-var hasRequiredQuerystring;
-function requireQuerystring() {
-  if (hasRequiredQuerystring) return querystring;
-  hasRequiredQuerystring = 1;
-  querystring.decode = querystring.parse = requireDecode();
-  querystring.encode = querystring.stringify = requireEncode();
-  return querystring;
-}
-var config = {};
-var cookie = {};
-var hasRequiredCookie;
-function requireCookie() {
-  if (hasRequiredCookie) return cookie;
-  hasRequiredCookie = 1;
-  Object.defineProperty(cookie, "__esModule", {
-    value: true
-  });
-  cookie.getEntry = getEntry;
-  function getEntry(name) {
-    if (typeof document === "undefined") {
-      return null;
-    }
-    var regex = new RegExp("(^|; ?)".concat(name, "=([^;]+)"));
-    var value = null;
-    try {
-      var match = document.cookie.match(regex);
-      value = match ? match[2] : null;
-    } catch (e2) {
-    }
-    return value;
-  }
-  return cookie;
-}
-var hasRequiredConfig;
-function requireConfig() {
-  if (hasRequiredConfig) return config;
-  hasRequiredConfig = 1;
-  Object.defineProperty(config, "__esModule", {
-    value: true
-  });
-  config.getCSRFToken = getCSRFToken;
-  config.extractAppName = extractAppName;
-  config.versionLabel = config.username = config.splunkdPath = config.serverTimezoneInfo = config.rootPath = config.portNumber = config.locale = config.config = config.buildPushNumber = config.buildNumber = config.appBuild = config.app = config.isAvailable = config.CSRFToken = void 0;
-  var _get = _interopRequireDefault(requireGet());
-  var _cookie = requireCookie();
-  function _interopRequireDefault(e2) {
-    return e2 && e2.__esModule ? e2 : { "default": e2 };
-  }
-  var root = typeof window === "undefined" ? commonjsGlobal : window;
-  function get$CEntry(prop) {
-    return (0, _get["default"])(root, ["$C", prop]);
-  }
-  var CSRFToken = (0, _cookie.getEntry)("splunkweb_csrf_token_".concat(get$CEntry("MRSPARKLE_PORT_NUMBER")));
-  config.CSRFToken = CSRFToken;
-  function getCSRFToken() {
-    return (0, _cookie.getEntry)("splunkweb_csrf_token_".concat(get$CEntry("MRSPARKLE_PORT_NUMBER")));
-  }
-  var isAvailable = !!get$CEntry("SPLUNKD_PATH");
-  config.isAvailable = isAvailable;
-  function extractAppName() {
-    var pathname = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : (0, _get["default"])(root, ["document", "location", "pathname"], "");
-    var pathMatch = pathname.match(/\w\w.\w\w\/(app|manager)\/([^/]+)/);
-    return pathMatch ? pathMatch[2] : void 0;
-  }
-  var app = extractAppName();
-  config.app = app;
-  var appBuild = get$CEntry("APP_BUILD");
-  config.appBuild = appBuild;
-  var buildNumber = get$CEntry("BUILD_NUMBER");
-  config.buildNumber = buildNumber;
-  var buildPushNumber = get$CEntry("BUILD_PUSH_NUMBER");
-  config.buildPushNumber = buildPushNumber;
-  var config$1 = (0, _get["default"])(root, "$C");
-  config.config = config$1;
-  var locale = get$CEntry("LOCALE");
-  config.locale = locale;
-  var portNumber = get$CEntry("MRSPARKLE_PORT_NUMBER");
-  config.portNumber = portNumber;
-  var rootPath = get$CEntry("MRSPARKLE_ROOT_PATH");
-  config.rootPath = rootPath;
-  var serverTimezoneInfo = get$CEntry("SERVER_ZONEINFO");
-  config.serverTimezoneInfo = serverTimezoneInfo;
-  var splunkdPath = get$CEntry("SPLUNKD_PATH");
-  config.splunkdPath = splunkdPath;
-  var username = get$CEntry("USERNAME");
-  config.username = username;
-  var versionLabel = get$CEntry("VERSION_LABEL");
-  config.versionLabel = versionLabel;
-  return config;
-}
-var hasRequiredUrl;
-function requireUrl() {
-  if (hasRequiredUrl) return url;
-  hasRequiredUrl = 1;
-  Object.defineProperty(url, "__esModule", {
-    value: true
-  });
-  url.withConfig = withConfig;
-  url.insertCacheBuster = url.createURL = url.createStaticURL = url.createRESTURL = url.createDocsURL = url.createAppDocsURL = void 0;
-  var _querystring = requireQuerystring();
-  var config2 = _interopRequireWildcard(requireConfig());
-  function _getRequireWildcardCache(e2) {
-    if ("function" != typeof WeakMap) return null;
-    var r2 = /* @__PURE__ */ new WeakMap(), t2 = /* @__PURE__ */ new WeakMap();
-    return (_getRequireWildcardCache = function _getRequireWildcardCache2(e3) {
-      return e3 ? t2 : r2;
-    })(e2);
-  }
-  function _interopRequireWildcard(e2, r2) {
-    if (e2 && e2.__esModule) return e2;
-    if (null === e2 || "object" != _typeof(e2) && "function" != typeof e2) return { "default": e2 };
-    var t2 = _getRequireWildcardCache(r2);
-    if (t2 && t2.has(e2)) return t2.get(e2);
-    var n2 = { __proto__: null }, a2 = Object.defineProperty && Object.getOwnPropertyDescriptor;
-    for (var u2 in e2) {
-      if ("default" !== u2 && {}.hasOwnProperty.call(e2, u2)) {
-        var i2 = a2 ? Object.getOwnPropertyDescriptor(e2, u2) : null;
-        i2 && (i2.get || i2.set) ? Object.defineProperty(n2, u2, i2) : n2[u2] = e2[u2];
-      }
-    }
-    return n2["default"] = e2, t2 && t2.set(e2, n2), n2;
-  }
-  function _typeof(o2) {
-    "@babel/helpers - typeof";
-    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o3) {
-      return typeof o3;
-    } : function(o3) {
-      return o3 && "function" == typeof Symbol && o3.constructor === Symbol && o3 !== Symbol.prototype ? "symbol" : typeof o3;
-    }, _typeof(o2);
-  }
-  function ownKeys(e2, r2) {
-    var t2 = Object.keys(e2);
-    if (Object.getOwnPropertySymbols) {
-      var o2 = Object.getOwnPropertySymbols(e2);
-      r2 && (o2 = o2.filter(function(r3) {
-        return Object.getOwnPropertyDescriptor(e2, r3).enumerable;
-      })), t2.push.apply(t2, o2);
-    }
-    return t2;
-  }
-  function _objectSpread(e2) {
-    for (var r2 = 1; r2 < arguments.length; r2++) {
-      var t2 = null != arguments[r2] ? arguments[r2] : {};
-      r2 % 2 ? ownKeys(Object(t2), true).forEach(function(r3) {
-        _defineProperty2(e2, r3, t2[r3]);
-      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e2, Object.getOwnPropertyDescriptors(t2)) : ownKeys(Object(t2)).forEach(function(r3) {
-        Object.defineProperty(e2, r3, Object.getOwnPropertyDescriptor(t2, r3));
-      });
-    }
-    return e2;
-  }
-  function _defineProperty2(e2, r2, t2) {
-    return (r2 = _toPropertyKey(r2)) in e2 ? Object.defineProperty(e2, r2, { value: t2, enumerable: true, configurable: true, writable: true }) : e2[r2] = t2, e2;
-  }
-  function _toPropertyKey(t2) {
-    var i2 = _toPrimitive(t2, "string");
-    return "symbol" == _typeof(i2) ? i2 : i2 + "";
-  }
-  function _toPrimitive(t2, r2) {
-    if ("object" != _typeof(t2) || !t2) return t2;
-    var e2 = t2[Symbol.toPrimitive];
-    if (void 0 !== e2) {
-      var i2 = e2.call(t2, r2);
-      if ("object" != _typeof(i2)) return i2;
-      throw new TypeError("@@toPrimitive must return a primitive value.");
-    }
-    return ("string" === r2 ? String : Number)(t2);
-  }
-  function withConfig(_ref) {
-    var appBuild = _ref.appBuild, buildNumber = _ref.buildNumber, buildPushNumber = _ref.buildPushNumber, locale = _ref.locale, rootPath = _ref.rootPath, splunkdPath = _ref.splunkdPath;
-    function insertCacheBuster2(path) {
-      var configOptions = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-      var options = _objectSpread({
-        appBuild,
-        buildPushNumber,
-        buildNumber
-      }, configOptions);
-      var match = path.match(/(^|\w\w-\w\w\/)static\//);
-      if (!match) {
-        return path;
-      }
-      var insertPosition = match.index + match[0].length - 1;
-      var isApp = path.match(/(^|\w\w-\w\w|)static\/app/);
-      var appBuildString = isApp ? ":".concat(options.appBuild || 0) : "";
-      var buildPushString = options.buildPushNumber ? ".".concat(options.buildPushNumber) : "";
-      var cacheBusterString = "/@".concat(options.buildNumber).concat(buildPushString).concat(appBuildString);
-      var before = path.substr(0, insertPosition);
-      var after = path.substr(insertPosition);
-      return "".concat(before).concat(cacheBusterString).concat(after);
-    }
-    function createURL2(pathInput, queryParams) {
-      var configOptions = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-      var options = _objectSpread({
-        appBuild,
-        buildPushNumber,
-        buildNumber,
-        rootPath,
-        locale
-      }, configOptions);
-      var path = pathInput || "/";
-      var query = queryParams ? "?".concat((0, _querystring.stringify)(queryParams)) : "";
-      if (path.charAt(0) !== "/") {
-        path = "/".concat(path);
-      }
-      path = "".concat(options.rootPath || "", "/").concat(options.locale).concat(path).concat(query);
-      return insertCacheBuster2(path, options);
-    }
-    function createStaticURL2(path) {
-      for (var _len = arguments.length, rest = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        rest[_key - 1] = arguments[_key];
-      }
-      return createURL2.apply(void 0, ["static/".concat(path)].concat(rest));
-    }
-    function createRESTURL2(endpoint) {
-      var namespaceOptions = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-      var configOptions = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-      if (/^http[s]?:\/\//.test(endpoint)) {
-        return endpoint;
-      }
-      var basePath = configOptions.splunkdPath || splunkdPath || "";
-      if (/^\/.*/.test(endpoint)) {
-        return /^\/services/.test(endpoint) ? "".concat(basePath).concat(endpoint) : endpoint;
-      }
-      if (!namespaceOptions.app && !namespaceOptions.owner) {
-        return "".concat(basePath, "/services/").concat(endpoint);
-      }
-      var owner;
-      if (namespaceOptions.sharing) {
-        owner = "nobody";
-      } else if (namespaceOptions.owner) {
-        owner = encodeURIComponent(namespaceOptions.owner);
-      } else {
-        owner = "-";
-      }
-      var app;
-      if (namespaceOptions.sharing === "system") {
-        app = "system";
-      } else if (namespaceOptions.app) {
-        app = encodeURIComponent(namespaceOptions.app);
-      } else {
-        app = "-";
-      }
-      return "".concat(basePath, "/servicesNS/").concat(owner, "/").concat(app, "/").concat(endpoint);
-    }
-    function createDocsURLFromParams(params, configOptions) {
-      return createURL2("/help", params, configOptions);
-    }
-    function createDocsURL2(location, configOptions) {
-      return createDocsURLFromParams({
-        location
-      }, configOptions);
-    }
-    function createAppDocsURL2(location, _ref2, configOptions) {
-      var appName = _ref2.appName, appVersion = _ref2.appVersion;
-      return createDocsURLFromParams({
-        location: "[".concat(appName, ":").concat(appVersion, "]").concat(location)
-      }, configOptions);
-    }
-    return {
-      createAppDocsURL: createAppDocsURL2,
-      createDocsURL: createDocsURL2,
-      createRESTURL: createRESTURL2,
-      createStaticURL: createStaticURL2,
-      createURL: createURL2,
-      insertCacheBuster: insertCacheBuster2
-    };
-  }
-  var _withConfig = withConfig(config2), createAppDocsURL = _withConfig.createAppDocsURL, createDocsURL = _withConfig.createDocsURL, createRESTURL = _withConfig.createRESTURL, createStaticURL = _withConfig.createStaticURL, createURL = _withConfig.createURL, insertCacheBuster = _withConfig.insertCacheBuster;
-  url.insertCacheBuster = insertCacheBuster;
-  url.createURL = createURL;
-  url.createStaticURL = createStaticURL;
-  url.createRESTURL = createRESTURL;
-  url.createDocsURL = createDocsURL;
-  url.createAppDocsURL = createAppDocsURL;
-  return url;
-}
-var urlExports = requireUrl();
-var configExports = requireConfig();
-var fetch$1 = {};
-var _createFind;
-var hasRequired_createFind;
-function require_createFind() {
-  if (hasRequired_createFind) return _createFind;
-  hasRequired_createFind = 1;
-  var baseIteratee = require_baseIteratee(), isArrayLike = requireIsArrayLike(), keys = requireKeys();
-  function createFind(findIndexFunc) {
-    return function(collection, predicate, fromIndex) {
-      var iterable = Object(collection);
-      if (!isArrayLike(collection)) {
-        var iteratee = baseIteratee(predicate, 3);
-        collection = keys(collection);
-        predicate = function(key2) {
-          return iteratee(iterable[key2], key2, iterable);
-        };
-      }
-      var index = findIndexFunc(collection, predicate, fromIndex);
-      return index > -1 ? iterable[iteratee ? collection[index] : index] : void 0;
-    };
-  }
-  _createFind = createFind;
-  return _createFind;
-}
-var findIndex_1;
-var hasRequiredFindIndex;
-function requireFindIndex() {
-  if (hasRequiredFindIndex) return findIndex_1;
-  hasRequiredFindIndex = 1;
-  var baseFindIndex = require_baseFindIndex(), baseIteratee = require_baseIteratee(), toInteger = requireToInteger();
-  var nativeMax = Math.max;
-  function findIndex(array, predicate, fromIndex) {
-    var length = array == null ? 0 : array.length;
-    if (!length) {
-      return -1;
-    }
-    var index = fromIndex == null ? 0 : toInteger(fromIndex);
-    if (index < 0) {
-      index = nativeMax(length + index, 0);
-    }
-    return baseFindIndex(array, baseIteratee(predicate, 3), index);
-  }
-  findIndex_1 = findIndex;
-  return findIndex_1;
-}
-var find_1;
-var hasRequiredFind;
-function requireFind() {
-  if (hasRequiredFind) return find_1;
-  hasRequiredFind = 1;
-  var createFind = require_createFind(), findIndex = requireFindIndex();
-  var find2 = createFind(findIndex);
-  find_1 = find2;
-  return find_1;
-}
-var hasRequiredFetch;
-function requireFetch() {
-  if (hasRequiredFetch) return fetch$1;
-  hasRequiredFetch = 1;
-  Object.defineProperty(fetch$1, "__esModule", {
-    value: true
-  });
-  fetch$1.getDefaultFetchInit = getDefaultFetchInit;
-  fetch$1.findErrorMessage = findErrorMessage;
-  fetch$1.handleResponse = handleResponse;
-  fetch$1.handleError = handleError;
-  fetch$1.defaultFetchInit = void 0;
-  var _find = _interopRequireDefault(requireFind());
-  var _includes = _interopRequireDefault(requireIncludes());
-  var _config = requireConfig();
-  function _interopRequireDefault(e2) {
-    return e2 && e2.__esModule ? e2 : { "default": e2 };
-  }
-  var defaultFetchInit = {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "X-Splunk-Form-Key": _config.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  };
-  fetch$1.defaultFetchInit = defaultFetchInit;
-  function getDefaultFetchInit() {
-    return {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "X-Splunk-Form-Key": (0, _config.getCSRFToken)(),
-        "X-Requested-With": "XMLHttpRequest",
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
-  }
-  function findErrorMessage() {
-    var _ref = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, messages = _ref.messages;
-    if (Array.isArray(messages)) {
-      return (0, _find["default"])(messages, function(_ref2) {
-        var type = _ref2.type;
-        return type === "ERROR" || type === "FATAL" || type === "risky_command";
-      });
-    }
-  }
-  function handleResponse(expectedStatus) {
-    return function(res) {
-      if ((0, _includes["default"])([].concat(expectedStatus), res.status)) {
-        return res.status === 204 ? null : res.json();
-      }
-      return Promise.reject(res);
-    };
-  }
-  function handleError(defaultMessage) {
-    return function(res) {
-      var dfd = null;
-      try {
-        dfd = res.json();
-      } catch (e2) {
-        return Promise.reject(new Error(defaultMessage));
-      }
-      return dfd.then(function(data) {
-        var errorMessage = findErrorMessage(data);
-        if (errorMessage) {
-          return Promise.reject(new Error(errorMessage.text));
-        }
-        return Promise.reject(new Error(defaultMessage));
-      });
-    };
-  }
-  return fetch$1;
-}
-var fetchExports = requireFetch();
-async function readCollection(collectionName, appName) {
-  const kvUrl = urlExports.createRESTURL(`storage/collections/data/${collectionName}`, {
-    app: configExports.app,
-    sharing: "app"
-  });
-  const fetchInit = fetchExports.defaultFetchInit;
-  fetchInit.method = "GET";
-  const result = await fetch(kvUrl, {
-    ...fetchInit,
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/json"
-    }
-  }).then(fetchExports.handleResponse(200)).catch(fetchExports.handleError("error")).catch((err) => err instanceof Object ? "error" : err);
-  return result;
-}
-async function getAllAppNames() {
-  var _a;
-  const apps_endpoint = `/en-US/splunkd/__raw/servicesNS/nobody/-/apps/local?output_mode=json&count=0`;
-  const fetchInit = fetchExports.defaultFetchInit;
-  fetchInit.method = "GET";
-  const result = await fetch(apps_endpoint, {
-    ...fetchInit,
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/json"
-    }
-  }).then(fetchExports.handleResponse(200)).catch(fetchExports.handleError("error")).catch((err) => err instanceof Object ? "error" : err);
-  const appNames = ((_a = result == null ? void 0 : result.entry) == null ? void 0 : _a.map((entry) => entry.name)) || [];
-  return appNames;
-}
-async function createNewKVStoreCollection(collectionName, appName, fields) {
-  console.log("1s");
-  const kvUrl = urlExports.createRESTURL(`storage/collections/config`, {
-    app: appName,
-    sharing: "app"
-  });
-  const fetchInit = fetchExports.defaultFetchInit;
-  fetchInit.method = "POST";
-  const formData = new URLSearchParams();
-  formData.append("name", collectionName);
-  const response = await fetch(kvUrl, {
-    ...fetchInit,
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: formData.toString()
-  });
-  if (response.status !== 201) {
-    const errorText = await response.text();
-    throw new Error(
-      `Failed to create collection: ${response.status} - ${errorText}`
-    );
-  }
-  await createLookupDefinition(collectionName, appName, fields);
-}
-async function createLookupDefinition(collectionName, appName, fields) {
-  const kvUrl = urlExports.createRESTURL(`data/transforms/lookups`, {
-    app: appName,
-    sharing: "app"
-  });
-  const body = new URLSearchParams({
-    name: collectionName,
-    external_type: "kvstore",
-    collection: collectionName,
-    fields_list: fields.join(",")
-  });
-  const fetchInit = {
-    ...fetchExports.defaultFetchInit,
-    method: "POST",
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body
-  };
-  const response = await fetch(kvUrl, fetchInit);
-  if (response.status !== 201) {
-    const errorText = await response.text();
-    throw new Error(
-      `Failed to create collection: ${response.status} - ${errorText}`
-    );
-  }
-  console.log("1b");
-  return response;
-}
-async function deleteItemFromKVStore(collectionName, itemId) {
-  const kvUrl = urlExports.createRESTURL(
-    `storage/collections/data/${collectionName}/${itemId}`,
-    {
-      app: configExports.app,
-      sharing: "app"
-    }
-  );
-  const fetchInit = fetchExports.defaultFetchInit;
-  fetchInit.method = "DELETE";
-  const result = await fetch(kvUrl, {
-    ...fetchInit,
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/json"
-    }
-  }).then(fetchExports.handleResponse(200)).catch(fetchExports.handleError("error")).catch((err) => err instanceof Object ? "error" : err);
-  return result;
-}
-async function getAllCollectionNames() {
-  var _a;
-  const collections_endpoint = `/en-US/splunkd/__raw/servicesNS/nobody/-/storage/collections/config?output_mode=json&count=0`;
-  const fetchInit = fetchExports.defaultFetchInit;
-  fetchInit.method = "GET";
-  const result = await fetch(collections_endpoint, {
-    ...fetchInit,
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/json"
-    }
-  }).then(fetchExports.handleResponse(200)).catch(fetchExports.handleError("error")).catch((err) => err instanceof Object ? "error" : err);
-  const collectionNames = ((_a = result == null ? void 0 : result.entry) == null ? void 0 : _a.map((entry) => {
-    var _a2;
-    return {
-      name: entry.name,
-      app: ((_a2 = entry.acl) == null ? void 0 : _a2.app) || ""
-    };
-  })) || [];
-  return collectionNames;
-}
-async function addNewRecordToKVStore(value, collectionName) {
-  const kvUrl = urlExports.createRESTURL(`storage/collections/data/${collectionName}`, {
-    app: configExports.app,
-    sharing: "app"
-  });
-  const fetchInit = fetchExports.defaultFetchInit;
-  fetchInit.method = "POST";
-  const n2 = await fetch(`${kvUrl}`, {
-    ...fetchInit,
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(value)
-  }).then(fetchExports.handleResponse(201)).catch(fetchExports.handleError("error"));
-  return n2;
-}
-const runSplunkApiCall = async (endpoint, method = "GET", body, contentType = "application/json") => {
-  const separator = endpoint.includes("?") ? "&" : "?";
-  const url2 = urlExports.createRESTURL(endpoint + separator + "output_mode=json", { app: configExports.app, sharing: "app" });
-  const fetchInit = {
-    ...fetchExports.defaultFetchInit,
-    method,
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": contentType
-    }
-  };
-  if (body) {
-    fetchInit.body = body;
-  }
-  const response = await fetch(url2, fetchInit);
-  if (!response.ok) {
-    throw new Error(
-      `Failed: ${response.status} - ${JSON.stringify(await response.json())}`
-    );
-  }
-  if (response instanceof Response) {
-    return await response.json();
-  } else {
-    return response;
-  }
-};
-async function readItemFromKVStore(collectionName, itemId) {
-  return runSplunkApiCall(
-    `storage/collections/data/${collectionName}/${itemId}`
-  );
-}
-async function updateRecordInKVStore(collectionName, value, appName) {
-  const kvUrl = urlExports.createRESTURL(`storage/collections/data/${collectionName}/${value._key}`, {
-    app: configExports.app,
-    sharing: "app"
-  });
-  const fetchInit = fetchExports.defaultFetchInit;
-  fetchInit.method = "POST";
-  const response = await fetch(kvUrl, {
-    ...fetchInit,
-    headers: {
-      "X-Splunk-Form-Key": configExports.CSRFToken,
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(value)
-  }).then(fetchExports.handleResponse(200));
-  return response;
-}
-async function getAllIndexNames() {
-  const response = await runSplunkApiCall("/services/data/indexes?count=0");
-  return response.entry.map((entry) => entry.name);
-}
-async function createNewIndex(indexName) {
-  const requestBody = new URLSearchParams({ name: indexName }).toString();
-  return await runSplunkApiCall("/services/data/indexes", "POST", requestBody, "application/x-www-form-urlencoded");
-}
-async function addNewDataInputToKVStore(data) {
-  return addNewRecordToKVStore(data, "api_input_connect_config");
-}
-async function addNewDataInputToIndex(data) {
-  return addNewRecordToKVStore(data, "api_input_connect_config");
-}
-async function deleteConfigItemFromKVStore(key2) {
-  return deleteItemFromKVStore("api_input_connect_config", key2);
-}
-async function getDataInputsFromKVStore() {
-  return readCollection("api_input_connect_config");
-}
-async function getDataInputsConfigById(key2) {
-  return await readItemFromKVStore("api_input_connect_config", key2);
-}
-async function updateDataInputConfigById(dataInputConfigItem) {
-  return await updateRecordInKVStore("api_input_connect_config", dataInputConfigItem);
-}
-function parseSelectedOutput(selectedOutputString) {
-  const [app, collection] = selectedOutputString.split("/");
-  return { app, collection };
-}
-const generateSelectedOutputString = (app, collection) => {
-  return `${app}/${collection}`;
-};
-const fetchDataInputsData = async (setState) => {
-  const result = await getDataInputsFromKVStore();
-  if (Array.isArray(result)) {
-    setState(result);
-  } else if (result && typeof result === "object") {
-    setState([result]);
-  } else {
-    setState([]);
-  }
-};
 var JSONTree = { exports: {} };
 var toLength_1;
 var hasRequiredToLength;
@@ -36165,6 +35422,749 @@ Server response: ${responseText}`;
     if (setLoading) setLoading(false);
   }
 }
+var url = {};
+var querystring = {};
+var decode;
+var hasRequiredDecode;
+function requireDecode() {
+  if (hasRequiredDecode) return decode;
+  hasRequiredDecode = 1;
+  function hasOwnProperty(obj, prop) {
+    return Object.prototype.hasOwnProperty.call(obj, prop);
+  }
+  decode = function(qs, sep, eq, options) {
+    sep = sep || "&";
+    eq = eq || "=";
+    var obj = {};
+    if (typeof qs !== "string" || qs.length === 0) {
+      return obj;
+    }
+    var regexp = /\+/g;
+    qs = qs.split(sep);
+    var maxKeys = 1e3;
+    if (options && typeof options.maxKeys === "number") {
+      maxKeys = options.maxKeys;
+    }
+    var len = qs.length;
+    if (maxKeys > 0 && len > maxKeys) {
+      len = maxKeys;
+    }
+    for (var i2 = 0; i2 < len; ++i2) {
+      var x2 = qs[i2].replace(regexp, "%20"), idx = x2.indexOf(eq), kstr, vstr, k2, v2;
+      if (idx >= 0) {
+        kstr = x2.substr(0, idx);
+        vstr = x2.substr(idx + 1);
+      } else {
+        kstr = x2;
+        vstr = "";
+      }
+      k2 = decodeURIComponent(kstr);
+      v2 = decodeURIComponent(vstr);
+      if (!hasOwnProperty(obj, k2)) {
+        obj[k2] = v2;
+      } else if (Array.isArray(obj[k2])) {
+        obj[k2].push(v2);
+      } else {
+        obj[k2] = [obj[k2], v2];
+      }
+    }
+    return obj;
+  };
+  return decode;
+}
+var encode;
+var hasRequiredEncode;
+function requireEncode() {
+  if (hasRequiredEncode) return encode;
+  hasRequiredEncode = 1;
+  var stringifyPrimitive = function(v2) {
+    switch (typeof v2) {
+      case "string":
+        return v2;
+      case "boolean":
+        return v2 ? "true" : "false";
+      case "number":
+        return isFinite(v2) ? v2 : "";
+      default:
+        return "";
+    }
+  };
+  encode = function(obj, sep, eq, name) {
+    sep = sep || "&";
+    eq = eq || "=";
+    if (obj === null) {
+      obj = void 0;
+    }
+    if (typeof obj === "object") {
+      return Object.keys(obj).map(function(k2) {
+        var ks = encodeURIComponent(stringifyPrimitive(k2)) + eq;
+        if (Array.isArray(obj[k2])) {
+          return obj[k2].map(function(v2) {
+            return ks + encodeURIComponent(stringifyPrimitive(v2));
+          }).join(sep);
+        } else {
+          return ks + encodeURIComponent(stringifyPrimitive(obj[k2]));
+        }
+      }).filter(Boolean).join(sep);
+    }
+    if (!name) return "";
+    return encodeURIComponent(stringifyPrimitive(name)) + eq + encodeURIComponent(stringifyPrimitive(obj));
+  };
+  return encode;
+}
+var hasRequiredQuerystring;
+function requireQuerystring() {
+  if (hasRequiredQuerystring) return querystring;
+  hasRequiredQuerystring = 1;
+  querystring.decode = querystring.parse = requireDecode();
+  querystring.encode = querystring.stringify = requireEncode();
+  return querystring;
+}
+var config = {};
+var cookie = {};
+var hasRequiredCookie;
+function requireCookie() {
+  if (hasRequiredCookie) return cookie;
+  hasRequiredCookie = 1;
+  Object.defineProperty(cookie, "__esModule", {
+    value: true
+  });
+  cookie.getEntry = getEntry;
+  function getEntry(name) {
+    if (typeof document === "undefined") {
+      return null;
+    }
+    var regex = new RegExp("(^|; ?)".concat(name, "=([^;]+)"));
+    var value = null;
+    try {
+      var match = document.cookie.match(regex);
+      value = match ? match[2] : null;
+    } catch (e2) {
+    }
+    return value;
+  }
+  return cookie;
+}
+var hasRequiredConfig;
+function requireConfig() {
+  if (hasRequiredConfig) return config;
+  hasRequiredConfig = 1;
+  Object.defineProperty(config, "__esModule", {
+    value: true
+  });
+  config.getCSRFToken = getCSRFToken;
+  config.extractAppName = extractAppName;
+  config.versionLabel = config.username = config.splunkdPath = config.serverTimezoneInfo = config.rootPath = config.portNumber = config.locale = config.config = config.buildPushNumber = config.buildNumber = config.appBuild = config.app = config.isAvailable = config.CSRFToken = void 0;
+  var _get = _interopRequireDefault(requireGet());
+  var _cookie = requireCookie();
+  function _interopRequireDefault(e2) {
+    return e2 && e2.__esModule ? e2 : { "default": e2 };
+  }
+  var root = typeof window === "undefined" ? commonjsGlobal : window;
+  function get$CEntry(prop) {
+    return (0, _get["default"])(root, ["$C", prop]);
+  }
+  var CSRFToken = (0, _cookie.getEntry)("splunkweb_csrf_token_".concat(get$CEntry("MRSPARKLE_PORT_NUMBER")));
+  config.CSRFToken = CSRFToken;
+  function getCSRFToken() {
+    return (0, _cookie.getEntry)("splunkweb_csrf_token_".concat(get$CEntry("MRSPARKLE_PORT_NUMBER")));
+  }
+  var isAvailable = !!get$CEntry("SPLUNKD_PATH");
+  config.isAvailable = isAvailable;
+  function extractAppName() {
+    var pathname = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : (0, _get["default"])(root, ["document", "location", "pathname"], "");
+    var pathMatch = pathname.match(/\w\w.\w\w\/(app|manager)\/([^/]+)/);
+    return pathMatch ? pathMatch[2] : void 0;
+  }
+  var app = extractAppName();
+  config.app = app;
+  var appBuild = get$CEntry("APP_BUILD");
+  config.appBuild = appBuild;
+  var buildNumber = get$CEntry("BUILD_NUMBER");
+  config.buildNumber = buildNumber;
+  var buildPushNumber = get$CEntry("BUILD_PUSH_NUMBER");
+  config.buildPushNumber = buildPushNumber;
+  var config$1 = (0, _get["default"])(root, "$C");
+  config.config = config$1;
+  var locale = get$CEntry("LOCALE");
+  config.locale = locale;
+  var portNumber = get$CEntry("MRSPARKLE_PORT_NUMBER");
+  config.portNumber = portNumber;
+  var rootPath = get$CEntry("MRSPARKLE_ROOT_PATH");
+  config.rootPath = rootPath;
+  var serverTimezoneInfo = get$CEntry("SERVER_ZONEINFO");
+  config.serverTimezoneInfo = serverTimezoneInfo;
+  var splunkdPath = get$CEntry("SPLUNKD_PATH");
+  config.splunkdPath = splunkdPath;
+  var username = get$CEntry("USERNAME");
+  config.username = username;
+  var versionLabel = get$CEntry("VERSION_LABEL");
+  config.versionLabel = versionLabel;
+  return config;
+}
+var hasRequiredUrl;
+function requireUrl() {
+  if (hasRequiredUrl) return url;
+  hasRequiredUrl = 1;
+  Object.defineProperty(url, "__esModule", {
+    value: true
+  });
+  url.withConfig = withConfig;
+  url.insertCacheBuster = url.createURL = url.createStaticURL = url.createRESTURL = url.createDocsURL = url.createAppDocsURL = void 0;
+  var _querystring = requireQuerystring();
+  var config2 = _interopRequireWildcard(requireConfig());
+  function _getRequireWildcardCache(e2) {
+    if ("function" != typeof WeakMap) return null;
+    var r2 = /* @__PURE__ */ new WeakMap(), t2 = /* @__PURE__ */ new WeakMap();
+    return (_getRequireWildcardCache = function _getRequireWildcardCache2(e3) {
+      return e3 ? t2 : r2;
+    })(e2);
+  }
+  function _interopRequireWildcard(e2, r2) {
+    if (e2 && e2.__esModule) return e2;
+    if (null === e2 || "object" != _typeof(e2) && "function" != typeof e2) return { "default": e2 };
+    var t2 = _getRequireWildcardCache(r2);
+    if (t2 && t2.has(e2)) return t2.get(e2);
+    var n2 = { __proto__: null }, a2 = Object.defineProperty && Object.getOwnPropertyDescriptor;
+    for (var u2 in e2) {
+      if ("default" !== u2 && {}.hasOwnProperty.call(e2, u2)) {
+        var i2 = a2 ? Object.getOwnPropertyDescriptor(e2, u2) : null;
+        i2 && (i2.get || i2.set) ? Object.defineProperty(n2, u2, i2) : n2[u2] = e2[u2];
+      }
+    }
+    return n2["default"] = e2, t2 && t2.set(e2, n2), n2;
+  }
+  function _typeof(o2) {
+    "@babel/helpers - typeof";
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o3) {
+      return typeof o3;
+    } : function(o3) {
+      return o3 && "function" == typeof Symbol && o3.constructor === Symbol && o3 !== Symbol.prototype ? "symbol" : typeof o3;
+    }, _typeof(o2);
+  }
+  function ownKeys(e2, r2) {
+    var t2 = Object.keys(e2);
+    if (Object.getOwnPropertySymbols) {
+      var o2 = Object.getOwnPropertySymbols(e2);
+      r2 && (o2 = o2.filter(function(r3) {
+        return Object.getOwnPropertyDescriptor(e2, r3).enumerable;
+      })), t2.push.apply(t2, o2);
+    }
+    return t2;
+  }
+  function _objectSpread(e2) {
+    for (var r2 = 1; r2 < arguments.length; r2++) {
+      var t2 = null != arguments[r2] ? arguments[r2] : {};
+      r2 % 2 ? ownKeys(Object(t2), true).forEach(function(r3) {
+        _defineProperty2(e2, r3, t2[r3]);
+      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e2, Object.getOwnPropertyDescriptors(t2)) : ownKeys(Object(t2)).forEach(function(r3) {
+        Object.defineProperty(e2, r3, Object.getOwnPropertyDescriptor(t2, r3));
+      });
+    }
+    return e2;
+  }
+  function _defineProperty2(e2, r2, t2) {
+    return (r2 = _toPropertyKey(r2)) in e2 ? Object.defineProperty(e2, r2, { value: t2, enumerable: true, configurable: true, writable: true }) : e2[r2] = t2, e2;
+  }
+  function _toPropertyKey(t2) {
+    var i2 = _toPrimitive(t2, "string");
+    return "symbol" == _typeof(i2) ? i2 : i2 + "";
+  }
+  function _toPrimitive(t2, r2) {
+    if ("object" != _typeof(t2) || !t2) return t2;
+    var e2 = t2[Symbol.toPrimitive];
+    if (void 0 !== e2) {
+      var i2 = e2.call(t2, r2);
+      if ("object" != _typeof(i2)) return i2;
+      throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return ("string" === r2 ? String : Number)(t2);
+  }
+  function withConfig(_ref) {
+    var appBuild = _ref.appBuild, buildNumber = _ref.buildNumber, buildPushNumber = _ref.buildPushNumber, locale = _ref.locale, rootPath = _ref.rootPath, splunkdPath = _ref.splunkdPath;
+    function insertCacheBuster2(path) {
+      var configOptions = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+      var options = _objectSpread({
+        appBuild,
+        buildPushNumber,
+        buildNumber
+      }, configOptions);
+      var match = path.match(/(^|\w\w-\w\w\/)static\//);
+      if (!match) {
+        return path;
+      }
+      var insertPosition = match.index + match[0].length - 1;
+      var isApp = path.match(/(^|\w\w-\w\w|)static\/app/);
+      var appBuildString = isApp ? ":".concat(options.appBuild || 0) : "";
+      var buildPushString = options.buildPushNumber ? ".".concat(options.buildPushNumber) : "";
+      var cacheBusterString = "/@".concat(options.buildNumber).concat(buildPushString).concat(appBuildString);
+      var before = path.substr(0, insertPosition);
+      var after = path.substr(insertPosition);
+      return "".concat(before).concat(cacheBusterString).concat(after);
+    }
+    function createURL2(pathInput, queryParams) {
+      var configOptions = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
+      var options = _objectSpread({
+        appBuild,
+        buildPushNumber,
+        buildNumber,
+        rootPath,
+        locale
+      }, configOptions);
+      var path = pathInput || "/";
+      var query = queryParams ? "?".concat((0, _querystring.stringify)(queryParams)) : "";
+      if (path.charAt(0) !== "/") {
+        path = "/".concat(path);
+      }
+      path = "".concat(options.rootPath || "", "/").concat(options.locale).concat(path).concat(query);
+      return insertCacheBuster2(path, options);
+    }
+    function createStaticURL2(path) {
+      for (var _len = arguments.length, rest = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        rest[_key - 1] = arguments[_key];
+      }
+      return createURL2.apply(void 0, ["static/".concat(path)].concat(rest));
+    }
+    function createRESTURL2(endpoint) {
+      var namespaceOptions = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+      var configOptions = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
+      if (/^http[s]?:\/\//.test(endpoint)) {
+        return endpoint;
+      }
+      var basePath = configOptions.splunkdPath || splunkdPath || "";
+      if (/^\/.*/.test(endpoint)) {
+        return /^\/services/.test(endpoint) ? "".concat(basePath).concat(endpoint) : endpoint;
+      }
+      if (!namespaceOptions.app && !namespaceOptions.owner) {
+        return "".concat(basePath, "/services/").concat(endpoint);
+      }
+      var owner;
+      if (namespaceOptions.sharing) {
+        owner = "nobody";
+      } else if (namespaceOptions.owner) {
+        owner = encodeURIComponent(namespaceOptions.owner);
+      } else {
+        owner = "-";
+      }
+      var app;
+      if (namespaceOptions.sharing === "system") {
+        app = "system";
+      } else if (namespaceOptions.app) {
+        app = encodeURIComponent(namespaceOptions.app);
+      } else {
+        app = "-";
+      }
+      return "".concat(basePath, "/servicesNS/").concat(owner, "/").concat(app, "/").concat(endpoint);
+    }
+    function createDocsURLFromParams(params, configOptions) {
+      return createURL2("/help", params, configOptions);
+    }
+    function createDocsURL2(location, configOptions) {
+      return createDocsURLFromParams({
+        location
+      }, configOptions);
+    }
+    function createAppDocsURL2(location, _ref2, configOptions) {
+      var appName = _ref2.appName, appVersion = _ref2.appVersion;
+      return createDocsURLFromParams({
+        location: "[".concat(appName, ":").concat(appVersion, "]").concat(location)
+      }, configOptions);
+    }
+    return {
+      createAppDocsURL: createAppDocsURL2,
+      createDocsURL: createDocsURL2,
+      createRESTURL: createRESTURL2,
+      createStaticURL: createStaticURL2,
+      createURL: createURL2,
+      insertCacheBuster: insertCacheBuster2
+    };
+  }
+  var _withConfig = withConfig(config2), createAppDocsURL = _withConfig.createAppDocsURL, createDocsURL = _withConfig.createDocsURL, createRESTURL = _withConfig.createRESTURL, createStaticURL = _withConfig.createStaticURL, createURL = _withConfig.createURL, insertCacheBuster = _withConfig.insertCacheBuster;
+  url.insertCacheBuster = insertCacheBuster;
+  url.createURL = createURL;
+  url.createStaticURL = createStaticURL;
+  url.createRESTURL = createRESTURL;
+  url.createDocsURL = createDocsURL;
+  url.createAppDocsURL = createAppDocsURL;
+  return url;
+}
+var urlExports = requireUrl();
+var configExports = requireConfig();
+var fetch$1 = {};
+var _createFind;
+var hasRequired_createFind;
+function require_createFind() {
+  if (hasRequired_createFind) return _createFind;
+  hasRequired_createFind = 1;
+  var baseIteratee = require_baseIteratee(), isArrayLike = requireIsArrayLike(), keys = requireKeys();
+  function createFind(findIndexFunc) {
+    return function(collection, predicate, fromIndex) {
+      var iterable = Object(collection);
+      if (!isArrayLike(collection)) {
+        var iteratee = baseIteratee(predicate, 3);
+        collection = keys(collection);
+        predicate = function(key2) {
+          return iteratee(iterable[key2], key2, iterable);
+        };
+      }
+      var index = findIndexFunc(collection, predicate, fromIndex);
+      return index > -1 ? iterable[iteratee ? collection[index] : index] : void 0;
+    };
+  }
+  _createFind = createFind;
+  return _createFind;
+}
+var findIndex_1;
+var hasRequiredFindIndex;
+function requireFindIndex() {
+  if (hasRequiredFindIndex) return findIndex_1;
+  hasRequiredFindIndex = 1;
+  var baseFindIndex = require_baseFindIndex(), baseIteratee = require_baseIteratee(), toInteger = requireToInteger();
+  var nativeMax = Math.max;
+  function findIndex(array, predicate, fromIndex) {
+    var length = array == null ? 0 : array.length;
+    if (!length) {
+      return -1;
+    }
+    var index = fromIndex == null ? 0 : toInteger(fromIndex);
+    if (index < 0) {
+      index = nativeMax(length + index, 0);
+    }
+    return baseFindIndex(array, baseIteratee(predicate, 3), index);
+  }
+  findIndex_1 = findIndex;
+  return findIndex_1;
+}
+var find_1;
+var hasRequiredFind;
+function requireFind() {
+  if (hasRequiredFind) return find_1;
+  hasRequiredFind = 1;
+  var createFind = require_createFind(), findIndex = requireFindIndex();
+  var find2 = createFind(findIndex);
+  find_1 = find2;
+  return find_1;
+}
+var hasRequiredFetch;
+function requireFetch() {
+  if (hasRequiredFetch) return fetch$1;
+  hasRequiredFetch = 1;
+  Object.defineProperty(fetch$1, "__esModule", {
+    value: true
+  });
+  fetch$1.getDefaultFetchInit = getDefaultFetchInit;
+  fetch$1.findErrorMessage = findErrorMessage;
+  fetch$1.handleResponse = handleResponse;
+  fetch$1.handleError = handleError;
+  fetch$1.defaultFetchInit = void 0;
+  var _find = _interopRequireDefault(requireFind());
+  var _includes = _interopRequireDefault(requireIncludes());
+  var _config = requireConfig();
+  function _interopRequireDefault(e2) {
+    return e2 && e2.__esModule ? e2 : { "default": e2 };
+  }
+  var defaultFetchInit = {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "X-Splunk-Form-Key": _config.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  };
+  fetch$1.defaultFetchInit = defaultFetchInit;
+  function getDefaultFetchInit() {
+    return {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "X-Splunk-Form-Key": (0, _config.getCSRFToken)(),
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    };
+  }
+  function findErrorMessage() {
+    var _ref = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, messages = _ref.messages;
+    if (Array.isArray(messages)) {
+      return (0, _find["default"])(messages, function(_ref2) {
+        var type = _ref2.type;
+        return type === "ERROR" || type === "FATAL" || type === "risky_command";
+      });
+    }
+  }
+  function handleResponse(expectedStatus) {
+    return function(res) {
+      if ((0, _includes["default"])([].concat(expectedStatus), res.status)) {
+        return res.status === 204 ? null : res.json();
+      }
+      return Promise.reject(res);
+    };
+  }
+  function handleError(defaultMessage) {
+    return function(res) {
+      var dfd = null;
+      try {
+        dfd = res.json();
+      } catch (e2) {
+        return Promise.reject(new Error(defaultMessage));
+      }
+      return dfd.then(function(data) {
+        var errorMessage = findErrorMessage(data);
+        if (errorMessage) {
+          return Promise.reject(new Error(errorMessage.text));
+        }
+        return Promise.reject(new Error(defaultMessage));
+      });
+    };
+  }
+  return fetch$1;
+}
+var fetchExports = requireFetch();
+async function readCollection(collectionName, appName) {
+  const kvUrl = urlExports.createRESTURL(`storage/collections/data/${collectionName}`, {
+    app: configExports.app,
+    sharing: "app"
+  });
+  const fetchInit = fetchExports.defaultFetchInit;
+  fetchInit.method = "GET";
+  const result = await fetch(kvUrl, {
+    ...fetchInit,
+    headers: {
+      "X-Splunk-Form-Key": configExports.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json"
+    }
+  }).then(fetchExports.handleResponse(200)).catch(fetchExports.handleError("error")).catch((err) => err instanceof Object ? "error" : err);
+  return result;
+}
+async function getAllAppNames() {
+  var _a;
+  const apps_endpoint = `/en-US/splunkd/__raw/servicesNS/nobody/-/apps/local?output_mode=json&count=0`;
+  const fetchInit = fetchExports.defaultFetchInit;
+  fetchInit.method = "GET";
+  const result = await fetch(apps_endpoint, {
+    ...fetchInit,
+    headers: {
+      "X-Splunk-Form-Key": configExports.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json"
+    }
+  }).then(fetchExports.handleResponse(200)).catch(fetchExports.handleError("error")).catch((err) => err instanceof Object ? "error" : err);
+  const appNames = ((_a = result == null ? void 0 : result.entry) == null ? void 0 : _a.map((entry) => entry.name)) || [];
+  return appNames;
+}
+async function createNewKVStoreCollection(collectionName, appName, fields) {
+  console.log("1s");
+  const kvUrl = urlExports.createRESTURL(`storage/collections/config`, {
+    app: appName,
+    sharing: "app"
+  });
+  const fetchInit = fetchExports.defaultFetchInit;
+  fetchInit.method = "POST";
+  const formData = new URLSearchParams();
+  formData.append("name", collectionName);
+  const response = await fetch(kvUrl, {
+    ...fetchInit,
+    headers: {
+      "X-Splunk-Form-Key": configExports.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: formData.toString()
+  });
+  if (response.status !== 201) {
+    const errorText = await response.text();
+    throw new Error(
+      `Failed to create collection: ${response.status} - ${errorText}`
+    );
+  }
+  await createLookupDefinition(collectionName, appName, fields);
+}
+async function createLookupDefinition(collectionName, appName, fields) {
+  const kvUrl = urlExports.createRESTURL(`data/transforms/lookups`, {
+    app: appName,
+    sharing: "app"
+  });
+  const body = new URLSearchParams({
+    name: collectionName,
+    external_type: "kvstore",
+    collection: collectionName,
+    fields_list: fields.join(",")
+  });
+  const fetchInit = {
+    ...fetchExports.defaultFetchInit,
+    method: "POST",
+    headers: {
+      "X-Splunk-Form-Key": configExports.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body
+  };
+  const response = await fetch(kvUrl, fetchInit);
+  if (response.status !== 201) {
+    const errorText = await response.text();
+    throw new Error(
+      `Failed to create collection: ${response.status} - ${errorText}`
+    );
+  }
+  console.log("1b");
+  return response;
+}
+async function deleteItemFromKVStore(collectionName, itemId) {
+  const kvUrl = urlExports.createRESTURL(
+    `storage/collections/data/${collectionName}/${itemId}`,
+    {
+      app: configExports.app,
+      sharing: "app"
+    }
+  );
+  const fetchInit = fetchExports.defaultFetchInit;
+  fetchInit.method = "DELETE";
+  const result = await fetch(kvUrl, {
+    ...fetchInit,
+    headers: {
+      "X-Splunk-Form-Key": configExports.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json"
+    }
+  }).then(fetchExports.handleResponse(200)).catch(fetchExports.handleError("error")).catch((err) => err instanceof Object ? "error" : err);
+  return result;
+}
+async function getAllCollectionNames() {
+  var _a;
+  const collections_endpoint = `/en-US/splunkd/__raw/servicesNS/nobody/-/storage/collections/config?output_mode=json&count=0`;
+  const fetchInit = fetchExports.defaultFetchInit;
+  fetchInit.method = "GET";
+  const result = await fetch(collections_endpoint, {
+    ...fetchInit,
+    headers: {
+      "X-Splunk-Form-Key": configExports.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json"
+    }
+  }).then(fetchExports.handleResponse(200)).catch(fetchExports.handleError("error")).catch((err) => err instanceof Object ? "error" : err);
+  const collectionNames = ((_a = result == null ? void 0 : result.entry) == null ? void 0 : _a.map((entry) => {
+    var _a2;
+    return {
+      name: entry.name,
+      app: ((_a2 = entry.acl) == null ? void 0 : _a2.app) || ""
+    };
+  })) || [];
+  return collectionNames;
+}
+async function addNewRecordToKVStore(value, collectionName) {
+  const kvUrl = urlExports.createRESTURL(`storage/collections/data/${collectionName}`, {
+    app: configExports.app,
+    sharing: "app"
+  });
+  const fetchInit = fetchExports.defaultFetchInit;
+  fetchInit.method = "POST";
+  const n2 = await fetch(`${kvUrl}`, {
+    ...fetchInit,
+    headers: {
+      "X-Splunk-Form-Key": configExports.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(value)
+  }).then(fetchExports.handleResponse(201)).catch(fetchExports.handleError("error"));
+  return n2;
+}
+const runSplunkApiCall = async (endpoint, method = "GET", body, contentType = "application/json") => {
+  const separator = endpoint.includes("?") ? "&" : "?";
+  const url2 = urlExports.createRESTURL(endpoint + separator + "output_mode=json", { app: configExports.app, sharing: "app" });
+  const fetchInit = {
+    ...fetchExports.defaultFetchInit,
+    method,
+    headers: {
+      "X-Splunk-Form-Key": configExports.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": contentType
+    }
+  };
+  if (body) {
+    fetchInit.body = body;
+  }
+  const response = await fetch(url2, fetchInit);
+  if (!response.ok) {
+    throw new Error(
+      `Failed: ${response.status} - ${JSON.stringify(await response.json())}`
+    );
+  }
+  if (response instanceof Response) {
+    return await response.json();
+  } else {
+    return response;
+  }
+};
+async function readItemFromKVStore(collectionName, itemId) {
+  return runSplunkApiCall(
+    `storage/collections/data/${collectionName}/${itemId}`
+  );
+}
+async function updateRecordInKVStore(collectionName, value, appName) {
+  const kvUrl = urlExports.createRESTURL(`storage/collections/data/${collectionName}/${value._key}`, {
+    app: configExports.app,
+    sharing: "app"
+  });
+  const fetchInit = fetchExports.defaultFetchInit;
+  fetchInit.method = "POST";
+  const response = await fetch(kvUrl, {
+    ...fetchInit,
+    headers: {
+      "X-Splunk-Form-Key": configExports.CSRFToken,
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(value)
+  }).then(fetchExports.handleResponse(200));
+  return response;
+}
+async function getAllIndexNames() {
+  const response = await runSplunkApiCall("/services/data/indexes?count=0");
+  return response.entry.map((entry) => entry.name);
+}
+async function createNewIndex(indexName) {
+  const requestBody = new URLSearchParams({ name: indexName }).toString();
+  return await runSplunkApiCall("/services/data/indexes", "POST", requestBody, "application/x-www-form-urlencoded");
+}
+async function addNewDataInputToKVStore(data) {
+  return addNewRecordToKVStore(data, "api_input_connect_config");
+}
+async function addNewDataInputToIndex(data) {
+  return addNewRecordToKVStore(data, "api_input_connect_config");
+}
+async function deleteConfigItemFromKVStore(key2) {
+  return deleteItemFromKVStore("api_input_connect_config", key2);
+}
+async function getDataInputsFromKVStore() {
+  return readCollection("api_input_connect_config");
+}
+async function getDataInputsConfigById(key2) {
+  return await readItemFromKVStore("api_input_connect_config", key2);
+}
+async function updateDataInputConfigById(dataInputConfigItem) {
+  return await updateRecordInKVStore("api_input_connect_config", dataInputConfigItem);
+}
+function parseSelectedOutput(selectedOutputString) {
+  const [app, collection] = selectedOutputString.split("/");
+  return { app, collection };
+}
+const generateSelectedOutputString = (app, collection) => {
+  return `${app}/${collection}`;
+};
+const fetchDataInputsData = async (setState) => {
+  const result = await getDataInputsFromKVStore();
+  if (Array.isArray(result)) {
+    setState(result);
+  } else if (result && typeof result === "object") {
+    setState([result]);
+  } else {
+    setState([]);
+  }
+};
 var ButtonExports = requireButton();
 const Button = /* @__PURE__ */ getDefaultExportFromCjs(ButtonExports);
 var Heading$1 = { exports: {} };
@@ -46272,8 +46272,10 @@ const NewKVStoreDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, on
       }
     }
   };
+  const hasInitiallyFetchedRef = reactExports.useRef(false);
   reactExports.useEffect(() => {
-    if (dataInputAppConfig == null ? void 0 : dataInputAppConfig.url) {
+    if ((dataInputAppConfig == null ? void 0 : dataInputAppConfig.url) && !hasInitiallyFetchedRef.current) {
+      hasInitiallyFetchedRef.current = true;
       const jsonPaths = dataInputAppConfig.excluded_json_paths ?? [];
       const httpHeaders = dataInputAppConfig.http_headers ?? [];
       fetchDataPreview$1(dataInputAppConfig.url, jsonPaths, httpHeaders);
@@ -47230,8 +47232,10 @@ const NewIndexDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, onDa
       setError("Failed to save data input configuration");
     }
   };
+  const hasInitiallyFetchedRef = reactExports.useRef(false);
   reactExports.useEffect(() => {
-    if (dataInputAppConfig == null ? void 0 : dataInputAppConfig.url) {
+    if ((dataInputAppConfig == null ? void 0 : dataInputAppConfig.url) && !hasInitiallyFetchedRef.current) {
+      hasInitiallyFetchedRef.current = true;
       const jsonPaths = dataInputAppConfig.excluded_json_paths ?? [];
       const httpHeaders = dataInputAppConfig.http_headers ?? [];
       fetchDataPreview$1(dataInputAppConfig.url, jsonPaths, httpHeaders);
@@ -57747,6 +57751,7 @@ function EditIndexPage({ dataInputAppConfig, setDataInputAppConfig, onSuccess })
 const EditIndexInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess }) => {
   const [data, setData] = reactExports.useState();
   const [error, setError] = reactExports.useState(null);
+  const [mountKey, setMountKey] = reactExports.useState(0);
   reactExports.useEffect(() => {
     async function fetchData() {
       try {
@@ -57762,7 +57767,11 @@ const EditIndexInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess })
       return;
     }
     if (open && id2) {
+      setMountKey((prev) => prev + 1);
       fetchData();
+    } else if (!open) {
+      setData(void 0);
+      setError(null);
     }
   }, [id2, open]);
   const handleSave = async () => {
@@ -57787,7 +57796,15 @@ const EditIndexInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess })
       style: { width: "90vw", height: "90vh" },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Header, { title: "Edit Index Input" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "100%" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : /* @__PURE__ */ jsxRuntimeExports.jsx(EditIndexPage, { dataInputAppConfig: data, setDataInputAppConfig: setData, onSuccess: onClose }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "100%" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+          EditIndexPage,
+          {
+            dataInputAppConfig: data,
+            setDataInputAppConfig: setData,
+            onSuccess: onClose
+          },
+          mountKey
+        ) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Modal.Footer, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "primary", onClick: handleSave, label: "Save" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: onClose, label: "Cancel" })
@@ -57849,6 +57866,7 @@ function EditKVStorePage({ dataInputAppConfig, setDataInputAppConfig, onSuccess 
 const EditKVStoreInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess }) => {
   const [data, setData] = reactExports.useState();
   const [error, setError] = reactExports.useState(null);
+  const [mountKey, setMountKey] = reactExports.useState(0);
   reactExports.useEffect(() => {
     async function fetchData() {
       try {
@@ -57864,7 +57882,11 @@ const EditKVStoreInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess 
       return;
     }
     if (open && id2) {
+      setMountKey((prev) => prev + 1);
       fetchData();
+    } else if (!open) {
+      setData(void 0);
+      setError(null);
     }
   }, [id2, open]);
   const handleSave = async () => {
@@ -57889,7 +57911,15 @@ const EditKVStoreInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess 
       style: { width: "90vw", height: "90vh" },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Header, { title: "Edit KV Store Input" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "100%" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : data ? /* @__PURE__ */ jsxRuntimeExports.jsx(EditKVStorePage, { dataInputAppConfig: data, setDataInputAppConfig: setData, onSuccess: onClose }) : null }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "100%" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : data ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+          EditKVStorePage,
+          {
+            dataInputAppConfig: data,
+            setDataInputAppConfig: setData,
+            onSuccess: onClose
+          },
+          mountKey
+        ) : null }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Modal.Footer, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "primary", onClick: handleSave, label: "Save" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: onClose, label: "Cancel" })

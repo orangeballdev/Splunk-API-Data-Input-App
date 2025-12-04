@@ -1,5 +1,5 @@
 import Message from '@splunk/react-ui/Message';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { fetchDataPreview as fetchDataPreviewUtil } from "../../../utils/apiFetch";
 import { addNewDataInputToIndex } from "../../../utils/dataInputUtils";
@@ -56,15 +56,19 @@ const NewIndexDataInputForm: React.FC<NewIndexDataInputFormProps> = ({ dataInput
     }
   };
 
-  // Fetch initial data when editing an existing input
+  // Track if we've done the initial fetch
+  const hasInitiallyFetchedRef = useRef(false);
+
+  // Fetch initial data when editing an existing input (once when data is available)
   useEffect(() => {
-    if (dataInputAppConfig?.url) {
+    if (dataInputAppConfig?.url && !hasInitiallyFetchedRef.current) {
+      hasInitiallyFetchedRef.current = true;
       const jsonPaths = dataInputAppConfig.excluded_json_paths ?? [];
       const httpHeaders = dataInputAppConfig.http_headers ?? [];
       fetchDataPreview(dataInputAppConfig.url, jsonPaths, httpHeaders);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataInputAppConfig?.url]); // Run when URL is available
+  }, [dataInputAppConfig?.url]); // Run when URL becomes available
 
   return (
     <>

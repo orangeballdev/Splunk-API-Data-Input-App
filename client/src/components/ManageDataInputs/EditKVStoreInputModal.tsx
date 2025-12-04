@@ -1,9 +1,9 @@
+import Button from '@splunk/react-ui/Button';
+import Message from '@splunk/react-ui/Message';
+import Modal from '@splunk/react-ui/Modal';
 import React, { useEffect, useState } from 'react';
 import { getDataInputsConfigById, updateDataInputConfigById } from '../../utils/dataInputUtils';
 import type { DataInputAppConfig } from './DataInputs.types';
-import Modal from '@splunk/react-ui/Modal';
-import Button from '@splunk/react-ui/Button';
-import Message from '@splunk/react-ui/Message';
 import EditKVStorePage from './EditKVStorePage';
 
 interface EditKVStoreInputModalProps {
@@ -18,6 +18,8 @@ interface EditKVStoreInputModalProps {
 const EditKVStoreInputModal: React.FC<EditKVStoreInputModalProps> = ({ id, open, modalToggle, onClose, onSuccess }) => {
     const [data, setData] = useState<DataInputAppConfig>();
     const [error, setError] = useState<string | null>(null);
+    const [mountKey, setMountKey] = useState(0);
+    
     useEffect(() => {
         async function fetchData() {
 
@@ -35,7 +37,12 @@ const EditKVStoreInputModal: React.FC<EditKVStoreInputModalProps> = ({ id, open,
         }
 
         if (open && id) {
+            setMountKey(prev => prev + 1);
             fetchData();
+        } else if (!open) {
+            // Clear state when modal closes
+            setData(undefined);
+            setError(null);
         }
     }, [id, open]);
 
@@ -65,7 +72,12 @@ const EditKVStoreInputModal: React.FC<EditKVStoreInputModalProps> = ({ id, open,
                 {error ? (
                     <Message type="error">{error}</Message>
                 ) : data ? (
-                    <EditKVStorePage dataInputAppConfig={data} setDataInputAppConfig={setData as React.Dispatch<React.SetStateAction<DataInputAppConfig>>} onSuccess={onClose} />
+                    <EditKVStorePage 
+                        key={mountKey} 
+                        dataInputAppConfig={data} 
+                        setDataInputAppConfig={setData as React.Dispatch<React.SetStateAction<DataInputAppConfig>>} 
+                        onSuccess={onClose} 
+                    />
                 ) : null}
             </Modal.Body>
             <Modal.Footer>
