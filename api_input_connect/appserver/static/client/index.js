@@ -47384,7 +47384,8 @@ function ResizablePanels({
             style: {
               width: `${leftWidth}%`,
               overflow: "auto",
-              paddingRight: "20px"
+              paddingRight: "20px",
+              pointerEvents: isDragging ? "none" : "auto"
             },
             children: leftPanel
           }
@@ -47426,7 +47427,8 @@ function ResizablePanels({
             style: {
               width: `${100 - leftWidth}%`,
               overflow: "auto",
-              paddingLeft: "20px"
+              paddingLeft: "20px",
+              pointerEvents: isDragging ? "none" : "auto"
             },
             children: rightPanel
           }

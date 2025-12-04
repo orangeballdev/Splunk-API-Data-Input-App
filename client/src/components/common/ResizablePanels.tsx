@@ -79,6 +79,7 @@ export default function ResizablePanels({
                     width: `${leftWidth}%`,
                     overflow: 'auto',
                     paddingRight: '20px',
+                    pointerEvents: isDragging ? 'none' : 'auto',
                 }}
             >
                 {leftPanel}
@@ -119,6 +120,7 @@ export default function ResizablePanels({
                     width: `${100 - leftWidth}%`,
                     overflow: 'auto',
                     paddingLeft: '20px',
+                    pointerEvents: isDragging ? 'none' : 'auto',
                 }}
             >
                 {rightPanel}
