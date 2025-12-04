@@ -24,11 +24,33 @@ import { removeByJsonPaths } from "../Json/utils";
 
     try {
       if (!url) throw new Error("Please enter a URL");
-      const response = await fetch(url);
+      
+      let response;
+      try {
+        response = await fetch(url);
+      } catch (fetchError) {
+        // Network error, CORS, or invalid URL
+        throw new Error("Failed to fetch: Unable to connect to the API. This could be due to network issues, CORS restrictions, or an invalid URL.");
+      }
+      
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
-      const data = await response.json();
+      
+      // Check if the response is JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const receivedType = contentType || "unknown";
+        throw new Error(`Invalid response format: Only JSON is supported at the moment. The API returned ${receivedType} but must return Content-Type: application/json`);
+      }
+      
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        throw new Error("Invalid JSON response: The API returned data that is not valid JSON. Only JSON format is supported at the moment.");
+      }
+      
       setRawData(data as JSONElement); // Save the raw data for future filtering
       const filtered = jsonPaths.length ? removeByJsonPaths(data as JSONElement, jsonPaths) : data;
       onDataFetched(JSON.stringify(filtered));

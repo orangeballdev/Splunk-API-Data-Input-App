@@ -36081,6 +36081,90 @@ function removeByJsonPaths(obj, paths) {
   }
   return clone;
 }
+function parseHeaders(headerStrings) {
+  const headers = {};
+  for (const headerStr of headerStrings) {
+    const colonIndex = headerStr.indexOf(":");
+    if (colonIndex > 0) {
+      const name = headerStr.slice(0, colonIndex).trim();
+      const value = headerStr.slice(colonIndex + 1).trim();
+      if (name) {
+        headers[name] = value;
+      }
+    }
+  }
+  return headers;
+}
+function getHttpErrorMessage(status, statusText) {
+  const messages = {
+    400: "Bad Request - The server could not understand the request",
+    401: "Unauthorized - Authentication is required",
+    403: "Forbidden - You do not have permission to access this resource",
+    404: "Not Found - The requested resource does not exist",
+    405: "Method Not Allowed - This HTTP method is not supported",
+    408: "Request Timeout - The server timed out waiting for the request",
+    429: "Too Many Requests - Rate limit exceeded",
+    500: "Internal Server Error - The server encountered an error",
+    502: "Bad Gateway - Invalid response from upstream server",
+    503: "Service Unavailable - The server is temporarily unavailable",
+    504: "Gateway Timeout - Upstream server did not respond in time"
+  };
+  return messages[status] || statusText || "Unknown error";
+}
+async function fetchDataPreview(url2, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading) {
+  if (setError) setError(null);
+  if (setLoading) setLoading(true);
+  if (onDataFetched) onDataFetched("");
+  try {
+    if (!url2) throw new Error("Please enter a URL");
+    try {
+      new URL(url2);
+    } catch {
+      throw new Error(`Invalid URL format: "${url2}"`);
+    }
+    const headers = parseHeaders(httpHeaders);
+    const response = await fetch(url2, {
+      method: "GET",
+      headers
+    });
+    if (!response.ok) {
+      const errorMessage = getHttpErrorMessage(response.status, response.statusText);
+      let errorDetails = `HTTP ${response.status}: ${errorMessage}`;
+      const responseText = await response.text();
+      if (responseText && responseText.length < 500) {
+        errorDetails += `
+
+Server response: ${responseText}`;
+      }
+      throw new Error(errorDetails);
+    }
+    const contentType = response.headers.get("content-type");
+    if (contentType && !contentType.includes("application/json")) {
+      throw new Error(`Invalid response format: Only JSON is supported at the moment. The API returned ${contentType} but must return Content-Type: application/json`);
+    }
+    let data;
+    try {
+      data = await response.json();
+    } catch (jsonError) {
+      throw new Error("Invalid JSON response: The API returned data that is not valid JSON. Only JSON format is supported at the moment.");
+    }
+    setRawData(data);
+    const filtered = jsonPaths.length ? removeByJsonPaths(data, jsonPaths) : data;
+    if (onDataFetched) onDataFetched(JSON.stringify(filtered));
+  } catch (err) {
+    if (setError) {
+      if (err instanceof SyntaxError) {
+        setError("Invalid JSON response from server");
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred");
+      }
+    }
+  } finally {
+    if (setLoading) setLoading(false);
+  }
+}
 var ButtonExports = requireButton();
 const Button = /* @__PURE__ */ getDefaultExportFromCjs(ButtonExports);
 var Heading$1 = { exports: {} };
@@ -46167,82 +46251,8 @@ const NewKVStoreDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, on
     setFilteredData(filtered);
     if (onDataFetched) onDataFetched(JSON.stringify(filtered));
   };
-  function parseHeaders(headerStrings) {
-    const headers = {};
-    for (const headerStr of headerStrings) {
-      const colonIndex = headerStr.indexOf(":");
-      if (colonIndex > 0) {
-        const name = headerStr.slice(0, colonIndex).trim();
-        const value = headerStr.slice(colonIndex + 1).trim();
-        if (name) {
-          headers[name] = value;
-        }
-      }
-    }
-    return headers;
-  }
-  function getHttpErrorMessage(status, statusText) {
-    const messages = {
-      400: "Bad Request - The server could not understand the request",
-      401: "Unauthorized - Authentication is required",
-      403: "Forbidden - You do not have permission to access this resource",
-      404: "Not Found - The requested resource does not exist",
-      405: "Method Not Allowed - This HTTP method is not supported",
-      408: "Request Timeout - The server timed out waiting for the request",
-      429: "Too Many Requests - Rate limit exceeded",
-      500: "Internal Server Error - The server encountered an error",
-      502: "Bad Gateway - Invalid response from upstream server",
-      503: "Service Unavailable - The server is temporarily unavailable",
-      504: "Gateway Timeout - Upstream server did not respond in time"
-    };
-    return messages[status] || statusText || "Unknown error";
-  }
-  async function fetchDataPreview(url2, jsonPaths, httpHeaders = []) {
-    setError(null);
-    setLoading(true);
-    if (onDataFetched) onDataFetched("");
-    try {
-      if (!url2) throw new Error("Please enter a URL");
-      try {
-        new URL(url2);
-      } catch {
-        throw new Error(`Invalid URL format: "${url2}"`);
-      }
-      const headers = parseHeaders(httpHeaders);
-      const response = await fetch(url2, {
-        method: "GET",
-        headers
-      });
-      if (!response.ok) {
-        const errorMessage = getHttpErrorMessage(response.status, response.statusText);
-        let errorDetails = `HTTP ${response.status}: ${errorMessage}`;
-        const responseText = await response.text();
-        if (responseText && responseText.length < 500) {
-          errorDetails += `
-
-Server response: ${responseText}`;
-        }
-        throw new Error(errorDetails);
-      }
-      const contentType = response.headers.get("content-type");
-      if (contentType && !contentType.includes("application/json")) {
-        throw new Error(`Expected JSON response but received: ${contentType}`);
-      }
-      const data = await response.json();
-      setRawData(data);
-      const filtered = jsonPaths.length ? removeByJsonPaths(data, jsonPaths) : data;
-      if (onDataFetched) onDataFetched(JSON.stringify(filtered));
-    } catch (err) {
-      if (err instanceof SyntaxError) {
-        setError("Invalid JSON response from server");
-      } else if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("An unexpected error occurred");
-      }
-    } finally {
-      setLoading(false);
-    }
+  async function fetchDataPreview$1(url2, jsonPaths, httpHeaders = []) {
+    await fetchDataPreview(url2, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading);
   }
   const handleSaveDataInput = async (formData, clearInputs) => {
     if (!formData.name || !formData.url || !formData.input_type || !formData.cron_expression || formData.input_type === "kvstore" && !formData.selected_output_location) {
@@ -46266,7 +46276,7 @@ Server response: ${responseText}`;
     if (dataInputAppConfig == null ? void 0 : dataInputAppConfig.url) {
       const jsonPaths = dataInputAppConfig.excluded_json_paths ?? [];
       const httpHeaders = dataInputAppConfig.http_headers ?? [];
-      fetchDataPreview(dataInputAppConfig.url, jsonPaths, httpHeaders);
+      fetchDataPreview$1(dataInputAppConfig.url, jsonPaths, httpHeaders);
     }
   }, [dataInputAppConfig == null ? void 0 : dataInputAppConfig.url]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -46276,7 +46286,7 @@ Server response: ${responseText}`;
       {
         dataInputAppConfig,
         setDataInputAppConfig,
-        fetchDataPreview,
+        fetchDataPreview: fetchDataPreview$1,
         setJsonPreview: onDataFetched,
         fieldsForKvStoreCreation: initialFields,
         loading,
@@ -47202,82 +47212,8 @@ const NewIndexDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, onDa
     const filtered = jsonPaths.length ? removeByJsonPaths(rawData, jsonPaths) : rawData;
     if (onDataFetched) onDataFetched(JSON.stringify(filtered));
   };
-  function parseHeaders(headerStrings) {
-    const headers = {};
-    for (const headerStr of headerStrings) {
-      const colonIndex = headerStr.indexOf(":");
-      if (colonIndex > 0) {
-        const name = headerStr.slice(0, colonIndex).trim();
-        const value = headerStr.slice(colonIndex + 1).trim();
-        if (name) {
-          headers[name] = value;
-        }
-      }
-    }
-    return headers;
-  }
-  function getHttpErrorMessage(status, statusText) {
-    const messages = {
-      400: "Bad Request - The server could not understand the request",
-      401: "Unauthorized - Authentication is required",
-      403: "Forbidden - You do not have permission to access this resource",
-      404: "Not Found - The requested resource does not exist",
-      405: "Method Not Allowed - This HTTP method is not supported",
-      408: "Request Timeout - The server timed out waiting for the request",
-      429: "Too Many Requests - Rate limit exceeded",
-      500: "Internal Server Error - The server encountered an error",
-      502: "Bad Gateway - Invalid response from upstream server",
-      503: "Service Unavailable - The server is temporarily unavailable",
-      504: "Gateway Timeout - Upstream server did not respond in time"
-    };
-    return messages[status] || statusText || "Unknown error";
-  }
-  async function fetchDataPreview(url2, jsonPaths, httpHeaders = []) {
-    setError(null);
-    setLoading(true);
-    if (onDataFetched) onDataFetched("");
-    try {
-      if (!url2) throw new Error("Please enter a URL");
-      try {
-        new URL(url2);
-      } catch {
-        throw new Error(`Invalid URL format: "${url2}"`);
-      }
-      const headers = parseHeaders(httpHeaders);
-      const response = await fetch(url2, {
-        method: "GET",
-        headers
-      });
-      if (!response.ok) {
-        const errorMessage = getHttpErrorMessage(response.status, response.statusText);
-        let errorDetails = `HTTP ${response.status}: ${errorMessage}`;
-        const responseText = await response.text();
-        if (responseText && responseText.length < 500) {
-          errorDetails += `
-
-Server response: ${responseText}`;
-        }
-        throw new Error(errorDetails);
-      }
-      const contentType = response.headers.get("content-type");
-      if (contentType && !contentType.includes("application/json")) {
-        throw new Error(`Expected JSON response but received: ${contentType}`);
-      }
-      const data = await response.json();
-      setRawData(data);
-      const filtered = jsonPaths.length ? removeByJsonPaths(data, jsonPaths) : data;
-      if (onDataFetched) onDataFetched(JSON.stringify(filtered));
-    } catch (err) {
-      if (err instanceof SyntaxError) {
-        setError("Invalid JSON response from server");
-      } else if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("An unexpected error occurred");
-      }
-    } finally {
-      setLoading(false);
-    }
+  async function fetchDataPreview$1(url2, jsonPaths, httpHeaders = []) {
+    await fetchDataPreview(url2, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading);
   }
   const handleSaveDataInput = async (formData, clearInputs) => {
     if (!formData.name || !formData.url || !formData.input_type || !formData.cron_expression || !formData.selected_output_location) {
@@ -47298,7 +47234,7 @@ Server response: ${responseText}`;
     if (dataInputAppConfig == null ? void 0 : dataInputAppConfig.url) {
       const jsonPaths = dataInputAppConfig.excluded_json_paths ?? [];
       const httpHeaders = dataInputAppConfig.http_headers ?? [];
-      fetchDataPreview(dataInputAppConfig.url, jsonPaths, httpHeaders);
+      fetchDataPreview$1(dataInputAppConfig.url, jsonPaths, httpHeaders);
     }
   }, [dataInputAppConfig == null ? void 0 : dataInputAppConfig.url]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -47308,7 +47244,7 @@ Server response: ${responseText}`;
       {
         dataInputAppConfig,
         setDataInputAppConfig,
-        fetchDataPreview,
+        fetchDataPreview: fetchDataPreview$1,
         setJsonPreview: onDataFetched,
         loading,
         handleSave: handleSaveDataInput,
