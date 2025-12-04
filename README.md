@@ -69,6 +69,16 @@ To create a distributable `.tar.gz` file of this Splunk app, use the provided pa
 
 The app package is located here [api_input_connect.tar.gz](api_input_connect.tar.gz)
 
+### 🐳 Development with Docker
+
+For local development, use the provided Docker setup script to run Splunk Enterprise in a container with the app mounted:
+
+```bash
+./scripts/setup-docker-dev.sh
+```
+
+This script creates a Splunk container with the app automatically mounted. Once running, access Splunk Web at `http://localhost:8000` (default credentials: `admin` / `changeme!`).
+
 ## 🔄 Roadmap
 
 The current MVP supports JSON data from API sources, filtered via simple exclusion logic.
