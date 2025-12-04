@@ -1,4 +1,3 @@
-import ColumnLayout from '@splunk/react-ui/ColumnLayout';
 import MessageBar from '@splunk/react-ui/MessageBar';
 import TabBar from '@splunk/react-ui/TabBar';
 import { useCallback, useRef, useState } from 'react';
@@ -8,6 +7,7 @@ import JSONViewer from '../components/Json/JsonViewer';
 // @ts-ignore
 import { createDOMID } from '@splunk/ui-utils/id';
 import NewIndexDataInputForm from '../components/DataInputs/Index/NewIndexDataInputForm';
+import ResizablePanels from '../components/common/ResizablePanels';
 
 export default function NewDataInput() {
   const [jsonData, setJsonData] = useState<string>('');
@@ -49,51 +49,56 @@ export default function NewDataInput() {
   );
 
   return (
-    <ColumnLayout gutter={100}>
-      <ColumnLayout.Row>
-        <ColumnLayout.Column span={5}>
-          {successMessage && (
-            <MessageBar
-            style={{marginBottom: "15px"}}
-              type="success"
-              aria-labelledby={headingId}
-              onRequestClose={() => setSuccessMessage(null)}
-            >
-              {successMessage}
-            </MessageBar>
-          )}
-          <TabBar style={{marginBottom: '25px', width: '100%', fontSize: '1.2em'}} activeTabId={activeTabId} onChange={handleTabChange}>
-            <TabBar.Tab label="KV Store" tabId="kvstore" />
-            <TabBar.Tab label="Index" tabId="index" />
-          </TabBar>
-          {activeTabId === 'kvstore' && (
-            <NewKVStoreDataInputForm
-              onDataFetched={setJsonData}
-              onSuccess={() => setSuccessMessage('Successfully added data input to KV Store.')}
-              onAddExcludePathRef={(fn) => { addExcludePathRef.current = fn; }}
-              onAddKeyMappingRef={(fn) => { addKeyMappingRef.current = fn; }}
-              onKeyMappingsChange={setKeyMappings}
-            />
-          )}
-          {activeTabId === 'index' && (
-            <NewIndexDataInputForm
-              onDataFetched={setJsonData}
-              onSuccess={() => setSuccessMessage('Successfully added data input for Index.')}
-              onAddExcludePathRef={(fn) => { addExcludePathRef.current = fn; }}
-              onAddKeyMappingRef={(fn) => { addKeyMappingRef.current = fn; }}
-              onKeyMappingsChange={setKeyMappings}
-            />
-          )}
-        </ColumnLayout.Column>
-        <ColumnLayout.Column span={7}>
+    <div style={{ padding: '20px', height: 'calc(100vh - 100px)' }}>
+      <ResizablePanels
+        defaultLeftWidth={42}
+        minLeftWidth={25}
+        minRightWidth={30}
+        leftPanel={
+          <>
+            {successMessage && (
+              <MessageBar
+                style={{ marginBottom: "15px" }}
+                type="success"
+                aria-labelledby={headingId}
+                onRequestClose={() => setSuccessMessage(null)}
+              >
+                {successMessage}
+              </MessageBar>
+            )}
+            <TabBar style={{ marginBottom: '25px', width: '100%', fontSize: '1.2em' }} activeTabId={activeTabId} onChange={handleTabChange}>
+              <TabBar.Tab label="KV Store" tabId="kvstore" />
+              <TabBar.Tab label="Index" tabId="index" />
+            </TabBar>
+            {activeTabId === 'kvstore' && (
+              <NewKVStoreDataInputForm
+                onDataFetched={setJsonData}
+                onSuccess={() => setSuccessMessage('Successfully added data input to KV Store.')}
+                onAddExcludePathRef={(fn) => { addExcludePathRef.current = fn; }}
+                onAddKeyMappingRef={(fn) => { addKeyMappingRef.current = fn; }}
+                onKeyMappingsChange={setKeyMappings}
+              />
+            )}
+            {activeTabId === 'index' && (
+              <NewIndexDataInputForm
+                onDataFetched={setJsonData}
+                onSuccess={() => setSuccessMessage('Successfully added data input for Index.')}
+                onAddExcludePathRef={(fn) => { addExcludePathRef.current = fn; }}
+                onAddKeyMappingRef={(fn) => { addKeyMappingRef.current = fn; }}
+                onKeyMappingsChange={setKeyMappings}
+              />
+            )}
+          </>
+        }
+        rightPanel={
           <JSONViewer 
             initialData={jsonData} 
             onPathClick={handlePathClick}
             onKeyRename={handleKeyRename}
             keyMappings={keyMappings}
           />
-        </ColumnLayout.Column>
-      </ColumnLayout.Row>
-    </ColumnLayout>
+        }
+      />
+    </div>
   );
 }

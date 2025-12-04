@@ -1,8 +1,8 @@
-import ColumnLayout from '@splunk/react-ui/ColumnLayout';
 import { useCallback, useRef, useState } from 'react';
 
 import NewIndexDataInputForm from '../DataInputs/Index/NewIndexDataInputForm';
 import JSONViewer from '../Json/JsonViewer';
+import ResizablePanels from '../common/ResizablePanels';
 import type { DataInputAppConfig } from './DataInputs.types';
 
 interface EditIndexPageProps {
@@ -31,9 +31,12 @@ export default function EditIndexPage({ dataInputAppConfig, setDataInputAppConfi
     }, []);
 
     return (
-        <ColumnLayout gutter={100}>
-            <ColumnLayout.Row>
-                <ColumnLayout.Column span={6}>
+        <div style={{ padding: '20px', height: 'calc(100vh - 100px)' }}>
+            <ResizablePanels
+                defaultLeftWidth={50}
+                minLeftWidth={25}
+                minRightWidth={30}
+                leftPanel={
                     <NewIndexDataInputForm
                         dataInputAppConfig={dataInputAppConfig}
                         setDataInputAppConfig={setDataInputAppConfig}
@@ -43,16 +46,16 @@ export default function EditIndexPage({ dataInputAppConfig, setDataInputAppConfi
                         onAddKeyMappingRef={(fn) => { addKeyMappingRef.current = fn; }}
                         onKeyMappingsChange={setKeyMappings}
                     />
-                </ColumnLayout.Column>
-                <ColumnLayout.Column span={6}>
+                }
+                rightPanel={
                     <JSONViewer 
                         initialData={jsonData} 
                         onPathClick={handlePathClick}
                         onKeyRename={handleKeyRename}
                         keyMappings={keyMappings}
                     />
-                </ColumnLayout.Column>
-            </ColumnLayout.Row>
-        </ColumnLayout>
+                }
+            />
+        </div>
     );
 }

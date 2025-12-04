@@ -12609,7 +12609,7 @@ const styledComponents_browser_esm = /* @__PURE__ */ Object.freeze(/* @__PURE__ 
   version: A$1,
   withTheme: Je
 }, Symbol.toStringTag, { value: "Module" }));
-const require$$21 = /* @__PURE__ */ getAugmentedNamespace(styledComponents_browser_esm);
+const require$$2$3 = /* @__PURE__ */ getAugmentedNamespace(styledComponents_browser_esm);
 function n(n2, r2, t2) {
   return { r: 255 * t2(n2.r / 255, r2.r / 255), g: 255 * t2(n2.g / 255, r2.g / 255), b: 255 * t2(n2.b / 255, r2.b / 255) };
 }
@@ -12966,7 +12966,7 @@ function requireUtilityMixins() {
     exports.colorWithAlpha = colorWithAlpha;
     exports["default"] = exports.reset = void 0;
     var _tinycolor = _interopRequireDefault(requireTinycolor());
-    var _styledComponents = require$$21;
+    var _styledComponents = require$$2$3;
     var _colorBlend = require$$2$2;
     var _variables = _interopRequireDefault(requireVariables());
     var _pick = _interopRequireDefault(requirePick$1());
@@ -14073,7 +14073,7 @@ function requireTypography$1() {
       value: true
     });
     exports.typographyVariants = exports["default"] = void 0;
-    var _styledComponents = require$$21;
+    var _styledComponents = require$$2$3;
     var _merge = _interopRequireDefault(requireMerge());
     var _utilityMixins = _interopRequireDefault(requireUtilityMixins());
     var _variables = _interopRequireDefault(requireVariables());
@@ -14331,7 +14331,7 @@ function requireProse() {
       value: true
     });
     exports["default"] = void 0;
-    var _styledComponents = require$$21;
+    var _styledComponents = require$$2$3;
     var _variables = _interopRequireDefault(requireVariables());
     function _interopRequireDefault(e2) {
       return e2 && e2.__esModule ? e2 : { "default": e2 };
@@ -14434,7 +14434,7 @@ function requireLayout() {
       value: true
     });
     exports["default"] = void 0;
-    var _styledComponents = require$$21;
+    var _styledComponents = require$$2$3;
     var _variables = _interopRequireDefault(requireVariables());
     function _interopRequireDefault(e2) {
       return e2 && e2.__esModule ? e2 : { "default": e2 };
@@ -14659,7 +14659,7 @@ function requireSplunkThemeProvider() {
     });
     exports["default"] = SplunkThemeProvider2;
     var _react = _interopRequireWildcard(requireReact());
-    var _styledComponents = require$$21;
+    var _styledComponents = require$$2$3;
     function _getRequireWildcardCache(e2) {
       if ("function" != typeof WeakMap) return null;
       var r2 = /* @__PURE__ */ new WeakMap(), t2 = /* @__PURE__ */ new WeakMap();
@@ -16429,7 +16429,7 @@ function requireUseSplunkTheme() {
     });
     exports["default"] = void 0;
     var _react = requireReact();
-    var _styledComponents = require$$21;
+    var _styledComponents = require$$2$3;
     var _utils = requireUtils();
     function ownKeys(e2, r2) {
       var t2 = Object.keys(e2);
@@ -16524,7 +16524,7 @@ function requireWithSplunkTheme() {
     });
     exports["default"] = void 0;
     var _react = _interopRequireWildcard(requireReact());
-    var _styledComponents = require$$21;
+    var _styledComponents = require$$2$3;
     var _utils = requireUtils();
     function _getRequireWildcardCache(e2) {
       if ("function" != typeof WeakMap) return null;
@@ -16760,7 +16760,7 @@ function requireThemes() {
   return themes;
 }
 var themesExports = requireThemes();
-var ColumnLayout$1 = { exports: {} };
+var MessageBar$1 = { exports: {} };
 var propTypes = { exports: {} };
 var ReactPropTypesSecret_1;
 var hasRequiredReactPropTypesSecret;
@@ -16834,503 +16834,6 @@ function requirePropTypes() {
   }
   return propTypes.exports;
 }
-var Divider = { exports: {} };
-var hasRequiredDivider;
-function requireDivider() {
-  if (hasRequiredDivider) return Divider.exports;
-  hasRequiredDivider = 1;
-  (() => {
-    var e2 = {};
-    (() => {
-      e2.n = (r3) => {
-        var t3 = r3 && r3.__esModule ? (
-          /******/
-          () => r3["default"]
-        ) : () => r3;
-        e2.d(t3, {
-          a: t3
-        });
-        return t3;
-      };
-    })();
-    (() => {
-      e2.d = (r3, t3) => {
-        for (var o3 in t3) {
-          if (e2.o(t3, o3) && !e2.o(r3, o3)) {
-            Object.defineProperty(r3, o3, {
-              enumerable: true,
-              get: t3[o3]
-            });
-          }
-        }
-      };
-    })();
-    (() => {
-      e2.o = (e3, r3) => Object.prototype.hasOwnProperty.call(e3, r3);
-    })();
-    (() => {
-      e2.r = (e3) => {
-        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
-          Object.defineProperty(e3, Symbol.toStringTag, {
-            value: "Module"
-          });
-        }
-        Object.defineProperty(e3, "__esModule", {
-          value: true
-        });
-      };
-    })();
-    var r2 = {};
-    e2.r(r2);
-    e2.d(r2, {
-      default: () => (
-        /* reexport */
-        h2
-      )
-    });
-    const t2 = requireReact();
-    var o2 = e2.n(t2);
-    const n2 = /* @__PURE__ */ requirePropTypes();
-    var i2 = e2.n(n2);
-    const a2 = require$$21;
-    var l2 = e2.n(a2);
-    const c2 = requireThemes();
-    var u2 = l2().hr.withConfig({
-      displayName: "DividerStyles__StyledRule",
-      componentId: "gl6kyz-0"
-    })(["", ";", ";border-color:", ";"], c2.mixins.reset("block"), (0, c2.pickVariant)("$orientation", {
-      horizontal: (0, a2.css)(["border-top-style:solid;border-width:1px;"]),
-      vertical: (0, a2.css)(["display:inline;border-left-style:solid;border-width:1px;"])
-    }), (0, c2.pickVariant)("$appearance", {
-      default: c2.variables.borderColor,
-      weak: c2.variables.borderColorWeak,
-      strong: c2.variables.borderColorStrong
-    }));
-    function f2(e3) {
-      "@babel/helpers - typeof";
-      return f2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e4) {
-        return typeof e4;
-      } : function(e4) {
-        return e4 && "function" == typeof Symbol && e4.constructor === Symbol && e4 !== Symbol.prototype ? "symbol" : typeof e4;
-      }, f2(e3);
-    }
-    function p2() {
-      return p2 = Object.assign ? Object.assign.bind() : function(e3) {
-        for (var r3 = 1; r3 < arguments.length; r3++) {
-          var t3 = arguments[r3];
-          for (var o3 in t3) {
-            ({}).hasOwnProperty.call(t3, o3) && (e3[o3] = t3[o3]);
-          }
-        }
-        return e3;
-      }, p2.apply(null, arguments);
-    }
-    function s2(e3, r3) {
-      var t3 = Object.keys(e3);
-      if (Object.getOwnPropertySymbols) {
-        var o3 = Object.getOwnPropertySymbols(e3);
-        r3 && (o3 = o3.filter(function(r4) {
-          return Object.getOwnPropertyDescriptor(e3, r4).enumerable;
-        })), t3.push.apply(t3, o3);
-      }
-      return t3;
-    }
-    function b2(e3) {
-      for (var r3 = 1; r3 < arguments.length; r3++) {
-        var t3 = null != arguments[r3] ? arguments[r3] : {};
-        r3 % 2 ? s2(Object(t3), true).forEach(function(r4) {
-          y2(e3, r4, t3[r4]);
-        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t3)) : s2(Object(t3)).forEach(function(r4) {
-          Object.defineProperty(e3, r4, Object.getOwnPropertyDescriptor(t3, r4));
-        });
-      }
-      return e3;
-    }
-    function y2(e3, r3, t3) {
-      return (r3 = d2(r3)) in e3 ? Object.defineProperty(e3, r3, {
-        value: t3,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      }) : e3[r3] = t3, e3;
-    }
-    function d2(e3) {
-      var r3 = v2(e3, "string");
-      return "symbol" == f2(r3) ? r3 : r3 + "";
-    }
-    function v2(e3, r3) {
-      if ("object" != f2(e3) || !e3) return e3;
-      var t3 = e3[Symbol.toPrimitive];
-      if (void 0 !== t3) {
-        var o3 = t3.call(e3, r3);
-        if ("object" != f2(o3)) return o3;
-        throw new TypeError("@@toPrimitive must return a primitive value.");
-      }
-      return ("string" === r3 ? String : Number)(e3);
-    }
-    function m2(e3, r3) {
-      if (null == e3) return {};
-      var t3, o3, n3 = O2(e3, r3);
-      if (Object.getOwnPropertySymbols) {
-        var i3 = Object.getOwnPropertySymbols(e3);
-        for (o3 = 0; o3 < i3.length; o3++) {
-          t3 = i3[o3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (n3[t3] = e3[t3]);
-        }
-      }
-      return n3;
-    }
-    function O2(e3, r3) {
-      if (null == e3) return {};
-      var t3 = {};
-      for (var o3 in e3) {
-        if ({}.hasOwnProperty.call(e3, o3)) {
-          if (r3.includes(o3)) continue;
-          t3[o3] = e3[o3];
-        }
-      }
-      return t3;
-    }
-    var g2 = {
-      appearance: i2().oneOf(["default", "weak", "strong"]),
-      decorative: i2().bool,
-      elementRef: i2().oneOfType([i2().func, i2().object]),
-      orientation: i2().oneOf(["horizontal", "vertical"])
-    };
-    function j2(e3) {
-      var r3 = e3.appearance, t3 = r3 === void 0 ? "default" : r3, n3 = e3.elementRef, i3 = e3.decorative, a3 = i3 === void 0 ? false : i3, l3 = e3.orientation, c3 = l3 === void 0 ? "horizontal" : l3, f3 = m2(e3, ["appearance", "elementRef", "decorative", "orientation"]);
-      var s3 = b2({
-        "data-test": "divider",
-        ref: n3,
-        $appearance: t3,
-        $orientation: c3
-      }, f3);
-      if (a3) {
-        return o2().createElement(u2, p2({
-          as: "div"
-        }, s3));
-      }
-      return o2().createElement(u2, p2({
-        "aria-orientation": c3
-      }, s3));
-    }
-    j2.propTypes = g2;
-    const h2 = j2;
-    Divider.exports = r2;
-  })();
-  return Divider.exports;
-}
-var hasRequiredColumnLayout;
-function requireColumnLayout() {
-  if (hasRequiredColumnLayout) return ColumnLayout$1.exports;
-  hasRequiredColumnLayout = 1;
-  (() => {
-    var e2 = {};
-    (() => {
-      e2.n = (r3) => {
-        var t3 = r3 && r3.__esModule ? (
-          /******/
-          () => r3["default"]
-        ) : () => r3;
-        e2.d(t3, {
-          a: t3
-        });
-        return t3;
-      };
-    })();
-    (() => {
-      e2.d = (r3, t3) => {
-        for (var n3 in t3) {
-          if (e2.o(t3, n3) && !e2.o(r3, n3)) {
-            Object.defineProperty(r3, n3, {
-              enumerable: true,
-              get: t3[n3]
-            });
-          }
-        }
-      };
-    })();
-    (() => {
-      e2.o = (e3, r3) => Object.prototype.hasOwnProperty.call(e3, r3);
-    })();
-    (() => {
-      e2.r = (e3) => {
-        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
-          Object.defineProperty(e3, Symbol.toStringTag, {
-            value: "Module"
-          });
-        }
-        Object.defineProperty(e3, "__esModule", {
-          value: true
-        });
-      };
-    })();
-    var r2 = {};
-    e2.r(r2);
-    e2.d(r2, {
-      Column: () => (
-        /* reexport */
-        m2
-      ),
-      Row: () => (
-        /* reexport */
-        x2
-      ),
-      default: () => (
-        /* reexport */
-        T2
-      )
-    });
-    const t2 = requireReact();
-    var n2 = e2.n(t2);
-    const a2 = /* @__PURE__ */ requirePropTypes();
-    var i2 = e2.n(a2);
-    const l2 = require$$21;
-    var o2 = e2.n(l2);
-    const c2 = requireThemes();
-    var u2 = o2().div.withConfig({
-      displayName: "ColumnStyles__Styled",
-      componentId: "sc-1pchz98-0"
-    })(["", " flex:", ";", ""], c2.mixins.reset("block"), function(e3) {
-      var r3 = e3.$span;
-      return "".concat(r3, " ").concat(r3, " auto");
-    }, function(e3) {
-      var r3 = e3.$gutter, t3 = e3.$span;
-      if (r3 === 0) {
-        return (0, l2.css)(["width:", "%;"], 100 / 12 * t3);
-      }
-      var n3 = r3 !== void 0 ? "".concat(r3, "px") : c2.variables.spacingXLarge;
-      return (0, l2.css)(["width:calc( (100% - 11 * ", ") * ", " + (", " * ", ") );"], n3, t3 / 12, n3, t3 - 1);
-    });
-    function s2() {
-      return s2 = Object.assign ? Object.assign.bind() : function(e3) {
-        for (var r3 = 1; r3 < arguments.length; r3++) {
-          var t3 = arguments[r3];
-          for (var n3 in t3) {
-            ({}).hasOwnProperty.call(t3, n3) && (e3[n3] = t3[n3]);
-          }
-        }
-        return e3;
-      }, s2.apply(null, arguments);
-    }
-    function d2(e3, r3) {
-      if (null == e3) return {};
-      var t3, n3, a3 = f2(e3, r3);
-      if (Object.getOwnPropertySymbols) {
-        var i3 = Object.getOwnPropertySymbols(e3);
-        for (n3 = 0; n3 < i3.length; n3++) {
-          t3 = i3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (a3[t3] = e3[t3]);
-        }
-      }
-      return a3;
-    }
-    function f2(e3, r3) {
-      if (null == e3) return {};
-      var t3 = {};
-      for (var n3 in e3) {
-        if ({}.hasOwnProperty.call(e3, n3)) {
-          if (r3.includes(n3)) continue;
-          t3[n3] = e3[n3];
-        }
-      }
-      return t3;
-    }
-    var v2 = {
-      children: i2().node,
-      elementRef: i2().oneOfType([i2().func, i2().object]),
-      /** @private. */
-      gutter: i2().number,
-      span: i2().number
-    };
-    function p2(e3) {
-      var r3 = e3.children, t3 = e3.elementRef, a3 = e3.gutter, i3 = e3.span, l3 = i3 === void 0 ? 1 : i3, o3 = d2(e3, ["children", "elementRef", "gutter", "span"]);
-      return n2().createElement(u2, s2({
-        "data-test": "column",
-        ref: t3,
-        $gutter: a3,
-        $span: l3
-      }, o3), r3);
-    }
-    p2.propTypes = v2;
-    const m2 = p2;
-    const g2 = requireDivider();
-    var y2 = e2.n(g2);
-    var b2 = o2().div.withConfig({
-      displayName: "RowStyles__Styled",
-      componentId: "sc-121ntds-0"
-    })(["", ";flex-flow:row nowrap;", ";&[data-align-items='start']{align-items:flex-start;}&[data-align-items='end']{align-items:flex-end;}&[data-align-items='center']{align-items:center;}&[data-align-items='stretch']{align-items:stretch;}"], c2.mixins.reset("flex"), function(e3) {
-      var r3 = e3.$hasDivider, t3 = e3.$gutter;
-      var n3 = t3 !== void 0 ? "".concat(t3, "px") : c2.variables.spacingXLarge;
-      if (r3) {
-        return (0, l2.css)(["gap:calc(", " / 2);"], n3);
-      }
-      return (0, l2.css)(["gap:", ";"], n3);
-    });
-    var h2 = o2()(y2()).withConfig({
-      displayName: "RowStyles__StyledDivider",
-      componentId: "sc-121ntds-1"
-    })(["border-color:", ";flex:0 0 1;"], c2.variables.borderColorWeak);
-    function O2() {
-      return O2 = Object.assign ? Object.assign.bind() : function(e3) {
-        for (var r3 = 1; r3 < arguments.length; r3++) {
-          var t3 = arguments[r3];
-          for (var n3 in t3) {
-            ({}).hasOwnProperty.call(t3, n3) && (e3[n3] = t3[n3]);
-          }
-        }
-        return e3;
-      }, O2.apply(null, arguments);
-    }
-    function w2(e3, r3) {
-      if (null == e3) return {};
-      var t3, n3, a3 = S2(e3, r3);
-      if (Object.getOwnPropertySymbols) {
-        var i3 = Object.getOwnPropertySymbols(e3);
-        for (n3 = 0; n3 < i3.length; n3++) {
-          t3 = i3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (a3[t3] = e3[t3]);
-        }
-      }
-      return a3;
-    }
-    function S2(e3, r3) {
-      if (null == e3) return {};
-      var t3 = {};
-      for (var n3 in e3) {
-        if ({}.hasOwnProperty.call(e3, n3)) {
-          if (r3.includes(n3)) continue;
-          t3[n3] = e3[n3];
-        }
-      }
-      return t3;
-    }
-    var j2 = {
-      alignItems: i2().oneOf(["start", "end", "center", "stretch"]),
-      children: i2().node,
-      /** @private. */
-      divider: i2().bool,
-      elementRef: i2().oneOfType([i2().func, i2().object]),
-      /** @private. */
-      gutter: i2().number
-    };
-    function C2(e3) {
-      var r3 = e3.alignItems, a3 = r3 === void 0 ? "stretch" : r3, i3 = e3.children, l3 = e3.divider, o3 = e3.elementRef, c3 = e3.gutter, u3 = w2(e3, ["alignItems", "children", "divider", "elementRef", "gutter"]);
-      var d3 = (0, t2.useCallback)(function(e4) {
-        return (0, t2.cloneElement)(e4, {
-          gutter: c3
-        });
-      }, [c3]);
-      var f3 = (0, t2.useCallback)(function(e4, r4, t3, a4) {
-        e4.push(r4);
-        if (l3 && t3 < a4.length - 1) {
-          e4.push(n2().createElement(h2, {
-            orientation: "vertical",
-            decorative: true,
-            key: "".concat(t3, "-divider")
-          }));
-        }
-        return e4;
-      }, [l3]);
-      var v3 = t2.Children.toArray(i3).filter(t2.isValidElement).map(d3).reduce(f3, []);
-      return n2().createElement(b2, O2({
-        "data-align-items": a3,
-        "data-test": "row",
-        $hasDivider: l3,
-        $gutter: c3,
-        ref: o3
-      }, u3), v3);
-    }
-    C2.propTypes = j2;
-    const x2 = C2;
-    var P2 = o2().div.withConfig({
-      displayName: "ColumnLayoutStyles__Styled",
-      componentId: "sc-3eatxz-0"
-    })(["", ";flex-direction:column;", ";"], c2.mixins.reset("flex"), function(e3) {
-      var r3 = e3.$hasDivider, t3 = e3.$gutter;
-      var n3 = t3 !== void 0 ? "".concat(t3, "px") : c2.variables.spacingXLarge;
-      if (r3) {
-        return (0, l2.css)(["gap:calc(", " / 2);"], n3);
-      }
-      return (0, l2.css)(["gap:", ";"], n3);
-    });
-    var _2 = o2()(y2()).withConfig({
-      displayName: "ColumnLayoutStyles__StyledDivider",
-      componentId: "sc-3eatxz-1"
-    })(["border-color:", ";height:0;"], c2.variables.borderColorWeak);
-    function R2() {
-      return R2 = Object.assign ? Object.assign.bind() : function(e3) {
-        for (var r3 = 1; r3 < arguments.length; r3++) {
-          var t3 = arguments[r3];
-          for (var n3 in t3) {
-            ({}).hasOwnProperty.call(t3, n3) && (e3[n3] = t3[n3]);
-          }
-        }
-        return e3;
-      }, R2.apply(null, arguments);
-    }
-    function $2(e3, r3) {
-      if (null == e3) return {};
-      var t3, n3, a3 = E2(e3, r3);
-      if (Object.getOwnPropertySymbols) {
-        var i3 = Object.getOwnPropertySymbols(e3);
-        for (n3 = 0; n3 < i3.length; n3++) {
-          t3 = i3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (a3[t3] = e3[t3]);
-        }
-      }
-      return a3;
-    }
-    function E2(e3, r3) {
-      if (null == e3) return {};
-      var t3 = {};
-      for (var n3 in e3) {
-        if ({}.hasOwnProperty.call(e3, n3)) {
-          if (r3.includes(n3)) continue;
-          t3[n3] = e3[n3];
-        }
-      }
-      return t3;
-    }
-    var k2 = {
-      children: i2().node,
-      divider: i2().oneOf(["none", "vertical", "horizontal"]),
-      elementRef: i2().oneOfType([i2().func, i2().object]),
-      gutter: i2().number
-    };
-    function I2(e3) {
-      var r3 = e3.children, a3 = e3.divider, i3 = a3 === void 0 ? "none" : a3, l3 = e3.elementRef, o3 = e3.gutter, c3 = $2(e3, ["children", "divider", "elementRef", "gutter"]);
-      var u3 = (0, t2.useCallback)(function(e4) {
-        return (0, t2.cloneElement)(e4, {
-          divider: i3 === "vertical",
-          gutter: o3
-        });
-      }, [i3, o3]);
-      var s3 = (0, t2.useCallback)(function(e4, r4, t3, a4) {
-        e4.push(r4);
-        if (i3 === "horizontal" && t3 < a4.length - 1) {
-          e4.push(n2().createElement(_2, {
-            decorative: true,
-            key: "".concat(t3, "-divider")
-          }));
-        }
-        return e4;
-      }, [i3]);
-      var d3 = t2.Children.toArray(r3).filter(t2.isValidElement).map(u3).reduce(s3, []);
-      return n2().createElement(P2, R2({
-        "data-test": "column-layout",
-        $gutter: o3,
-        $hasDivider: i3 === "horizontal",
-        ref: l3
-      }, c3), d3);
-    }
-    I2.propTypes = k2;
-    I2.Row = x2;
-    I2.Column = m2;
-    const T2 = I2;
-    ColumnLayout$1.exports = r2;
-  })();
-  return ColumnLayout$1.exports;
-}
-var ColumnLayoutExports = requireColumnLayout();
-const ColumnLayout = /* @__PURE__ */ getDefaultExportFromCjs(ColumnLayoutExports);
-var MessageBar$1 = { exports: {} };
 var CheckCircle = { exports: {} };
 var SVG = { exports: {} };
 var hasRequiredSVG;
@@ -17424,7 +16927,7 @@ function requireSVG() {
       var r3 = n2.n(e3);
       var i2 = n2(80023);
       var o2 = n2.n(i2);
-      const l2 = require$$21;
+      const l2 = require$$2$3;
       var a2 = n2.n(l2);
       function u2() {
         return u2 = Object.assign ? Object.assign.bind() : function(e4) {
@@ -17513,7 +17016,7 @@ function requireIconProvider() {
           var o2 = t3.n(n3);
           var i2 = t3(80023);
           var a2 = t3.n(i2);
-          const l2 = require$$21;
+          const l2 = require$$2$3;
           var u2 = t3.n(l2);
           function c2() {
             return c2 = Object.assign ? Object.assign.bind() : function(e4) {
@@ -18444,7 +17947,7 @@ function requireScreenReaderContent() {
       232: (
         /***/
         (e3) => {
-          e3.exports = require$$21;
+          e3.exports = require$$2$3;
         }
       )
     };
@@ -19928,7 +19431,7 @@ function requireClickable() {
     var u2 = e2.n(l2);
     const d2 = requireOmit();
     var c2 = e2.n(d2);
-    const s2 = require$$21;
+    const s2 = require$$2$3;
     var f2 = e2.n(s2);
     const v2 = requireThemes();
     var b2 = f2().a.withConfig({
@@ -20166,7 +19669,7 @@ function requireButtonSimple() {
     var a2 = r2.n(o2);
     const t2 = /* @__PURE__ */ requirePropTypes();
     var n2 = r2.n(t2);
-    const i2 = require$$21;
+    const i2 = require$$2$3;
     var c2 = r2.n(i2);
     const l2 = requireClickable();
     var d2 = r2.n(l2);
@@ -20450,7 +19953,7 @@ function requireButton() {
     var f2 = e2.n(d2);
     const v2 = requireI18n();
     const b2 = requireStyle();
-    const m2 = require$$21;
+    const m2 = require$$2$3;
     var y2 = e2.n(m2);
     const g2 = requireButtonSimple();
     var h2 = e2.n(g2);
@@ -20649,7 +20152,7 @@ function requireMessageBar() {
     const m2 = requireScreenReaderContent();
     var y2 = e2.n(m2);
     const b2 = requireI18n();
-    const C2 = require$$21;
+    const C2 = require$$2$3;
     var h2 = e2.n(C2);
     const w2 = requireButton();
     var S2 = e2.n(w2);
@@ -24697,7 +24200,7 @@ function requireLayer() {
       }, o3));
     }
     E2.propTypes = C2;
-    const S2 = require$$21;
+    const S2 = require$$2$3;
     var k2 = e2.n(S2);
     const w2 = requireThemes();
     var T2 = k2().div.withConfig({
@@ -26150,7 +25653,7 @@ function requirePopover() {
       };
     }
     const N2 = requireCjs();
-    const V2 = require$$21;
+    const V2 = require$$2$3;
     var z2 = e2.n(V2);
     const K2 = requireThemes();
     var X2 = 8;
@@ -27549,7 +27052,7 @@ function requireTabBar() {
     var i2 = e2.n(a2);
     const o2 = requireUsePrevious();
     var l2 = e2.n(o2);
-    const u2 = require$$21;
+    const u2 = require$$2$3;
     var c2 = e2.n(u2);
     const s2 = requireThemes();
     var d2 = c2().div.withConfig({
@@ -28387,7 +27890,7 @@ function requireMessage() {
     const g2 = requireScreenReaderContent();
     var y2 = e2.n(g2);
     const b2 = requireI18n();
-    const h2 = require$$21;
+    const h2 = require$$2$3;
     var w2 = e2.n(h2);
     const S2 = requireButton();
     var O2 = e2.n(S2);
@@ -29509,7 +29012,7 @@ function requireTooltip() {
     var m2 = e2.n(d2);
     const b2 = requireI18n();
     const y2 = requireId();
-    const g2 = require$$21;
+    const g2 = require$$2$3;
     var O2 = e2.n(g2);
     const h2 = requireButton();
     var S2 = e2.n(h2);
@@ -30505,7 +30008,7 @@ function requireJSONTree() {
       232: (
         /***/
         (e3) => {
-          e3.exports = require$$21;
+          e3.exports = require$$2$3;
         }
       )
     };
@@ -36643,7 +36146,7 @@ function requireTypography() {
     var n2 = e2.n(t2);
     const o2 = /* @__PURE__ */ requirePropTypes();
     var a2 = e2.n(o2);
-    const i2 = require$$21;
+    const i2 = require$$2$3;
     var l2 = e2.n(i2);
     const s2 = requireMixins();
     var u2 = e2.n(s2);
@@ -36790,7 +36293,7 @@ function requireHeading() {
     var n2 = e2.n(r2);
     const l2 = /* @__PURE__ */ requirePropTypes();
     var i2 = e2.n(l2);
-    const a2 = require$$21;
+    const a2 = require$$2$3;
     var o2 = e2.n(a2);
     const u2 = requireTypography();
     var s2 = e2.n(u2);
@@ -36944,7 +36447,7 @@ function requireRadioList() {
     var c2 = (0, a2.createContext)({});
     c2.displayName = "RadioList";
     const s2 = c2;
-    const u2 = require$$21;
+    const u2 = require$$2$3;
     var v2 = e2.n(u2);
     const b2 = requireThemes();
     var f2 = v2().div.withConfig({
@@ -37712,7 +37215,7 @@ function requireLink() {
     const i2 = requireScreenReaderContent();
     var l2 = e2.n(i2);
     const s2 = requireI18n();
-    const c2 = require$$21;
+    const c2 = require$$2$3;
     var d2 = e2.n(c2);
     const u2 = requireArrowSquareTopRightInset();
     var p2 = e2.n(u2);
@@ -37796,6 +37299,191 @@ function requireLink() {
   return Link.exports;
 }
 var Menu$1 = { exports: {} };
+var Divider = { exports: {} };
+var hasRequiredDivider;
+function requireDivider() {
+  if (hasRequiredDivider) return Divider.exports;
+  hasRequiredDivider = 1;
+  (() => {
+    var e2 = {};
+    (() => {
+      e2.n = (r3) => {
+        var t3 = r3 && r3.__esModule ? (
+          /******/
+          () => r3["default"]
+        ) : () => r3;
+        e2.d(t3, {
+          a: t3
+        });
+        return t3;
+      };
+    })();
+    (() => {
+      e2.d = (r3, t3) => {
+        for (var o3 in t3) {
+          if (e2.o(t3, o3) && !e2.o(r3, o3)) {
+            Object.defineProperty(r3, o3, {
+              enumerable: true,
+              get: t3[o3]
+            });
+          }
+        }
+      };
+    })();
+    (() => {
+      e2.o = (e3, r3) => Object.prototype.hasOwnProperty.call(e3, r3);
+    })();
+    (() => {
+      e2.r = (e3) => {
+        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+          Object.defineProperty(e3, Symbol.toStringTag, {
+            value: "Module"
+          });
+        }
+        Object.defineProperty(e3, "__esModule", {
+          value: true
+        });
+      };
+    })();
+    var r2 = {};
+    e2.r(r2);
+    e2.d(r2, {
+      default: () => (
+        /* reexport */
+        h2
+      )
+    });
+    const t2 = requireReact();
+    var o2 = e2.n(t2);
+    const n2 = /* @__PURE__ */ requirePropTypes();
+    var i2 = e2.n(n2);
+    const a2 = require$$2$3;
+    var l2 = e2.n(a2);
+    const c2 = requireThemes();
+    var u2 = l2().hr.withConfig({
+      displayName: "DividerStyles__StyledRule",
+      componentId: "gl6kyz-0"
+    })(["", ";", ";border-color:", ";"], c2.mixins.reset("block"), (0, c2.pickVariant)("$orientation", {
+      horizontal: (0, a2.css)(["border-top-style:solid;border-width:1px;"]),
+      vertical: (0, a2.css)(["display:inline;border-left-style:solid;border-width:1px;"])
+    }), (0, c2.pickVariant)("$appearance", {
+      default: c2.variables.borderColor,
+      weak: c2.variables.borderColorWeak,
+      strong: c2.variables.borderColorStrong
+    }));
+    function f2(e3) {
+      "@babel/helpers - typeof";
+      return f2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e4) {
+        return typeof e4;
+      } : function(e4) {
+        return e4 && "function" == typeof Symbol && e4.constructor === Symbol && e4 !== Symbol.prototype ? "symbol" : typeof e4;
+      }, f2(e3);
+    }
+    function p2() {
+      return p2 = Object.assign ? Object.assign.bind() : function(e3) {
+        for (var r3 = 1; r3 < arguments.length; r3++) {
+          var t3 = arguments[r3];
+          for (var o3 in t3) {
+            ({}).hasOwnProperty.call(t3, o3) && (e3[o3] = t3[o3]);
+          }
+        }
+        return e3;
+      }, p2.apply(null, arguments);
+    }
+    function s2(e3, r3) {
+      var t3 = Object.keys(e3);
+      if (Object.getOwnPropertySymbols) {
+        var o3 = Object.getOwnPropertySymbols(e3);
+        r3 && (o3 = o3.filter(function(r4) {
+          return Object.getOwnPropertyDescriptor(e3, r4).enumerable;
+        })), t3.push.apply(t3, o3);
+      }
+      return t3;
+    }
+    function b2(e3) {
+      for (var r3 = 1; r3 < arguments.length; r3++) {
+        var t3 = null != arguments[r3] ? arguments[r3] : {};
+        r3 % 2 ? s2(Object(t3), true).forEach(function(r4) {
+          y2(e3, r4, t3[r4]);
+        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t3)) : s2(Object(t3)).forEach(function(r4) {
+          Object.defineProperty(e3, r4, Object.getOwnPropertyDescriptor(t3, r4));
+        });
+      }
+      return e3;
+    }
+    function y2(e3, r3, t3) {
+      return (r3 = d2(r3)) in e3 ? Object.defineProperty(e3, r3, {
+        value: t3,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      }) : e3[r3] = t3, e3;
+    }
+    function d2(e3) {
+      var r3 = v2(e3, "string");
+      return "symbol" == f2(r3) ? r3 : r3 + "";
+    }
+    function v2(e3, r3) {
+      if ("object" != f2(e3) || !e3) return e3;
+      var t3 = e3[Symbol.toPrimitive];
+      if (void 0 !== t3) {
+        var o3 = t3.call(e3, r3);
+        if ("object" != f2(o3)) return o3;
+        throw new TypeError("@@toPrimitive must return a primitive value.");
+      }
+      return ("string" === r3 ? String : Number)(e3);
+    }
+    function m2(e3, r3) {
+      if (null == e3) return {};
+      var t3, o3, n3 = O2(e3, r3);
+      if (Object.getOwnPropertySymbols) {
+        var i3 = Object.getOwnPropertySymbols(e3);
+        for (o3 = 0; o3 < i3.length; o3++) {
+          t3 = i3[o3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (n3[t3] = e3[t3]);
+        }
+      }
+      return n3;
+    }
+    function O2(e3, r3) {
+      if (null == e3) return {};
+      var t3 = {};
+      for (var o3 in e3) {
+        if ({}.hasOwnProperty.call(e3, o3)) {
+          if (r3.includes(o3)) continue;
+          t3[o3] = e3[o3];
+        }
+      }
+      return t3;
+    }
+    var g2 = {
+      appearance: i2().oneOf(["default", "weak", "strong"]),
+      decorative: i2().bool,
+      elementRef: i2().oneOfType([i2().func, i2().object]),
+      orientation: i2().oneOf(["horizontal", "vertical"])
+    };
+    function j2(e3) {
+      var r3 = e3.appearance, t3 = r3 === void 0 ? "default" : r3, n3 = e3.elementRef, i3 = e3.decorative, a3 = i3 === void 0 ? false : i3, l3 = e3.orientation, c3 = l3 === void 0 ? "horizontal" : l3, f3 = m2(e3, ["appearance", "elementRef", "decorative", "orientation"]);
+      var s3 = b2({
+        "data-test": "divider",
+        ref: n3,
+        $appearance: t3,
+        $orientation: c3
+      }, f3);
+      if (a3) {
+        return o2().createElement(u2, p2({
+          as: "div"
+        }, s3));
+      }
+      return o2().createElement(u2, p2({
+        "aria-orientation": c3
+      }, s3));
+    }
+    j2.propTypes = g2;
+    const h2 = j2;
+    Divider.exports = r2;
+  })();
+  return Divider.exports;
+}
 var NonInteractiveCheckbox = { exports: {} };
 var Switch$1 = { exports: {} };
 var Box = { exports: {} };
@@ -37856,7 +37544,7 @@ function requireBox() {
     var r2 = e2.n(t2);
     const l2 = /* @__PURE__ */ requirePropTypes();
     var i2 = e2.n(l2);
-    const o2 = require$$21;
+    const o2 = require$$2$3;
     var a2 = e2.n(o2);
     const f2 = requireThemes();
     var d2 = a2().div.withConfig({
@@ -38227,7 +37915,7 @@ function requireSwitch() {
     const n2 = requireScreenReaderContent();
     var c2 = e2.n(n2);
     const s2 = requireId();
-    const d2 = require$$21;
+    const d2 = require$$2$3;
     var u2 = e2.n(d2);
     const b2 = requireBox();
     var v2 = e2.n(b2);
@@ -38990,7 +38678,7 @@ function requireScroll() {
       const a2 = require_isFinite();
       var i2 = r2.n(a2);
       const u2 = requireAnimation();
-      const c2 = require$$21;
+      const c2 = require$$2$3;
       var f2 = r2.n(c2);
       const s2 = requireThemes();
       const d2 = requireKeys();
@@ -39409,7 +39097,7 @@ function requireMenu() {
     const o2 = requireOmit();
     var l2 = e2.n(o2);
     const s2 = requireFocus();
-    const c2 = require$$21;
+    const c2 = require$$2$3;
     var u2 = e2.n(c2);
     const d2 = requireDivider();
     var v2 = e2.n(d2);
@@ -40082,7 +39770,7 @@ function requireWaitSpinner() {
     var i2 = e2.n(a2);
     const s2 = requireAnimationToggle();
     const o2 = requireI18n();
-    const l2 = require$$21;
+    const l2 = require$$2$3;
     var c2 = e2.n(l2);
     const f2 = requireThemes();
     var u2 = c2().div.withConfig({
@@ -40289,7 +39977,7 @@ function requireResultsMenu() {
       232: (
         /***/
         (e3) => {
-          e3.exports = require$$21;
+          e3.exports = require$$2$3;
         }
       )
     };
@@ -41315,7 +41003,7 @@ function requireControlGroup() {
     const u2 = requireId();
     var d2 = n2().createContext({});
     const p2 = d2;
-    const f2 = require$$21;
+    const f2 = require$$2$3;
     var y2 = e2.n(f2);
     const v2 = requireBox();
     var b2 = e2.n(v2);
@@ -42197,7 +41885,7 @@ function requireText() {
       });
     }
     const A2 = E2;
-    const T2 = require$$21;
+    const T2 = require$$2$3;
     var B2 = e2.n(T2);
     const I2 = requireButtonSimple();
     const P2 = requireBox();
@@ -43097,7 +42785,7 @@ function requireSelect() {
       }
       ae2.propTypes = le2;
       const oe2 = ae2;
-      const ie2 = require$$21;
+      const ie2 = require$$2$3;
       var ue2 = t2.n(ie2);
       const ce2 = requireButton();
       var se2 = t2.n(ce2);
@@ -44859,7 +44547,7 @@ function requireModalLayer() {
     const a2 = requireAnimation();
     const l2 = requireLayer();
     var u2 = e2.n(l2);
-    const c2 = require$$21;
+    const c2 = require$$2$3;
     var s2 = e2.n(c2);
     const f2 = requireCjs();
     const y2 = requireThemes();
@@ -45119,7 +44807,7 @@ function requireModal() {
     const v2 = requireUsePrevious();
     var b2 = e2.n(v2);
     const y2 = requireScrollContainerContext();
-    const m2 = require$$21;
+    const m2 = require$$2$3;
     var g2 = e2.n(m2);
     const h2 = requireBox();
     var O2 = e2.n(h2);
@@ -47634,6 +47322,119 @@ Server response: ${responseText}`;
     )
   ] });
 };
+function ResizablePanels({
+  leftPanel,
+  rightPanel,
+  defaultLeftWidth = 42,
+  minLeftWidth = 20,
+  minRightWidth = 20
+}) {
+  const [leftWidth, setLeftWidth] = reactExports.useState(defaultLeftWidth);
+  const [isDragging, setIsDragging] = reactExports.useState(false);
+  const containerRef = reactExports.useRef(null);
+  const handleMouseDown = reactExports.useCallback((e2) => {
+    e2.preventDefault();
+    setIsDragging(true);
+  }, []);
+  const handleMouseMove = reactExports.useCallback(
+    (e2) => {
+      if (!isDragging || !containerRef.current) return;
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const offsetX = e2.clientX - containerRect.left;
+      const percentage = offsetX / containerRect.width * 100;
+      const constrainedPercentage = Math.min(
+        Math.max(percentage, minLeftWidth),
+        100 - minRightWidth
+      );
+      setLeftWidth(constrainedPercentage);
+    },
+    [isDragging, minLeftWidth, minRightWidth]
+  );
+  const handleMouseUp = reactExports.useCallback(() => {
+    setIsDragging(false);
+  }, []);
+  reactExports.useEffect(() => {
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "col-resize";
+      document.body.style.userSelect = "none";
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+        document.body.style.cursor = "";
+        document.body.style.userSelect = "";
+      };
+    }
+  }, [isDragging, handleMouseMove, handleMouseUp]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      ref: containerRef,
+      style: {
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        position: "relative"
+      },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            style: {
+              width: `${leftWidth}%`,
+              overflow: "auto",
+              paddingRight: "20px"
+            },
+            children: leftPanel
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            onMouseDown: handleMouseDown,
+            style: {
+              width: "8px",
+              cursor: "col-resize",
+              backgroundColor: isDragging ? "#0066CC" : "#e0e0e0",
+              position: "relative",
+              flexShrink: 0,
+              transition: isDragging ? "none" : "background-color 0.2s",
+              userSelect: "none"
+            },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                style: {
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "3px",
+                  height: "40px",
+                  backgroundColor: isDragging ? "#fff" : "#999",
+                  borderRadius: "2px",
+                  transition: isDragging ? "none" : "background-color 0.2s"
+                }
+              }
+            )
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            style: {
+              width: `${100 - leftWidth}%`,
+              overflow: "auto",
+              paddingLeft: "20px"
+            },
+            children: rightPanel
+          }
+        )
+      ]
+    }
+  );
+}
 function NewDataInput() {
   const [jsonData, setJsonData] = reactExports.useState("");
   const [successMessage, setSuccessMessage] = reactExports.useState(null);
@@ -47663,61 +47464,67 @@ function NewDataInput() {
     },
     []
   );
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout, { gutter: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Row, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Column, { span: 5, children: [
-      successMessage && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        MessageBar,
-        {
-          style: { marginBottom: "15px" },
-          type: "success",
-          "aria-labelledby": headingId,
-          onRequestClose: () => setSuccessMessage(null),
-          children: successMessage
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(TabBar, { style: { marginBottom: "25px", width: "100%", fontSize: "1.2em" }, activeTabId, onChange: handleTabChange, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(TabBar.Tab, { label: "KV Store", tabId: "kvstore" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(TabBar.Tab, { label: "Index", tabId: "index" })
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "calc(100vh - 100px)" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    ResizablePanels,
+    {
+      defaultLeftWidth: 42,
+      minLeftWidth: 25,
+      minRightWidth: 30,
+      leftPanel: /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        successMessage && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          MessageBar,
+          {
+            style: { marginBottom: "15px" },
+            type: "success",
+            "aria-labelledby": headingId,
+            onRequestClose: () => setSuccessMessage(null),
+            children: successMessage
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(TabBar, { style: { marginBottom: "25px", width: "100%", fontSize: "1.2em" }, activeTabId, onChange: handleTabChange, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(TabBar.Tab, { label: "KV Store", tabId: "kvstore" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(TabBar.Tab, { label: "Index", tabId: "index" })
+        ] }),
+        activeTabId === "kvstore" && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          NewKVStoreDataInputForm,
+          {
+            onDataFetched: setJsonData,
+            onSuccess: () => setSuccessMessage("Successfully added data input to KV Store."),
+            onAddExcludePathRef: (fn) => {
+              addExcludePathRef.current = fn;
+            },
+            onAddKeyMappingRef: (fn) => {
+              addKeyMappingRef.current = fn;
+            },
+            onKeyMappingsChange: setKeyMappings
+          }
+        ),
+        activeTabId === "index" && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          NewIndexDataInputForm,
+          {
+            onDataFetched: setJsonData,
+            onSuccess: () => setSuccessMessage("Successfully added data input for Index."),
+            onAddExcludePathRef: (fn) => {
+              addExcludePathRef.current = fn;
+            },
+            onAddKeyMappingRef: (fn) => {
+              addKeyMappingRef.current = fn;
+            },
+            onKeyMappingsChange: setKeyMappings
+          }
+        )
       ] }),
-      activeTabId === "kvstore" && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        NewKVStoreDataInputForm,
+      rightPanel: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        JSONViewer,
         {
-          onDataFetched: setJsonData,
-          onSuccess: () => setSuccessMessage("Successfully added data input to KV Store."),
-          onAddExcludePathRef: (fn) => {
-            addExcludePathRef.current = fn;
-          },
-          onAddKeyMappingRef: (fn) => {
-            addKeyMappingRef.current = fn;
-          },
-          onKeyMappingsChange: setKeyMappings
-        }
-      ),
-      activeTabId === "index" && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        NewIndexDataInputForm,
-        {
-          onDataFetched: setJsonData,
-          onSuccess: () => setSuccessMessage("Successfully added data input for Index."),
-          onAddExcludePathRef: (fn) => {
-            addExcludePathRef.current = fn;
-          },
-          onAddKeyMappingRef: (fn) => {
-            addKeyMappingRef.current = fn;
-          },
-          onKeyMappingsChange: setKeyMappings
+          initialData: jsonData,
+          onPathClick: handlePathClick,
+          onKeyRename: handleKeyRename,
+          keyMappings
         }
       )
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 7, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      JSONViewer,
-      {
-        initialData: jsonData,
-        onPathClick: handlePathClick,
-        onKeyRename: handleKeyRename,
-        keyMappings
-      }
-    ) })
-  ] }) });
+    }
+  ) });
 }
 var Pencil$1 = { exports: {} };
 var hasRequiredPencil;
@@ -53831,7 +53638,7 @@ function requireTable() {
     var A2 = e2.n(q2);
     const P2 = requireWithout();
     var _2 = e2.n(P2);
-    const z2 = require$$21;
+    const z2 = require$$2$3;
     var M2 = e2.n(z2);
     const $2 = requireThemes();
     var N2 = M2().tbody.withConfig({
@@ -57634,6 +57441,318 @@ var TableExports = requireTable();
 const Table = /* @__PURE__ */ getDefaultExportFromCjs(TableExports);
 var TooltipExports = requireTooltip();
 const Tooltip = /* @__PURE__ */ getDefaultExportFromCjs(TooltipExports);
+var ColumnLayout$1 = { exports: {} };
+var hasRequiredColumnLayout;
+function requireColumnLayout() {
+  if (hasRequiredColumnLayout) return ColumnLayout$1.exports;
+  hasRequiredColumnLayout = 1;
+  (() => {
+    var e2 = {};
+    (() => {
+      e2.n = (r3) => {
+        var t3 = r3 && r3.__esModule ? (
+          /******/
+          () => r3["default"]
+        ) : () => r3;
+        e2.d(t3, {
+          a: t3
+        });
+        return t3;
+      };
+    })();
+    (() => {
+      e2.d = (r3, t3) => {
+        for (var n3 in t3) {
+          if (e2.o(t3, n3) && !e2.o(r3, n3)) {
+            Object.defineProperty(r3, n3, {
+              enumerable: true,
+              get: t3[n3]
+            });
+          }
+        }
+      };
+    })();
+    (() => {
+      e2.o = (e3, r3) => Object.prototype.hasOwnProperty.call(e3, r3);
+    })();
+    (() => {
+      e2.r = (e3) => {
+        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+          Object.defineProperty(e3, Symbol.toStringTag, {
+            value: "Module"
+          });
+        }
+        Object.defineProperty(e3, "__esModule", {
+          value: true
+        });
+      };
+    })();
+    var r2 = {};
+    e2.r(r2);
+    e2.d(r2, {
+      Column: () => (
+        /* reexport */
+        m2
+      ),
+      Row: () => (
+        /* reexport */
+        x2
+      ),
+      default: () => (
+        /* reexport */
+        T2
+      )
+    });
+    const t2 = requireReact();
+    var n2 = e2.n(t2);
+    const a2 = /* @__PURE__ */ requirePropTypes();
+    var i2 = e2.n(a2);
+    const l2 = require$$2$3;
+    var o2 = e2.n(l2);
+    const c2 = requireThemes();
+    var u2 = o2().div.withConfig({
+      displayName: "ColumnStyles__Styled",
+      componentId: "sc-1pchz98-0"
+    })(["", " flex:", ";", ""], c2.mixins.reset("block"), function(e3) {
+      var r3 = e3.$span;
+      return "".concat(r3, " ").concat(r3, " auto");
+    }, function(e3) {
+      var r3 = e3.$gutter, t3 = e3.$span;
+      if (r3 === 0) {
+        return (0, l2.css)(["width:", "%;"], 100 / 12 * t3);
+      }
+      var n3 = r3 !== void 0 ? "".concat(r3, "px") : c2.variables.spacingXLarge;
+      return (0, l2.css)(["width:calc( (100% - 11 * ", ") * ", " + (", " * ", ") );"], n3, t3 / 12, n3, t3 - 1);
+    });
+    function s2() {
+      return s2 = Object.assign ? Object.assign.bind() : function(e3) {
+        for (var r3 = 1; r3 < arguments.length; r3++) {
+          var t3 = arguments[r3];
+          for (var n3 in t3) {
+            ({}).hasOwnProperty.call(t3, n3) && (e3[n3] = t3[n3]);
+          }
+        }
+        return e3;
+      }, s2.apply(null, arguments);
+    }
+    function d2(e3, r3) {
+      if (null == e3) return {};
+      var t3, n3, a3 = f2(e3, r3);
+      if (Object.getOwnPropertySymbols) {
+        var i3 = Object.getOwnPropertySymbols(e3);
+        for (n3 = 0; n3 < i3.length; n3++) {
+          t3 = i3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (a3[t3] = e3[t3]);
+        }
+      }
+      return a3;
+    }
+    function f2(e3, r3) {
+      if (null == e3) return {};
+      var t3 = {};
+      for (var n3 in e3) {
+        if ({}.hasOwnProperty.call(e3, n3)) {
+          if (r3.includes(n3)) continue;
+          t3[n3] = e3[n3];
+        }
+      }
+      return t3;
+    }
+    var v2 = {
+      children: i2().node,
+      elementRef: i2().oneOfType([i2().func, i2().object]),
+      /** @private. */
+      gutter: i2().number,
+      span: i2().number
+    };
+    function p2(e3) {
+      var r3 = e3.children, t3 = e3.elementRef, a3 = e3.gutter, i3 = e3.span, l3 = i3 === void 0 ? 1 : i3, o3 = d2(e3, ["children", "elementRef", "gutter", "span"]);
+      return n2().createElement(u2, s2({
+        "data-test": "column",
+        ref: t3,
+        $gutter: a3,
+        $span: l3
+      }, o3), r3);
+    }
+    p2.propTypes = v2;
+    const m2 = p2;
+    const g2 = requireDivider();
+    var y2 = e2.n(g2);
+    var b2 = o2().div.withConfig({
+      displayName: "RowStyles__Styled",
+      componentId: "sc-121ntds-0"
+    })(["", ";flex-flow:row nowrap;", ";&[data-align-items='start']{align-items:flex-start;}&[data-align-items='end']{align-items:flex-end;}&[data-align-items='center']{align-items:center;}&[data-align-items='stretch']{align-items:stretch;}"], c2.mixins.reset("flex"), function(e3) {
+      var r3 = e3.$hasDivider, t3 = e3.$gutter;
+      var n3 = t3 !== void 0 ? "".concat(t3, "px") : c2.variables.spacingXLarge;
+      if (r3) {
+        return (0, l2.css)(["gap:calc(", " / 2);"], n3);
+      }
+      return (0, l2.css)(["gap:", ";"], n3);
+    });
+    var h2 = o2()(y2()).withConfig({
+      displayName: "RowStyles__StyledDivider",
+      componentId: "sc-121ntds-1"
+    })(["border-color:", ";flex:0 0 1;"], c2.variables.borderColorWeak);
+    function O2() {
+      return O2 = Object.assign ? Object.assign.bind() : function(e3) {
+        for (var r3 = 1; r3 < arguments.length; r3++) {
+          var t3 = arguments[r3];
+          for (var n3 in t3) {
+            ({}).hasOwnProperty.call(t3, n3) && (e3[n3] = t3[n3]);
+          }
+        }
+        return e3;
+      }, O2.apply(null, arguments);
+    }
+    function w2(e3, r3) {
+      if (null == e3) return {};
+      var t3, n3, a3 = S2(e3, r3);
+      if (Object.getOwnPropertySymbols) {
+        var i3 = Object.getOwnPropertySymbols(e3);
+        for (n3 = 0; n3 < i3.length; n3++) {
+          t3 = i3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (a3[t3] = e3[t3]);
+        }
+      }
+      return a3;
+    }
+    function S2(e3, r3) {
+      if (null == e3) return {};
+      var t3 = {};
+      for (var n3 in e3) {
+        if ({}.hasOwnProperty.call(e3, n3)) {
+          if (r3.includes(n3)) continue;
+          t3[n3] = e3[n3];
+        }
+      }
+      return t3;
+    }
+    var j2 = {
+      alignItems: i2().oneOf(["start", "end", "center", "stretch"]),
+      children: i2().node,
+      /** @private. */
+      divider: i2().bool,
+      elementRef: i2().oneOfType([i2().func, i2().object]),
+      /** @private. */
+      gutter: i2().number
+    };
+    function C2(e3) {
+      var r3 = e3.alignItems, a3 = r3 === void 0 ? "stretch" : r3, i3 = e3.children, l3 = e3.divider, o3 = e3.elementRef, c3 = e3.gutter, u3 = w2(e3, ["alignItems", "children", "divider", "elementRef", "gutter"]);
+      var d3 = (0, t2.useCallback)(function(e4) {
+        return (0, t2.cloneElement)(e4, {
+          gutter: c3
+        });
+      }, [c3]);
+      var f3 = (0, t2.useCallback)(function(e4, r4, t3, a4) {
+        e4.push(r4);
+        if (l3 && t3 < a4.length - 1) {
+          e4.push(n2().createElement(h2, {
+            orientation: "vertical",
+            decorative: true,
+            key: "".concat(t3, "-divider")
+          }));
+        }
+        return e4;
+      }, [l3]);
+      var v3 = t2.Children.toArray(i3).filter(t2.isValidElement).map(d3).reduce(f3, []);
+      return n2().createElement(b2, O2({
+        "data-align-items": a3,
+        "data-test": "row",
+        $hasDivider: l3,
+        $gutter: c3,
+        ref: o3
+      }, u3), v3);
+    }
+    C2.propTypes = j2;
+    const x2 = C2;
+    var P2 = o2().div.withConfig({
+      displayName: "ColumnLayoutStyles__Styled",
+      componentId: "sc-3eatxz-0"
+    })(["", ";flex-direction:column;", ";"], c2.mixins.reset("flex"), function(e3) {
+      var r3 = e3.$hasDivider, t3 = e3.$gutter;
+      var n3 = t3 !== void 0 ? "".concat(t3, "px") : c2.variables.spacingXLarge;
+      if (r3) {
+        return (0, l2.css)(["gap:calc(", " / 2);"], n3);
+      }
+      return (0, l2.css)(["gap:", ";"], n3);
+    });
+    var _2 = o2()(y2()).withConfig({
+      displayName: "ColumnLayoutStyles__StyledDivider",
+      componentId: "sc-3eatxz-1"
+    })(["border-color:", ";height:0;"], c2.variables.borderColorWeak);
+    function R2() {
+      return R2 = Object.assign ? Object.assign.bind() : function(e3) {
+        for (var r3 = 1; r3 < arguments.length; r3++) {
+          var t3 = arguments[r3];
+          for (var n3 in t3) {
+            ({}).hasOwnProperty.call(t3, n3) && (e3[n3] = t3[n3]);
+          }
+        }
+        return e3;
+      }, R2.apply(null, arguments);
+    }
+    function $2(e3, r3) {
+      if (null == e3) return {};
+      var t3, n3, a3 = E2(e3, r3);
+      if (Object.getOwnPropertySymbols) {
+        var i3 = Object.getOwnPropertySymbols(e3);
+        for (n3 = 0; n3 < i3.length; n3++) {
+          t3 = i3[n3], r3.includes(t3) || {}.propertyIsEnumerable.call(e3, t3) && (a3[t3] = e3[t3]);
+        }
+      }
+      return a3;
+    }
+    function E2(e3, r3) {
+      if (null == e3) return {};
+      var t3 = {};
+      for (var n3 in e3) {
+        if ({}.hasOwnProperty.call(e3, n3)) {
+          if (r3.includes(n3)) continue;
+          t3[n3] = e3[n3];
+        }
+      }
+      return t3;
+    }
+    var k2 = {
+      children: i2().node,
+      divider: i2().oneOf(["none", "vertical", "horizontal"]),
+      elementRef: i2().oneOfType([i2().func, i2().object]),
+      gutter: i2().number
+    };
+    function I2(e3) {
+      var r3 = e3.children, a3 = e3.divider, i3 = a3 === void 0 ? "none" : a3, l3 = e3.elementRef, o3 = e3.gutter, c3 = $2(e3, ["children", "divider", "elementRef", "gutter"]);
+      var u3 = (0, t2.useCallback)(function(e4) {
+        return (0, t2.cloneElement)(e4, {
+          divider: i3 === "vertical",
+          gutter: o3
+        });
+      }, [i3, o3]);
+      var s3 = (0, t2.useCallback)(function(e4, r4, t3, a4) {
+        e4.push(r4);
+        if (i3 === "horizontal" && t3 < a4.length - 1) {
+          e4.push(n2().createElement(_2, {
+            decorative: true,
+            key: "".concat(t3, "-divider")
+          }));
+        }
+        return e4;
+      }, [i3]);
+      var d3 = t2.Children.toArray(r3).filter(t2.isValidElement).map(u3).reduce(s3, []);
+      return n2().createElement(P2, R2({
+        "data-test": "column-layout",
+        $gutter: o3,
+        $hasDivider: i3 === "horizontal",
+        ref: l3
+      }, c3), d3);
+    }
+    I2.propTypes = k2;
+    I2.Row = x2;
+    I2.Column = m2;
+    const T2 = I2;
+    ColumnLayout$1.exports = r2;
+  })();
+  return ColumnLayout$1.exports;
+}
+var ColumnLayoutExports = requireColumnLayout();
+const ColumnLayout = /* @__PURE__ */ getDefaultExportFromCjs(ColumnLayoutExports);
 var MenuExports = requireMenu();
 const Menu = /* @__PURE__ */ getDefaultExportFromCjs(MenuExports);
 var i18nExports = requireI18n();
@@ -57653,33 +57772,39 @@ function EditIndexPage({ dataInputAppConfig, setDataInputAppConfig, onSuccess })
       addKeyMappingRef.current(oldKey, newKey);
     }
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout, { gutter: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Row, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      NewIndexDataInputForm,
-      {
-        dataInputAppConfig,
-        setDataInputAppConfig,
-        onDataFetched: setJsonData,
-        onSuccess,
-        onAddExcludePathRef: (fn) => {
-          addExcludePathRef.current = fn;
-        },
-        onAddKeyMappingRef: (fn) => {
-          addKeyMappingRef.current = fn;
-        },
-        onKeyMappingsChange: setKeyMappings
-      }
-    ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      JSONViewer,
-      {
-        initialData: jsonData,
-        onPathClick: handlePathClick,
-        onKeyRename: handleKeyRename,
-        keyMappings
-      }
-    ) })
-  ] }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "calc(100vh - 100px)" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    ResizablePanels,
+    {
+      defaultLeftWidth: 50,
+      minLeftWidth: 25,
+      minRightWidth: 30,
+      leftPanel: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        NewIndexDataInputForm,
+        {
+          dataInputAppConfig,
+          setDataInputAppConfig,
+          onDataFetched: setJsonData,
+          onSuccess,
+          onAddExcludePathRef: (fn) => {
+            addExcludePathRef.current = fn;
+          },
+          onAddKeyMappingRef: (fn) => {
+            addKeyMappingRef.current = fn;
+          },
+          onKeyMappingsChange: setKeyMappings
+        }
+      ),
+      rightPanel: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        JSONViewer,
+        {
+          initialData: jsonData,
+          onPathClick: handlePathClick,
+          onKeyRename: handleKeyRename,
+          keyMappings
+        }
+      )
+    }
+  ) });
 }
 const EditIndexInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess }) => {
   const [data, setData] = reactExports.useState();
@@ -57749,33 +57874,39 @@ function EditKVStorePage({ dataInputAppConfig, setDataInputAppConfig, onSuccess 
       addKeyMappingRef.current(oldKey, newKey);
     }
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout, { gutter: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(ColumnLayout.Row, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      NewKVStoreDataInputForm,
-      {
-        dataInputAppConfig,
-        setDataInputAppConfig,
-        onDataFetched: setJsonData,
-        onSuccess,
-        onAddExcludePathRef: (fn) => {
-          addExcludePathRef.current = fn;
-        },
-        onAddKeyMappingRef: (fn) => {
-          addKeyMappingRef.current = fn;
-        },
-        onKeyMappingsChange: setKeyMappings
-      }
-    ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ColumnLayout.Column, { span: 6, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      JSONViewer,
-      {
-        initialData: jsonData,
-        onPathClick: handlePathClick,
-        onKeyRename: handleKeyRename,
-        keyMappings
-      }
-    ) })
-  ] }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "calc(100vh - 100px)" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    ResizablePanels,
+    {
+      defaultLeftWidth: 50,
+      minLeftWidth: 25,
+      minRightWidth: 30,
+      leftPanel: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        NewKVStoreDataInputForm,
+        {
+          dataInputAppConfig,
+          setDataInputAppConfig,
+          onDataFetched: setJsonData,
+          onSuccess,
+          onAddExcludePathRef: (fn) => {
+            addExcludePathRef.current = fn;
+          },
+          onAddKeyMappingRef: (fn) => {
+            addKeyMappingRef.current = fn;
+          },
+          onKeyMappingsChange: setKeyMappings
+        }
+      ),
+      rightPanel: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        JSONViewer,
+        {
+          initialData: jsonData,
+          onPathClick: handlePathClick,
+          onKeyRename: handleKeyRename,
+          keyMappings
+        }
+      )
+    }
+  ) });
 }
 const EditKVStoreInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess }) => {
   const [data, setData] = reactExports.useState();
