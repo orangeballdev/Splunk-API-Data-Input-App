@@ -102,20 +102,30 @@
             margin-bottom: 10px;
           }
           .resource-card a {
-            color: #0f4c75;
+            color: #999;
             text-decoration: none;
             font-weight: 500;
             display: inline-flex;
             align-items: center;
+            pointer-events: none;
+            cursor: not-allowed;
+            opacity: 0.6;
           }
           .resource-card a:hover {
-            color: #1b6ca8;
-            text-decoration: underline;
+            color: #999;
+            text-decoration: none;
           }
           .resource-card a::before {
-            content: "▶";
+            content: "⏸";
             margin-right: 8px;
-            color: #0f4c75;
+            color: #999;
+          }
+          .coming-soon {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #f58f39;
+            font-weight: bold;
           }
         </style>
         <div class="info-section">
@@ -153,21 +163,24 @@
           <div class="resources-grid">
             <div class="resource-card">
               <h4>Configuration Tutorial</h4>
-              <a href="https://www.youtube.com/watch?v=NpEaa2P7qZI" target="_blank">
+              <a href="#" onclick="return false;">
                 Watch Tutorial
               </a>
+              <span class="coming-soon">COMING SOON</span>
             </div>
             <div class="resource-card">
               <h4>Advanced JSONPath Mapping</h4>
-              <a href="https://www.youtube.com/watch?v=NpEaa2P7qZI" target="_blank">
+              <a href="#" onclick="return false;">
                 Watch Tutorial
               </a>
+              <span class="coming-soon">COMING SOON</span>
             </div>
             <div class="resource-card">
               <h4>Authentication Setup</h4>
-              <a href="https://www.youtube.com/watch?v=NpEaa2P7qZI" target="_blank">
+              <a href="#" onclick="return false;">
                 Watch Tutorial
               </a>
+              <span class="coming-soon">COMING SOON</span>
             </div>
           </div>
         </div>
