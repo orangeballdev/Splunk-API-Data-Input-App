@@ -366,7 +366,10 @@ def main():
                 logger.info(f"Mode: {mode}")
                 if mode == 'overwrite':
                     empty_kvstore(app, collection)
-                write_to_kvstore(app, collection, api_data)
+                result = write_to_kvstore(app, collection, api_data)
+                if result:
+                    event_count = len(api_data) if isinstance(api_data, list) else 1
+                    logger.info(f"{event_count} events ingested to KV Store {app}/{collection}")
             elif input_type == 'index':
                 api_data = get_api_data(item)
                 if api_data is None:
@@ -387,7 +390,10 @@ def main():
                         api_data = rename_keys_by_jsonpath(api_data, key_mappings)
                 
                 index_name = output_name  # For index, selected_output_location is just the index name
-                write_to_index_via_hec(index_name, api_data)
+                result = write_to_index_via_hec(index_name, api_data)
+                if result:
+                    event_count = len(api_data) if isinstance(api_data, list) else 1
+                    logger.info(f"{event_count} events ingested to index {index_name}")
     except Exception as e:
         logger.error(f"ERROR: {e}")
 
