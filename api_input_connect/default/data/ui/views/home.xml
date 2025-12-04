@@ -4,30 +4,174 @@
   <row>
     <panel>
       <html>
-        <div data-dashboard="home">loading...</div>
+        <style>
+          .info-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          }
+          .info-section h2 {
+            margin-top: 0;
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+          }
+          .info-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #e8e8e8;
+          }
+          .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+          }
+          .feature-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 6px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+          }
+          .feature-card h4 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #ffffff;
+          }
+          .feature-card p {
+            margin: 0;
+            font-size: 14px;
+            color: #e0e0e0;
+          }
+          .video-section {
+            padding: 20px;
+            margin: 10px;
+          }
+          .video-section h3 {
+            color: #1a1a2e;
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #0f4c75;
+            padding-bottom: 10px;
+          }
+          .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          }
+          .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+          }
+          .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+          }
+          .resource-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #dee2e6;
+          }
+          .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+          }
+          .resource-card h4 {
+            margin-top: 0;
+            color: #1a1a2e;
+            font-size: 18px;
+            margin-bottom: 10px;
+          }
+          .resource-card a {
+            color: #0f4c75;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+          }
+          .resource-card a:hover {
+            color: #1b6ca8;
+            text-decoration: underline;
+          }
+          .resource-card a::before {
+            content: "▶";
+            margin-right: 8px;
+            color: #0f4c75;
+          }
+        </style>
+        <div class="info-section">
+          <h2>🚀 API Data Input Connect</h2>
+          <p>Seamlessly pull data from any REST API into Splunk. Configure custom endpoints, map JSON responses with JSONPath, and schedule automated data ingestion—all through an intuitive visual interface.</p>
+          
+          <div class="features-grid">
+            <div class="feature-card">
+              <h4>🔌 Easy Integration</h4>
+              <p>Connect to any REST API with support for custom authentication methods</p>
+            </div>
+            <div class="feature-card">
+              <h4>🎯 Smart Mapping</h4>
+              <p>Use powerful JSONPath expressions to extract exactly the data you need</p>
+            </div>
+            <div class="feature-card">
+              <h4>⏰ Automation</h4>
+              <p>Schedule recurring data collection with flexible cron expressions</p>
+            </div>
+            <div class="feature-card">
+              <h4>💾 Flexible Storage</h4>
+              <p>Store data in Splunk indexes or KV Store collections</p>
+            </div>
+          </div>
+        </div>
       </html>
     </panel>
   </row>
-  <row> 
+  <row>
     <panel>
-      <title>App Runner Status</title>
-      <input type="time" token="time">
-        <label></label>
-        <default>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
-        </default>
-      </input>
-      <chart>
-        <search>
-          <query>index=_internal sourcetype="api_connect" | stats count by log_level</query>
-          <earliest>$time.earliest$</earliest>
-          <latest>$time.latest$</latest>
-        </search>
-        <option name="charting.chart">pie</option>
-        <option name="charting.drilldown">none</option>
-        <option name="refresh.display">progressbar</option>
-      </chart>
+      <html>
+        <div class="video-section">
+          <h3>📺 Tutorial Videos</h3>
+          
+          <div class="resources-grid">
+            <div class="resource-card">
+              <h4>Configuration Tutorial</h4>
+              <a href="https://www.youtube.com/watch?v=NpEaa2P7qZI" target="_blank">
+                Watch Tutorial
+              </a>
+            </div>
+            <div class="resource-card">
+              <h4>Advanced JSONPath Mapping</h4>
+              <a href="https://www.youtube.com/watch?v=NpEaa2P7qZI" target="_blank">
+                Watch Tutorial
+              </a>
+            </div>
+            <div class="resource-card">
+              <h4>Authentication Setup</h4>
+              <a href="https://www.youtube.com/watch?v=NpEaa2P7qZI" target="_blank">
+                Watch Tutorial
+              </a>
+            </div>
+          </div>
+        </div>
+      </html>
     </panel>
   </row>
-</form >
+</form>
