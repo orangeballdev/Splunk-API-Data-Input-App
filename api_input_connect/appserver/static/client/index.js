@@ -35368,7 +35368,7 @@ function getHttpErrorMessage(status, statusText) {
   };
   return messages[status] || statusText || "Unknown error";
 }
-async function fetchDataPreview(url2, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading) {
+async function fetchDataPreview(url2, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading, keyMappings) {
   if (setError) setError(null);
   if (setLoading) setLoading(true);
   if (onDataFetched) onDataFetched("");
@@ -35406,8 +35406,11 @@ Server response: ${responseText}`;
       throw new Error("Invalid JSON response: The API returned data that is not valid JSON. Only JSON format is supported at the moment.");
     }
     setRawData(data);
-    const filtered = jsonPaths.length ? removeByJsonPaths(data, jsonPaths) : data;
-    if (onDataFetched) onDataFetched(JSON.stringify(filtered));
+    let processed = jsonPaths.length ? removeByJsonPaths(data, jsonPaths) : data;
+    if (keyMappings && Object.keys(keyMappings).length > 0) {
+      processed = renameKeysByJsonPath(processed, keyMappings);
+    }
+    if (onDataFetched) onDataFetched(JSON.stringify(processed));
   } catch (err) {
     if (setError) {
       if (err instanceof SyntaxError) {
@@ -46247,12 +46250,17 @@ const NewKVStoreDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, on
   }, [filteredData, rawData]);
   const onJSONPathsChange = (jsonPaths) => {
     if (!rawData) return;
-    const filtered = jsonPaths.length ? removeByJsonPaths(rawData, jsonPaths) : rawData;
-    setFilteredData(filtered);
-    if (onDataFetched) onDataFetched(JSON.stringify(filtered));
+    let processed = jsonPaths.length ? removeByJsonPaths(rawData, jsonPaths) : rawData;
+    const mappings = (dataInputAppConfig == null ? void 0 : dataInputAppConfig.key_mappings) ?? {};
+    if (Object.keys(mappings).length > 0) {
+      processed = renameKeysByJsonPath(processed, mappings);
+    }
+    setFilteredData(processed);
+    if (onDataFetched) onDataFetched(JSON.stringify(processed));
   };
   async function fetchDataPreview$1(url2, jsonPaths, httpHeaders = []) {
-    await fetchDataPreview(url2, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading);
+    const keyMappings = (dataInputAppConfig == null ? void 0 : dataInputAppConfig.key_mappings) ?? {};
+    await fetchDataPreview(url2, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading, keyMappings);
   }
   const handleSaveDataInput = async (formData, clearInputs) => {
     if (!formData.name || !formData.url || !formData.input_type || !formData.cron_expression || formData.input_type === "kvstore" && !formData.selected_output_location) {
@@ -47211,11 +47219,16 @@ const NewIndexDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, onDa
   const [rawData, setRawData] = reactExports.useState(null);
   const onJSONPathsChange = (jsonPaths) => {
     if (!rawData) return;
-    const filtered = jsonPaths.length ? removeByJsonPaths(rawData, jsonPaths) : rawData;
-    if (onDataFetched) onDataFetched(JSON.stringify(filtered));
+    let processed = jsonPaths.length ? removeByJsonPaths(rawData, jsonPaths) : rawData;
+    const mappings = (dataInputAppConfig == null ? void 0 : dataInputAppConfig.key_mappings) ?? {};
+    if (Object.keys(mappings).length > 0) {
+      processed = renameKeysByJsonPath(processed, mappings);
+    }
+    if (onDataFetched) onDataFetched(JSON.stringify(processed));
   };
   async function fetchDataPreview$1(url2, jsonPaths, httpHeaders = []) {
-    await fetchDataPreview(url2, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading);
+    const keyMappings = (dataInputAppConfig == null ? void 0 : dataInputAppConfig.key_mappings) ?? {};
+    await fetchDataPreview(url2, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading, keyMappings);
   }
   const handleSaveDataInput = async (formData, clearInputs) => {
     if (!formData.name || !formData.url || !formData.input_type || !formData.cron_expression || !formData.selected_output_location) {

@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import { fetchDataPreview as fetchDataPreviewUtil } from "../../../utils/apiFetch";
 import { addNewDataInputToKVStore } from "../../../utils/dataInputUtils";
-import { removeByJsonPaths } from '../../Json/utils';
+import { removeByJsonPaths, renameKeysByJsonPath } from '../../Json/utils';
 
 import type { JSONElement } from "@splunk/react-ui/JSONTree";
 import type { DataInputAppConfig } from "../../ManageDataInputs/DataInputs.types";
@@ -40,13 +40,18 @@ const NewKVStoreDataInputForm: React.FC<NewKVStoreDataInputFormProps> = ({ dataI
   
   const onJSONPathsChange = (jsonPaths: string[]) => {
     if (!rawData) return;
-    const filtered = jsonPaths.length ? removeByJsonPaths(rawData, jsonPaths) : rawData;
-    setFilteredData(filtered);
-    if (onDataFetched) onDataFetched(JSON.stringify(filtered));
+    let processed = jsonPaths.length ? removeByJsonPaths(rawData, jsonPaths) : rawData;
+    const mappings = dataInputAppConfig?.key_mappings ?? {};
+    if (Object.keys(mappings).length > 0) {
+      processed = renameKeysByJsonPath(processed, mappings);
+    }
+    setFilteredData(processed);
+    if (onDataFetched) onDataFetched(JSON.stringify(processed));
   }
 
   async function fetchDataPreview(url: string, jsonPaths: string[], httpHeaders: string[] = []) {
-    await fetchDataPreviewUtil(url, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading);
+    const keyMappings = dataInputAppConfig?.key_mappings ?? {};
+    await fetchDataPreviewUtil(url, jsonPaths, httpHeaders, setRawData, onDataFetched, setError, setLoading, keyMappings);
   }
 
   // Save Data Input handler

@@ -1,5 +1,5 @@
 import type { JSONElement } from "@splunk/react-ui/JSONTree";
-import { removeByJsonPaths } from '../components/Json/utils';
+import { removeByJsonPaths, renameKeysByJsonPath } from '../components/Json/utils';
 
 /**
  * Parse header string in "Header: Value" format
@@ -48,6 +48,7 @@ export function getHttpErrorMessage(status: number, statusText: string): string 
  * @param onDataFetched Callback to handle the filtered data as a string.
  * @param setError Callback to set error messages.
  * @param setLoading Callback to set loading state.
+ * @param keyMappings Optional key mappings to rename fields in the preview.
  */
 export async function fetchDataPreview(
   url: string,
@@ -56,7 +57,8 @@ export async function fetchDataPreview(
   setRawData: (data: JSONElement) => void,
   onDataFetched?: (data: string) => void,
   setError?: (msg: string | null) => void,
-  setLoading?: (loading: boolean) => void
+  setLoading?: (loading: boolean) => void,
+  keyMappings?: Record<string, string>
 ) {
   if (setError) setError(null);
   if (setLoading) setLoading(true);
@@ -106,8 +108,11 @@ export async function fetchDataPreview(
       throw new Error("Invalid JSON response: The API returned data that is not valid JSON. Only JSON format is supported at the moment.");
     }
     setRawData(data as JSONElement);
-    const filtered = jsonPaths.length ? removeByJsonPaths(data as JSONElement, jsonPaths) : data;
-    if (onDataFetched) onDataFetched(JSON.stringify(filtered));
+    let processed = jsonPaths.length ? removeByJsonPaths(data as JSONElement, jsonPaths) : data;
+    if (keyMappings && Object.keys(keyMappings).length > 0) {
+      processed = renameKeysByJsonPath(processed as JSONElement, keyMappings);
+    }
+    if (onDataFetched) onDataFetched(JSON.stringify(processed));
   } catch (err) {
     if (setError) {
       if (err instanceof SyntaxError) {
