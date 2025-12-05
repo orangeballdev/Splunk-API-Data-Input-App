@@ -65,7 +65,10 @@ def call_api(method, url, data=None, headers=None, **kwargs):
             return resp.json()
         return None
     except Exception as e:
-        logger.error(f"API {method.upper()} {url} failed: {e}")
+        msg = f"API {method.upper()} {url} failed: {e}"
+        if data is not None:
+            msg += f" with data {data}"
+        logger.error(msg)
         return None
 
 def call_splunk_api(method, url, session_key=None, data=None, headers=None, **kwargs):
@@ -231,13 +234,13 @@ def write_to_index_via_hec(index_name, data):
                 event_data = json.dumps(item)
                 result = call_splunk_api('post', url, session_key=SESSION_KEY, data=event_data)
                 if result is None:
-                    logger.warning(f"Failed to write event to index {index_name}")
+                    logger.error(f"Failed to write event to index {index_name}")
         else:
             # Single event
             event_data = json.dumps(data)
             result = call_splunk_api('post', url, session_key=SESSION_KEY, data=event_data)
             if result is None:
-                logger.warning(f"Failed to write event to index {index_name}")
+                logger.error(f"Failed to write event to index {index_name}")
 
         logger.info(f"Successfully wrote data to index: {index_name}")
         return True
