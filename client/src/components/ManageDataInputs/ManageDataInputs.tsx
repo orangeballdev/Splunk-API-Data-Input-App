@@ -17,6 +17,8 @@ import { deleteConfigItemFromKVStore, fetchDataInputsData, parseSelectedOutput, 
 import type { DataInputAppConfig } from './DataInputs.types';
 // import EditDataInputModal from './EditDataInput';
 import React from 'react';
+import ManageDataInputsTour from '../Tour/ManageDataInputsTour';
+import ManageInputsTableTour from '../Tour/ManageInputsTableTour';
 import EditIndexInputModal from './EditIndexInputModal';
 import EditKVStoreInputModal from './EditKVStoreInputModal';
 
@@ -25,11 +27,29 @@ function ManageDataInputsTable() {
     const [openEditDataInputModal, setOpenEditDataInputModal] = useState<boolean>(false);
     const modalToggle = React.useRef<HTMLButtonElement | null>(null);
     const [selectedItem, setSelectedItem] = useState<DataInputAppConfig | null>(null);
+    
+    // Check if the user has seen tours to determine initial state
+    const hasSeenMainTour = localStorage.getItem('hasSeenManageInputsTour');
+    const hasSeenTableTour = localStorage.getItem('hasSeenManageInputsTableTour');
+    
+    const [runTour, setRunTour] = useState<boolean>(!hasSeenMainTour);
+    // If main tour has been seen but table tour hasn't, start table tour immediately
+    const [runTableTour, setRunTableTour] = useState<boolean>(hasSeenMainTour === 'true' && !hasSeenTableTour);
 
     const [data, setData] = useState<DataInputAppConfig[]>([]);
     useEffect(() => {
         fetchDataInputsData(setData);
     }, []);
+
+    const handleMainTourFinish = () => {
+        setRunTour(false);
+        // Start table tour after main tour finishes if there's data
+        if (data.length > 0) {
+            setTimeout(() => {
+                setRunTableTour(true);
+            }, 500);
+        }
+    };
 
     const handleEditActionClick = (rowData: DataInputAppConfig) => () => {
         setOpenEditDataInputModal(true);
@@ -89,22 +109,26 @@ function ManageDataInputsTable() {
         }
     }
 
-    const rowActionPrimaryButton = (rowData: DataInputAppConfig) => (
+    const rowActionPrimaryButton = (rowData: DataInputAppConfig, isFirst: boolean) => (
         <Tooltip
             content={_('Edit')}
             contentRelationship="label"
             onClick={handleEditActionClick(rowData)}
             style={{ marginRight: 8 }}
         >
-            <Button appearance="subtle" icon={<Pencil variant="filled" />} />
+            <Button 
+                data-tour={isFirst ? 'edit-button' : undefined}
+                appearance="subtle" 
+                icon={<Pencil variant="filled" />} 
+            />
         </Tooltip>
     );
 
 
 
     // Remove Add button from secondary actions
-    const rowActionsSecondaryMenu = (rowData: DataInputAppConfig) => (
-        <Menu>
+    const rowActionsSecondaryMenu = (rowData: DataInputAppConfig, isFirst: boolean) => (
+        <Menu data-tour={isFirst ? 'actions-menu' : undefined}>
             <Menu.Item onClick={handleDeleteActionClick(rowData)}>Delete</Menu.Item>
             <Menu.Item onClick={handleViewDataActionClick(rowData)}>View Data</Menu.Item>
         </Menu>
@@ -112,6 +136,8 @@ function ManageDataInputsTable() {
 
     return (
         <div>
+            <ManageDataInputsTour run={runTour} onFinish={handleMainTourFinish} />
+            <ManageInputsTableTour run={runTableTour} onFinish={() => setRunTableTour(false)} />
             {selectedItem?.input_type === 'index' ? (
                 <EditIndexInputModal
                     onSuccess={refreshData}
@@ -135,6 +161,7 @@ function ManageDataInputsTable() {
                 </ColumnLayout.Column>
                     <ColumnLayout.Column style={{ textAlign: "right" }} span={2}>
                         <Button
+                            data-tour="add-new-button"
                             icon={<Plus />}
                             appearance="primary"
                             label="Add New"
@@ -144,7 +171,7 @@ function ManageDataInputsTable() {
                         />
                     </ColumnLayout.Column></ColumnLayout.Row>
             </ColumnLayout>
-            <Table actionsColumnWidth={104}>
+            <Table data-tour="inputs-table" actionsColumnWidth={104}>
                 <Table.Head>
                     <Table.HeadCell>Name</Table.HeadCell>
                     <Table.HeadCell>Input Type</Table.HeadCell>
@@ -158,8 +185,8 @@ function ManageDataInputsTable() {
                             <Table.Row
                                 data={row}
                                 key={row.name + idx}
-                                actionPrimary={rowActionPrimaryButton(row)}
-                                actionsSecondary={rowActionsSecondaryMenu(row)}
+                                actionPrimary={rowActionPrimaryButton(row, idx === 0)}
+                                actionsSecondary={rowActionsSecondaryMenu(row, idx === 0)}
                             >
                                 <Table.Cell>{row.name}</Table.Cell>
                                 <Table.Cell>{row.input_type}</Table.Cell>
@@ -167,6 +194,7 @@ function ManageDataInputsTable() {
                                 <Table.Cell>{row.url}</Table.Cell>
                                 <Table.Cell>
                                     <Switch
+                                        data-tour={idx === 0 ? 'enable-toggle' : undefined}
                                         selected={row.enabled}
                                         onClick={handleEnabledToggle(row)}
                                         appearance="toggle"

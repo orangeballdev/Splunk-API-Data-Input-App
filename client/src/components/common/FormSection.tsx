@@ -3,11 +3,12 @@ import Heading from '@splunk/react-ui/Heading';
 interface FormSectionProps {
     title: string;
     children: React.ReactNode;
+    'data-tour'?: string;
 }
 
-export default function FormSection({ title, children }: FormSectionProps) {
+export default function FormSection({ title, children, 'data-tour': dataTour }: FormSectionProps) {
     return (
-        <>
+        <div data-tour={dataTour}>
             <Heading 
                 level={2} 
                 style={{ 
@@ -20,6 +21,6 @@ export default function FormSection({ title, children }: FormSectionProps) {
                 {title}
             </Heading>
             {children}
-        </>
+        </div>
     );
 }

@@ -183,9 +183,10 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
 
     return (
         <div style={{ width: '100%', padding: '0' }}>
-            <Heading level={2} style={{ marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
-                Basic Configuration
-            </Heading>
+            <div data-tour="basic-config" style={{ marginBottom: '20px' }}>
+                <Heading level={2} style={{ marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
+                    Basic Configuration
+                </Heading>
 
             <FormField label="Input Name" required>
                 <Text
@@ -212,6 +213,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                         style={{ width: '60%'}}
                     />
                     <Button
+                        data-tour="fetch-button"
                         type="submit"
                         disabled={props.loading}
                         onClick={() => props.fetchDataPreview(url, getPaths(), http_headers)}
@@ -230,8 +232,9 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                     onChange={handleHttpHeadersChange}
                 />
             </FormField>
+            </div>
 
-            <FormSection title="Splunk Configuration">
+            <FormSection data-tour="splunk-config" title="Splunk Configuration">
                 <FormField label="Cron Expression" required tooltip="Cron expression for scheduling data input">
                     <Text
                         value={cronExpression}
@@ -287,7 +290,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                 </FormField>
             </FormSection>
 
-            <FormSection title="Data Processing">
+            <FormSection data-tour="data-processing" title="Data Processing">
                 <Message type="warning" style={{ marginBottom: '20px' }}>
                     Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields.
                 </Message>
@@ -350,6 +353,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
             {!props.dataInputAppConfig && (
                 <div style={{ marginTop: '32px', paddingTop: '20px', borderBottom: '1px solid #e0e0e0' }}>
                     <Button
+                        data-tour="save-button"
                         appearance="primary"
                         onClick={() => {
                             props.handleSave(

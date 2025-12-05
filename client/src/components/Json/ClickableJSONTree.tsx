@@ -263,6 +263,7 @@ const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPath
                     </>
                 ) : (
                     <KeySpan
+                        data-tour={depth === 1 ? 'json-key' : undefined}
                         $clickable={!!(onPathClick || onKeyRename)}
                         $isEditing={isEditingKey}
                         onClick={handleKeyClick}

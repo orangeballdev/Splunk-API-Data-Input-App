@@ -1,8 +1,9 @@
+import { SplunkThemeProvider } from '@splunk/themes';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { SplunkThemeProvider } from '@splunk/themes';
+import Home from './dashboards/Manage';
+import HomeContent from './dashboards/Home';
 import NewDataInput from './dashboards/NewDataInput';
-import Home from './dashboards/Home';
 
 const dashboardElements = document.querySelectorAll('[data-dashboard]');
 
@@ -14,6 +15,8 @@ dashboardElements.forEach((el) => {
         return <NewDataInput />;
       case 'home':
         return <Home />;
+      case 'home-content':
+        return <HomeContent />;
       default:
         return <NewDataInput />;
     }

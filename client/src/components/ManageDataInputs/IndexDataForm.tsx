@@ -288,9 +288,10 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
     return (
         <div style={{ width: '100%', padding: '0' }}>
             {/* Basic Configuration Section */}
-            <Heading level={2} style={{ marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
-                Basic Configuration
-            </Heading>
+            <div data-tour="basic-config" style={{ marginBottom: '20px' }}>
+                <Heading level={2} style={{ marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
+                    Basic Configuration
+                </Heading>
             
             <div style={{ marginBottom: '20px', width: '100%' }}>
                 <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }}>
@@ -323,6 +324,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                         style={{ width: '60%' }}
                     />
                     <Button
+                        data-tour="fetch-button"
                         type="submit"
                         disabled={props.loading}
                         onClick={() => props.fetchDataPreview(url, getPaths(), http_headers)}
@@ -339,11 +341,13 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                 </Typography>
                 {controlledHttpHeaderRows}
             </div>
+            </div>
 
             {/* Splunk Configuration Section */}
-            <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
-                Splunk Configuration
-            </Heading>
+            <div data-tour="splunk-config">
+                <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
+                    Splunk Configuration
+                </Heading>
 
             <div style={{ marginBottom: '20px', width: '100%' }}>
                 <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Cron expression for scheduling data input">
@@ -385,11 +389,13 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                 onCreate={handleOnCreateIndex}
                 modalToggle={modalToggle}
             />
+            </div>
 
             {/* Data Processing Section */}
-            <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
-                Data Processing
-            </Heading>
+            <div data-tour="data-processing">
+                <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
+                    Data Processing
+                </Heading>
 
             <div style={{ marginBottom: '20px', width: '100%' }}>
                 <Typography as="span" variant="body" weight="semiBold" style={{ display: 'block', marginBottom: '8px' }} title="Provide one or more JSONPath expressions to exclude fields from the JSON.">
@@ -482,6 +488,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                     </Button>
                 </div>
             </div>
+            </div>
 
             <EventPreviewModal
                 open={showPreviewModal}
@@ -497,6 +504,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
             {!props.dataInputAppConfig && (
                 <div style={{ marginTop: '32px', paddingTop: '20px', borderTop: '1px solid #e0e0e0' }}>
                     <Button
+                        data-tour="save-button"
                         appearance="primary"
                         onClick={() => {
                             props.handleSave(

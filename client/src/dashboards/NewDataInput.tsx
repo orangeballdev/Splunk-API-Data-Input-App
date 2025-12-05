@@ -1,19 +1,24 @@
 import MessageBar from '@splunk/react-ui/MessageBar';
 import TabBar from '@splunk/react-ui/TabBar';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import NewKVStoreDataInputForm from '../components/DataInputs/KVStore/NewDataInputForm';
 import JSONViewer from '../components/Json/JsonViewer';
 /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import { createDOMID } from '@splunk/ui-utils/id';
-import NewIndexDataInputForm from '../components/DataInputs/Index/NewIndexDataInputForm';
 import ResizablePanels from '../components/common/ResizablePanels';
+import NewIndexDataInputForm from '../components/DataInputs/Index/NewIndexDataInputForm';
+import JsonPreviewTour from '../components/Tour/JsonPreviewTour';
+import NewDataInputTour from '../components/Tour/NewDataInputTour';
 
 export default function NewDataInput() {
   const [jsonData, setJsonData] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [activeTabId, setActiveTabId] = useState('kvstore');
   const [keyMappings, setKeyMappings] = useState<Record<string, string>>({});
+  const [runTour, setRunTour] = useState(true);
+  const [runJsonTour, setRunJsonTour] = useState(false);
+  const [hasShownJsonTour, setHasShownJsonTour] = useState(false);
   const headingId = createDOMID('data-input-success');
 
   // Ref to pass path additions to form components
@@ -48,8 +53,22 @@ export default function NewDataInput() {
     []
   );
 
+  // Trigger JSON preview tour when data is first loaded
+  useEffect(() => {
+    if (jsonData && !hasShownJsonTour) {
+      // Small delay to ensure the JSON viewer is rendered
+      const timer = setTimeout(() => {
+        setRunJsonTour(true);
+        setHasShownJsonTour(true);
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [jsonData, hasShownJsonTour]);
+
   return (
     <div style={{ padding: '20px', height: 'calc(100vh - 100px)' }}>
+      <NewDataInputTour run={runTour} onFinish={() => setRunTour(false)} />
+      <JsonPreviewTour run={runJsonTour} onFinish={() => setRunJsonTour(false)} />
       <ResizablePanels
         defaultLeftWidth={42}
         minLeftWidth={25}
@@ -66,10 +85,12 @@ export default function NewDataInput() {
                 {successMessage}
               </MessageBar>
             )}
-            <TabBar style={{ marginBottom: '25px', width: '100%', fontSize: '1.2em' }} activeTabId={activeTabId} onChange={handleTabChange}>
+            <div data-tour="input-tabs" style={{ marginBottom: '25px' }}>
+            <TabBar style={{ width: '100%', fontSize: '1.2em' }} activeTabId={activeTabId} onChange={handleTabChange}>
               <TabBar.Tab label="KV Store" tabId="kvstore" />
               <TabBar.Tab label="Index" tabId="index" />
             </TabBar>
+            </div>
             {activeTabId === 'kvstore' && (
               <NewKVStoreDataInputForm
                 onDataFetched={setJsonData}
@@ -91,12 +112,14 @@ export default function NewDataInput() {
           </>
         }
         rightPanel={
-          <JSONViewer 
-            initialData={jsonData} 
-            onPathClick={handlePathClick}
-            onKeyRename={handleKeyRename}
-            keyMappings={keyMappings}
-          />
+          <div data-tour="json-viewer">
+            <JSONViewer 
+              initialData={jsonData} 
+              onPathClick={handlePathClick}
+              onKeyRename={handleKeyRename}
+              keyMappings={keyMappings}
+            />
+          </div>
         }
       />
     </div>
