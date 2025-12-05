@@ -10,6 +10,7 @@ import { getAllIndexNames } from '../../utils/splunk';
 import CreateNewIndex from '../DataInputs/Index/CreateNewIndex';
 import ArrayFieldSelector from '../Json/ArrayFieldSelector';
 import EventPreviewModal from '../Json/EventPreviewModal';
+import ActionButtons from '../common/ActionButtons';
 import type { DataInputAppConfig, DataInputMode } from './DataInputs.types';
 
 
@@ -286,10 +287,11 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
     };
 
     return (
-        <div style={{ width: '100%', padding: '0' }}>
+        <div style={{ width: '100%', padding: '0', height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, overflow: 'auto', paddingBottom: '20px', paddingRight:'6px' }}>
             {/* Basic Configuration Section */}
             <div data-tour="basic-config" style={{ marginBottom: '20px' }}>
-                <Heading level={2} style={{ marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
+                <Heading level={2} style={{ fontWeight: 400, fontSize: "16px", marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                     Basic Configuration
                 </Heading>
             
@@ -345,7 +347,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
 
             {/* Splunk Configuration Section */}
             <div data-tour="splunk-config">
-                <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
+                <Heading level={2} style={{ fontWeight: 400, fontSize: "16px", marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                     Splunk Configuration
                 </Heading>
 
@@ -393,7 +395,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
 
             {/* Data Processing Section */}
             <div data-tour="data-processing">
-                <Heading level={2} style={{ marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
+                <Heading level={2} style={{ fontWeight: 400, fontSize: "16px", marginTop: '40px', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                     Data Processing
                 </Heading>
 
@@ -477,15 +479,6 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                             updateConfigField('separate_array_paths', paths);
                         }}
                     />
-                    <Button
-                        appearance="secondary"
-                        onClick={() => setShowPreviewModal(true)}
-                        elementRef={previewModalToggle}
-                        disabled={!props.rawData}
-                        style={{ marginTop: '12px', width: '100%' }}
-                    >
-                        Preview Events
-                    </Button>
                 </div>
             </div>
             </div>
@@ -499,36 +492,31 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                 keyMappings={keyMappings}
                 modalToggle={previewModalToggle}
             />
+            </div>
 
-            {/* assume if dataInputAppConfig is passed in save logic is being handled elsewhere (edit mode) */}
-            {!props.dataInputAppConfig && (
-                <div style={{ marginTop: '32px', paddingTop: '20px', borderTop: '1px solid #e0e0e0' }}>
-                    <Button
-                        data-tour="save-button"
-                        appearance="primary"
-                        onClick={() => {
-                            props.handleSave(
-                                {
-                                    name,
-                                    input_type: dataInputType,
-                                    url,
-                                    http_headers,
-                                    excluded_json_paths: getPaths(),
-                                    enabled: true,
-                                    cron_expression: cronExpression,
-                                    selected_output_location: selected_output_location,
-                                    mode,
-                                    separate_array_paths: separateArrayPaths,
-                                    key_mappings: keyMappings
-                                } as DataInputAppConfig, clearInputs
-                            );
-                        }}
-                        style={{ width: '100%' }}
-                    >
-                        Save Data Input
-                    </Button>
-                </div>
-            )}
+            <ActionButtons
+                onPreview={() => setShowPreviewModal(true)}
+                previewDisabled={!props.rawData}
+                previewRef={previewModalToggle}
+                onSave={!props.dataInputAppConfig ? () => {
+                    props.handleSave(
+                        {
+                            name,
+                            input_type: dataInputType,
+                            url,
+                            http_headers,
+                            excluded_json_paths: getPaths(),
+                            enabled: true,
+                            cron_expression: cronExpression,
+                            selected_output_location: selected_output_location,
+                            mode,
+                            separate_array_paths: separateArrayPaths,
+                            key_mappings: keyMappings
+                        } as DataInputAppConfig, clearInputs
+                    );
+                } : undefined}
+                saveDataTour="save-button"
+            />
         </div>
     );
 };

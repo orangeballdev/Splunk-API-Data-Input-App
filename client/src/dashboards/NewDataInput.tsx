@@ -66,7 +66,7 @@ export default function NewDataInput() {
   }, [jsonData, hasShownJsonTour]);
 
   return (
-    <div style={{ padding: '20px', height: 'calc(100vh - 100px)' }}>
+    <div style={{ padding: '20px', height: '75vh' }}>
       <NewDataInputTour run={runTour} onFinish={() => setRunTour(false)} />
       <JsonPreviewTour run={runJsonTour} onFinish={() => setRunJsonTour(false)} />
       <ResizablePanels

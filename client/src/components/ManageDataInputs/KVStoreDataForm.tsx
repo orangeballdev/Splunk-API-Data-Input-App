@@ -7,6 +7,7 @@ import WaitSpinner from '@splunk/react-ui/WaitSpinner';
 import React, { useState } from 'react';
 import { generateSelectedOutputString } from '../../utils/dataInputUtils';
 import { createNewKVStoreCollection, getAllCollectionNames, type KVStoreCollection } from '../../utils/splunk';
+import ActionButtons from '../common/ActionButtons';
 import FormField from '../common/FormField';
 import FormSection from '../common/FormSection';
 import KeyMappingList from '../common/KeyMappingList';
@@ -179,9 +180,10 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
     };
 
     return (
-        <div style={{ width: '100%', padding: '0' }}>
+        <div style={{ width: '100%', padding: '0', height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, overflow: 'auto', paddingBottom: '20px', paddingRight:'6px' }}>
             <div data-tour="basic-config" style={{ marginBottom: '20px' }}>
-                <Heading level={2} style={{ marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
+                <Heading level={2} style={{ fontWeight: 400, fontSize: "16px", marginTop: '0', marginBottom: '24px', paddingBottom: '12px', borderBottom: '2px solid #ccc' }}>
                     Basic Configuration
                 </Heading>
 
@@ -334,15 +336,6 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                             updateConfigField('separate_array_paths', paths);
                         }}
                     />
-                    <Button
-                        appearance="secondary"
-                        onClick={() => setShowPreviewModal(true)}
-                        elementRef={previewModalToggle}
-                        disabled={!props.rawData}
-                        style={{ marginTop: '12px', width: '100%' }}
-                    >
-                        Preview Events
-                    </Button>
                 </FormField>
             </FormSection>
 
@@ -355,35 +348,31 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
                 keyMappings={keyMappings}
                 modalToggle={previewModalToggle}
             />
+            </div>
 
-            {!props.dataInputAppConfig && (
-                <div style={{ marginTop: '32px', paddingTop: '20px', borderBottom: '1px solid #e0e0e0' }}>
-                    <Button
-                        data-tour="save-button"
-                        appearance="primary"
-                        onClick={() => {
-                            props.handleSave(
-                                {
-                                    name,
-                                    input_type: dataInputType,
-                                    url,
-                                    http_headers,
-                                    excluded_json_paths: getPaths(),
-                                    enabled: true,
-                                    cron_expression: cronExpression,
-                                    selected_output_location: selected_output_location,
-                                    mode,
-                                    separate_array_paths: separateArrayPaths,
-                                    key_mappings: keyMappings
-                                } as DataInputAppConfig, clearInputs
-                            );
-                        }}
-                        style={{ width: '100%' }}
-                    >
-                        Save Data Input
-                    </Button>
-                </div>
-            )}
+            <ActionButtons
+                onPreview={() => setShowPreviewModal(true)}
+                previewDisabled={!props.rawData}
+                previewRef={previewModalToggle}
+                onSave={!props.dataInputAppConfig ? () => {
+                    props.handleSave(
+                        {
+                            name,
+                            input_type: dataInputType,
+                            url,
+                            http_headers,
+                            excluded_json_paths: getPaths(),
+                            enabled: true,
+                            cron_expression: cronExpression,
+                            selected_output_location: selected_output_location,
+                            mode,
+                            separate_array_paths: separateArrayPaths,
+                            key_mappings: keyMappings
+                        } as DataInputAppConfig, clearInputs
+                    );
+                } : undefined}
+                saveDataTour="save-button"
+            />
         </div>
     );
 };

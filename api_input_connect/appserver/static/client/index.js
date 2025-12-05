@@ -61498,6 +61498,37 @@ const EventPreviewModal = ({
     }
   );
 };
+const ActionButtons = ({
+  onPreview,
+  previewDisabled,
+  previewRef,
+  onSave,
+  saveDataTour
+}) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { position: "sticky", bottom: 0, background: "white", padding: "20px 0", borderTop: "1px solid #e0e0e0", display: "flex", gap: "10px", justifyContent: "center" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Button,
+      {
+        appearance: "secondary",
+        onClick: onPreview,
+        elementRef: previewRef,
+        disabled: previewDisabled,
+        style: { flex: 1, maxWidth: "200px" },
+        children: "Preview Events"
+      }
+    ),
+    onSave && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Button,
+      {
+        "data-tour": saveDataTour,
+        appearance: "primary",
+        onClick: onSave,
+        style: { flex: 1, maxWidth: "200px" },
+        children: "Save Data Input"
+      }
+    )
+  ] });
+};
 const IndexDataForm = (props) => {
   const config2 = props.dataInputAppConfig || {};
   const modalToggle = React.useRef(null);
@@ -61713,195 +61744,195 @@ const IndexDataForm = (props) => {
       setIndexNames(names);
     });
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%", padding: "0" }, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-tour": "basic-config", style: { marginBottom: "20px" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "0", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Basic Configuration" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
-          "Input Name ",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Text,
-          {
-            value: name,
-            onChange: (_2, { value }) => {
-              updateConfigField("name", value);
-              setInputName(value);
-            },
-            placeholder: "Enter input name",
-            required: true,
-            canClear: true,
-            style: { width: "100%" }
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
-          "API URL ",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%", padding: "0", height: "100%", display: "flex", flexDirection: "column" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { flex: 1, overflow: "auto", paddingBottom: "20px", paddingRight: "6px" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-tour": "basic-config", style: { marginBottom: "20px" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { fontWeight: 400, fontSize: "16px", marginTop: "0", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Basic Configuration" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
+            "Input Name ",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+          ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Text,
             {
-              value: url2,
+              value: name,
               onChange: (_2, { value }) => {
-                updateConfigField("url", value);
-                setUrl(value);
+                updateConfigField("name", value);
+                setInputName(value);
               },
-              disabled: props.loading,
-              canClear: true,
+              placeholder: "Enter input name",
               required: true,
-              style: { width: "60%" }
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Button,
-            {
-              "data-tour": "fetch-button",
-              type: "submit",
-              disabled: props.loading,
-              onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
-              style: { minWidth: "140px" },
-              children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
+              canClear: true,
+              style: { width: "100%" }
             }
           )
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Add one or more HTTP headers in the format 'Header: Value'", children: "HTTP Headers" }),
-        controlledHttpHeaderRows
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-tour": "splunk-config", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Splunk Configuration" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Cron expression for scheduling data input", children: [
-          "Cron Expression ",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Text,
-          {
-            value: cronExpression,
-            onChange: (_2, { value }) => {
-              updateConfigField("cron_expression", value);
-              setCronExpression(value);
-            },
-            placeholder: "0 * * * *",
-            required: true,
-            style: { width: "100%" }
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
-          "Select Index ",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Select,
-            {
-              value: selected_output_location,
-              onChange: (_2, { value }) => {
-                updateConfigField("selected_output_location", String(value));
-                setSelectedIndex(String(value));
-              },
-              filter: true,
-              placeholder: "Select an index...",
-              style: { width: "60%" },
-              children: indexNames.map((indexName) => /* @__PURE__ */ jsxRuntimeExports.jsx(Select.Option, { value: indexName, label: indexName }, indexName))
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateIndexModal(true), elementRef: modalToggle, style: { minWidth: "180px" }, children: "Create New Index" })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        NewIndexForm,
-        {
-          open: showCreateIndexModal,
-          onClose: () => setShowCreateIndexModal(false),
-          onCreate: handleOnCreateIndex,
-          modalToggle
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-tour": "data-processing", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Data Processing" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: "Exclude JSONPaths" }),
-        controlledJsonPathRows
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "4px" }, children: "Rename Keys" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: "12px", color: "#666", marginBottom: "8px" }, children: "Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Click on keys in the preview to rename them." }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "8px" }, children: [
-          Object.entries(keyMappings).map(([oldKey, newKey]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", alignItems: "center" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
+            "API URL ",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               Text,
               {
-                style: { flex: "1", fontFamily: "monospace", fontSize: "1.1em" },
-                placeholder: "Original key name",
-                value: oldKey,
+                value: url2,
                 onChange: (_2, { value }) => {
-                  if (oldKey === value) return;
-                  const updated = { ...keyMappings };
-                  const val = updated[oldKey];
-                  delete updated[oldKey];
-                  if (!updated.hasOwnProperty(value)) {
-                    updated[value] = val;
-                  }
-                  handleKeyMappingsChange(updated);
-                }
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#999", flexShrink: 0 }, children: "→" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Text,
-              {
-                style: { flex: "1", fontFamily: "monospace", fontSize: "1.1em" },
-                placeholder: "New key name",
-                value: newKey,
-                onChange: (_2, { value }) => {
-                  handleKeyMappingsChange({ ...keyMappings, [oldKey]: value });
-                }
+                  updateConfigField("url", value);
+                  setUrl(value);
+                },
+                disabled: props.loading,
+                canClear: true,
+                required: true,
+                style: { width: "60%" }
               }
             ),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               Button,
               {
-                inline: true,
-                appearance: "secondary",
-                onClick: () => {
-                  const updated = { ...keyMappings };
-                  delete updated[oldKey];
-                  handleKeyMappingsChange(updated);
-                },
-                label: "",
-                icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrashCanCross, {}),
-                style: { flexShrink: 0 }
+                "data-tour": "fetch-button",
+                type: "submit",
+                disabled: props.loading,
+                onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
+                style: { minWidth: "140px" },
+                children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
               }
             )
-          ] }, oldKey)),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Button,
-            {
-              appearance: "secondary",
-              onClick: () => {
-                handleKeyMappingsChange({ ...keyMappings, "": "" });
-              },
-              style: { width: "100%" },
-              children: "Add Key Mapping"
-            }
-          )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Add one or more HTTP headers in the format 'Header: Value'", children: "HTTP Headers" }),
+          controlledHttpHeaderRows
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", children: "Separate Arrays as Events" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-tour": "splunk-config", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { fontWeight: 400, fontSize: "16px", marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Splunk Configuration" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Cron expression for scheduling data input", children: [
+            "Cron Expression ",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+          ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Text,
+            {
+              value: cronExpression,
+              onChange: (_2, { value }) => {
+                updateConfigField("cron_expression", value);
+                setCronExpression(value);
+              },
+              placeholder: "0 * * * *",
+              required: true,
+              style: { width: "100%" }
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, children: [
+            "Select Index ",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "red" }, children: "*" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Select,
+              {
+                value: selected_output_location,
+                onChange: (_2, { value }) => {
+                  updateConfigField("selected_output_location", String(value));
+                  setSelectedIndex(String(value));
+                },
+                filter: true,
+                placeholder: "Select an index...",
+                style: { width: "60%" },
+                children: indexNames.map((indexName) => /* @__PURE__ */ jsxRuntimeExports.jsx(Select.Option, { value: indexName, label: indexName }, indexName))
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateIndexModal(true), elementRef: modalToggle, style: { minWidth: "180px" }, children: "Create New Index" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          NewIndexForm,
+          {
+            open: showCreateIndexModal,
+            onClose: () => setShowCreateIndexModal(false),
+            onCreate: handleOnCreateIndex,
+            modalToggle
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-tour": "data-processing", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { fontWeight: 400, fontSize: "16px", marginTop: "40px", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Data Processing" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: "Exclude JSONPaths" }),
+          controlledJsonPathRows
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "4px" }, children: "Rename Keys" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: "12px", color: "#666", marginBottom: "8px" }, children: "Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Click on keys in the preview to rename them." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "8px" }, children: [
+            Object.entries(keyMappings).map(([oldKey, newKey]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", alignItems: "center" }, children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Text,
+                {
+                  style: { flex: "1", fontFamily: "monospace", fontSize: "1.1em" },
+                  placeholder: "Original key name",
+                  value: oldKey,
+                  onChange: (_2, { value }) => {
+                    if (oldKey === value) return;
+                    const updated = { ...keyMappings };
+                    const val = updated[oldKey];
+                    delete updated[oldKey];
+                    if (!updated.hasOwnProperty(value)) {
+                      updated[value] = val;
+                    }
+                    handleKeyMappingsChange(updated);
+                  }
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#999", flexShrink: 0 }, children: "→" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Text,
+                {
+                  style: { flex: "1", fontFamily: "monospace", fontSize: "1.1em" },
+                  placeholder: "New key name",
+                  value: newKey,
+                  onChange: (_2, { value }) => {
+                    handleKeyMappingsChange({ ...keyMappings, [oldKey]: value });
+                  }
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Button,
+                {
+                  inline: true,
+                  appearance: "secondary",
+                  onClick: () => {
+                    const updated = { ...keyMappings };
+                    delete updated[oldKey];
+                    handleKeyMappingsChange(updated);
+                  },
+                  label: "",
+                  icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrashCanCross, {}),
+                  style: { flexShrink: 0 }
+                }
+              )
+            ] }, oldKey)),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Button,
+              {
+                appearance: "secondary",
+                onClick: () => {
+                  handleKeyMappingsChange({ ...keyMappings, "": "" });
+                },
+                style: { width: "100%" },
+                children: "Add Key Mapping"
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "8px" }, title: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", children: "Separate Arrays as Events" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100%" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
             ArrayFieldSelector,
             {
               data: props.rawData,
@@ -61911,39 +61942,29 @@ const IndexDataForm = (props) => {
                 updateConfigField("separate_array_paths", paths);
               }
             }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Button,
-            {
-              appearance: "secondary",
-              onClick: () => setShowPreviewModal(true),
-              elementRef: previewModalToggle,
-              disabled: !props.rawData,
-              style: { marginTop: "12px", width: "100%" },
-              children: "Preview Events"
-            }
-          )
+          ) })
         ] })
-      ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        EventPreviewModal,
+        {
+          open: showPreviewModal,
+          onClose: () => setShowPreviewModal(false),
+          data: props.rawData,
+          separateArrayPaths,
+          excludedJsonPaths: jsonPathValues.filter(Boolean),
+          keyMappings,
+          modalToggle: previewModalToggle
+        }
+      )
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
-      EventPreviewModal,
+      ActionButtons,
       {
-        open: showPreviewModal,
-        onClose: () => setShowPreviewModal(false),
-        data: props.rawData,
-        separateArrayPaths,
-        excludedJsonPaths: jsonPathValues.filter(Boolean),
-        keyMappings,
-        modalToggle: previewModalToggle
-      }
-    ),
-    !props.dataInputAppConfig && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { marginTop: "32px", paddingTop: "20px", borderTop: "1px solid #e0e0e0" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Button,
-      {
-        "data-tour": "save-button",
-        appearance: "primary",
-        onClick: () => {
+        onPreview: () => setShowPreviewModal(true),
+        previewDisabled: !props.rawData,
+        previewRef: previewModalToggle,
+        onSave: !props.dataInputAppConfig ? () => {
           props.handleSave(
             {
               name,
@@ -61960,11 +61981,10 @@ const IndexDataForm = (props) => {
             },
             clearInputs
           );
-        },
-        style: { width: "100%" },
-        children: "Save Data Input"
+        } : void 0,
+        saveDataTour: "save-button"
       }
-    ) })
+    )
   ] });
 };
 const NewIndexDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef, onAddKeyMappingRef, onKeyMappingsChange }) => {
@@ -62379,14 +62399,16 @@ function JSONViewer({ initialData, onPathClick, onKeyRename, keyMappings }) {
       }
     ) : /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "info", children: "Fetch data to see preview. Click on any key to add it to exclusions." });
   }, [parsedJSON, onPathClick, onKeyRename, keyMappings]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "Preview" }),
-    (onPathClick || onKeyRename) && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { style: { fontSize: "12px", color: "#666", marginBottom: "10px" }, children: [
-      onKeyRename && "Click on any key to rename it",
-      onPathClick && onKeyRename && " | ",
-      onPathClick && "Shift+Click to add it to the exclude list"
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { height: "100%", display: "flex", flexDirection: "column" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { position: "sticky", top: 0, background: "white", zIndex: 1, paddingBottom: "10px" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "Preview" }),
+      (onPathClick || onKeyRename) && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { style: { fontSize: "12px", color: "#666", marginBottom: "10px" }, children: [
+        onKeyRename && "Click on any key to rename it",
+        onPathClick && onKeyRename && " | ",
+        onPathClick && "Shift+Click to add it to the exclude list"
+      ] })
     ] }),
-    isValidJSON ? JSONTreeMemo : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { color: "error", style: { marginTop: 1, textAlign: "center" }, children: "Invalid JSON data provided." })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { flex: 1, overflow: "auto" }, children: isValidJSON ? JSONTreeMemo : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { color: "error", style: { marginTop: 1, textAlign: "center" }, children: "Invalid JSON data provided." }) })
   ] });
 }
 function ResizablePanels({
@@ -62450,6 +62472,7 @@ function ResizablePanels({
           {
             style: {
               width: `${leftWidth}%`,
+              height: "100%",
               overflow: "auto",
               paddingRight: "20px",
               pointerEvents: isDragging ? "none" : "auto"
@@ -62493,6 +62516,7 @@ function ResizablePanels({
           {
             style: {
               width: `${100 - leftWidth}%`,
+              height: "100%",
               overflow: "auto",
               paddingLeft: "20px",
               pointerEvents: isDragging ? "none" : "auto"
@@ -62520,7 +62544,7 @@ function EditIndexPage({ dataInputAppConfig, setDataInputAppConfig, onSuccess })
       addKeyMappingRef.current(oldKey, newKey);
     }
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "100%" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "94%" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     ResizablePanels,
     {
       defaultLeftWidth: 50,
@@ -63312,158 +63336,158 @@ const KVStoreDataForm = (props) => {
     props.onJSONPathsChange([]);
     (_a = props.setJsonPreview) == null ? void 0 : _a.call(props, "");
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%", padding: "0" }, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-tour": "basic-config", style: { marginBottom: "20px" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { marginTop: "0", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Basic Configuration" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Input Name", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Text,
-        {
-          value: name,
-          onChange: (_2, { value }) => {
-            updateConfigField("name", value);
-            setInputName(value);
-          },
-          placeholder: "Enter input name",
-          required: true,
-          canClear: true,
-          style: { width: "100%" }
-        }
-      ) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "API URL", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%", padding: "0", height: "100%", display: "flex", flexDirection: "column" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { flex: 1, overflow: "auto", paddingBottom: "20px", paddingRight: "6px" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-tour": "basic-config", style: { marginBottom: "20px" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { fontWeight: 400, fontSize: "16px", marginTop: "0", marginBottom: "24px", paddingBottom: "12px", borderBottom: "2px solid #ccc" }, children: "Basic Configuration" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Input Name", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           Text,
           {
-            value: url2,
+            value: name,
             onChange: (_2, { value }) => {
-              updateConfigField("url", value);
-              setUrl(value);
+              updateConfigField("name", value);
+              setInputName(value);
             },
-            disabled: props.loading,
-            canClear: true,
+            placeholder: "Enter input name",
             required: true,
-            style: { width: "60%" }
+            canClear: true,
+            style: { width: "100%" }
           }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Button,
-          {
-            "data-tour": "fetch-button",
-            type: "submit",
-            disabled: props.loading,
-            onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
-            style: { minWidth: "140px" },
-            children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
-          }
-        )
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "HTTP Headers", tooltip: "Add one or more HTTP headers in the format 'Header: Value'", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-        TextInputList,
-        {
-          values: http_headers,
-          placeholder: "Header: Value",
-          buttonLabel: "Add HTTP Header",
-          onChange: handleHttpHeadersChange
-        }
-      ) })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(FormSection, { "data-tour": "splunk-config", title: "Splunk Configuration", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Cron Expression", required: true, tooltip: "Cron expression for scheduling data input", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Text,
-        {
-          value: cronExpression,
-          onChange: (_2, { value }) => {
-            updateConfigField("cron_expression", value);
-            setCronExpression(value);
-          },
-          placeholder: "0 * * * *",
-          required: true,
-          style: { width: "100%" }
-        }
-      ) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Select KVStore Collection", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Select,
-          {
-            value: selected_output_location,
-            onChange: (_2, { value }) => {
-              updateConfigField("selected_output_location", String(value));
-              setSelectedCollection(String(value));
-            },
-            filter: true,
-            placeholder: "Select a collection...",
-            style: { width: "60%" },
-            children: collectionNames.map((collection) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Select.Option,
-              {
-                value: generateSelectedOutputString(collection.app, collection.name),
-                label: `${collection.name} (${collection.app})`
+        ) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "API URL", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Text,
+            {
+              value: url2,
+              onChange: (_2, { value }) => {
+                updateConfigField("url", value);
+                setUrl(value);
               },
-              collection.name
-            ))
+              disabled: props.loading,
+              canClear: true,
+              required: true,
+              style: { width: "60%" }
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Button,
+            {
+              "data-tour": "fetch-button",
+              type: "submit",
+              disabled: props.loading,
+              onClick: () => props.fetchDataPreview(url2, getPaths(), http_headers),
+              style: { minWidth: "140px" },
+              children: props.loading ? /* @__PURE__ */ jsxRuntimeExports.jsx(WaitSpinner, { size: "medium" }) : "Fetch"
+            }
+          )
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "HTTP Headers", tooltip: "Add one or more HTTP headers in the format 'Header: Value'", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          TextInputList,
+          {
+            values: http_headers,
+            placeholder: "Header: Value",
+            buttonLabel: "Add HTTP Header",
+            onChange: handleHttpHeadersChange
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(FormSection, { "data-tour": "splunk-config", title: "Splunk Configuration", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Cron Expression", required: true, tooltip: "Cron expression for scheduling data input", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Text,
+          {
+            value: cronExpression,
+            onChange: (_2, { value }) => {
+              updateConfigField("cron_expression", value);
+              setCronExpression(value);
+            },
+            placeholder: "0 * * * *",
+            required: true,
+            style: { width: "100%" }
+          }
+        ) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Select KVStore Collection", required: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", width: "100%" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Select,
+            {
+              value: selected_output_location,
+              onChange: (_2, { value }) => {
+                updateConfigField("selected_output_location", String(value));
+                setSelectedCollection(String(value));
+              },
+              filter: true,
+              placeholder: "Select a collection...",
+              style: { width: "60%" },
+              children: collectionNames.map((collection) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Select.Option,
+                {
+                  value: generateSelectedOutputString(collection.app, collection.name),
+                  label: `${collection.name} (${collection.app})`
+                },
+                collection.name
+              ))
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateCollectionModal(true), elementRef: modalToggle, style: { minWidth: "180px" }, children: "Create New Collection" })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          NewKVStoreForm,
+          {
+            open: showCreateCollectionModal,
+            onClose: () => setShowCreateCollectionModal(false),
+            onCreate: handleOnCreateCollection,
+            modalToggle,
+            initialFields: props.fieldsForKvStoreCreation
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { appearance: "secondary", onClick: () => setShowCreateCollectionModal(true), elementRef: modalToggle, style: { minWidth: "180px" }, children: "Create New Collection" })
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        NewKVStoreForm,
-        {
-          open: showCreateCollectionModal,
-          onClose: () => setShowCreateCollectionModal(false),
-          onCreate: handleOnCreateCollection,
-          modalToggle,
-          initialFields: props.fieldsForKvStoreCreation
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Mode", required: true, tooltip: "Choose how data should be written to the collection", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(RadioList, { value: mode, onChange: (_2, { value }) => {
-        updateConfigField("mode", value);
-        setMode(value);
-      }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "overwrite", children: "Overwrite" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "append", children: "Append" })
-      ] }) })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(FormSection, { "data-tour": "data-processing", title: "Data Processing", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", padding: "12px", backgroundColor: "#fff4e5", border: "1px solid #ffa500", borderRadius: "4px" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "⚠️ Note:" }),
-        " If you do any data processing on a kvstore you may need to update the lookup definition to include the updated fields.",
-        " ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "a",
-          {
-            href: "/manager/api_input_connect/data/transforms/lookups",
-            target: "_blank",
-            rel: "noopener noreferrer",
-            style: { color: "#0066CC", textDecoration: "underline" },
-            children: "Edit lookup definition"
-          }
-        )
+        /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Mode", required: true, tooltip: "Choose how data should be written to the collection", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(RadioList, { value: mode, onChange: (_2, { value }) => {
+          updateConfigField("mode", value);
+          setMode(value);
+        }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "overwrite", children: "Overwrite" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(RadioList.Option, { value: "append", children: "Append" })
+        ] }) })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Exclude JSONPaths", tooltip: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-        TextInputList,
-        {
-          values: jsonPathValues,
-          placeholder: "e.g. $.bar[*].baz",
-          buttonLabel: "Add Exclude JSONPath",
-          onChange: handleJsonPathsChange
-        }
-      ) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(FormField, { label: "Rename Keys", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: "12px", color: "#666", marginBottom: "8px" }, children: "Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Click on keys in the preview to rename them." }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          KeyMappingList,
-          {
-            mappings: keyMappings,
-            onChange: (updated) => {
-              const filtered = Object.fromEntries(
-                Object.entries(updated).filter(([key2, value]) => key2 && value)
-              );
-              handleKeyMappingsChange(filtered);
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(FormSection, { "data-tour": "data-processing", title: "Data Processing", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", padding: "12px", backgroundColor: "#fff4e5", border: "1px solid #ffa500", borderRadius: "4px" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "⚠️ Note:" }),
+          " If you do any data processing on a kvstore you may need to update the lookup definition to include the updated fields.",
+          " ",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "a",
+            {
+              href: "/manager/api_input_connect/data/transforms/lookups",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              style: { color: "#0066CC", textDecoration: "underline" },
+              children: "Edit lookup definition"
             }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Exclude JSONPaths", tooltip: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          TextInputList,
+          {
+            values: jsonPathValues,
+            placeholder: "e.g. $.bar[*].baz",
+            buttonLabel: "Add Exclude JSONPath",
+            onChange: handleJsonPathsChange
           }
-        )
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(FormField, { label: "Separate Arrays as Events", tooltip: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
+        ) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(FormField, { label: "Rename Keys", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: "12px", color: "#666", marginBottom: "8px" }, children: "Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Click on keys in the preview to rename them." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            KeyMappingList,
+            {
+              mappings: keyMappings,
+              onChange: (updated) => {
+                const filtered = Object.fromEntries(
+                  Object.entries(updated).filter(([key2, value]) => key2 && value)
+                );
+                handleKeyMappingsChange(filtered);
+              }
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Separate Arrays as Events", tooltip: "Select which arrays should be split into separate events. Each array item will become its own event in Splunk.", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           ArrayFieldSelector,
           {
             data: props.rawData,
@@ -63473,38 +63497,28 @@ const KVStoreDataForm = (props) => {
               updateConfigField("separate_array_paths", paths);
             }
           }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Button,
-          {
-            appearance: "secondary",
-            onClick: () => setShowPreviewModal(true),
-            elementRef: previewModalToggle,
-            disabled: !props.rawData,
-            style: { marginTop: "12px", width: "100%" },
-            children: "Preview Events"
-          }
-        )
-      ] })
+        ) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        EventPreviewModal,
+        {
+          open: showPreviewModal,
+          onClose: () => setShowPreviewModal(false),
+          data: props.rawData,
+          separateArrayPaths,
+          excludedJsonPaths: jsonPathValues.filter(Boolean),
+          keyMappings,
+          modalToggle: previewModalToggle
+        }
+      )
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
-      EventPreviewModal,
+      ActionButtons,
       {
-        open: showPreviewModal,
-        onClose: () => setShowPreviewModal(false),
-        data: props.rawData,
-        separateArrayPaths,
-        excludedJsonPaths: jsonPathValues.filter(Boolean),
-        keyMappings,
-        modalToggle: previewModalToggle
-      }
-    ),
-    !props.dataInputAppConfig && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { marginTop: "32px", paddingTop: "20px", borderBottom: "1px solid #e0e0e0" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Button,
-      {
-        "data-tour": "save-button",
-        appearance: "primary",
-        onClick: () => {
+        onPreview: () => setShowPreviewModal(true),
+        previewDisabled: !props.rawData,
+        previewRef: previewModalToggle,
+        onSave: !props.dataInputAppConfig ? () => {
           props.handleSave(
             {
               name,
@@ -63521,11 +63535,10 @@ const KVStoreDataForm = (props) => {
             },
             clearInputs
           );
-        },
-        style: { width: "100%" },
-        children: "Save Data Input"
+        } : void 0,
+        saveDataTour: "save-button"
       }
-    ) })
+    )
   ] });
 };
 const NewKVStoreDataInputForm = ({ dataInputAppConfig, setDataInputAppConfig, onDataFetched, onSuccess, onAddExcludePathRef, onAddKeyMappingRef, onKeyMappingsChange }) => {
@@ -63621,7 +63634,7 @@ function EditKVStorePage({ dataInputAppConfig, setDataInputAppConfig, onSuccess 
       addKeyMappingRef.current(oldKey, newKey);
     }
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "100%" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "94%" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     ResizablePanels,
     {
       defaultLeftWidth: 50,
@@ -64692,7 +64705,7 @@ function NewDataInput() {
       return () => clearTimeout(timer);
     }
   }, [jsonData, hasShownJsonTour]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { padding: "20px", height: "calc(100vh - 100px)" }, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { padding: "20px", height: "75vh" }, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(NewDataInputTour, { run: runTour, onFinish: () => setRunTour(false) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(JsonPreviewTour, { run: runJsonTour, onFinish: () => setRunJsonTour(false) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(

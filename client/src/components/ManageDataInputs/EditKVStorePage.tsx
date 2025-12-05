@@ -31,7 +31,7 @@ export default function EditKVStorePage({ dataInputAppConfig, setDataInputAppCon
     }, []);
 
     return (
-        <div style={{ padding: '20px', height: '100%' }}>
+        <div style={{ padding: '20px', height: '94%' }}>
             <ResizablePanels
                 defaultLeftWidth={50}
                 minLeftWidth={25}
