@@ -303,7 +303,7 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
 
                 <FormField label="Rename Keys">
                     <div style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
-                        Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Shift+Click on keys in the preview to generate JSONPath mappings.
+                        Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Click on keys in the preview to rename them.
                     </div>
                     <KeyMappingList
                         mappings={keyMappings}

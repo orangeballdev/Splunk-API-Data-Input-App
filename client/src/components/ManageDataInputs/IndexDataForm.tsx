@@ -403,7 +403,7 @@ const IndexDataForm: React.FC<IndexDataFormProps> = (props) => {
                     Rename Keys
                 </Typography>
                 <div style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
-                    Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Shift+Click on keys in the preview to generate JSONPath mappings.
+                    Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Click on keys in the preview to rename them.
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {Object.entries(keyMappings).map(([oldKey, newKey]) => (

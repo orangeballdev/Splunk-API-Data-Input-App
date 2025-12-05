@@ -46155,7 +46155,7 @@ const KVStoreDataForm = (props) => {
         }
       ) }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(FormField, { label: "Rename Keys", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: "12px", color: "#666", marginBottom: "8px" }, children: "Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Shift+Click on keys in the preview to generate JSONPath mappings." }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: "12px", color: "#666", marginBottom: "8px" }, children: "Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Click on keys in the preview to rename them." }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           KeyMappingList,
           {
@@ -46415,15 +46415,15 @@ const JSONNode = ({ keyName, value, path, depth, onPathClick, onKeyRename, keyMa
   const displayName = (keyMappings == null ? void 0 : keyMappings[wildcardPath]) || keyName;
   const handleKeyClick = (e2) => {
     e2.stopPropagation();
-    if (e2.shiftKey && onKeyRename && typeof keyName === "string" && !isArrayItem) {
+    if (e2.shiftKey && onPathClick && path) {
+      const wildcardPath2 = path.replace(/\[\d+\]/g, "[*]");
+      onPathClick(wildcardPath2);
+      return;
+    }
+    if (onKeyRename && typeof keyName === "string" && !isArrayItem) {
       setTooltip(null);
       setIsEditingKey(true);
       setEditedKeyName(displayName);
-      return;
-    }
-    if (onPathClick && path) {
-      const wildcardPath2 = path.replace(/\[\d+\]/g, "[*]");
-      onPathClick(wildcardPath2);
     }
   };
   const handleKeyEditSubmit = () => {
@@ -46455,11 +46455,11 @@ const JSONNode = ({ keyName, value, path, depth, onPathClick, onKeyRename, keyMa
   const handleMouseEnter = (e2) => {
     if (path) {
       let tooltipText = "";
-      if (onPathClick) {
-        tooltipText = `Click to exclude: ${path}`;
-      }
       if (onKeyRename && typeof keyName === "string" && !isArrayItem) {
-        tooltipText = tooltipText ? `${tooltipText} | Shift+Click to rename` : "Shift+Click to rename";
+        tooltipText = `Click to rename`;
+      }
+      if (onPathClick) {
+        tooltipText = tooltipText ? `${tooltipText} | Shift+Click to exclude` : `Shift+Click to exclude`;
       }
       if (tooltipText) {
         setTooltip({
@@ -46663,9 +46663,9 @@ function JSONViewer({ initialData, onPathClick, onKeyRename, keyMappings }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "Preview" }),
     (onPathClick || onKeyRename) && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { style: { fontSize: "12px", color: "#666", marginBottom: "10px" }, children: [
-      onPathClick && "Click on any key to add it to the exclude list",
+      onKeyRename && "Click on any key to rename it",
       onPathClick && onKeyRename && " | ",
-      onKeyRename && "Shift+Click to rename a key"
+      onPathClick && "Shift+Click to add it to the exclude list"
     ] }),
     isValidJSON ? JSONTreeMemo : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { color: "error", style: { marginTop: 1, textAlign: "center" }, children: "Invalid JSON data provided." })
   ] });
@@ -47084,7 +47084,7 @@ const IndexDataForm = (props) => {
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", width: "100%" }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Typography, { as: "span", variant: "body", weight: "semiBold", style: { display: "block", marginBottom: "4px" }, children: "Rename Keys" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: "12px", color: "#666", marginBottom: "8px" }, children: "Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Shift+Click on keys in the preview to generate JSONPath mappings." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: "12px", color: "#666", marginBottom: "8px" }, children: "Use JSONPath expressions to rename specific keys (e.g., $.user.name, $.items[*].title). Click on keys in the preview to rename them." }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "8px" }, children: [
         Object.entries(keyMappings).map(([oldKey, newKey]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: "8px", alignItems: "center" }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(

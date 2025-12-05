@@ -133,19 +133,19 @@ const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPath
     const handleKeyClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         
-        // If Shift key is held, rename the key (only for object keys, not array indices)
-        if (e.shiftKey && onKeyRename && typeof keyName === 'string' && !isArrayItem) {
-            setTooltip(null); // Clear tooltip when entering edit mode
-            setIsEditingKey(true);
-            setEditedKeyName(displayName as string);
-            return;
-        }
-        
-        // Otherwise, exclude the path
-        if (onPathClick && path) {
+        // If Shift key is held, exclude the path
+        if (e.shiftKey && onPathClick && path) {
             // Convert array indices to wildcards: $.products[0].name -> $.products[*].name
             const wildcardPath = path.replace(/\[\d+\]/g, '[*]');
             onPathClick(wildcardPath);
+            return;
+        }
+        
+        // Otherwise, rename the key (only for object keys, not array indices)
+        if (onKeyRename && typeof keyName === 'string' && !isArrayItem) {
+            setTooltip(null); // Clear tooltip when entering edit mode
+            setIsEditingKey(true);
+            setEditedKeyName(displayName as string);
         }
     };
 
@@ -184,11 +184,11 @@ const JSONNode: React.FC<JSONNodeProps> = ({ keyName, value, path, depth, onPath
     const handleMouseEnter = (e: React.MouseEvent) => {
         if (path) {
             let tooltipText = '';
-            if (onPathClick) {
-                tooltipText = `Click to exclude: ${path}`;
-            }
             if (onKeyRename && typeof keyName === 'string' && !isArrayItem) {
-                tooltipText = tooltipText ? `${tooltipText} | Shift+Click to rename` : 'Shift+Click to rename';
+                tooltipText = `Click to rename`;
+            }
+            if (onPathClick) {
+                tooltipText = tooltipText ? `${tooltipText} | Shift+Click to exclude` : `Shift+Click to exclude`;
             }
             if (tooltipText) {
                 setTooltip({

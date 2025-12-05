@@ -39,9 +39,9 @@ export default function JSONViewer({ initialData, onPathClick, onKeyRename, keyM
             <Heading level={2}>Preview</Heading>
             {(onPathClick || onKeyRename) && (
                 <p style={{ fontSize: '12px', color: '#666', marginBottom: '10px' }}>
-                    {onPathClick && 'Click on any key to add it to the exclude list'}
+                    {onKeyRename && 'Click on any key to rename it'}
                     {onPathClick && onKeyRename && ' | '}
-                    {onKeyRename && 'Shift+Click to rename a key'}
+                    {onPathClick && 'Shift+Click to add it to the exclude list'}
                 </p>
             )}
             {isValidJSON ? (
