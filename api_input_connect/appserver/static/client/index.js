@@ -63881,6 +63881,7 @@ const Home = () => {
 };
 const Container = qe.div`
   padding: 20px;
+  color: #ffffff;
 `;
 const InfoSection = qe.div`
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -63889,17 +63890,10 @@ const InfoSection = qe.div`
   border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-`;
-const Title = qe.h2`
-  margin-top: 0;
-  font-size: 28px;
-  font-weight: 600;
-  color: #ffffff;
-`;
-const Description = qe.p`
-  font-size: 16px;
-  line-height: 1.6;
-  color: #e8e8e8;
+  
+  * {
+    color: #ffffff !important;
+  }
 `;
 const FeaturesGrid = qe.div`
   display: grid;
@@ -63913,121 +63907,120 @@ const FeatureCard = qe.div`
   border-radius: 6px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.3);
-
-  h4 {
-    margin-top: 0;
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #ffffff;
-  }
-
-  p {
-    margin: 0;
-    font-size: 14px;
-    color: #e0e0e0;
+  
+  * {
+    color: #ffffff !important;
   }
 `;
-const TourSection = qe.div`
+const TutorialsSection = qe.div`
   padding: 30px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   margin-bottom: 20px;
-
-  h3 {
-    color: #ffffff;
-    font-size: 24px;
-    margin-bottom: 10px;
-    margin-top: 0;
-  }
-
-  > p {
-    color: rgba(255,255,255,0.9);
-    margin-bottom: 20px;
+  
+  * {
+    color: #ffffff !important;
   }
 `;
-const TourButtonsGrid = qe.div`
+const TutorialsContent = qe.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+const TutorialsRow = qe.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
-const TourButtonCard = qe.div`
+const TourButton = qe.div`
   background: rgba(255,255,255,0.2);
   color: #ffffff;
-  padding: 20px;
+  padding: 16px;
   border: 2px solid rgba(255,255,255,0.3);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
   backdrop-filter: blur(10px);
+  
+  * {
+    color: #ffffff !important;
+  }
 
   &:hover {
     background: rgba(255,255,255,0.3);
     border-color: rgba(255,255,255,0.6);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-  }
-
-  h4 {
-    margin: 0 0 8px 0;
-    font-size: 18px;
-    color: #ffffff;
-  }
-
-  p {
-    margin: 0;
-    font-size: 14px;
-    color: rgba(255,255,255,0.9);
+    transform: translateX(4px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   }
 `;
-const VideoSection = qe.div`
-  padding: 30px;
-  background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+const DemoLink = qe.a`
+  display: block;
+  text-decoration: none;
+  background: rgba(255,255,255,0.2);
+  color: #ffffff;
+  padding: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-
-  h3 {
-    color: #ffffff;
-    font-size: 24px;
-    margin-bottom: 20px;
-    margin-top: 0;
-    border-bottom: 3px solid rgba(255,255,255,0.3);
-    padding-bottom: 10px;
-  }
-`;
-const ResourcesGrid = qe.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 15px;
-`;
-const ResourceCard = qe.div`
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid #dee2e6;
-
-  h4 {
-    margin-top: 0;
-    color: #1a1a2e;
-    font-size: 18px;
-    margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+  
+  * {
+    color: #ffffff !important;
   }
 
-  .coming-soon {
-    display: block;
-    margin-top: 8px;
-    font-size: 12px;
-    color: #f58f39;
-    font-weight: bold;
-  }
-
-  .disabled-link {
-    color: #999;
+  &:hover {
+    background: rgba(255,255,255,0.3);
+    border-color: rgba(255,255,255,0.6);
+    transform: translateX(4px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     text-decoration: none;
-    font-weight: 500;
-    opacity: 0.6;
-    cursor: not-allowed;
+  }
+`;
+const SectionRow = qe.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+const SupportSection = qe.div`
+  background: linear-gradient(135deg, #2d3561 0%, #1f2937 100%);
+  padding: 25px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  * {
+    color: #ffffff !important;
+    text-align: center !important;
+  }
+`;
+const SupportLink = qe.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.15);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s;
+  border: 2px solid rgba(255,255,255,0.25);
+  margin-top: 12px;
+  
+  &:hover {
+    background: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   }
 `;
 const HomeContent = () => {
@@ -64043,67 +64036,66 @@ const HomeContent = () => {
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(InfoSection, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Title, { children: "🚀 API Data Input Connect" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Description, { children: "Seamlessly pull data from any REST API into Splunk. Configure custom endpoints, map JSON responses with JSONPath, and schedule automated data ingestion—all through an intuitive visual interface." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 1, children: "API Data Input Connect" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(P, { children: "Seamlessly pull data from any REST API into Splunk. Configure custom endpoints, map JSON responses with JSONPath, and schedule automated data ingestion—all through an intuitive visual interface." }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(FeaturesGrid, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(FeatureCard, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "🔌 Easy Integration" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Connect to any REST API with support for custom authentication methods" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "Easy Integration" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(P, { children: "Connect to any REST API with support for custom authentication methods" })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(FeatureCard, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "🎯 Smart Mapping" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Use powerful JSONPath expressions to extract exactly the data you need" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "Smart Mapping" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(P, { children: "Use powerful JSONPath expressions to extract exactly the data you need" })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(FeatureCard, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "⏰ Automation" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Schedule recurring data collection with flexible cron expressions" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "Automation" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(P, { children: "Schedule recurring data collection with flexible cron expressions" })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(FeatureCard, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "💾 Flexible Storage" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Store data in Splunk indexes or KV Store collections" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "Flexible Storage" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(P, { children: "Store data in Splunk indexes or KV Store collections" })
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(VideoSection, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { children: "📺 Tutorial Videos" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(ResourcesGrid, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(ResourceCard, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "Configuration Tutorial" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "disabled-link", children: "⏸ Watch Tutorial" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "coming-soon", children: "COMING SOON" })
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(TutorialsSection, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 3, style: { marginBottom: "15px", marginTop: 0, fontSize: "24px" }, children: "Tutorials" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(TutorialsContent, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(SectionRow, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { fontSize: "18px", marginBottom: "8px" }, children: "Videos" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(TutorialsRow, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(DemoLink, { href: "https://www.youtube.com/watch?v=NpEaa2P7qZI", target: "_blank", rel: "noopener noreferrer", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "🎥 Demo Walkthrough" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(P, { children: "Watch a complete walkthrough on YouTube" })
+          ] }) })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(ResourceCard, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "Advanced JSONPath Mapping" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "disabled-link", children: "⏸ Watch Tutorial" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "coming-soon", children: "COMING SOON" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(ResourceCard, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "Authentication Setup" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "disabled-link", children: "⏸ Watch Tutorial" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "coming-soon", children: "COMING SOON" })
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(SectionRow, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, style: { fontSize: "18px", marginBottom: "8px" }, children: "UI Walkthrough" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(TutorialsRow, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(TourButton, { onClick: () => handleTourReplay("hasSeenManageInputsTour", "manage"), children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "📋 Manage Inputs Tour" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(P, { children: "View and navigate your data inputs" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(TourButton, { onClick: () => handleTourReplay("hasSeenManageInputsTableTour", "manage"), children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "🔧 Table Actions Tour" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(P, { children: "Edit, enable/disable, and manage inputs" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(TourButton, { onClick: () => handleTourReplay("hasSeenNewDataInputTour", "add_new_input"), children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "➕ New Input Form Tour" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(P, { children: "Create a new data input step-by-step" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(TourButton, { onClick: handleJsonTourReplay, children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 2, children: "📊 JSON Viewer Tour" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(P, { children: "Interact with JSON data and map fields" })
+            ] })
+          ] })
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(TourSection, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { children: "🎓 Replay Tours" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Click any button below to replay a tour and refresh your knowledge." }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(TourButtonsGrid, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(TourButtonCard, { onClick: () => handleTourReplay("hasSeenManageInputsTour", "manage"), children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "📋 Manage Inputs Tour" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Learn how to view and navigate your data inputs" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(TourButtonCard, { onClick: () => handleTourReplay("hasSeenManageInputsTableTour", "manage"), children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "🔧 Table Actions Tour" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Discover how to edit, enable/disable, and manage inputs" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(TourButtonCard, { onClick: () => handleTourReplay("hasSeenNewDataInputTour", "add_new_input"), children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "➕ New Input Form Tour" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Step-by-step guide for creating a new data input" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(TourButtonCard, { onClick: handleJsonTourReplay, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { children: "📊 JSON Viewer Tour" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Learn how to interact with JSON data and map fields" })
-        ] })
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(SupportSection, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Heading, { level: 3, style: { marginBottom: "10px", fontSize: "22px" }, children: "Need Help or Have Ideas?" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(P, { style: { marginBottom: "15px", fontSize: "15px" }, children: "We're here to help! Contact us for support, bug reports, or feature requests." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(SupportLink, { href: "mailto:splunk@orangeball.dev", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "✉️" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "splunk@orangeball.dev" })
       ] })
     ] })
   ] });
