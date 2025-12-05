@@ -51,7 +51,6 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
     const [separateArrayPaths, setSeparateArrayPaths] = useState<string[]>(config.separate_array_paths ?? []);
     const [keyMappings, setKeyMappings] = useState<Record<string, string>>(config.key_mappings ?? {});
 
-
     const updateConfigField = <K extends keyof DataInputAppConfig>(
         key: K,
         value: DataInputAppConfig[K]
@@ -63,7 +62,6 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
             }));
         }
     };
-
     // Use a string array for JSONPath values
     const [jsonPathValues, setJsonPathValues] = useState<string[]>(
         config.excluded_json_paths && config.excluded_json_paths.length > 0
@@ -291,7 +289,16 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
 
             <FormSection data-tour="data-processing" title="Data Processing">
                 <div style={{ marginBottom: '20px', padding: '12px', backgroundColor: '#fff4e5', border: '1px solid #ffa500', borderRadius: '4px' }}>
-                    <strong>⚠️ Note:</strong> If you do any data processing on a kvstore you may need to update the lookup definition to include the updated fields.
+                    <strong>⚠️ Note:</strong> If you do any data processing on a kvstore you may need to update the lookup definition to include the updated fields.{' '}
+                    <a 
+                        href={'/manager/api_input_connect/data/transforms/lookups'
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: '#0066CC', textDecoration: 'underline' }}
+                    >
+                        Edit lookup definition
+                    </a>
                 </div>
 
                 <FormField label="Exclude JSONPaths" tooltip="Provide one or more JSONPath expressions to exclude fields from the JSON.">

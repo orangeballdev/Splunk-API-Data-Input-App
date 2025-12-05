@@ -17,7 +17,6 @@ export function renameKeysByJsonPath(obj: JSONElement, mappings: Record<string, 
 
         try {
             const matches = jp.paths(clone, oldPath);
-            console.log(`Renaming path "${oldPath}" to "${newKeyName}", found ${matches.length} matches:`, matches);
 
             for (const match of matches) {
                 if (match.length < 2) continue;
@@ -26,11 +25,8 @@ export function renameKeysByJsonPath(obj: JSONElement, mappings: Record<string, 
                 const parentPath = match.slice(0, -1);
                 const parent = jp.value(clone, jp.stringify(parentPath));
 
-                console.log(`  - Match: oldKey="${oldKey}", parentPath="${jp.stringify(parentPath)}", parent:`, parent);
 
                 if (parent && typeof parent === 'object' && !Array.isArray(parent) && oldKey in parent) {
-                    const value = parent[oldKey];
-                    console.log(`    Renaming "${oldKey}" -> "${newKeyName}", value:`, value);
                     
                     // Preserve key order by rebuilding the object
                     const entries = Object.entries(parent);
@@ -45,9 +41,7 @@ export function renameKeysByJsonPath(obj: JSONElement, mappings: Record<string, 
                     for (const [k, v] of newEntries) {
                         (parent as Record<string, unknown>)[k as string] = v;
                     }
-                } else {
-                    console.log(`    Skipping - parent invalid or key not found`);
-                }
+                } 
             }
         } catch (error) {
             console.warn(`Error renaming path "${oldPath}":`, error);

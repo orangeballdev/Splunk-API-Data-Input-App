@@ -50,7 +50,6 @@ export async function getSearchResults(sid: number) {
     },
   });
   const json = await response.json();
-  console.log("json", json);
   return json?.sid || "";
 }
 
@@ -103,7 +102,6 @@ export async function createNewKVStoreCollection(
   appName: string,
   fields: string[]
 ) {
-  console.log("1s");
   // create a new collection
   const kvUrl = createRESTURL(`storage/collections/config`, {
     app: appName,
@@ -167,7 +165,6 @@ export async function createLookupDefinition(
       `Failed to create collection: ${response.status} - ${errorText}`
     );
   }
-  console.log("1b");
   return response;
 }
 

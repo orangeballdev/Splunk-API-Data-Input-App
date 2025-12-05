@@ -50,7 +50,6 @@ const EditKVStoreInputModal: React.FC<EditKVStoreInputModalProps> = ({ id, open,
     const handleSave = async () => {
         if (data) {
             try {
-                console.log('Saving data input config:', data);
                 await updateDataInputConfigById(data);
                 setError(null);
                 if (onSuccess) onSuccess();

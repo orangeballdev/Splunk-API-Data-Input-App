@@ -40407,7 +40407,6 @@ async function getAllAppNames() {
   return appNames;
 }
 async function createNewKVStoreCollection(collectionName, appName, fields) {
-  console.log("1s");
   const kvUrl = urlExports.createRESTURL(`storage/collections/config`, {
     app: appName,
     sharing: "app"
@@ -40461,7 +40460,6 @@ async function createLookupDefinition(collectionName, appName, fields) {
       `Failed to create collection: ${response.status} - ${errorText}`
     );
   }
-  console.log("1b");
   return response;
 }
 async function deleteItemFromKVStore(collectionName, itemId) {
@@ -54957,16 +54955,12 @@ function renameKeysByJsonPath(obj, mappings) {
     if (!newKeyName) continue;
     try {
       const matches = jp.paths(clone, oldPath);
-      console.log(`Renaming path "${oldPath}" to "${newKeyName}", found ${matches.length} matches:`, matches);
       for (const match of matches) {
         if (match.length < 2) continue;
         const oldKey = match[match.length - 1];
         const parentPath = match.slice(0, -1);
         const parent = jp.value(clone, jp.stringify(parentPath));
-        console.log(`  - Match: oldKey="${oldKey}", parentPath="${jp.stringify(parentPath)}", parent:`, parent);
         if (parent && typeof parent === "object" && !Array.isArray(parent) && oldKey in parent) {
-          const value = parent[oldKey];
-          console.log(`    Renaming "${oldKey}" -> "${newKeyName}", value:`, value);
           const entries = Object.entries(parent);
           const newEntries = entries.map(
             ([k2, v2]) => k2 === oldKey ? [newKeyName, v2] : [k2, v2]
@@ -54977,8 +54971,6 @@ function renameKeysByJsonPath(obj, mappings) {
           for (const [k2, v2] of newEntries) {
             parent[k2] = v2;
           }
-        } else {
-          console.log(`    Skipping - parent invalid or key not found`);
         }
       }
     } catch (error) {
@@ -62591,7 +62583,6 @@ const EditIndexInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess })
   const handleSave = async () => {
     if (data) {
       try {
-        console.log("Saving data input config:", data);
         await updateDataInputConfigById(data);
         setError(null);
         if (onSuccess) onSuccess();
@@ -63434,7 +63425,18 @@ const KVStoreDataForm = (props) => {
     /* @__PURE__ */ jsxRuntimeExports.jsxs(FormSection, { "data-tour": "data-processing", title: "Data Processing", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", padding: "12px", backgroundColor: "#fff4e5", border: "1px solid #ffa500", borderRadius: "4px" }, children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "⚠️ Note:" }),
-        " If you do any data processing on a kvstore you may need to update the lookup definition to include the updated fields."
+        " If you do any data processing on a kvstore you may need to update the lookup definition to include the updated fields.",
+        " ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "a",
+          {
+            href: "/manager/api_input_connect/data/transforms/lookups",
+            target: "_blank",
+            rel: "noopener noreferrer",
+            style: { color: "#0066CC", textDecoration: "underline" },
+            children: "Edit lookup definition"
+          }
+        )
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Exclude JSONPaths", tooltip: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         TextInputList,
@@ -63682,7 +63684,6 @@ const EditKVStoreInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess 
   const handleSave = async () => {
     if (data) {
       try {
-        console.log("Saving data input config:", data);
         await updateDataInputConfigById(data);
         setError(null);
         if (onSuccess) onSuccess();
