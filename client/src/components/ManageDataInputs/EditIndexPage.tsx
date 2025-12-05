@@ -31,7 +31,7 @@ export default function EditIndexPage({ dataInputAppConfig, setDataInputAppConfi
     }, []);
 
     return (
-        <div style={{ padding: '20px', height: 'calc(100vh - 100px)' }}>
+        <div style={{ padding: '20px', height: '100%' }}>
             <ResizablePanels
                 defaultLeftWidth={50}
                 minLeftWidth={25}

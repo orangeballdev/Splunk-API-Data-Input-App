@@ -1,6 +1,5 @@
 import Button from '@splunk/react-ui/Button';
 import Heading from '@splunk/react-ui/Heading';
-import Message from '@splunk/react-ui/Message';
 import RadioList from '@splunk/react-ui/RadioList';
 import Select from '@splunk/react-ui/Select';
 import Text from '@splunk/react-ui/Text';
@@ -291,9 +290,9 @@ const KVStoreDataForm: React.FC<KVStoreDataFormProps> = (props) => {
             </FormSection>
 
             <FormSection data-tour="data-processing" title="Data Processing">
-                <Message type="warning" style={{ marginBottom: '20px' }}>
-                    Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields.
-                </Message>
+                <div style={{ marginBottom: '20px', padding: '12px', backgroundColor: '#fff4e5', border: '1px solid #ffa500', borderRadius: '4px' }}>
+                    <strong>⚠️ Note:</strong> If you do any data processing on a kvstore you may need to update the lookup definition to include the updated fields.
+                </div>
 
                 <FormField label="Exclude JSONPaths" tooltip="Provide one or more JSONPath expressions to exclude fields from the JSON.">
                     <TextInputList

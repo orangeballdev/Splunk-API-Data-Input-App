@@ -62528,7 +62528,7 @@ function EditIndexPage({ dataInputAppConfig, setDataInputAppConfig, onSuccess })
       addKeyMappingRef.current(oldKey, newKey);
     }
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "calc(100vh - 100px)" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "100%" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     ResizablePanels,
     {
       defaultLeftWidth: 50,
@@ -62607,10 +62607,10 @@ const EditIndexInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess })
       returnFocus: modalToggle,
       onRequestClose: onClose,
       open,
-      style: { width: "90vw", height: "90vh" },
+      style: { width: "90vw", height: "95vh" },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Header, { title: "Edit Index Input" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "100%" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "calc(95vh - 120px)", overflow: "auto", padding: "0" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
           EditIndexPage,
           {
             dataInputAppConfig: data,
@@ -63432,7 +63432,10 @@ const KVStoreDataForm = (props) => {
       ] }) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(FormSection, { "data-tour": "data-processing", title: "Data Processing", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "warning", style: { marginBottom: "20px" }, children: "Note: Separating arrays will add new fields (_source_array, _array_path) to your data. You may need to update the lookup definition to include these fields." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginBottom: "20px", padding: "12px", backgroundColor: "#fff4e5", border: "1px solid #ffa500", borderRadius: "4px" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "⚠️ Note:" }),
+        " If you do any data processing on a kvstore you may need to update the lookup definition to include the updated fields."
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(FormField, { label: "Exclude JSONPaths", tooltip: "Provide one or more JSONPath expressions to exclude fields from the JSON.", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         TextInputList,
         {
@@ -63616,7 +63619,7 @@ function EditKVStorePage({ dataInputAppConfig, setDataInputAppConfig, onSuccess 
       addKeyMappingRef.current(oldKey, newKey);
     }
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "calc(100vh - 100px)" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { padding: "20px", height: "100%" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     ResizablePanels,
     {
       defaultLeftWidth: 50,
@@ -63695,10 +63698,10 @@ const EditKVStoreInputModal = ({ id: id2, open, modalToggle, onClose, onSuccess 
       returnFocus: modalToggle,
       onRequestClose: onClose,
       open,
-      style: { width: "90vw", height: "90vh" },
+      style: { width: "90vw", height: "95vh" },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Header, { title: "Edit KV Store Input" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "100%" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : data ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Modal.Body, { style: { height: "calc(95vh - 120px)", overflow: "auto", padding: "0" }, children: error ? /* @__PURE__ */ jsxRuntimeExports.jsx(Message, { type: "error", children: error }) : data ? /* @__PURE__ */ jsxRuntimeExports.jsx(
           EditKVStorePage,
           {
             dataInputAppConfig: data,

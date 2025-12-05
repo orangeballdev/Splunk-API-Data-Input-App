@@ -65,10 +65,10 @@ const EditKVStoreInputModal: React.FC<EditKVStoreInputModalProps> = ({ id, open,
             returnFocus={modalToggle}
             onRequestClose={onClose}
             open={open}
-            style={{ width: '90vw', height: '90vh' }}
+            style={{ width: '90vw', height: '95vh' }}
         >
             <Modal.Header title="Edit KV Store Input" />
-            <Modal.Body style={{ height: '100%' }}>
+            <Modal.Body style={{ height: 'calc(95vh - 120px)', overflow: 'auto', padding: '0' }}>
                 {error ? (
                     <Message type="error">{error}</Message>
                 ) : data ? (
