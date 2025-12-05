@@ -57,7 +57,7 @@
       <title>Events Ingested (24h)</title>
       <single>
         <search>
-          <query>index=_internal sourcetype="api_connect" "events ingested" | rex field=_raw "(?&lt;events_count&gt;\d+) events ingested" | stats sum(events_count) as total</query>
+          <query>index=_internal sourcetype="api_connect" "events ingested" | rex field=_raw "(?&lt;events_count&gt;\d+) events ingested" | stats sum(events_count) as total | appendpipe [stats count | where count=0 | eval total=0] | fields total</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -99,8 +99,8 @@
       <table>
         <search>
           <query>index=_internal sourcetype="api_connect" (ERROR OR WARNING) | rex field=_raw "(?&lt;log_level&gt;ERROR|WARNING)" | sort -_time | table _raw | head 20 | rename _raw as message</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="count">10</option>
